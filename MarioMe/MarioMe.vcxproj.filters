@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Animations.cpp">
+      <Filter>Framework\Graphics\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Game\Objects\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Framework\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Framework\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>Framework\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Koopas.cpp">
+      <Filter>Game\Enemies\Koopas</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Game\Enemies\Goombas</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Game\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScence.cpp">
+      <Filter>Game\PlayScenes\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Game\Objects\Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="Scence.cpp">
+      <Filter>Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>Framework\Graphics\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprites.cpp">
+      <Filter>Framework\Graphics\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Framework\Libs\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Animations.h">
+      <Filter>Framework\Graphics\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Game\Objects\Brick</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Framework\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Framework\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Framework\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Koopas.h">
+      <Filter>Game\Enemies\Koopas</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>Game\Enemies\Goombas</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Game\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScence.h">
+      <Filter>Game\PlayScenes\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Game\Objects\Portal</Filter>
+    </ClInclude>
+    <ClInclude Include="Scence.h">
+      <Filter>Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
+      <Filter>Framework\Graphics\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprites.h">
+      <Filter>Framework\Graphics\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Framework\Libs\Utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{d00aed8b-0e0b-4e20-b34c-5fa5f9b4c287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{134446d0-05d4-4ccd-b3ab-53313875371a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics">
+      <UniqueIdentifier>{895d85d7-f618-4409-bf9e-d6ac2660a85a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Keyboard">
+      <UniqueIdentifier>{e51403f7-f01e-407f-b6a5-92fe711970f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Scene">
+      <UniqueIdentifier>{90d49a78-26ec-4109-9c09-92d33aced5d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\Animations">
+      <UniqueIdentifier>{ae75c605-c04f-40c5-8de2-4b43160d7ff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\Textures">
+      <UniqueIdentifier>{e4fc3cec-2960-4b73-8ed8-5cddbe3f6059}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\Sprites">
+      <UniqueIdentifier>{40eeb4f0-5bc5-4ee7-9c5e-1eec568e4e25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameObject">
+      <UniqueIdentifier>{fd873f02-1627-4a91-9996-4b918f12cc1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game">
+      <UniqueIdentifier>{1bc03f9a-7276-4cc2-b709-b50257433885}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Camera">
+      <UniqueIdentifier>{612f9b69-1c84-4b12-becc-a17b364d5dba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario">
+      <UniqueIdentifier>{0d5c4007-cc9b-40cb-9414-60b02b11f15f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects">
+      <UniqueIdentifier>{88977cd3-339e-4a65-bd79-3ffe9bcd7a95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects\Brick">
+      <UniqueIdentifier>{17f5de1e-9c70-4a0f-bd4b-fc3f3a4d733d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies">
+      <UniqueIdentifier>{ed55107d-6aef-428c-a14f-2e5dc2cbbc6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas">
+      <UniqueIdentifier>{1a22a819-3f43-462f-95f4-a56fb241188b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Goombas">
+      <UniqueIdentifier>{ff31c1d7-4cbc-4aae-b627-ddc0213af472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects\Portal">
+      <UniqueIdentifier>{2eecf0ac-7cc2-448a-8f38-269b503ee2c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScenes">
+      <UniqueIdentifier>{4ff93566-5170-48f7-be71-25e2e7a3caca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScenes\PlayScene">
+      <UniqueIdentifier>{4e2d8ce6-2038-4ca4-ad0b-2872c5ebeea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Libs">
+      <UniqueIdentifier>{0c1dd5a6-be24-4f95-95e6-39291c3fc08d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Libs\Utils">
+      <UniqueIdentifier>{9532320a-13ca-4d95-8835-688f0adab903}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
