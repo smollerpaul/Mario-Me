@@ -28,14 +28,8 @@
     <ClCompile Include="Mario.cpp">
       <Filter>Game\Mario</Filter>
     </ClCompile>
-    <ClCompile Include="PlayScence.cpp">
-      <Filter>Game\PlayScenes\PlayScene</Filter>
-    </ClCompile>
     <ClCompile Include="Portal.cpp">
       <Filter>Game\Objects\Portal</Filter>
-    </ClCompile>
-    <ClCompile Include="Scence.cpp">
-      <Filter>Framework\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Framework\Graphics\Textures</Filter>
@@ -48,6 +42,18 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Framework\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLoad.cpp">
+      <Filter>Framework\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Game\PlayScenes\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Framework\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -78,14 +84,8 @@
     <ClInclude Include="Mario.h">
       <Filter>Game\Mario</Filter>
     </ClInclude>
-    <ClInclude Include="PlayScence.h">
-      <Filter>Game\PlayScenes\PlayScene</Filter>
-    </ClInclude>
     <ClInclude Include="Portal.h">
       <Filter>Game\Objects\Portal</Filter>
-    </ClInclude>
-    <ClInclude Include="Scence.h">
-      <Filter>Framework\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
       <Filter>Framework\Graphics\Textures</Filter>
@@ -95,6 +95,12 @@
     </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Framework\Libs\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Game\PlayScenes\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Framework\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -24,11 +24,11 @@
 #include "Brick.h"
 #include "Goomba.h"
 
-#include "PlayScence.h"
+#include "PlayScene.h"
 #include "Keyboard.h"
 
-#define WINDOW_CLASS_NAME L"SampleWindow"
-#define MAIN_WINDOW_TITLE L"SAMPLE 05 - SCENCE MANAGER"
+#define WINDOW_CLASS_NAME L"MARIO SUPER BROS KNOCK-OFF"
+#define MAIN_WINDOW_TITLE L"MARIO SUPER BROS KNOCK-OFF"
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 200)
 #define SCREEN_WIDTH 320

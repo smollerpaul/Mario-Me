@@ -17,6 +17,7 @@ CMario::CMario(float x, float y) : CGameObject()
 
 	start_x = x; 
 	start_y = y; 
+
 	this->x = x; 
 	this->y = y; 
 }
@@ -43,10 +44,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// reset untouchable timer if untouchable time has passed
-	if ( GetTickCount() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
+	DWORD now = GetTickCount64();
+	if ( now - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
 	{
-		untouchable_start = 0;
-		untouchable = 0;
+		ResetUntouchable();
 	}
 
 	// No collision occured, proceed normally
@@ -205,7 +206,6 @@ void CMario::OnKeyDown(int keyCode)
 	case DIK_A:
 		Reset();
 		break;
-	
 	}
 }
 
@@ -235,5 +235,6 @@ void CMario::Reset()
 	SetLevel(MARIO_LEVEL_BIG);
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
+	ResetUntouchable();
 }
 
