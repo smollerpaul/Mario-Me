@@ -56,6 +56,7 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 	void ResetUntouchable() { untouchable = 0; untouchable_start = 0; }
 	void Reset();
+	void ResetFlip();
 
 	void OnKeyUp(int keyCode);
 	void OnKeyDown(int keyCode);

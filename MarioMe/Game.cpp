@@ -72,20 +72,30 @@ void CGame::Init(HWND hWnd)
 	OutputDebugString(L"[INFO] InitGame done;\n");
 }
 
-/*
-	Utility function to wrap LPD3DXSPRITE::Draw 
-*/
-void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
+void CGame::Draw(float x, float y,int flip, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
 {
-	Camera* cam = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-
-	D3DXVECTOR3 p(x - cam->GetX(), y - cam->GetY(), 0);
-	RECT r; 
+	RECT r;
 	r.left = left;
 	r.top = top;
 	r.right = right;
 	r.bottom = bottom;
+
+	D3DXVECTOR3 p(x, y, 0);
+
+	//D3DXVECTOR3 center(x, y, 0);
+
+	D3DXMATRIX oldMatrix, scale;
+
+	D3DXVECTOR2 transformCenter = D3DXVECTOR2(x + (r.right - r.left) / 2, y + (r.bottom - r.top) / 2);
+	D3DXMatrixTransformation2D(&scale, 
+		&transformCenter, 0, &D3DXVECTOR2(flip* 1.0f, 1.0f),
+		&transformCenter, 0.0f, 
+		&D3DXVECTOR2(0,0));
+
+	spriteHandler->GetTransform(&oldMatrix);
+	spriteHandler->SetTransform(&scale);
 	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->SetTransform(&oldMatrix);
 }
 
 
@@ -102,3 +112,12 @@ CGame *CGame::GetInstance()
 	if (__instance == NULL) __instance = new CGame();
 	return __instance;
 }
+
+int CGame:: GetScreenWidth() { return screen_width; }
+int CGame:: GetScreenHeight() { return screen_height; }
+
+LPSCENE CGame:: GetCurrentScene() { return scenes[current_scene]; }
+
+LPDIRECT3DDEVICE9 CGame::GetDirect3DDevice() { return this->d3ddv; }
+LPDIRECT3DSURFACE9 CGame::GetBackBuffer() { return backBuffer; }
+LPD3DXSPRITE CGame:: GetSpriteHandler() { return this->spriteHandler; }

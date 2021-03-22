@@ -1,15 +1,3 @@
-/* =============================================================
-	INTRODUCTION TO GAME PROGRAMMING SE102
-	
-	SAMPLE 05 - SCENCE MANAGER
-
-	This sample illustrates how to:
-
-		1/ Implement a scence manager 
-		2/ Load scene from "database", add/edit/remove scene without changing code 
-		3/ Dynamically move between scenes without hardcode logic 
-		
-================================================================ */
 
 #include <windows.h>
 #include <d3d9.h>
@@ -30,7 +18,7 @@
 #define WINDOW_CLASS_NAME L"MARIO SUPER BROS KNOCK-OFF"
 #define MAIN_WINDOW_TITLE L"MARIO SUPER BROS KNOCK-OFF"
 
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 200)
+#define BACKGROUND_COLOR	D3DCOLOR_XRGB(255, 255, 200)
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
@@ -69,8 +57,7 @@ void Render()
 	LPDIRECT3DSURFACE9 bb = game->GetBackBuffer();
 	LPD3DXSPRITE spriteHandler = game->GetSpriteHandler();
 
-	if (d3ddv->BeginScene())
-	{
+	d3ddv->BeginScene();
 		// Clear back buffer with a color
 		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 
@@ -80,7 +67,7 @@ void Render()
 
 		spriteHandler->End();
 		d3ddv->EndScene();
-	}
+	
 
 	// Display back buffer content to the screen
 	d3ddv->Present(NULL, NULL, NULL, NULL);

@@ -133,6 +133,7 @@
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="SweptAABB.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />

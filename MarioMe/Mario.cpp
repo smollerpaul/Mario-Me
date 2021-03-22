@@ -14,16 +14,19 @@ CMario::CMario(float x, float y) : CGameObject()
 	level = MARIO_LEVEL_BIG;
 	untouchable = 0;
 	SetState(MARIO_STATE_IDLE);
+	flip = 1;
 
 	start_x = x; 
 	start_y = y; 
 
 	this->x = x; 
 	this->y = y; 
+	//nx<0 thi flip=-1
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	ResetFlip();
 	Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
@@ -32,6 +35,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	vy += MARIO_GRAVITY*dt;
 	if (keyboard->IsKeyDown(DIK_RIGHT)) {
 		SetState(MARIO_STATE_WALKING_RIGHT);
+	}
+
+	if (keyboard->IsKeyDown(DIK_LEFT)) {
+		SetState(MARIO_STATE_WALKING_LEFT);
 	}
 
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -129,36 +136,39 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CMario::Render()
 {
 	int ani = -1;
+
+	CGameObject::SetAnimationFlip(nx);
+
 	if (state == MARIO_STATE_DIE)
 		ani = MARIO_ANI_DIE;
 	else
-	if (level == MARIO_LEVEL_BIG)
-	{
-		if (vx == 0)
+		if (level == MARIO_LEVEL_BIG)
 		{
-			if (nx>0) ani = MARIO_ANI_BIG_IDLE_RIGHT;
-			else ani = MARIO_ANI_BIG_IDLE_LEFT;
+			if (vx == 0) {
+				ani = MARIO_ANI_BIG_IDLE_RIGHT;
+			}
+			else {
+				ani = MARIO_ANI_BIG_WALKING_RIGHT;
+			}
+
 		}
-		else if (vx > 0) 
-			ani = MARIO_ANI_BIG_WALKING_RIGHT; 
-		else ani = MARIO_ANI_BIG_WALKING_LEFT;
-	}
-	else if (level == MARIO_LEVEL_SMALL)
+	
+	if (level == MARIO_LEVEL_SMALL)
 	{
-		if (vx == 0)
-		{
-			if (nx>0) ani = MARIO_ANI_SMALL_IDLE_RIGHT;
-			else ani = MARIO_ANI_SMALL_IDLE_LEFT;
+		if (vx == 0) {
+			ani = MARIO_ANI_SMALL_IDLE_RIGHT;
 		}
-		else if (vx > 0)
+		else {
 			ani = MARIO_ANI_SMALL_WALKING_RIGHT;
-		else ani = MARIO_ANI_SMALL_WALKING_LEFT;
+		}
 	}
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
-	animation_set->at(ani)->Render(x, y, alpha);
+
+	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
+	animation_set->at(ani)->Render(x- camera->GetX(), y-camera->GetY(), flip, alpha);
 
 	RenderBoundingBox();
 }
@@ -236,5 +246,12 @@ void CMario::Reset()
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
 	ResetUntouchable();
+	ResetFlip();
+}
+
+void CMario::ResetFlip()
+{
+	if (flip != 1)
+		flip = 1;
 }
 

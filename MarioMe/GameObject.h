@@ -55,25 +55,28 @@ public:
 	float vy;
 
 	int nx;	 
+	int flip;
 
 	int state;
 
-	DWORD dt; 
+	DWORD dt;
 
 	LPANIMATION_SET animation_set;
 
 public: 
-	void SetPosition(float x, float y) { this->x = x, this->y = y; }
-	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
-	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
-	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
+	void SetPosition(float x, float y);
+	void SetSpeed(float vx, float vy);
 
-	int GetState() { return this->state; }
+	void GetPosition(float& x, float& y);
+	void GetSpeed(float& vx, float& vy);
+	int GetState();
+
+	void SetAnimationFlip(int nx);
+	void SetAnimationSet(LPANIMATION_SET ani_set);
 
 	void RenderBoundingBox();
 
-	void SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
-
+	
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT> *coObjects, vector<LPCOLLISIONEVENT> &coEvents);
 	void FilterCollision(
@@ -91,7 +94,7 @@ public:
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render() = 0;
-	virtual void SetState(int state) { this->state = state; }
+	virtual void SetState(int state);
 
 
 	~CGameObject();

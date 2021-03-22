@@ -55,6 +55,9 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Framework\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="SweptAABB.cpp">
+      <Filter>Framework\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
