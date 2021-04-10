@@ -80,9 +80,9 @@ void CGame::Draw(float x, float y,int flip, LPDIRECT3DTEXTURE9 texture, int left
 	r.right = right;
 	r.bottom = bottom;
 
-	D3DXVECTOR3 p(x, y, 0);
+	//D3DXVECTOR3 p(x, y, 0);
 
-	//D3DXVECTOR3 center(x, y, 0);
+	D3DXVECTOR3 center(x, y, 0);
 
 	D3DXMATRIX oldMatrix, scale;
 
@@ -94,7 +94,7 @@ void CGame::Draw(float x, float y,int flip, LPDIRECT3DTEXTURE9 texture, int left
 
 	spriteHandler->GetTransform(&oldMatrix);
 	spriteHandler->SetTransform(&scale);
-	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->Draw(texture, &r, NULL, &center, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	spriteHandler->SetTransform(&oldMatrix);
 }
 

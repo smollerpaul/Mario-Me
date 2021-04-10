@@ -61,7 +61,7 @@ public:
 
 	DWORD dt;
 
-	LPANIMATION_SET animation_set;
+	LPANIMATIONS* animations;
 
 public: 
 	void SetPosition(float x, float y);
@@ -72,7 +72,6 @@ public:
 	int GetState();
 
 	void SetAnimationFlip(int nx);
-	void SetAnimationSet(LPANIMATION_SET ani_set);
 
 	void RenderBoundingBox();
 
@@ -95,6 +94,8 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render() = 0;
 	virtual void SetState(int state);
+	
+	virtual void InitAnimations();
 
 
 	~CGameObject();

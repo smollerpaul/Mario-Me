@@ -4,6 +4,7 @@
 
 #include "Mario.h"
 #include "Game.h"
+#include "CAnimations.h"
 
 #include "Goomba.h"
 #include "Portal.h"
@@ -22,6 +23,31 @@ CMario::CMario(float x, float y) : CGameObject()
 	this->x = x; 
 	this->y = y; 
 	//nx<0 thi flip=-1
+}
+
+void CMario::InitAnimations()
+{
+	if (this->animations.size() < 1 ) {
+		this->animations["Idle"] = CAnimations::GetInstance()->Get("ani-big-mario-idle");
+		this->animations["Walk"] = CAnimations::GetInstance()->Get("ani-big-mario-walk");
+		this->animations["Run"] = CAnimations::GetInstance()->Get("ani-big-mario-run");
+		this->animations["HighSpeed"] = CAnimations::GetInstance()->Get("ani-big-mario-high-speed");
+		this->animations["Jump"] = CAnimations::GetInstance()->Get("ani-big-mario-jump");
+		this->animations["HighJump"] = CAnimations::GetInstance()->Get("ani-big-mario-high-jump");
+		this->animations["Fly"] = CAnimations::GetInstance()->Get("ani-big-mario-high-jump");
+		this->animations["Fall"] = CAnimations::GetInstance()->Get("ani-big-mario-fall");
+		this->animations["Float"] = CAnimations::GetInstance()->Get("ani-big-mario-high-jump");
+		this->animations["Skid"] = CAnimations::GetInstance()->Get("ani-big-mario-skid");
+		this->animations["Crouch"] = CAnimations::GetInstance()->Get("ani-big-mario-crouch");
+		this->animations["Kick"] = CAnimations::GetInstance()->Get("ani-big-mario-kick");
+
+		this->animations["Hold"] = CAnimations::GetInstance()->Get("ani-big-mario-hold");
+		this->animations["HoldIdle"] = CAnimations::GetInstance()->Get("ani-big-mario-hold-idle");
+		this->animations["HoldFall"] = CAnimations::GetInstance()->Get("ani-big-mario-hold-fall");
+
+		this->animations["TeleVer"] = CAnimations::GetInstance()->Get("ani-big-mario-idle-front");
+		this->animations["TeleHor"] = CAnimations::GetInstance()->Get("ani-big-mario-walk");
+	}
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)

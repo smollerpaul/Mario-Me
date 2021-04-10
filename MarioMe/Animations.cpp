@@ -20,10 +20,19 @@ void CAnimation::Add(int spriteId, DWORD time)
 	frames.push_back(frame);
 }
 
+CAnimation* CAnimation::Clone()
+{
+	CAnimation* result = new CAnimation(defaultTime);
+
+	result->frames = this->frames;
+
+	return result;
+}
+
 // NOTE: sometimes Animation object is NULL ??? HOW ??? 
 void CAnimation::Render(float x, float y, int flip, int alpha)
 {
-	DWORD now = GetTickCount();
+	DWORD now = GetTickCount64();
 	if (currentFrame == -1)
 	{
 		currentFrame = 0;
@@ -51,12 +60,12 @@ CAnimations * CAnimations::GetInstance()
 	return __instance;
 }
 
-void CAnimations::Add(int id, LPANIMATION ani)
+void CAnimations::Add(string id, LPANIMATION ani)
 {
 	animations[id] = ani;
 }
 
-LPANIMATION CAnimations::Get(int id)
+LPANIMATION CAnimations::Get(string id)
 {
 	LPANIMATION ani = animations[id];
 	if (ani == NULL)
@@ -75,6 +84,11 @@ void CAnimations::Clear()
 	animations.clear();
 }
 
+void CAnimations::AddAnimation(string aniId)
+{
+	
+}
+
 CAnimationSets::CAnimationSets()
 {
 
@@ -86,7 +100,7 @@ CAnimationSets *CAnimationSets::GetInstance()
 	return __instance;
 }
 
-LPANIMATION_SET CAnimationSets::Get(unsigned int id)
+LPANIMATION_SET CAnimationSets::Get(string id)
 {
 	LPANIMATION_SET ani_set = animation_sets[id];
 	if (ani_set == NULL)
@@ -95,7 +109,7 @@ LPANIMATION_SET CAnimationSets::Get(unsigned int id)
 	return ani_set;
 }
 
-void CAnimationSets::Add(int id, LPANIMATION_SET ani_set)
+void CAnimationSets::Add(string id, LPANIMATION_SET ani_set)
 {
 	animation_sets[id] = ani_set;
 }

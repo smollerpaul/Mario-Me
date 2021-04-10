@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "Sprites.h"
+#include "Animations.h"
 
 CGameObject::CGameObject()
 {
@@ -57,7 +58,7 @@ void CGameObject:: GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy
 int CGameObject:: GetState() { return this->state; }
 void CGameObject::SetState(int state) { this->state = state; }
 
-void CGameObject:: SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
+
 void CGameObject::SetAnimationFlip(int nx)
 {
 	if (nx > 0) {
@@ -65,3 +66,5 @@ void CGameObject::SetAnimationFlip(int nx)
 	}
 	else flip = -1;
 }
+
+
