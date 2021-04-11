@@ -4,7 +4,7 @@
 
 #include "Mario.h"
 #include "Game.h"
-#include "CAnimations.h"
+#include "Animations.h"
 
 #include "Goomba.h"
 #include "Portal.h"
@@ -25,9 +25,12 @@ CMario::CMario(float x, float y) : CGameObject()
 	//nx<0 thi flip=-1
 }
 
+
+// do la ko dung ani set nhu ban dau -> load het animations roi xong init animations cua tung thang 
+// vo , nen phai sua lai vu do
 void CMario::InitAnimations()
 {
-	if (this->animations.size() < 1 ) {
+	/*if (this->animations.size() < 1 ) {
 		this->animations["Idle"] = CAnimations::GetInstance()->Get("ani-big-mario-idle");
 		this->animations["Walk"] = CAnimations::GetInstance()->Get("ani-big-mario-walk");
 		this->animations["Run"] = CAnimations::GetInstance()->Get("ani-big-mario-run");
@@ -47,7 +50,7 @@ void CMario::InitAnimations()
 
 		this->animations["TeleVer"] = CAnimations::GetInstance()->Get("ani-big-mario-idle-front");
 		this->animations["TeleHor"] = CAnimations::GetInstance()->Get("ani-big-mario-walk");
-	}
+	}*/
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)

@@ -6,7 +6,7 @@
 #include "Sprites.h"
 
 /*
-Sprite animation
+Sprite animation, doi int thanh string het
 */
 class CAnimationFrame
 {
@@ -40,13 +40,13 @@ class CAnimations
 {
 	static CAnimations * __instance;
 
-	unordered_map<string, LPANIMATION> animations;
+	unordered_map<int, LPANIMATION> animations;
 
 public:
-	void Add(string id, LPANIMATION ani);
-	LPANIMATION Get(string id);
+	void Add(int id, LPANIMATION ani);
+	LPANIMATION Get(int id);
 	void Clear();
-	void AddAnimation(string aniId);
+	void AddAnimation(int aniId);
 
 	static CAnimations * GetInstance();
 };
@@ -63,12 +63,12 @@ class CAnimationSets
 {
 	static CAnimationSets * __instance;
 
-	unordered_map<string, LPANIMATION_SET> animation_sets;
+	unordered_map<int, LPANIMATION_SET> animation_sets;
 
 public:
 	CAnimationSets();
-	void Add(string id, LPANIMATION_SET ani);
-	LPANIMATION_SET Get(string id);
+	void Add(int id, LPANIMATION_SET ani);
+	LPANIMATION_SET Get(int id);
 
 
 	static CAnimationSets * GetInstance();

@@ -61,7 +61,8 @@ public:
 
 	DWORD dt;
 
-	LPANIMATIONS* animations;
+	//LPANIMATIONS* animations;
+	LPANIMATION_SET animation_set;
 
 public: 
 	void SetPosition(float x, float y);
@@ -72,6 +73,7 @@ public:
 	int GetState();
 
 	void SetAnimationFlip(int nx);
+	void SetAnimationSet(LPANIMATION_SET ani_set);
 
 	void RenderBoundingBox();
 

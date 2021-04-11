@@ -58,6 +58,10 @@ void CGameObject:: GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy
 int CGameObject:: GetState() { return this->state; }
 void CGameObject::SetState(int state) { this->state = state; }
 
+void CGameObject::InitAnimations()
+{
+}
+
 
 void CGameObject::SetAnimationFlip(int nx)
 {
@@ -66,5 +70,7 @@ void CGameObject::SetAnimationFlip(int nx)
 	}
 	else flip = -1;
 }
+
+void CGameObject::SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
 
 

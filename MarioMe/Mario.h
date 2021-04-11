@@ -48,9 +48,11 @@ class CMario : public CGameObject
 	float start_y; 
 public: 
 	CMario(float x = 0.0f, float y = 0.0f);
-	virtual void InitAnimations();
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
-	virtual void Render();
+	
+	virtual void InitAnimations() override;
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL) override;
+	virtual void Render() override;
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
@@ -62,5 +64,5 @@ public:
 	void OnKeyUp(int keyCode);
 	void OnKeyDown(int keyCode);
 
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+	
 };
