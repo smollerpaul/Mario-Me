@@ -14,7 +14,7 @@
       <Filter>Framework\Game</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Framework\GameObject</Filter>
+      <Filter>Framework\Game\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Keyboard.cpp">
       <Filter>Framework\Keyboard</Filter>
@@ -56,7 +56,25 @@
       <Filter>Framework\Scene</Filter>
     </ClCompile>
     <ClCompile Include="SweptAABB.cpp">
-      <Filter>Framework\GameObject</Filter>
+      <Filter>Framework\Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyXML\tinystr.cpp">
+      <Filter>Framework\Libs\tinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyXML\tinyxml.cpp">
+      <Filter>Framework\Libs\tinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyXML\tinyxmlerror.cpp">
+      <Filter>Framework\Libs\tinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyXML\tinyxmlparser.cpp">
+      <Filter>Framework\Libs\tinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Framework\Map\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapLayer.cpp">
+      <Filter>Framework\Map\MapLayer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,7 +91,7 @@
       <Filter>Framework\Game</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Framework\GameObject</Filter>
+      <Filter>Framework\Game\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Keyboard.h">
       <Filter>Framework\Keyboard</Filter>
@@ -105,6 +123,18 @@
     <ClInclude Include="Scene.h">
       <Filter>Framework\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="tinyXML\tinystr.h">
+      <Filter>Framework\Libs\tinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyXML\tinyxml.h">
+      <Filter>Framework\Libs\tinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Framework\Map\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapLayer.h">
+      <Filter>Framework\Map\MapLayer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -130,9 +160,6 @@
     </Filter>
     <Filter Include="Framework\Graphics\Sprites">
       <UniqueIdentifier>{40eeb4f0-5bc5-4ee7-9c5e-1eec568e4e25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\GameObject">
-      <UniqueIdentifier>{fd873f02-1627-4a91-9996-4b918f12cc1c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Game">
       <UniqueIdentifier>{1bc03f9a-7276-4cc2-b709-b50257433885}</UniqueIdentifier>
@@ -173,5 +200,185 @@
     <Filter Include="Framework\Libs\Utils">
       <UniqueIdentifier>{9532320a-13ca-4d95-8835-688f0adab903}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Libs\tinyXML">
+      <UniqueIdentifier>{b0ce53df-2013-4da9-8a00-798b2b3db551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{25af2078-3b13-4ce2-8e1b-cc18042eceec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Textures">
+      <UniqueIdentifier>{ee95638a-d986-458c-b220-d299fc7692e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Animations">
+      <UniqueIdentifier>{8da276b0-616f-47e0-b803-b3335c9a5328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Sprites">
+      <UniqueIdentifier>{0b9b4c28-f92d-4076-aaf2-9c44486194be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Scenes">
+      <UniqueIdentifier>{77d614cf-c6dc-4963-bc0f-4a3ef737db20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Maps">
+      <UniqueIdentifier>{957b04ec-e5fd-4543-bcde-a6cf07af3bb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Map">
+      <UniqueIdentifier>{02ff73a2-5581-4f90-a492-a4c0af709dab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Maps\Demo">
+      <UniqueIdentifier>{196f24d4-b229-491d-9606-0cc3f6a3f974}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Map\MapLayer">
+      <UniqueIdentifier>{81d8d168-a9ad-4d97-80d8-c0af613c7c56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Map\Map">
+      <UniqueIdentifier>{6fbd36e3-6eac-43a8-b7bf-e87198590598}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\GameObject">
+      <UniqueIdentifier>{fd873f02-1627-4a91-9996-4b918f12cc1c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Resource\Animations\MiscAnim.xml">
+      <Filter>Resources\Animations</Filter>
+    </Xml>
+    <Xml Include="Resource\Animations\MarioAnim.xml">
+      <Filter>Resources\Animations</Filter>
+    </Xml>
+    <Xml Include="Resource\Animations\EnemyAnim.xml">
+      <Filter>Resources\Animations</Filter>
+    </Xml>
+    <Xml Include="Resource\GameData.xml">
+      <Filter>Resources</Filter>
+    </Xml>
+    <Xml Include="Resource\Animations\EffectAnim.xml">
+      <Filter>Resources\Animations</Filter>
+    </Xml>
+    <Xml Include="Resource\Animations\IntroAnim.xml">
+      <Filter>Resources\Animations</Filter>
+    </Xml>
+    <Xml Include="Resource\Animations\OverworldMapAnim.xml">
+      <Filter>Resources\Animations</Filter>
+    </Xml>
+    <Xml Include="Resource\Animations\UiAnim.xml">
+      <Filter>Resources\Animations</Filter>
+    </Xml>
+    <Xml Include="Resource\Sprites\EffectDB.xml">
+      <Filter>Resources\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resource\Sprites\EnemyDB.xml">
+      <Filter>Resources\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resource\Sprites\IntroDB.xml">
+      <Filter>Resources\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resource\Sprites\MarioDB.xml">
+      <Filter>Resources\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resource\Sprites\MiscDB.xml">
+      <Filter>Resources\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resource\Sprites\OverworldMapDB.xml">
+      <Filter>Resources\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resource\Sprites\UiDB.xml">
+      <Filter>Resources\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resource\Scenes\Intro.xml">
+      <Filter>Resources\Scenes</Filter>
+    </Xml>
+    <Xml Include="Resource\Scenes\Overworld.xml">
+      <Filter>Resources\Scenes</Filter>
+    </Xml>
+    <Xml Include="Resource\Scenes\World1-1.xml">
+      <Filter>Resources\Scenes</Filter>
+    </Xml>
+    <Xml Include="Resource\Scenes\World1-4.xml">
+      <Filter>Resources\Scenes</Filter>
+    </Xml>
+    <Xml Include="Resource\Scenes\demo.xml">
+      <Filter>Resources\Scenes</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource\Textures\box.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\box-small.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\brick-debris.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\dialogs.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\dialogs_x3.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\effect_white_254_x3.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\enemy.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\enemy_white.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\fire-ball.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\fire-ball-white.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\hud_dialog.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\intro (1).png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\intro.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\intro_x3.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\items.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\mario.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\misc_x3.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\overworld_x3.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\pipe.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\reward_x3.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\test-box.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\ui.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\ui_x3.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Map\Demo\world-1-1.png">
+      <Filter>Resources\Maps\Demo</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\Textures\intro.psd">
+      <Filter>Resources\Textures</Filter>
+    </None>
+    <None Include="Resource\Map\Demo\demo.tmx">
+      <Filter>Resources\Maps\Demo</Filter>
+    </None>
   </ItemGroup>
 </Project>

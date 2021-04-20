@@ -2,9 +2,7 @@
 #include "Utils.h"
 #include "Sprites.h"
 
-CAnimationSets * CAnimationSets::__instance = NULL;
-
-void CAnimation::Add(int spriteId, DWORD time)
+void CAnimation::Add(string spriteId, DWORD time)
 {
 	int t = time;
 	if (time == 0) t = this->defaultTime;
@@ -60,12 +58,14 @@ CAnimations * CAnimations::GetInstance()
 	return __instance;
 }
 
-void CAnimations::Add(int id, LPANIMATION ani)
+void CAnimations::Add(string id, LPANIMATION ani)
 {
 	animations[id] = ani;
+
+	DebugOut(L"[ANIMATION] Animation added : %s \n ", ToLPCWSTR(id));
 }
 
-LPANIMATION CAnimations::Get(int id)
+LPANIMATION CAnimations::Get(string id)
 {
 	LPANIMATION ani = animations[id];
 	if (ani == NULL)
@@ -82,34 +82,4 @@ void CAnimations::Clear()
 	}
 
 	animations.clear();
-}
-
-void CAnimations::AddAnimation(int aniId)
-{
-	
-}
-
-CAnimationSets::CAnimationSets()
-{
-
-}
-
-CAnimationSets *CAnimationSets::GetInstance()
-{
-	if (__instance == NULL) __instance = new CAnimationSets();
-	return __instance;
-}
-
-LPANIMATION_SET CAnimationSets::Get(int id)
-{
-	LPANIMATION_SET ani_set = animation_sets[id];
-	if (ani_set == NULL)
-		DebugOut(L"[ERROR] Failed to find animation set id: %d\n",id);
-	 
-	return ani_set;
-}
-
-void CAnimationSets::Add(int id, LPANIMATION_SET ani_set)
-{
-	animation_sets[id] = ani_set;
 }

@@ -26,11 +26,9 @@ CMario::CMario(float x, float y) : CGameObject()
 }
 
 
-// do la ko dung ani set nhu ban dau -> load het animations roi xong init animations cua tung thang 
-// vo , nen phai sua lai vu do
 void CMario::InitAnimations()
 {
-	/*if (this->animations.size() < 1 ) {
+	if (this->animations.size() < 1 ) {
 		this->animations["Idle"] = CAnimations::GetInstance()->Get("ani-big-mario-idle");
 		this->animations["Walk"] = CAnimations::GetInstance()->Get("ani-big-mario-walk");
 		this->animations["Run"] = CAnimations::GetInstance()->Get("ani-big-mario-run");
@@ -50,7 +48,7 @@ void CMario::InitAnimations()
 
 		this->animations["TeleVer"] = CAnimations::GetInstance()->Get("ani-big-mario-idle-front");
 		this->animations["TeleHor"] = CAnimations::GetInstance()->Get("ani-big-mario-walk");
-	}*/
+	}
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -164,25 +162,26 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CMario::Render()
 {
-	int ani = -1;
+	InitAnimations();
+	CAnimation* ani = this->animations["Idle"];
 
 	CGameObject::SetAnimationFlip(nx);
 
-	if (state == MARIO_STATE_DIE)
-		ani = MARIO_ANI_DIE;
-	else
+	//if (state == MARIO_STATE_DIE)
+		//ani = MARIO_ANI_DIE;
+	//else
 		if (level == MARIO_LEVEL_BIG)
 		{
 			if (vx == 0) {
-				ani = MARIO_ANI_BIG_IDLE_RIGHT;
+				ani = this->animations["Idle"];
 			}
 			else {
-				ani = MARIO_ANI_BIG_WALKING_RIGHT;
+				ani = this->animations["Walk"];
 			}
 
 		}
 	
-	if (level == MARIO_LEVEL_SMALL)
+	/*if (level == MARIO_LEVEL_SMALL)
 	{
 		if (vx == 0) {
 			ani = MARIO_ANI_SMALL_IDLE_RIGHT;
@@ -190,14 +189,14 @@ void CMario::Render()
 		else {
 			ani = MARIO_ANI_SMALL_WALKING_RIGHT;
 		}
-	}
+	}*/
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-	animation_set->at(ani)->Render(x- camera->GetX(), y-camera->GetY(), flip, alpha);
+	ani->Render(x- camera->GetX(), y-camera->GetY(), flip, alpha);
 
 	RenderBoundingBox();
 }
@@ -265,9 +264,6 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 	}
 }
 
-/*
-	Reset Mario status to the beginning state of a scene
-*/
 void CMario::Reset()
 {
 	SetState(MARIO_STATE_IDLE);

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Game>
+    <Resources>
+        <Textures>
+            <Texture id="tex-mario" path="Resource/Textures/mario.png"/>
+            <Texture id="tex-enemy" path="Resource/Textures/enemy_white.png"/>
+            <Texture id="tex-misc" path="Resource/Textures/misc_x3.png"/>
+            <Texture id="tex-fire-ball" path="Resource/Textures/fire-ball-white.png"/>
+            <Texture id="tex-effect" path="Resource/Textures/effect_white_254_x3.png"/>
+            <Texture id="tex-pipe" path="Resource/Textures/pipe.png"/>
+            <Texture id="tex-ui" path="Resource/Textures/ui_x3.png"/>
+            <Texture id="tex-box" path="Resource/Textures/box-small.png"/>
+            <Texture id="tex-reward" path="Resource/Textures/reward_x3.png"/>
+            <Texture id="tex-overworld" path="Resource/Textures/overworld_x3.png"/>
+            <Texture id="tex-menu" path="Resource/Textures/intro_x3.png"/>
+            <Texture id="tex-dialog" path="Resource/Textures/dialogs_x3.png"/>
+            <Texture id="tex-pipe" path="Resource/Textures/pipe.png"/>
+            <Texture id="tex-test" path="Resource/Textures/test-box.png"/>
+        </Textures>
+        <Sprites>
+            <Sprite id="spr-mario" path="Resource/Sprites/MarioDB.xml"/>
+            <Sprite id="spr-enemy" path="Resource/Sprites/EnemyDB.xml"/>
+            <Sprite id="spr-misc" path="Resource/Sprites/MiscDB.xml"/>
+            <Sprite id="spr-effect" path="Resource/Sprites/EffectDB.xml"/>
+            <Sprite id="spr-hud" path="Resource/Sprites/UiDB.xml"/>
+            <Sprite id="spr-overworld" path="Resource/Sprites/OverworldMapDB.xml"/>
+            <Sprite id="spr-menu" path="Resource/Sprites/IntroDB.xml"/>
+        </Sprites>
+        <Animations>
+            <Animation id="ani-mario" path="Resource/Animations/MarioAnim.xml"/>
+            <Animation id="ani-enemy" path="Resource/Animations/EnemyAnim.xml"/>
+            <Animation id="ani-misc" path="Resource/Animations/MiscAnim.xml"/>
+            <Animation id="ani-effect" path="Resource/Animations/EffectAnim.xml"/>
+            <Animation id="ani-hud" path="Resource/Animations/UiAnim.xml"/>
+            <Animation id="ani-overworld" path="Resource/Animations/OverworldMapAnim.xml"/>
+            <Animation id="ani-menu" path="Resource/Animations/IntroAnim.xml"/>
+        </Animations>
+    </Resources>
+    <GameContent>
+        <Hud path="Resource/HUD.tmx" left="0S" top="579"/>
+        <Scenes start="demo">
+            <Scene id="intro" type="IntroScene" path="Resource/Scenes/Intro.xml"/>
+            <Scene id="overworld" type="WorldScene" path="Resource/Scenes/Overworld.xml"/>
+            <Scene id="world-1-1" type="PlayScene" path="Resource/Scenes/World1-1.xml"/>
+            <Scene id="world-1-4" type="PlayScene" path="Resource/Scenes/World1-4.xml"/>
+			<Scene id="demo" type="PlayScene" path="Resource/Scenes/demo.xml"/>
+        </Scenes>
+    </GameContent>
+</Game>

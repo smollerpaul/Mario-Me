@@ -1,93 +1,173 @@
-#include <fstream>
+﻿#include <fstream>
 #include "Game.h"
 #include "Utils.h"
 #include "Sprites.h"
 #include "Animations.h"
 #include "Textures.h"
 #include "PlayScene.h"
-
-
+#include "tinyxml/tinyxml.h"
 
 #define MAX_GAME_LINE 1024
 
 
-#define GAME_FILE_SECTION_UNKNOWN -1
-#define GAME_FILE_SECTION_SETTINGS 1
-#define GAME_FILE_SECTION_SCENES 2
-
-void CGame::_ParseSection_SETTINGS(string line)
+void CGame::Load(string gameFile)
 {
-	vector<string> tokens = split(line);
+	TiXmlDocument doc(gameFile.c_str());
 
-	if (tokens.size() < 2) return;
-	if (tokens[0] == "start")
-		current_scene = atoi(tokens[1].c_str());
-	else
-		DebugOut(L"[ERROR] Unknown game setting %s\n", ToWSTR(tokens[0]).c_str());
+	if (doc.LoadFile()) {
+		TiXmlElement* root = doc.RootElement();
+
+		TiXmlElement* gameContent = root->FirstChildElement("GameContent");
+		TiXmlElement* gameResources = root->FirstChildElement("Resources");
+
+		LoadTextures(gameResources);
+		DebugOut(L"\n");
+
+		LoadSprites(gameResources);
+		DebugOut(L"\n");
+
+		LoadAnimations(gameResources);
+		DebugOut(L"\n");
+
+		LoadScenes(gameContent);
+
+		doc.Clear();
+	}
 }
 
-void CGame::_ParseSection_SCENES(string line)
-{
-	vector<string> tokens = split(line);
+void CGame::LoadTextures(TiXmlElement* gameResources) {
+	TiXmlElement* textures = gameResources->FirstChildElement("Textures");
 
-	if (tokens.size() < 2) return;
-	int id = atoi(tokens[0].c_str());
-	LPCWSTR path = ToLPCWSTR(tokens[1]);
+	for (TiXmlElement* node = textures->FirstChildElement("Texture"); node != nullptr; node = node->NextSiblingElement("Texture")) {
+		CTextures::GetInstance()->Add(node->Attribute("id"), ToLPCWSTR(node->Attribute("path")), D3DCOLOR_ARGB(0, 0, 0, 0));
+	}
 
-	LPSCENE scene = new CPlayScene(id, path);
-	scenes[id] = scene;
 }
 
-/*
-	Load game campaign file and load/initiate first scene
-*/
-void CGame::Load(LPCWSTR gameFile)
-{
-	DebugOut(L"[INFO] Start loading game file : %s\n", gameFile);
+void CGame::LoadSprites(TiXmlElement* gameResources) {
+	TiXmlElement* sprites = gameResources->FirstChildElement("Sprites");
 
-	ifstream f;
-	f.open(gameFile);
-	char str[MAX_GAME_LINE];
+	for (TiXmlElement* node = sprites->FirstChildElement("Sprite"); node != nullptr; node = node->NextSiblingElement("Sprite")) {
+		string id = node->Attribute("id");
+		string path = node->Attribute("path");
 
-	// current resource section flag
-	int section = GAME_FILE_SECTION_UNKNOWN;
+		TiXmlDocument* spriteDoc = new TiXmlDocument(path.c_str());
 
-	while (f.getline(str, MAX_GAME_LINE))
-	{
-		string line(str);
+		if (spriteDoc->LoadFile()) {
 
-		if (line[0] == '#') continue;	// skip comment lines	
+			DebugOut(L"[LOAD SPRITE PATH] %s\n", ToLPCWSTR(path));
+			TiXmlElement* spriteRoot = spriteDoc->RootElement();
 
-		if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
-		if (line == "[SCENES]") { section = GAME_FILE_SECTION_SCENES; continue; }
+			for (TiXmlElement* sprites = spriteRoot->FirstChildElement("Textures"); sprites != nullptr; sprites = sprites->NextSiblingElement("Textures")) {
+				string textId = sprites->Attribute("textureId");
+				LPDIRECT3DTEXTURE9 texture = CTextures::GetInstance()->Get(textId);
 
-		//
-		// data section
-		//
-		switch (section)
+				for (TiXmlElement* sprite = sprites->FirstChildElement("Sprite"); sprite != nullptr; sprite = sprite->NextSiblingElement("Sprite")) {
+					string spriteId = sprite->Attribute("id");
+					int left = 0, top = 0, width = 0, height = 0;
+
+					sprite->QueryIntAttribute("left", &left);
+					sprite->QueryIntAttribute("top", &top);
+					sprite->QueryIntAttribute("width", &width);
+					sprite->QueryIntAttribute("height", &height);
+
+					CSprites::GetInstance()->Add(spriteId, left, top, left + width, top + height, texture);
+				}
+			}
+		}
+		else
 		{
-		case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
-		case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;
+			DebugOut(L"Failed to load file \"%s\"\n", ToLPCWSTR(path));
 		}
 	}
-	f.close();
-
-	DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", gameFile);
-
-	SwitchScene(current_scene);
 }
 
-void CGame::SwitchScene(int scene_id)
+void CGame::LoadAnimations(TiXmlElement* gameResources) {
+	TiXmlElement* animations = gameResources->FirstChildElement("Animations");
+
+	for (TiXmlElement* node = animations->FirstChildElement("Animation"); node != nullptr; node = node->NextSiblingElement("Animation")) {
+		string id = node->Attribute("id");
+		string path = node->Attribute("path");
+
+		TiXmlDocument* aniDoc = new TiXmlDocument(path.c_str());
+
+		if (aniDoc->LoadFile()) {
+
+			DebugOut(L"[LOAD ANIMATION PATH] %s\n", ToLPCWSTR(path));
+			TiXmlElement* aniRoot = aniDoc->RootElement();
+
+			CAnimations* animations = CAnimations::GetInstance();
+
+			for (TiXmlElement* aniTex = aniRoot->FirstChildElement("Textures"); aniTex != nullptr; aniTex = aniTex->NextSiblingElement("Textures")) {
+				for (TiXmlElement* anim = aniTex->FirstChildElement("Animation"); anim != nullptr; anim = anim->NextSiblingElement("Animation")) {
+
+					string aniId = anim->Attribute("aniId");
+					int frameTime = 0;
+					anim->QueryIntAttribute("frameTime", &frameTime);
+
+					LPANIMATION ani = new CAnimation(frameTime);
+
+					for (TiXmlElement* aniFrame = anim->FirstChildElement("Sprite"); aniFrame != nullptr; aniFrame = aniFrame->NextSiblingElement("Sprite")) {
+						string frameId = aniFrame->Attribute("id");
+
+						CSprites::GetInstance()->Get(frameId);
+						ani->Add(frameId);
+						DebugOut(L"   [FRAME] %s [INTO]  %s\n", ToLPCWSTR(frameId), ToLPCWSTR(aniId));
+					}
+					animations->Add(aniId, ani);
+				}
+			}
+		}
+		else
+		{
+			DebugOut(L"Failed to load file \"%s\"\n", ToLPCWSTR(path));
+		}
+	}
+}
+
+
+void CGame::LoadGameHud(TiXmlElement* gameContent)
 {
-	DebugOut(L"[INFO] Switching to scene %d\n", scene_id);
+	TiXmlElement* gameHud = gameContent->FirstChildElement("Hud");
+	string path = gameHud->Attribute("path");
 
-	scenes[current_scene]->Unload();;
+	int left=0, top=0;
+	gameHud->QueryIntAttribute("left", &left);
+	gameHud->QueryIntAttribute("top", &top);
+}
 
-	CTextures::GetInstance()->Clear();
-	CSprites::GetInstance()->Clear();
-	CAnimations::GetInstance()->Clear();
+void CGame::LoadScenes(TiXmlElement* gameContent)
+{
+	TiXmlElement* scenes = gameContent->FirstChildElement("Scenes");
+
+	for (TiXmlElement* scene = scenes->FirstChildElement("Scene"); scene != nullptr; scene = scene->NextSiblingElement("Scene")) {
+		string sceneId = scene->Attribute("id");
+		string type = scene->Attribute("type");
+		string sceneFilePath = scene->Attribute("path");
+
+		if (type.compare("PlayScene") == 0) {
+			CScene* scene = new CPlayScene(sceneId, sceneFilePath);
+			this->scenes[sceneId]=scene;
+
+			DebugOut(L"[PLAYSCENE ADDED]: %s \n", ToLPCWSTR(sceneId));
+		}
+	}
+	SwitchScene(scenes->Attribute("start"));
+}
+
+
+void CGame::SwitchScene(string scene_id)
+{
+	DebugOut(L"[INFO] Switching to scene:  %s\n", ToLPCWSTR(scene_id));
+
+	if (scenes[current_scene]) {
+		scenes[current_scene]->Unload();
+	}
 
 	current_scene = scene_id;
 	LPSCENE s = scenes[scene_id];
 	s->Load();
 }
+
+
+

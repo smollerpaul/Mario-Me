@@ -1,18 +1,21 @@
 #pragma once
 #include "Camera.h"
 
-
 #include <d3dx9.h>
+#include <string>
+
+using namespace std;
+
 class CScene
 {
 protected:
-	int id;
-	LPCWSTR sceneFilePath;
+	string id;
+	string sceneFilePath;
 
 	Camera* camera;
 
 public: 
-	CScene(int id, LPCWSTR filePath);
+	CScene(string id, string filePath);
 
 	virtual void Load() = 0;
 	virtual void Unload() = 0;

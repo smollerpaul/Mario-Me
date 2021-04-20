@@ -12,6 +12,16 @@ float Camera::GetY()
 	return y;
 }
 
+int Camera::GetWidth()
+{
+	return this->width;
+}
+
+int Camera::GetHeight()
+{
+	return this->height;
+}
+
 void Camera::Update()
 {
 	if (player == nullptr)
@@ -36,4 +46,10 @@ void Camera::SetPosition(float x, float y)
 {
 	this->x = x; 
 	this->y = y; 
+}
+
+void Camera::SetSize(int width, int height)
+{
+	this->width = width;
+	this->height = height;
 }

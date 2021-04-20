@@ -38,17 +38,25 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 }
 
+void CKoopas::InitAnimations()
+{
+	if (this->animations.size() < 1) {
+		this->animations["Move"] = CAnimations::GetInstance()->Get("ani-green-koopa-troopa-move");
+	}
+}
+
 void CKoopas::Render()
 {
-	int ani = KOOPAS_ANI_WALKING_LEFT;
+	InitAnimations();
+	CAnimation* ani = this->animations["Move"];
 	if (state == KOOPAS_STATE_DIE) {
-		ani = KOOPAS_ANI_DIE;
+		//ani = KOOPAS_ANI_DIE;
 	}
-	else if (vx > 0) ani = KOOPAS_ANI_WALKING_RIGHT;
-	else if (vx <= 0) ani = KOOPAS_ANI_WALKING_LEFT;
+	//else if (vx > 0) ani = KOOPAS_ANI_WALKING_RIGHT;
+	//else if (vx <= 0) ani = KOOPAS_ANI_WALKING_LEFT;
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-	animation_set->at(ani)->Render(x- camera->GetX(), y-camera->GetY(), flip);
+	ani->Render(x- camera->GetX(), y-camera->GetY(), flip);
 
 	RenderBoundingBox();
 }
@@ -68,3 +76,5 @@ void CKoopas::SetState(int state)
 	}
 
 }
+
+

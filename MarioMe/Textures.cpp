@@ -20,14 +20,26 @@ CTextures *CTextures::GetInstance()
 	return __instance;
 }
 
-void CTextures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
+void CTextures::Add(string id, LPCWSTR filePath, D3DCOLOR transparentColor)
+{
+	textures[id] = Load(filePath, transparentColor);
+
+	DebugOut(L"[TEXTURE] Texture added: id=%s, %s\n", ToLPCWSTR(id), filePath); // %d la decimal, %s la string
+}
+
+LPDIRECT3DTEXTURE9 CTextures::Get(string id) 
+{
+	return textures[id];
+}
+
+LPDIRECT3DTEXTURE9 CTextures::Load(LPCWSTR path, D3DCOLOR transparentColor)
 {
 	D3DXIMAGE_INFO info;
-	HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
+	HRESULT result = D3DXGetImageInfoFromFile(path, &info);
 	if (result != D3D_OK)
 	{
-		DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", filePath);
-		return;
+		DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", path);
+		return nullptr;
 	}
 
 	LPDIRECT3DDEVICE9 d3ddv = CGame::GetInstance()->GetDirect3DDevice();
@@ -35,7 +47,7 @@ void CTextures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 
 	result = D3DXCreateTextureFromFileEx(
 		d3ddv,								// Pointer to Direct3D device object
-		filePath,							// Path to the image to load
+		path,							// Path to the image to load
 		info.Width,							// Texture width
 		info.Height,						// Texture height
 		1,
@@ -44,7 +56,7 @@ void CTextures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 		D3DPOOL_DEFAULT,
 		D3DX_DEFAULT,
 		D3DX_DEFAULT,
-		transparentColor,			
+		transparentColor,
 		&info,
 		NULL,
 		&texture);								// Created texture pointer
@@ -52,17 +64,9 @@ void CTextures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 	if (result != D3D_OK)
 	{
 		OutputDebugString(L"[ERROR] CreateTextureFromFile failed\n");
-		return;
+		return nullptr;
 	}
-
-	textures[id] = texture;
-
-	DebugOut(L"[INFO] Texture loaded Ok: id=%d, %s\n", id, filePath);
-}
-
-LPDIRECT3DTEXTURE9 CTextures::Get(unsigned int id) 
-{
-	return textures[id];
+	return texture;
 }
 
 /*

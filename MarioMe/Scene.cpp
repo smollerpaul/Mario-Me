@@ -1,6 +1,6 @@
 #include "Scene.h"
 
-CScene::CScene(int id, LPCWSTR filePath)
+CScene::CScene(string id, string filePath)
 {
 	this->id = id;
 	this->sceneFilePath = filePath;

@@ -13,8 +13,13 @@ public:
 	float GetX();
 	float GetY();
 
+	int GetWidth();
+	int GetHeight();
+
 	void Update();
 	void SetFocusOnPlayer(CGameObject* player);
 	void SetPosition(float x, float y);
+
+	void SetSize(int width, int height);
 };
 

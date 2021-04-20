@@ -8,23 +8,21 @@
 #include "Goomba.h"
 #include "Koopas.h"
 
+class GameMap;
 
 class CPlayScene: public CScene
 {
 protected: 
+	GameMap* map = NULL;
 	CMario *player;					// A play scene has to have player, right? 
 
 	vector<LPGAMEOBJECT> objects;
 
-	void _ParseSection_TEXTURES(string line);
-	void _ParseSection_SPRITES(string line);
-	void _ParseSection_ANIMATIONS(string line);
-	void _ParseSection_ANIMATION_SETS(string line);
 	void _ParseSection_OBJECTS(string line);
 
 	
 public: 
-	CPlayScene(int id, LPCWSTR filePath);
+	CPlayScene(string id, string filePath);
 
 	virtual void Load();
 	virtual void Update(DWORD dt);

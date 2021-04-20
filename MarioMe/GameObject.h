@@ -61,8 +61,7 @@ public:
 
 	DWORD dt;
 
-	//LPANIMATIONS* animations;
-	LPANIMATION_SET animation_set;
+	unordered_map<string, LPANIMATION> animations;
 
 public: 
 	void SetPosition(float x, float y);
@@ -73,7 +72,8 @@ public:
 	int GetState();
 
 	void SetAnimationFlip(int nx);
-	void SetAnimationSet(LPANIMATION_SET ani_set);
+	//void SetAnimationSet(LPANIMATION_SET ani_set);
+	
 
 	void RenderBoundingBox();
 

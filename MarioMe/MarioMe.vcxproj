@@ -83,7 +83,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>d3dx9.lib;d3d9.lib;dxguid.lib;dxerr.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -132,8 +134,14 @@
     <ClCompile Include="GameLoad.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Koopas.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapLayer.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="SweptAABB.cpp" />
+    <ClCompile Include="tinyXML\tinystr.cpp" />
+    <ClCompile Include="tinyXML\tinyxml.cpp" />
+    <ClCompile Include="tinyXML\tinyxmlerror.cpp" />
+    <ClCompile Include="tinyXML\tinyxmlparser.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -151,7 +159,11 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Koopas.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="MapLayer.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="tinyXML\tinystr.h" />
+    <ClInclude Include="tinyXML\tinyxml.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
@@ -161,6 +173,58 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Resource\Animations\EffectAnim.xml" />
+    <Xml Include="Resource\Animations\EnemyAnim.xml" />
+    <Xml Include="Resource\Animations\IntroAnim.xml" />
+    <Xml Include="Resource\Animations\MarioAnim.xml" />
+    <Xml Include="Resource\Animations\MiscAnim.xml" />
+    <Xml Include="Resource\Animations\OverworldMapAnim.xml" />
+    <Xml Include="Resource\Animations\UiAnim.xml" />
+    <Xml Include="Resource\GameData.xml" />
+    <Xml Include="Resource\Scenes\demo.xml" />
+    <Xml Include="Resource\Scenes\Intro.xml" />
+    <Xml Include="Resource\Scenes\Overworld.xml" />
+    <Xml Include="Resource\Scenes\World1-1.xml" />
+    <Xml Include="Resource\Scenes\World1-4.xml" />
+    <Xml Include="Resource\Sprites\EffectDB.xml" />
+    <Xml Include="Resource\Sprites\EnemyDB.xml" />
+    <Xml Include="Resource\Sprites\IntroDB.xml" />
+    <Xml Include="Resource\Sprites\MarioDB.xml" />
+    <Xml Include="Resource\Sprites\MiscDB.xml" />
+    <Xml Include="Resource\Sprites\OverworldMapDB.xml" />
+    <Xml Include="Resource\Sprites\UiDB.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource\Map\Demo\world-1-1.png" />
+    <Image Include="Resource\Textures\box-small.png" />
+    <Image Include="Resource\Textures\box.png" />
+    <Image Include="Resource\Textures\brick-debris.png" />
+    <Image Include="Resource\Textures\dialogs.png" />
+    <Image Include="Resource\Textures\dialogs_x3.png" />
+    <Image Include="Resource\Textures\effect_white_254_x3.png" />
+    <Image Include="Resource\Textures\enemy.png" />
+    <Image Include="Resource\Textures\enemy_white.png" />
+    <Image Include="Resource\Textures\fire-ball-white.png" />
+    <Image Include="Resource\Textures\fire-ball.png" />
+    <Image Include="Resource\Textures\hud_dialog.png" />
+    <Image Include="Resource\Textures\intro (1).png" />
+    <Image Include="Resource\Textures\intro.png" />
+    <Image Include="Resource\Textures\intro_x3.png" />
+    <Image Include="Resource\Textures\items.png" />
+    <Image Include="Resource\Textures\mario.png" />
+    <Image Include="Resource\Textures\misc_x3.png" />
+    <Image Include="Resource\Textures\overworld_x3.png" />
+    <Image Include="Resource\Textures\pipe.png" />
+    <Image Include="Resource\Textures\reward_x3.png" />
+    <Image Include="Resource\Textures\test-box.png" />
+    <Image Include="Resource\Textures\ui.png" />
+    <Image Include="Resource\Textures\ui_x3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\Map\Demo\demo.tmx" />
+    <None Include="Resource\Textures\intro.psd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

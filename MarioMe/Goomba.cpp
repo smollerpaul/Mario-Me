@@ -40,12 +40,13 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CGoomba::Render()
 {
-	int ani = GOOMBA_ANI_WALKING;
-	if (state == GOOMBA_STATE_DIE) {
+	InitAnimations();
+	CAnimation* ani = this->animations["Walk"];
+	/*if (state == GOOMBA_STATE_DIE) {
 		ani = GOOMBA_ANI_DIE;
-	}
+	}*/
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-	animation_set->at(ani)->Render(x-camera->GetX(),y-camera->GetY(),flip);
+	ani->Render(x-camera->GetX(),y-camera->GetY(),flip);
 
 	//RenderBoundingBox();
 }
@@ -62,5 +63,12 @@ void CGoomba::SetState(int state)
 			break;
 		case GOOMBA_STATE_WALKING: 
 			vx = -GOOMBA_WALKING_SPEED;
+	}
+}
+
+void CGoomba::InitAnimations()
+{
+	if (this->animations.size() < 1) {
+		this->animations["Walk"] = CAnimations::GetInstance()->Get("ani-goomba-walk");
 	}
 }

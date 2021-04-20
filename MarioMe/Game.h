@@ -11,6 +11,7 @@
 #include <dinput.h>
 
 #include "Scene.h"
+#include "tinyXML/tinyxml.h"
 
 using namespace std;
 
@@ -32,23 +33,31 @@ class CGame
 	int screen_width;
 	int screen_height; 
 
-	unordered_map<int, LPSCENE> scenes;
-	int current_scene; 
+	unordered_map<string, LPSCENE> scenes;
+	string current_scene; 
 
-	void _ParseSection_SETTINGS(string line);
-	void _ParseSection_SCENES(string line);
+	/*void _ParseSection_SETTINGS(string line);
+	void _ParseSection_SCENES(string line);*/
 
 public:
 
 	Keyboard* GetKeyboard();
 
 	void Init(HWND hWnd);
-	void Draw(float x, float y, int flip, LPDIRECT3DTEXTURE9 texture, 
-		int left, int top, int right, int bottom, int alpha = 255);
+	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, 
+		int left, int top, int right, int bottom, int alpha = 255, int flip = 1);
 
-	void Load(LPCWSTR gameFile);
+	void Load(string gameFile);
+	void LoadTextures(TiXmlElement* gameResources);
+	void LoadSprites(TiXmlElement* gameResources);
+	void LoadAnimations(TiXmlElement* gameResources);
+
+	void LoadGameHud(TiXmlElement* gameContent);
+	void LoadScenes(TiXmlElement* gameContent);
+
+	
 	LPSCENE GetCurrentScene();
-	void SwitchScene(int scene_id);
+	void SwitchScene(string scene_id);
 
 	int GetScreenWidth();
 	int GetScreenHeight();

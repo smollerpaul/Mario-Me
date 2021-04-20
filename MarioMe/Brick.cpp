@@ -1,10 +1,12 @@
 #include "Brick.h"
 #include "Game.h"
+#include "Camera.h"
 
 void CBrick::Render()
 {
+	LPANIMATION ani = this->animations["Default"];
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-	animation_set->at(0)->Render(x- camera->GetX(), y-camera->GetY(), flip);
+	ani->Render(x- camera->GetX(), y-camera->GetY(), flip);
 	//RenderBoundingBox();
 }
 
@@ -14,4 +16,8 @@ void CBrick::GetBoundingBox(float &l, float &t, float &r, float &b)
 	t = y;
 	r = x + BRICK_BBOX_WIDTH;
 	b = y + BRICK_BBOX_HEIGHT;
+}
+
+void CBrick::InitAnimations()
+{
 }

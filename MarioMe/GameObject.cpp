@@ -30,7 +30,7 @@ void CGameObject::RenderBoundingBox()
 	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
 
-	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
+	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get("tex-test");
 
 	float l,t,r,b; 
 
@@ -41,7 +41,7 @@ void CGameObject::RenderBoundingBox()
 	rect.bottom = (int)b - (int)t;
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-	CGame::GetInstance()->Draw(x- camera->GetX(), y- camera->GetY(), flip, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
+	CGame::GetInstance()->Draw(x- camera->GetX(), y- camera->GetY(), bbox, rect.left, rect.top, rect.right, rect.bottom, 32, flip);
 }
 
 CGameObject::~CGameObject()
@@ -71,6 +71,8 @@ void CGameObject::SetAnimationFlip(int nx)
 	else flip = -1;
 }
 
-void CGameObject::SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
+
+
+//void CGameObject::SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
 
 
