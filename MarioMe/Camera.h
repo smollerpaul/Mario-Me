@@ -4,22 +4,30 @@ class CGameObject;
 class Camera
 {
 protected:
-	float x = 0, y = 0;
-	int width, height;
+	float x;
+	float y;
+
+	float width;
+	float height;
 
 	CGameObject* player;
-
 public:
+	Camera();
+	Camera(float xCam, float yCam, float w, float h);
+	void Update();
+	void Render();
+
 	float GetX();
 	float GetY();
 
-	int GetWidth();
-	int GetHeight();
-
-	void Update();
-	void SetFocusOnPlayer(CGameObject* player);
+	float GetWidth();
+	float GetHeight();
+	
 	void SetPosition(float x, float y);
+	void SetSize(int w, int h);
 
-	void SetSize(int width, int height);
+	void SetFocusOnPlayer(CGameObject* player);
+	CGameObject* GetPlayer();
+
 };
 

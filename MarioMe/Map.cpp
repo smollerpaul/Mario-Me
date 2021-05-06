@@ -4,19 +4,31 @@
 #include <stdlib.h>
 #include "Camera.h"
 #include "Game.h"
+#include "GameObject.h"
 
 GameMap* GameMap::Load(string path)
 {
+	
 	GameMap* result = new GameMap();
-
 	TiXmlDocument doc(path.c_str());
+
+	if (!doc.LoadFile()) {
+		DebugOut(L" [ERROR MAP FILE] Map file failed to load!");
+	}
 
 	if (doc.LoadFile()) {
 		TiXmlElement* root = doc.RootElement();
 
+		
+#pragma region Map
+		root->QueryIntAttribute("width", &result->width);
+		root->QueryIntAttribute("height", &result->height);
+		/*map tile size is same as tileset tile size*/
+#pragma endregion
+
 #pragma region TileSet
 		TiXmlElement* tileSet = root->FirstChildElement("tileset");
-		TiXmlElement* ctileImage = tileSet->FirstChildElement("image");
+		TiXmlElement* tileSetImage = tileSet->FirstChildElement("image");
 
 		tileSet->QueryIntAttribute("firstgid", &result->firstgid);
 		tileSet->QueryIntAttribute("columns", &result->columns);
@@ -25,20 +37,45 @@ GameMap* GameMap::Load(string path)
 
 		char mapDir[_MAX_DIR];
 		_splitpath(path.c_str(), NULL, mapDir, NULL, NULL);
-		string imgPath = (string)mapDir + ctileImage->Attribute("source");
+		string imgPath = (string)mapDir + tileSetImage->Attribute("source");
 		result->tileImage = CTextures::Load(ToLPCWSTR(imgPath), D3DCOLOR_ARGB(0, 0, 0, 0));
+
 #pragma endregion
 
 #pragma region Layer
 		for (TiXmlElement* node = root->FirstChildElement("layer"); node != nullptr; node = node->NextSiblingElement("layer")) {
-			result->layers.push_back(new MapLayer(node));
+			result->AddMapLayer(new MapLayer(node));
 		}
 #pragma endregion
 
+#pragma region ObjectLayer
+
+		for (TiXmlElement* objG = root->FirstChildElement("objectgroup"); objG != nullptr; objG = objG->NextSiblingElement("objectgroup")) {
+			for (TiXmlElement* node = objG->FirstChildElement("object"); node != nullptr; node = node->NextSiblingElement("object")) {
+				TiXmlElement* obj = objG->FirstChildElement("object");
+
+				if (obj->Attribute("type") != NULL) {
+					string objType = obj->Attribute("name");
+
+					if (objType.compare("MapObjects") == 0) {
+						string objName = obj->Attribute("name");
+						float x, y, objWidth, objHeight;
+
+						obj->QueryFloatAttribute("x", &x);
+						obj->QueryFloatAttribute("y", &y);
+						obj->QueryFloatAttribute("width", &objWidth);
+						obj->QueryFloatAttribute("height", &objHeight);
+
+						CGame::GetInstance()->GetCurrentScene()->LoadMapObjects(objName,x, y, objWidth, objHeight);
+					}
+				}
+
+			}
+		}
+#pragma endregion
 
 		doc.Clear();
 	}
-
 	return result;
 }
 
@@ -73,4 +110,23 @@ void GameMap::Render()
 			}
 		}
 	}
+}
+
+GameMap::GameMap()
+{
+	int firstgid = columns = tileWidth = tileHeight = 0;
+	tileImage = NULL;
+
+	int width= height = 0;
+}
+
+void GameMap::AddMapLayer(MapLayer* layer)
+{
+	layers.push_back(layer);
+}
+
+void GameMap::GetSize(int& mapWith, int& mapHeight)
+{
+	mapWith = width* tileWidth;
+	mapHeight = height*tileHeight;
 }

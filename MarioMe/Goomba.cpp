@@ -1,5 +1,6 @@
 #include "Goomba.h"
 #include "Game.h"
+#include "Camera.h"
 
 CGoomba::CGoomba()
 {
@@ -46,6 +47,7 @@ void CGoomba::Render()
 		ani = GOOMBA_ANI_DIE;
 	}*/
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
+
 	ani->Render(x-camera->GetX(),y-camera->GetY(),flip);
 
 	//RenderBoundingBox();

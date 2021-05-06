@@ -9,7 +9,6 @@ MapLayer::MapLayer(TiXmlElement* node)
 		node->QueryIntAttribute("visible", &visible);
 	}
 
-
 	string data = node->FirstChildElement("data")->GetText();
 	vector<string> splitted = split(data, ",");
 

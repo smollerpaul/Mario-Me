@@ -11,8 +11,8 @@ private:
 	int** tiles = nullptr;
 
 public:
-	
 	MapLayer(TiXmlElement* node);
+
 	bool IsVisible();
 
 	int GetTileId(int x, int y);

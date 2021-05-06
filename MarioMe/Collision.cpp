@@ -90,6 +90,7 @@ void CGame::SweptAABB(
 
 	t = t_entry;
 
+	// collide x first
 	if (tx_entry > ty_entry)
 	{
 		ny = 0.0f;

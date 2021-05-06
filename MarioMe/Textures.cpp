@@ -69,9 +69,7 @@ LPDIRECT3DTEXTURE9 CTextures::Load(LPCWSTR path, D3DCOLOR transparentColor)
 	return texture;
 }
 
-/*
-	Clear all loaded textures
-*/
+
 void CTextures::Clear()
 {
 	for (auto x : textures)

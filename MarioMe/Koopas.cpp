@@ -1,5 +1,6 @@
 #include "Koopas.h"
 #include "Game.h"
+#include "Camera.h"
 
 CKoopas::CKoopas()
 {

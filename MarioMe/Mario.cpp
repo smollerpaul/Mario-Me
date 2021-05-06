@@ -9,6 +9,7 @@
 #include "Goomba.h"
 #include "Portal.h"
 #include "Keyboard.h"
+#include "Camera.h"
 
 CMario::CMario(float x, float y) : CGameObject()
 {
@@ -196,7 +197,7 @@ void CMario::Render()
 
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-	ani->Render(x- camera->GetX(), y-camera->GetY(), flip, alpha);
+	ani->Render(x - camera->GetX(), y - camera->GetY(), flip, alpha);
 
 	RenderBoundingBox();
 }

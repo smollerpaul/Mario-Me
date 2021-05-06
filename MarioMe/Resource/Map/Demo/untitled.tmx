@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="20" height="20" tilewidth="48" tileheight="48" infinite="0" nextlayerid="4" nextobjectid="10">
- <tileset firstgid="1" name="world-1-1" tilewidth="48" tileheight="48" tilecount="870" columns="29">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="24" tileheight="24" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="world-1-1" tilewidth="24" tileheight="24" tilecount="3480" columns="58">
   <image source="world-1-1.png" width="1392" height="1440"/>
  </tileset>
  <layer id="1" name="Tile Layer 1" width="20" height="20">
   <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+1187,1188,0,1187,1188,0,1187,1188,0,0,0,0,0,0,0,0,0,0,0,0,
+1245,1246,0,1245,1246,0,1245,1246,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,1187,1188,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,1245,1246,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -27,7 +27,4 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="MapObject">
-  <object id="8" name="background-1" type="SolidBlock" x="0" y="96" width="960" height="48"/>
- </objectgroup>
 </map>

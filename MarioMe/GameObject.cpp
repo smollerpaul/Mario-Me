@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "Sprites.h"
 #include "Animations.h"
+#include "Camera.h"
 
 CGameObject::CGameObject()
 {
@@ -16,6 +17,15 @@ CGameObject::CGameObject()
 	state = 0;
 	dx = dy = 0;
 	flip = 1;
+}
+
+void CGameObject::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+{
+	left = x;
+	top = y;
+	right = x + width;
+	bottom = y + bottom;
+
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -40,8 +50,10 @@ void CGameObject::RenderBoundingBox()
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 
-	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-	CGame::GetInstance()->Draw(x- camera->GetX(), y- camera->GetY(), bbox, rect.left, rect.top, rect.right, rect.bottom, 32, flip);
+	CGame* game = CGame::GetInstance();
+	Camera* cam = game->GetCurrentScene()->GetCamera();
+
+	game->Draw((x- cam->GetX()),( y- cam->GetY()), bbox, rect.left, rect.top, rect.right, rect.bottom, 32, flip);
 }
 
 CGameObject::~CGameObject()
@@ -52,8 +64,16 @@ CGameObject::~CGameObject()
 void CGameObject:: SetPosition(float x, float y) { this->x = x, this->y = y; }
 void CGameObject:: SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 
+void CGameObject::SetSize(float w, float h){ this->width = w;	 this->height = h; }
+
 void CGameObject:: GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 void CGameObject:: GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
+
+void CGameObject::GetSize(float& w, float& h)
+{
+	w = this->width;
+	h = this->height;
+}
 
 int CGameObject:: GetState() { return this->state; }
 void CGameObject::SetState(int state) { this->state = state; }
@@ -61,7 +81,6 @@ void CGameObject::SetState(int state) { this->state = state; }
 void CGameObject::InitAnimations()
 {
 }
-
 
 void CGameObject::SetAnimationFlip(int nx)
 {

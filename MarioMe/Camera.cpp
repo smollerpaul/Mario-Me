@@ -2,24 +2,60 @@
 #include "Game.h"
 #include "GameObject.h"
 
+Camera::Camera()
+{
+	x = y = 0;
+	width = height = 0;
+}
+
+Camera::Camera(float xCam, float yCam, float w, float h)
+{
+	x = xCam;
+	y = yCam;
+	width = w;
+	height = h;
+}
+
+void Camera::SetPosition(float x, float y)
+{
+	this->x = x;
+	this->y = y;
+}
+void Camera::SetSize(int w, int h)
+{
+	width = w;
+	height = h;
+}
+
 float Camera::GetX()
 {
 	return x;
 }
-
 float Camera::GetY()
 {
 	return y;
 }
 
-int Camera::GetWidth()
+float Camera::GetWidth()
 {
 	return this->width;
 }
-
-int Camera::GetHeight()
+float Camera::GetHeight()
 {
 	return this->height;
+}
+
+void Camera::SetFocusOnPlayer(CGameObject* player)
+{
+	this->player = player;
+}
+CGameObject* Camera::GetPlayer()
+{
+	return player;
+}
+
+void Camera::Render()
+{
 }
 
 void Camera::Update()
@@ -32,24 +68,16 @@ void Camera::Update()
 
 	player->GetPosition(cx, cy);
 
+	// set limits of the camera position
+	if (this->x < 0) {
+		this->x = 0;
+	}
+	if (this->y < 0) {
+		this->y = 0;
+	}
+
+
 	x = cx - game->GetScreenWidth() / 2;
 	y = cy - game->GetScreenHeight() / 2;
 
-}
-
-void Camera::SetFocusOnPlayer(CGameObject* player)
-{
-	this->player = player;
-}
-
-void Camera::SetPosition(float x, float y)
-{
-	this->x = x; 
-	this->y = y; 
-}
-
-void Camera::SetSize(int width, int height)
-{
-	this->width = width;
-	this->height = height;
 }

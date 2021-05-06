@@ -1,8 +1,5 @@
 #pragma once
-
-#include <Windows.h>
-#include <d3dx9.h>
-#include <vector>
+#include "Utils.h"
 
 #include "Sprites.h"
 #include "Animations.h"
@@ -12,6 +9,7 @@ using namespace std;
 
 #define ID_TEX_BBOX -100		// special texture to draw object bounding box
 
+class Camera;
 class CGameObject; 
 typedef CGameObject * LPGAMEOBJECT;
 
@@ -48,6 +46,9 @@ public:
 	float x; 
 	float y;
 
+	float width;
+	float height;
+
 	float dx;	// dx = vx*dt
 	float dy;	// dy = vy*dt
 
@@ -66,9 +67,11 @@ public:
 public: 
 	void SetPosition(float x, float y);
 	void SetSpeed(float vx, float vy);
+	void SetSize(float w, float h);
 
 	void GetPosition(float& x, float& y);
 	void GetSpeed(float& vx, float& vy);
+	void GetSize(float& w, float& h);
 	int GetState();
 
 	void SetAnimationFlip(int nx);
@@ -92,13 +95,12 @@ public:
 
 	CGameObject();
 
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
+	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) ;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
-	virtual void Render() = 0;
+	virtual void Render()=0;
 	virtual void SetState(int state);
 	
 	virtual void InitAnimations();
-
 
 	~CGameObject();
 };

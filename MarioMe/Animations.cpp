@@ -62,7 +62,7 @@ void CAnimations::Add(string id, LPANIMATION ani)
 {
 	animations[id] = ani;
 
-	DebugOut(L"[ANIMATION] Animation added : %s \n ", ToLPCWSTR(id));
+	DebugOut(L"[ANIMATION] added : %s \n ", ToLPCWSTR(id));
 }
 
 LPANIMATION CAnimations::Get(string id)

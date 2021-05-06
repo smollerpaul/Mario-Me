@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -132,11 +132,13 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="GameLoad.cpp" />
+    <ClCompile Include="GhostBlock.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapLayer.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="SolidBlock.cpp" />
     <ClCompile Include="SweptAABB.cpp" />
     <ClCompile Include="tinyXML\tinystr.cpp" />
     <ClCompile Include="tinyXML\tinyxml.cpp" />
@@ -157,11 +159,13 @@
     <ClInclude Include="Animations.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="GhostBlock.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapLayer.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="SolidBlock.h" />
     <ClInclude Include="tinyXML\tinystr.h" />
     <ClInclude Include="tinyXML\tinyxml.h" />
     <ClInclude Include="Utils.h" />
@@ -183,6 +187,7 @@
     <Xml Include="Resource\Animations\OverworldMapAnim.xml" />
     <Xml Include="Resource\Animations\UiAnim.xml" />
     <Xml Include="Resource\GameData.xml" />
+    <Xml Include="Resource\Map\World1-1\objecttypes.xml" />
     <Xml Include="Resource\Scenes\demo.xml" />
     <Xml Include="Resource\Scenes\Intro.xml" />
     <Xml Include="Resource\Scenes\Overworld.xml" />
@@ -197,7 +202,8 @@
     <Xml Include="Resource\Sprites\UiDB.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resource\Map\Demo\world-1-1.png" />
+    <Image Include="Resource\Map\World1-1\Demo.png" />
+    <Image Include="Resource\Map\World1-1\world-1-1.png" />
     <Image Include="Resource\Textures\box-small.png" />
     <Image Include="Resource\Textures\box.png" />
     <Image Include="Resource\Textures\brick-debris.png" />
@@ -224,6 +230,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\Map\Demo\demo.tmx" />
+    <None Include="Resource\Map\World1-1\world-1-1-map-obj.tmx" />
+    <None Include="Resource\Map\World1-1\world-1-1-map.tmx" />
+    <None Include="Resource\Map\World1-1\world-1-1.tsx" />
     <None Include="Resource\Textures\intro.psd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

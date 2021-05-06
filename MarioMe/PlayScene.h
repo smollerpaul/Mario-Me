@@ -13,25 +13,21 @@ class GameMap;
 class CPlayScene: public CScene
 {
 protected: 
-	GameMap* map = NULL;
 	CMario *player;					// A play scene has to have player, right? 
-
-	vector<LPGAMEOBJECT> objects;
-
-	void _ParseSection_OBJECTS(string line);
-
 	
 public: 
 	CPlayScene(string id, string filePath);
 
-	virtual void Load();
-	virtual void Update(DWORD dt);
-	virtual void Render();
-	virtual void Unload();
+	virtual void Load() override;
+	virtual void Update(DWORD dt) override;
+	virtual void Render() override;
+	virtual void Unload() override;
 
-	CMario * GetPlayer() { return player; } 
+	CMario* GetPlayer();
 
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
+	virtual void LoadMapObjects(string objectName, float x, float y, float width, float height) override;
+	
 
 };

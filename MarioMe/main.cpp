@@ -18,9 +18,12 @@
 #define WINDOW_CLASS_NAME L"MARIO SUPER BROS KNOCK-OFF"
 #define MAIN_WINDOW_TITLE L"MARIO SUPER BROS KNOCK-OFF"
 
-#define BACKGROUND_COLOR	D3DCOLOR_XRGB(255, 255, 200)
-#define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 240
+#define BACKGROUND_COLOR	D3DCOLOR_XRGB(181, 235, 242)
+#define SCREEN_WIDTH_MAP 769
+#define SCREEN_HEIGHT_MAP 721
+
+#define SCREEN_WIDTH 700
+#define SCREEN_HEIGHT 480
 
 #define MAX_FRAME_RATE 120
 
@@ -48,9 +51,7 @@ void Update(DWORD dt)
 	CGame::GetInstance()->GetCurrentScene()->Update(dt);
 }
 
-/*
-	Render a frame 
-*/
+
 void Render()
 {
 	LPDIRECT3DDEVICE9 d3ddv = game->GetDirect3DDevice();
@@ -168,7 +169,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	game->Load("Resource/GameData.xml");
 
-	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH*2, SCREEN_HEIGHT*2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
 	Run();
 
