@@ -46,6 +46,11 @@ void CKoopas::InitAnimations()
 	}
 }
 
+int CKoopas::GetObjectType()
+{
+	return ObjectType;
+}
+
 void CKoopas::Render()
 {
 	InitAnimations();

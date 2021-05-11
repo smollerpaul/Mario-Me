@@ -6,6 +6,7 @@ Camera::Camera()
 {
 	x = y = 0;
 	width = height = 0;
+	player = NULL;
 }
 
 Camera::Camera(float xCam, float yCam, float w, float h)
@@ -14,6 +15,7 @@ Camera::Camera(float xCam, float yCam, float w, float h)
 	y = yCam;
 	width = w;
 	height = h;
+	player = NULL;
 }
 
 void Camera::SetPosition(float x, float y)
@@ -21,7 +23,7 @@ void Camera::SetPosition(float x, float y)
 	this->x = x;
 	this->y = y;
 }
-void Camera::SetSize(int w, int h)
+void Camera::SetSize(float w, float h)
 {
 	width = w;
 	height = h;
@@ -49,6 +51,7 @@ void Camera::SetFocusOnPlayer(CGameObject* player)
 {
 	this->player = player;
 }
+
 CGameObject* Camera::GetPlayer()
 {
 	return player;
@@ -78,6 +81,6 @@ void Camera::Update()
 
 
 	x = cx - game->GetScreenWidth() / 2;
-	y = cy - game->GetScreenHeight() / 2;
+	//y = cy - game->GetScreenHeight() / 2;
 
 }

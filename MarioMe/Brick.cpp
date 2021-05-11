@@ -21,3 +21,8 @@ void CBrick::GetBoundingBox(float &l, float &t, float &r, float &b)
 void CBrick::InitAnimations()
 {
 }
+
+int CBrick::GetObjectType()
+{
+	return ObjectType;
+}

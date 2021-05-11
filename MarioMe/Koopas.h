@@ -25,4 +25,7 @@ public:
 	CKoopas();
 	virtual void SetState(int state);
 	virtual void InitAnimations() override;
+
+	virtual int GetObjectType() override;
+	static const int ObjectType = 2;
 };

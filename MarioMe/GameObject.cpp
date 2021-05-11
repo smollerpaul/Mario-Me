@@ -13,6 +13,7 @@ CGameObject::CGameObject()
 {
 	x = y = 0;
 	vx = vy = 0;
+	gravity = 0;
 	nx = 1;	
 	state = 0;
 	dx = dy = 0;
@@ -24,7 +25,7 @@ void CGameObject::GetBoundingBox(float& left, float& top, float& right, float& b
 	left = x;
 	top = y;
 	right = x + width;
-	bottom = y + bottom;
+	bottom = y + height;
 
 }
 
@@ -40,18 +41,21 @@ void CGameObject::RenderBoundingBox()
 	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
 
-	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get("tex-test");
-
 	float l,t,r,b; 
 
 	GetBoundingBox(l, t, r, b);
-	rect.left = 0;
-	rect.top = 0;
-	rect.right = (int)r - (int)l;
-	rect.bottom = (int)b - (int)t;
+
+	rect.left = l;
+	rect.top = t;
+	rect.right = r;
+	rect.bottom = b;
 
 	CGame* game = CGame::GetInstance();
 	Camera* cam = game->GetCurrentScene()->GetCamera();
+	
+	//DebugOut(L" left %f  top  %f  right %f   bottom %f", l,t,r,b);
+
+	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get("tex-test");
 
 	game->Draw((x- cam->GetX()),( y- cam->GetY()), bbox, rect.left, rect.top, rect.right, rect.bottom, 32, flip);
 }
@@ -76,11 +80,17 @@ void CGameObject::GetSize(float& w, float& h)
 }
 
 int CGameObject:: GetState() { return this->state; }
+int CGameObject::GetObjectType()
+{
+	return 0;
+}
 void CGameObject::SetState(int state) { this->state = state; }
 
 void CGameObject::InitAnimations()
 {
 }
+
+
 
 void CGameObject::SetAnimationFlip(int nx)
 {

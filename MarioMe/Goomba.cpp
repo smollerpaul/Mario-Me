@@ -74,3 +74,8 @@ void CGoomba::InitAnimations()
 		this->animations["Walk"] = CAnimations::GetInstance()->Get("ani-goomba-walk");
 	}
 }
+
+int CGoomba::GetObjectType()
+{
+	return ObjectType;
+}

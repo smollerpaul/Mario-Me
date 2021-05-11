@@ -24,10 +24,9 @@ public:
 	float GetHeight();
 	
 	void SetPosition(float x, float y);
-	void SetSize(int w, int h);
+	void SetSize(float w, float h);
 
 	void SetFocusOnPlayer(CGameObject* player);
 	CGameObject* GetPlayer();
 
 };
-

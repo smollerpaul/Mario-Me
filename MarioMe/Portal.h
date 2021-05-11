@@ -16,5 +16,8 @@ public:
 	virtual void Render();
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 	string GetSceneId() { return scene_id;  }
+
+	virtual int GetObjectType() override;
+	static const int ObjectType = 13;
 };
 

@@ -5,7 +5,7 @@
       <Filter>Framework\Graphics\Animations</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
-      <Filter>Game\Objects\Brick</Filter>
+      <Filter>Game\MapObject\Brick</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Framework\Camera</Filter>
@@ -29,7 +29,7 @@
       <Filter>Game\Mario</Filter>
     </ClCompile>
     <ClCompile Include="Portal.cpp">
-      <Filter>Game\Objects\Portal</Filter>
+      <Filter>Game\MapObject\Portal</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Framework\Graphics\Textures</Filter>
@@ -82,13 +82,16 @@
     <ClCompile Include="GhostBlock.cpp">
       <Filter>Game\MapObject\GhostBlock</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerData.cpp">
+      <Filter>Game\PlayerData</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
       <Filter>Framework\Graphics\Animations</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
-      <Filter>Game\Objects\Brick</Filter>
+      <Filter>Game\MapObject\Brick</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Framework\Camera</Filter>
@@ -112,7 +115,7 @@
       <Filter>Game\Mario</Filter>
     </ClInclude>
     <ClInclude Include="Portal.h">
-      <Filter>Game\Objects\Portal</Filter>
+      <Filter>Game\MapObject\Portal</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
       <Filter>Framework\Graphics\Textures</Filter>
@@ -146,6 +149,9 @@
     </ClInclude>
     <ClInclude Include="GhostBlock.h">
       <Filter>Game\MapObject\GhostBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerData.h">
+      <Filter>Game\PlayerData</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -182,12 +188,6 @@
     <Filter Include="Game\Mario">
       <UniqueIdentifier>{0d5c4007-cc9b-40cb-9414-60b02b11f15f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Objects">
-      <UniqueIdentifier>{88977cd3-339e-4a65-bd79-3ffe9bcd7a95}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Objects\Brick">
-      <UniqueIdentifier>{17f5de1e-9c70-4a0f-bd4b-fc3f3a4d733d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Enemies">
       <UniqueIdentifier>{ed55107d-6aef-428c-a14f-2e5dc2cbbc6b}</UniqueIdentifier>
     </Filter>
@@ -196,9 +196,6 @@
     </Filter>
     <Filter Include="Game\Enemies\Goombas">
       <UniqueIdentifier>{ff31c1d7-4cbc-4aae-b627-ddc0213af472}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Objects\Portal">
-      <UniqueIdentifier>{2eecf0ac-7cc2-448a-8f38-269b503ee2c7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Libs">
       <UniqueIdentifier>{0c1dd5a6-be24-4f95-95e6-39291c3fc08d}</UniqueIdentifier>
@@ -262,6 +259,15 @@
     </Filter>
     <Filter Include="Game\MapObject\GhostBlock">
       <UniqueIdentifier>{8aed6746-8870-4ca0-8ed4-297094b9a2d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\MapObject\Brick">
+      <UniqueIdentifier>{17f5de1e-9c70-4a0f-bd4b-fc3f3a4d733d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\MapObject\Portal">
+      <UniqueIdentifier>{2eecf0ac-7cc2-448a-8f38-269b503ee2c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayerData">
+      <UniqueIdentifier>{d0e10311-25d3-4c2b-b752-eb62ac9440e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

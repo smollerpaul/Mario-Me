@@ -137,6 +137,7 @@
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapLayer.cpp" />
+    <ClCompile Include="PlayerData.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="SolidBlock.cpp" />
     <ClCompile Include="SweptAABB.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapLayer.h" />
+    <ClInclude Include="PlayerData.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="SolidBlock.h" />
     <ClInclude Include="tinyXML\tinystr.h" />

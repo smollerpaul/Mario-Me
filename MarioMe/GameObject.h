@@ -55,6 +55,8 @@ public:
 	float vx;
 	float vy;
 
+	float gravity;
+
 	int nx;	 
 	int flip;
 
@@ -65,22 +67,32 @@ public:
 	unordered_map<string, LPANIMATION> animations;
 
 public: 
-	void SetPosition(float x, float y);
-	void SetSpeed(float vx, float vy);
-	void SetSize(float w, float h);
+	CGameObject();
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
+	virtual void Render() = 0;
 
+	void SetPosition(float x, float y);
 	void GetPosition(float& x, float& y);
+
+	void SetSpeed(float vx, float vy);
 	void GetSpeed(float& vx, float& vy);
+
+	void SetSize(float w, float h);
 	void GetSize(float& w, float& h);
+	
+	virtual void SetState(int state);
 	int GetState();
 
-	void SetAnimationFlip(int nx);
-	//void SetAnimationSet(LPANIMATION_SET ani_set);
-	
+	virtual int GetObjectType() ;
 
+	virtual void InitAnimations();
+	void SetAnimationFlip(int nx);
+	
+	virtual void GetBoundingBox(
+		float& left, float& top, 
+		float& right, float& bottom);
 	void RenderBoundingBox();
 
-	
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT> *coObjects, vector<LPCOLLISIONEVENT> &coEvents);
 	void FilterCollision(
@@ -92,15 +104,6 @@ public:
 		float &ny, 
 		float &rdx, 
 		float &rdy);
-
-	CGameObject();
-
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) ;
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
-	virtual void Render()=0;
-	virtual void SetState(int state);
-	
-	virtual void InitAnimations();
 
 	~CGameObject();
 };

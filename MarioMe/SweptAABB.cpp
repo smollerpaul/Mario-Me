@@ -1,6 +1,6 @@
 #include "GameObject.h"
 #include "Game.h"
-#include <algorithm>
+#include "Utils.h"
 
 /*
 	Extension of original SweptAABB to deal with two moving objects
@@ -37,12 +37,7 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 	return e;
 }
 
-/*
-	Calculate potential collisions with the list of colliable objects
 
-	coObjects: the list of colliable objects
-	coEvents: list of potential collisions
-*/
 void CGameObject::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
@@ -68,6 +63,7 @@ void CGameObject::FilterCollision(
 {
 	min_tx = 1.0f;
 	min_ty = 1.0f;
+
 	int min_ix = -1;
 	int min_iy = -1;
 
@@ -81,14 +77,23 @@ void CGameObject::FilterCollision(
 		LPCOLLISIONEVENT c = coEvents[i];
 
 		if (c->t < min_tx && c->nx != 0) {
-			min_tx = c->t; nx = c->nx; min_ix = i; rdx = c->dx;
+			min_tx = c->t; 
+			nx = c->nx; 
+			min_ix = i; 
+			rdx = c->dx;
 		}
 
 		if (c->t < min_ty && c->ny != 0) {
-			min_ty = c->t; ny = c->ny; min_iy = i; rdy = c->dy;
+			min_ty = c->t; 
+			ny = c->ny; 
+			min_iy = i; 
+			rdy = c->dy;
 		}
 	}
 
-	if (min_ix >= 0) coEventsResult.push_back(coEvents[min_ix]);
-	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
+	if (min_ix >= 0) 
+		coEventsResult.push_back(coEvents[min_ix]);
+
+	if (min_iy >= 0) 
+		coEventsResult.push_back(coEvents[min_iy]);
 }

@@ -1,14 +1,13 @@
 #include "Map.h"
 #include "TinyXML/tinyxml.h"
 #include "Textures.h"
-#include <stdlib.h>
+#include "Utils.h"
 #include "Camera.h"
 #include "Game.h"
 #include "GameObject.h"
 
 GameMap* GameMap::Load(string path)
 {
-	
 	GameMap* result = new GameMap();
 	TiXmlDocument doc(path.c_str());
 
@@ -51,22 +50,31 @@ GameMap* GameMap::Load(string path)
 #pragma region ObjectLayer
 
 		for (TiXmlElement* objG = root->FirstChildElement("objectgroup"); objG != nullptr; objG = objG->NextSiblingElement("objectgroup")) {
-			for (TiXmlElement* node = objG->FirstChildElement("object"); node != nullptr; node = node->NextSiblingElement("object")) {
-				TiXmlElement* obj = objG->FirstChildElement("object");
-
+			for (TiXmlElement* obj = objG->FirstChildElement("object"); obj != nullptr; obj = obj->NextSiblingElement("object")) {
+				
+				
 				if (obj->Attribute("type") != NULL) {
-					string objType = obj->Attribute("name");
+					string objName= objG->Attribute("name");
+					
+					if (objName.compare("MapObjects") == 0) {
 
-					if (objType.compare("MapObjects") == 0) {
-						string objName = obj->Attribute("name");
-						float x, y, objWidth, objHeight;
+						string objType = obj->Attribute("type");
+						float x = 0,  y = 0;
+						float objWidth = 0, objHeight = 0;
+						
+						if( obj->Attribute("x")!=NULL)
+							obj->QueryFloatAttribute("x", &x);
 
-						obj->QueryFloatAttribute("x", &x);
-						obj->QueryFloatAttribute("y", &y);
-						obj->QueryFloatAttribute("width", &objWidth);
-						obj->QueryFloatAttribute("height", &objHeight);
+						if (obj->Attribute("y") != NULL)
+							obj->QueryFloatAttribute("y", &y);
 
-						CGame::GetInstance()->GetCurrentScene()->LoadMapObjects(objName,x, y, objWidth, objHeight);
+						if (obj->Attribute("width") != NULL)
+							obj->QueryFloatAttribute("width", &objWidth);
+
+						if (obj->Attribute("height") != NULL)
+							obj->QueryFloatAttribute("height", &objHeight);
+
+						CGame::GetInstance()->GetCurrentScene()->LoadMapObjects(objType,x, y, objWidth, objHeight);
 					}
 				}
 
@@ -116,7 +124,6 @@ GameMap::GameMap()
 {
 	int firstgid = columns = tileWidth = tileHeight = 0;
 	tileImage = NULL;
-
 	int width= height = 0;
 }
 

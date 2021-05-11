@@ -71,7 +71,7 @@ void CGame::LoadSprites(TiXmlElement* gameResources) {
 					sprite->QueryIntAttribute("width", &width);
 					sprite->QueryIntAttribute("height", &height);
 
-					CSprites::GetInstance()->Add(spriteId, left, top, left + width, top + height, texture);
+					CSprites::GetInstance()->Add(spriteId, left*3, top*3, (left + width)*3, (top + height)*3, texture);
 				}
 			}
 		}

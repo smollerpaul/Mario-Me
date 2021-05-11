@@ -16,3 +16,8 @@ void GhostBlock::Render()
 {
 }
 
+int GhostBlock::GetObjectType()
+{
+	return ObjectType;
+}
+

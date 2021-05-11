@@ -12,6 +12,22 @@ SolidBlock::SolidBlock(float x, float y): CGameObject()
 	this->y = y;
 }
 
+float SolidBlock::GetX()
+{
+	return x;
+}
+
+float SolidBlock::GetY()
+{
+	return y;
+}
+
+
 void SolidBlock::Render()
 {
+}
+
+int SolidBlock::GetObjectType()
+{
+	return ObjectType;
 }

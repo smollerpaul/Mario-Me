@@ -22,3 +22,8 @@ void CPortal::GetBoundingBox(float &l, float &t, float &r, float &b)
 	r = x + width;
 	b = y + height;
 }
+
+int CPortal::GetObjectType()
+{
+	return ObjectType;
+}

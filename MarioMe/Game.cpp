@@ -80,7 +80,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	r.right = right;
 	r.bottom = bottom;
 
-	//D3DXVECTOR3 p(x, y, 0);
+	//D3DXVECTOR3 leftCorner(x, y, 0);
 
 	D3DXVECTOR3 center(x, y, 0);
 

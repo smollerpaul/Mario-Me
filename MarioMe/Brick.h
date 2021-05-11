@@ -10,4 +10,7 @@ public:
 	virtual void Render();
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 	virtual void InitAnimations() override;
+
+	virtual int GetObjectType() override;
+	static const int ObjectType = 10;
 };

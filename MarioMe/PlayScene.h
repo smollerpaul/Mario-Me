@@ -13,7 +13,7 @@ class GameMap;
 class CPlayScene: public CScene
 {
 protected: 
-	CMario *player;					// A play scene has to have player, right? 
+	CMario *player;				
 	
 public: 
 	CPlayScene(string id, string filePath);
