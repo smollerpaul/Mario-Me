@@ -79,6 +79,9 @@ public:
 
 	void SetSize(float w, float h);
 	void GetSize(float& w, float& h);
+
+	void SetDirection(int nx);
+	int GetDirection();
 	
 	virtual void SetState(int state);
 	int GetState();
@@ -86,7 +89,8 @@ public:
 	virtual int GetObjectType() ;
 
 	virtual void InitAnimations();
-	void SetAnimationFlip(int nx);
+
+	void SetFlipOnNormal(int nx);
 	
 	virtual void GetBoundingBox(
 		float& left, float& top, 

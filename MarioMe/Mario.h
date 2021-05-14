@@ -29,34 +29,44 @@
 
 #define MARIO_RUN_ACCELERATION		0.0003613f
 #define MARIO_WALK_ACCELERATION		0.000376f
+#define MARIO_SKID_ACCELERATION		0.001104f
 
-#define MARIO_WALK_DRAG_FORCE		0.0014306f;
-#define MARIO_RUN_DRAG_FORCE		0.0016366f;
-#define MARIO_CROUCH_DRAG_FORCE 	0.0008766f;
+#define MARIO_MIN_JUMP_HEIGHT		80
+#define MARIO_JUMP_HEIGHT			97
+
+#define MARIO_WALK_DRAG_FORCE		0.0014306f
+#define MARIO_RUN_DRAG_FORCE		0.0016366f
+#define MARIO_CROUCH_DRAG_FORCE 	0.0008766f
 
 #define MARIO_GRAVITY				0.002f
 
-#define MARIO_JUMP_SPEED_Y		0.5f
-#define MARIO_JUMP_DEFLECT_SPEED 0.2F
-#define MARIO_GROUND_SUPPORT	0.002f
-#define MARIO_DIE_DEFLECT_SPEED	 0.5f
+#define MARIO_JUMP_PUSH				0.0432f
+#define MARIO_JUMP_DEFLECT_SPEED	0.2f
+#define MARIO_DIE_DEFLECT_SPEED		0.5f
 
 #define MARIO_STATE_IDLE			0
 #define MARIO_STATE_WALK			100
 #define MARIO_STATE_RUN				200
-#define MARIO_STATE_JUMP			300
+#define MARIO_STATE_RUN_HIGH_SPEED	300
+
 #define MARIO_STATE_DIE				400
 #define MARIO_STATE_CROUCH			500
 
-#define MARIO_ANI_DIE				8
+#define MARIO_STATE_JUMP			600
+#define MARIO_STATE_JUMP_HIGH		700
+#define MARIO_STATE_JUMP_FALL		800
+
+
+
+
 
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
 
-#define MARIO_BIG_BBOX_WIDTH  45
-#define MARIO_BIG_BBOX_HEIGHT 81
+#define MARIO_BIG_BBOX_WIDTH	45
+#define MARIO_BIG_BBOX_HEIGHT	81
 
-#define MARIO_CROUCH_SUBSTRACT 26
+#define MARIO_CROUCH_SUBSTRACT	 26
 
 #define MARIO_SMALL_BBOX_WIDTH  13
 #define MARIO_SMALL_BBOX_HEIGHT 15
@@ -64,10 +74,14 @@
 #define MARIO_UNTOUCHABLE_TIME 5000
 
 class Camera;
+
 class CMario : public CGameObject
 {
 	int level;
 	int untouchable;
+
+	int skid = 0;
+	int highSpeed = 0;
 
 	bool isOnGround = true;
 
@@ -75,6 +89,12 @@ class CMario : public CGameObject
 
 	float start_x = 0;
 	float start_y = 0;
+
+	float accelerate_x = 0;
+	float accelerate_y = 0;
+
+	int lastKeyDirection = 0;
+
 public: 
 	CMario();
 	
@@ -93,6 +113,10 @@ public:
 
 	void SetState(int state);
 
+	void SetSkid(int skid);
+	int GetSkid();
+	
+	void SetIsOnGround(bool onGround);
 	bool GetIsOnGround();
 	
 	void SetLevel(int l) { level = l; }

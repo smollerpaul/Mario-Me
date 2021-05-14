@@ -80,11 +80,21 @@ void CGameObject::GetSize(float& w, float& h)
 }
 
 int CGameObject:: GetState() { return this->state; }
+
 int CGameObject::GetObjectType()
 {
 	return 0;
 }
 void CGameObject::SetState(int state) { this->state = state; }
+
+void CGameObject::SetDirection(int nx)
+{
+	this->nx = nx;
+}
+int CGameObject::GetDirection()
+{
+	return this->nx;
+}
 
 void CGameObject::InitAnimations()
 {
@@ -92,7 +102,7 @@ void CGameObject::InitAnimations()
 
 
 
-void CGameObject::SetAnimationFlip(int nx)
+void CGameObject::SetFlipOnNormal(int nx)
 {
 	if (nx > 0) {
 		flip = 1;

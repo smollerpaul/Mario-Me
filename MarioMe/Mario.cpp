@@ -82,7 +82,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
 	BehaviorUpdate(dt, coEventsResult);
 
-	
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++)
 		delete coEvents[i];	
@@ -92,80 +91,145 @@ void CMario::MovementUpdate(DWORD dt)
 {
 	ResetFlip();
 	Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
-	
+
 	CGameObject::Update(dt);
+
+	if (state == MARIO_STATE_JUMP) {
+		if (GetIsOnGround()) {
+			SetState(MARIO_STATE_IDLE);
+		}
+
+		if (keyboard->IsKeyDown(DIK_S)) {
+
+		}
+	}
 
 	/*	dang run, walk -> cant crouch
 		dang idle -> can crouch
-		dang crouch -> can run, walk 
-	*/ 
+		dang crouch -> can run, walk
+	*/
 
-	if(keyboard->IsKeyDown(DIK_DOWN)) {
-		if (state != MARIO_STATE_WALK && state != MARIO_STATE_RUN && state != MARIO_STATE_CROUCH) 
+	if (keyboard->IsKeyDown(DIK_DOWN)) {
+		if (state != MARIO_STATE_WALK && state != MARIO_STATE_RUN && state != MARIO_STATE_CROUCH)
 			SetState(MARIO_STATE_CROUCH);
 
 		if (state == MARIO_STATE_CROUCH) {
-			DebugOut(L"IM HEREEEEEEEEEEE here\n");
 			if (vx != 0)
 				vx = 0;
 
 			SetSize(MARIO_BIG_BBOX_WIDTH, MARIO_BIG_BBOX_HEIGHT - MARIO_CROUCH_SUBSTRACT);
-			
 		}
 	}
 
 	if (keyboard->IsKeyDown(DIK_RIGHT) || keyboard->IsKeyDown(DIK_LEFT)) {
-		
-		nx = keyboard->IsKeyDown(DIK_RIGHT) ? 1 : -1;
+		int direction = 0;
+
+		direction = lastKeyDirection;
+
+		//get up from crouch to walk
+		if (state == MARIO_STATE_CROUCH) {
+			float currentX, currentY;
+			GetPosition(currentX, currentY);
+
+			SetPosition(currentX, currentY - MARIO_CROUCH_SUBSTRACT);
+			SetSize(MARIO_BIG_BBOX_WIDTH, MARIO_BIG_BBOX_HEIGHT);
+		}
 
 		if (isOnGround) {
-
-			if (state == MARIO_STATE_CROUCH) {
-				float currentX, currentY;
-				GetPosition(currentX, currentY);
-
-				SetPosition(currentX, currentY - 2 * MARIO_CROUCH_SUBSTRACT);
-				SetSize(MARIO_BIG_BBOX_WIDTH, MARIO_BIG_BBOX_HEIGHT);
-			}
-			if (state!= MARIO_STATE_WALK) {
+			if (state != MARIO_STATE_WALK)
 				SetState(MARIO_STATE_WALK);
-				//vx = nx * MARIO_WALK_ACCELERATION;
-			}
-			
-			if (state == MARIO_STATE_WALK) {
-				vx += nx* MARIO_WALK_ACCELERATION * dt;
-
-				if (vx >= MARIO_WALK_SPEED || vx <= -MARIO_WALK_SPEED) {
-					vx = nx * MARIO_WALK_SPEED;
-				}
-			}
-
-			if (keyboard->IsKeyDown((DIK_A))) {
-				if (state != MARIO_STATE_RUN) {
-					SetState(MARIO_STATE_RUN);
-				}
-					//nx == 1 ? vx += MARIO_RUN_ACCELERATION * dt : vx -= MARIO_RUN_ACCELERATION * dt;
-
-					//if (vx >= MARIO_RUN_SPEED || vx <= -MARIO_RUN_SPEED) {
-						vx = nx * MARIO_RUN_SPEED;
-					//}
-				
-			}
-
-			
-			/*if (state == MARIO_STATE_WALK) {
-				nx = 1 ? vx += MARIO_WALK_ACCELERATION : vx -= -MARIO_WALK_ACCELERATION;
-
-				if (vx >= MARIO_RUN_SPEED || vx <= -MARIO_RUN_SPEED) {
-					SetState(MARIO_STATE_RUN);
-					vx = nx * MARIO_RUN_SPEED;
-				}
-			}*/
 		}
-	}
-	
 
-	DebugOut(L"[MARIO SPEED]:  posX: %f, posY: %f, width: %f, height: %f\n", x, y,width, height);
+		float maxSpeed = MARIO_WALK_SPEED;
+		accelerate_x = direction * MARIO_WALK_ACCELERATION;
+
+		if (keyboard->IsKeyDown((DIK_A))) {
+			if (state != MARIO_STATE_RUN) {
+				SetState(MARIO_STATE_RUN);
+			}
+				
+
+			maxSpeed = MARIO_RUN_SPEED;
+			accelerate_x = direction * MARIO_RUN_ACCELERATION;
+		}
+
+		//skid when direction is against vx
+		if (vx * direction < 0 && GetIsOnGround() != 0) {
+			SetSkid(1);
+			accelerate_x = direction * MARIO_SKID_ACCELERATION;
+
+			if (keyboard->IsKeyDown(DIK_A)) {
+				accelerate_x = 2 * direction * MARIO_SKID_ACCELERATION;
+			}
+
+			if (!GetIsOnGround()) {
+				accelerate_x = MARIO_SKID_ACCELERATION * direction * 2;
+			}
+		}
+
+		vx += accelerate_x * dt;
+
+		
+		if (abs(vx) >= maxSpeed) {
+			vx = direction * maxSpeed;
+		}
+		
+		if (vx * direction >= 0) {
+			SetSkid(0);
+		}
+
+		SetDirection(direction);
+	}
+
+	/*if (GetSkid() == 1) {
+		if (abs(vx) >= maxSpeed) {
+			vx = direction * maxSpeed;
+		}
+		else {
+			float dragForce;
+			int dragForceDir = (vx > 0) ? -1 : 1;
+
+			dragForce = dragForceDir * MARIO_WALK_DRAG_FORCE;
+
+			if (keyboard->IsKeyDown(DIK_A)) {
+				dragForce = dragForceDir * MARIO_RUN_DRAG_FORCE;
+			}
+			vx -= dt * dragForce;
+		}
+	}*/
+
+
+#pragma region JUMP
+
+	//if (GetIsOnGround() == false && state == MARIO_STATE_JUMP) {
+	//	vy -= MARIO_JUMP_PUSH * dt;
+
+	//	if (this->y == MARIO_MIN_JUMP_HEIGHT) {
+	//		//neu mario height dung min -> cho no max
+	//		if (keyboard->IsKeyDown(DIK_S)) {
+	//			if (state != MARIO_STATE_JUMP_HIGH)
+	//				SetState(MARIO_STATE_JUMP_HIGH);
+
+	//			//set dieu kien de no flinch a bit
+
+	//			vy += (MARIO_JUMP_PUSH * dt)/10;
+
+	//			//neu mario height dung max -> cho no fall, khi fall
+	//			if (this->y == MARIO_JUMP_HEIGHT) {
+	//				DebugOut(L"FALLLLLLLLLLLLLLLLLLLLLLLLLLLL\n");
+
+	//				SetState(MARIO_STATE_JUMP_FALL);
+
+
+	// co giu S, cham dat -> idle ok
+	// du co giu S, khi cham dat van -> idle
+	
+#pragma endregion
+
+	DebugOut(L"[state]: %d , [face]: %d \n", state,nx);
+	//DebugOut(L"[state]: %d  [vy]: %f   [y]: %f   \n", state, vy,y);
+	//DebugOut(L"[MARIO SPEED]:  vx: %f, SKID %d, STATE %d \n", vx, skid,state );
+	//(L"[MARIO SPEED]:  posX: %f, posY: %f, vx: %f, vy: %f\n", x, y, vx, vy);
 }
 
 void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, 
@@ -178,7 +242,6 @@ void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// No collision occured, proceed normally
-	// k co su kien va cham nao <=> k cham gi ca <=> coEvents#size = 0
 	if (coEvents.size() == 0)
 	{
 		x += dx;
@@ -204,9 +267,8 @@ void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 		if (nx != 0) vx = 0;
 		if (ny != 0) vy = 0;
 
-		isOnGround = true;
+		SetIsOnGround(true);
 	}
-	
 }
 
 void CMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
@@ -275,24 +337,43 @@ void CMario::Render()
 	
 	CAnimation* ani = this->animations["Idle"];
 
-	CGameObject::SetAnimationFlip(nx);
+	CGameObject::SetFlipOnNormal(nx);
 
 		if (level == MARIO_LEVEL_BIG)
 		{
-			switch (this->state) {
+		switch (this->state) {
 			case MARIO_STATE_IDLE:
 				ani = this->animations["Idle"];
 				break;
 
 			case MARIO_STATE_WALK:
-				ani = this->animations["Walk"];
+				if (GetSkid() != 0) {
+					ani = this->animations["Skid"];
+				}
+				else {
+					ani = this->animations["Walk"];
+				}
 				break;
 
 			case MARIO_STATE_RUN:
+				if (GetSkid() != 0) {
+					ani = this->animations["Skid"];
+				}
+				else {
+					ani = this->animations["HighSpeed"];
+				}
+				break;
+
+			case MARIO_STATE_RUN_HIGH_SPEED:
 				ani = this->animations["HighSpeed"];
 				break;
+
 			case MARIO_STATE_CROUCH:
 				ani = this->animations["Crouch"];
+				break;
+
+			case MARIO_STATE_JUMP:
+				ani = this->animations["Jump"];
 				break;
 			}
 			
@@ -309,7 +390,6 @@ void CMario::Render()
 	RenderBoundingBox();
 	/*DebugOut(L"aniiiiiiiiiiiiiiiiiiii of mario : %s\n" );*/
 
-	//DebugOut(L"ssssssssssssssssssssssize of mario : w  %f, h  %f\n", width, height);
 }
 
 void CMario::SetState(int state)
@@ -318,10 +398,6 @@ void CMario::SetState(int state)
 
 	switch (state)
 	{
-	case MARIO_STATE_JUMP:
-		// TODO: need to check if Mario is *current* on a platform before allowing to jump again
-		vy = -MARIO_JUMP_SPEED_Y;
-		break;
 	case MARIO_STATE_IDLE:
 		vx = 0;
 		break;
@@ -332,43 +408,80 @@ void CMario::SetState(int state)
 }
 
 
+void CMario::SetSkid(int skid)
+{
+	this->skid = skid;
+}
+
+int CMario::GetSkid()
+{
+	return this->skid;
+}
+
+
 void CMario::OnKeyUp(int keyCode)
 {
 	if (state == MARIO_STATE_CROUCH) {
 		float currentX, currentY;
 		GetPosition(currentX, currentY);
 
-		SetPosition(currentX, currentY - MARIO_CROUCH_SUBSTRACT);
+		SetPosition(currentX, currentY -  MARIO_CROUCH_SUBSTRACT);
 		SetSize(MARIO_BIG_BBOX_WIDTH, MARIO_BIG_BBOX_HEIGHT);
 
 	}	
 
-	if (state != MARIO_STATE_IDLE)
+	if (GetIsOnGround() == true && state!=MARIO_STATE_IDLE) {
 		SetState(MARIO_STATE_IDLE);
+	}
 }
 
 void CMario::OnKeyDown(int keyCode)
 {
+
+	// xet both cases so they will have a direction to adhere to
+	if (keyCode == DIK_RIGHT) {
+		lastKeyDirection = 1;
+	}
+	else if (keyCode == DIK_LEFT) {
+		lastKeyDirection = -1;
+	}
+
+	DebugOut(L"last key direct in OnKeyDown(): %d  \n", lastKeyDirection);
+	
 	switch (keyCode)
 	{
-	case DIK_SPACE:
-		SetState(MARIO_STATE_JUMP);
+		case DIK_SPACE: {
+			SetState(MARIO_STATE_JUMP);
+		}
 		break;
-		/*case DIK_A:
-			Reset();
-			break;*/
 
-	case DIK_DOWN:
-	{
-		DebugOut(L"Get in here\n");
-		float currentX, currentY;
-		GetPosition(currentX, currentY);
-		SetPosition(currentX, currentY + MARIO_CROUCH_SUBSTRACT);
+		case DIK_DOWN: {
+			float currentX, currentY;
+			GetPosition(currentX, currentY);
+			SetPosition(currentX, currentY + MARIO_CROUCH_SUBSTRACT);
 
-		SetState(MARIO_STATE_CROUCH);
-	}
-	break;
+			SetState(MARIO_STATE_CROUCH);
+		}
+		break;
 
+		case DIK_X: {
+			if (state != MARIO_STATE_JUMP) {
+				SetState(MARIO_STATE_JUMP);
+				SetIsOnGround(false);
+				vy = -MARIO_JUMP_PUSH * dt;
+			}
+		}
+		break;
+
+		case DIK_S: {
+			if (state != MARIO_STATE_JUMP) {
+				SetState(MARIO_STATE_JUMP);
+				SetIsOnGround(false);
+				vy = -MARIO_JUMP_PUSH * dt;
+				DebugOut(L" S pressed\n");
+			}
+		}
+		break;
 	}
 }
 
@@ -389,6 +502,7 @@ void CMario::Reset()
 	ResetFlip();
 }
 
+
 void CMario::ResetFlip()
 {
 	if (flip != 1)
@@ -396,6 +510,11 @@ void CMario::ResetFlip()
 }
 
 
+
+void CMario::SetIsOnGround(bool onGround)
+{
+	this->isOnGround = onGround;
+}
 
 bool CMario::GetIsOnGround()
 {
