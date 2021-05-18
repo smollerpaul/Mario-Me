@@ -60,6 +60,8 @@ void CMario::InitAnimations()
 		this->animations["TeleVer"] = CAnimations::GetInstance()->Get("ani-big-mario-idle-front");
 		this->animations["TeleHor"] = CAnimations::GetInstance()->Get("ani-big-mario-walk");
 
+		this->animations["Spin"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-spin");
+
 		DebugOut(L"done init ani\n");
 	}
 }
@@ -79,6 +81,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	
 	MovementUpdate(dt);
+	JumpUpdate(dt);
 	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
 	BehaviorUpdate(dt, coEventsResult);
 
@@ -94,23 +97,9 @@ void CMario::MovementUpdate(DWORD dt)
 
 	CGameObject::Update(dt);
 
-	if (state == MARIO_STATE_JUMP) {
-		if (GetIsOnGround()) {
-			SetState(MARIO_STATE_IDLE);
-		}
-
-		if (keyboard->IsKeyDown(DIK_S)) {
-
-		}
-	}
-
-	/*	dang run, walk -> cant crouch
-		dang idle -> can crouch
-		dang crouch -> can run, walk
-	*/
-
+#pragma region DOWN
 	if (keyboard->IsKeyDown(DIK_DOWN)) {
-		if (state != MARIO_STATE_WALK && state != MARIO_STATE_RUN && state != MARIO_STATE_CROUCH)
+		if (state != MARIO_STATE_WALK && state != MARIO_STATE_RUN && state != MARIO_STATE_CROUCH )
 			SetState(MARIO_STATE_CROUCH);
 
 		if (state == MARIO_STATE_CROUCH) {
@@ -120,12 +109,14 @@ void CMario::MovementUpdate(DWORD dt)
 			SetSize(MARIO_BIG_BBOX_WIDTH, MARIO_BIG_BBOX_HEIGHT - MARIO_CROUCH_SUBSTRACT);
 		}
 	}
+#pragma endregion
 
+#pragma region RIGHT LEFT
 	if (keyboard->IsKeyDown(DIK_RIGHT) || keyboard->IsKeyDown(DIK_LEFT)) {
 		int direction = 0;
 
-		direction = lastKeyDirection;
-
+		direction = finalKeyDirection;
+		
 		//get up from crouch to walk
 		if (state == MARIO_STATE_CROUCH) {
 			float currentX, currentY;
@@ -136,22 +127,26 @@ void CMario::MovementUpdate(DWORD dt)
 		}
 
 		if (isOnGround) {
-			if (state != MARIO_STATE_WALK)
+			if (state != MARIO_STATE_WALK) {
+				DebugOut(L"vo day walk\n");
 				SetState(MARIO_STATE_WALK);
+			}
 		}
 
 		float maxSpeed = MARIO_WALK_SPEED;
 		accelerate_x = direction * MARIO_WALK_ACCELERATION;
 
 		if (keyboard->IsKeyDown((DIK_A))) {
+
 			if (state != MARIO_STATE_RUN) {
+				DebugOut(L"vo day run\n");
 				SetState(MARIO_STATE_RUN);
 			}
-				
 
 			maxSpeed = MARIO_RUN_SPEED;
 			accelerate_x = direction * MARIO_RUN_ACCELERATION;
 		}
+		
 
 		//skid when direction is against vx
 		if (vx * direction < 0 && GetIsOnGround() != 0) {
@@ -169,67 +164,112 @@ void CMario::MovementUpdate(DWORD dt)
 
 		vx += accelerate_x * dt;
 
+		// when mario maxes out maxSpeed, slowly reduce to maxSpeed for smooth UX
 		
 		if (abs(vx) >= maxSpeed) {
 			vx = direction * maxSpeed;
 		}
-		
+
 		if (vx * direction >= 0) {
 			SetSkid(0);
 		}
 
 		SetDirection(direction);
 	}
+	else {
+		//still goes in here everytime
+		SetSkid(0);
 
-	/*if (GetSkid() == 1) {
-		if (abs(vx) >= maxSpeed) {
-			vx = direction * maxSpeed;
+		// slow down to reach vx=0 (stop)
+		if (abs(vx) > MARIO_WALK_FRICTION * dt) {
+			int speedDirection = (vx > 0) ? 1 : -1;
+			vx -= speedDirection * MARIO_WALK_FRICTION * dt;
 		}
 		else {
-			float dragForce;
-			int dragForceDir = (vx > 0) ? -1 : 1;
-
-			dragForce = dragForceDir * MARIO_WALK_DRAG_FORCE;
-
-			if (keyboard->IsKeyDown(DIK_A)) {
-				dragForce = dragForceDir * MARIO_RUN_DRAG_FORCE;
+			vx = 0;
+			// not crouch and on ground -> can only be idle	
+			if (state != MARIO_STATE_CROUCH && GetIsOnGround() == true) {
+				SetState(MARIO_STATE_IDLE);
 			}
-			vx -= dt * dragForce;
 		}
-	}*/
+	}
 
-
-#pragma region JUMP
-
-	//if (GetIsOnGround() == false && state == MARIO_STATE_JUMP) {
-	//	vy -= MARIO_JUMP_PUSH * dt;
-
-	//	if (this->y == MARIO_MIN_JUMP_HEIGHT) {
-	//		//neu mario height dung min -> cho no max
-	//		if (keyboard->IsKeyDown(DIK_S)) {
-	//			if (state != MARIO_STATE_JUMP_HIGH)
-	//				SetState(MARIO_STATE_JUMP_HIGH);
-
-	//			//set dieu kien de no flinch a bit
-
-	//			vy += (MARIO_JUMP_PUSH * dt)/10;
-
-	//			//neu mario height dung max -> cho no fall, khi fall
-	//			if (this->y == MARIO_JUMP_HEIGHT) {
-	//				DebugOut(L"FALLLLLLLLLLLLLLLLLLLLLLLLLLLL\n");
-
-	//				SetState(MARIO_STATE_JUMP_FALL);
-
-
-	// co giu S, cham dat -> idle ok
-	// du co giu S, khi cham dat van -> idle
+	// set normal friction (walk friction)
+	if (state != MARIO_STATE_CROUCH) {
+		if (state == MARIO_STATE_RUN) {
+			SetFriction(MARIO_RUN_FRICTION);
+		}
+		else {
+			SetFriction(MARIO_WALK_FRICTION);
+		}
+	}
+	// not onGround -> no friction
+	if (GetIsOnGround() == false) {
+		SetFriction(0);
+	}
 	
 #pragma endregion
 
-	DebugOut(L"[state]: %d , [face]: %d \n", state,nx);
-	//DebugOut(L"[state]: %d  [vy]: %f   [y]: %f   \n", state, vy,y);
-	//DebugOut(L"[MARIO SPEED]:  vx: %f, SKID %d, STATE %d \n", vx, skid,state );
-	//(L"[MARIO SPEED]:  posX: %f, posY: %f, vx: %f, vy: %f\n", x, y, vx, vy);
+#pragma region JUMP
+	
+}
+
+void CMario::JumpUpdate(DWORD dt)
+{
+	//bi nhay giua giua bouncy bounce mixed state
+	Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
+
+	float height = 0;
+	if (state == MARIO_STATE_JUMP_FALL) {
+		if (GetIsOnGround() == true) {
+			SetState(MARIO_STATE_IDLE);
+			vy = MARIO_GRAVITY * dt;
+			DebugOut(L" cuz it will never get into ground when.. falling lol \n");
+		}
+		
+	}
+
+	// set high jump
+	if (state == MARIO_STATE_JUMP || state == MARIO_STATE_JUMP_HIGH || state == MARIO_STATE_JUMP_FALL) {
+		height = abs(jumpStartPosition - y - vy * dt);
+	}
+
+	if (state != MARIO_STATE_JUMP_FALL) {
+		// height < small fall point but is jumping
+		if (height < MARIO_JUMP_FALL_POINT && height != 0) {
+			vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * dt;
+		}
+
+		if (height > MARIO_BEGIN_HIGH_JUMP_HEIGHT && state== MARIO_STATE_JUMP) {
+			if (state != MARIO_STATE_JUMP_HIGH)
+				SetState(MARIO_STATE_JUMP_HIGH);
+		}
+
+		// if still holding S and pass fall point but not yet begin high jump point
+		if (height > MARIO_JUMP_FALL_POINT && height < MARIO_BEGIN_HIGH_JUMP_HEIGHT) {
+			if (keyboard->IsKeyDown(DIK_S)) {
+				// if still holding S 
+				vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * dt;
+			}
+			else {// fall ( because normal jump)
+				vy = -MARIO_JUMP_PUSH / 2;
+				SetState(MARIO_STATE_JUMP_FALL);
+			}
+		}
+
+		// not high fall point yet
+		if (state == MARIO_STATE_JUMP_HIGH && height < MARIO_HIGH_JUMP_FALL_POINT) {
+			vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * dt;
+		}
+		else if (height > MARIO_HIGH_JUMP_FALL_POINT) {
+			vy = -MARIO_JUMP_PUSH / 2;
+			SetState(MARIO_STATE_JUMP_FALL);
+		}
+	}
+	// still gets it but smoother  andddd  xử lý vụ đang rớt cái bấm S nữa, hơi sai
+	
+	
+	DebugOut(L"STATE %d , height: %f, y: %f, vy: %f \n", state,height,y,vy);
 }
 
 void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, 
@@ -330,7 +370,6 @@ void CMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 	}
 }
 
-
 void CMario::Render()
 {
 	InitAnimations();
@@ -343,6 +382,10 @@ void CMario::Render()
 		{
 		switch (this->state) {
 			case MARIO_STATE_IDLE:
+				ani = this->animations["Idle"];
+				break;
+
+			case MARIO_STATE_JUMP_IDLE:
 				ani = this->animations["Idle"];
 				break;
 
@@ -374,6 +417,14 @@ void CMario::Render()
 
 			case MARIO_STATE_JUMP:
 				ani = this->animations["Jump"];
+				break;
+
+			case MARIO_STATE_JUMP_HIGH:
+				ani = this->animations["Jump"];
+				break;
+
+			case MARIO_STATE_JUMP_FALL:
+				ani = this->animations["Fall"];
 				break;
 			}
 			
@@ -407,89 +458,83 @@ void CMario::SetState(int state)
 	}
 }
 
-
-void CMario::SetSkid(int skid)
-{
-	this->skid = skid;
-}
-
-int CMario::GetSkid()
-{
-	return this->skid;
-}
-
-
 void CMario::OnKeyUp(int keyCode)
 {
 	if (state == MARIO_STATE_CROUCH) {
+		DebugOut(L"OnKeyUp ma dang state CROUCH nè, tới đây phải update lại bb với state \n");
+		
 		float currentX, currentY;
 		GetPosition(currentX, currentY);
 
-		SetPosition(currentX, currentY -  MARIO_CROUCH_SUBSTRACT);
+		SetPosition(currentX, currentY - MARIO_CROUCH_SUBSTRACT);
 		SetSize(MARIO_BIG_BBOX_WIDTH, MARIO_BIG_BBOX_HEIGHT);
+
+		SetState(MARIO_STATE_IDLE);
 
 	}	
 
-	if (GetIsOnGround() == true && state!=MARIO_STATE_IDLE) {
-		SetState(MARIO_STATE_IDLE);
+	if (keyCode == DIK_S) {
+		if (GetIsOnGround() == true && state == MARIO_STATE_JUMP) {
+			SetState(MARIO_STATE_IDLE);
+		}
+		else SetState(MARIO_STATE_JUMP);
 	}
+	
 }
-
 void CMario::OnKeyDown(int keyCode)
 {
-
-	// xet both cases so they will have a direction to adhere to
-	if (keyCode == DIK_RIGHT) {
-		lastKeyDirection = 1;
-	}
-	else if (keyCode == DIK_LEFT) {
-		lastKeyDirection = -1;
-	}
-
-	DebugOut(L"last key direct in OnKeyDown(): %d  \n", lastKeyDirection);
-	
 	switch (keyCode)
 	{
-		case DIK_SPACE: {
-			SetState(MARIO_STATE_JUMP);
-		}
-		break;
-
 		case DIK_DOWN: {
 			float currentX, currentY;
 			GetPosition(currentX, currentY);
 			SetPosition(currentX, currentY + MARIO_CROUCH_SUBSTRACT);
 
 			SetState(MARIO_STATE_CROUCH);
+			SetFriction(MARIO_CROUCH_FRICTION);
 		}
 		break;
 
 		case DIK_X: {
-			if (state != MARIO_STATE_JUMP) {
+			if (state != MARIO_STATE_JUMP && state != MARIO_STATE_JUMP_FALL) {
 				SetState(MARIO_STATE_JUMP);
 				SetIsOnGround(false);
-				vy = -MARIO_JUMP_PUSH * dt;
+				GetPosY(jumpStartPosition);
+				vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * dt;
 			}
 		}
 		break;
 
 		case DIK_S: {
-			if (state != MARIO_STATE_JUMP) {
+			if (state != MARIO_STATE_JUMP && state!= MARIO_STATE_JUMP_FALL && GetIsOnGround()==true) {
 				SetState(MARIO_STATE_JUMP);
 				SetIsOnGround(false);
-				vy = -MARIO_JUMP_PUSH * dt;
-				DebugOut(L" S pressed\n");
+				GetPosY(jumpStartPosition);
+				vy = - MARIO_JUMP_PUSH - MARIO_GRAVITY * dt;
+				DebugOut(L"onKeyDown S nè\n");
 			}
 		}
 		break;
+
+		case DIK_A: {
+			if (state == MARIO_STATE_WALK) {
+				// prevent speed flickering when switching walk> run > walk .. everytime 
+				SetState(MARIO_STATE_RUN);
+				DebugOut(L" start run o onkeydown\n");
+			}
+		}
+		break;
+
+		case DIK_RIGHT: {
+			finalKeyDirection = 1;
+		}
+		break;
+
+		case DIK_LEFT: {
+			finalKeyDirection = -1;
+		}
+		break;
 	}
-}
-
-
-void CMario::ResetUntouchable()
-{
-	untouchable = 0; 
-	untouchable_start = 0;
 }
 
 void CMario::Reset()
@@ -501,21 +546,16 @@ void CMario::Reset()
 	ResetUntouchable();
 	ResetFlip();
 }
-
-
 void CMario::ResetFlip()
 {
 	if (flip != 1)
 		flip = 1;
 }
 
-
-
 void CMario::SetIsOnGround(bool onGround)
 {
 	this->isOnGround = onGround;
 }
-
 bool CMario::GetIsOnGround()
 {
 	return isOnGround;
@@ -526,5 +566,26 @@ void CMario::StartUntouchable()
 	untouchable = 1;
 	untouchable_start = GetTickCount64();
 }
+void CMario::ResetUntouchable()
+{
+	untouchable = 0;
+	untouchable_start = 0;
+}
 
+void CMario::SetSkid(int skid)
+{
+	this->skid = skid;
+}
+int CMario::GetSkid()
+{
+	return this->skid;
+}
 
+void CMario::SetFriction(float friction)
+{
+	this->friction_x = friction;
+}
+int CMario::GetFriction()
+{
+	return this->friction_x;
+}

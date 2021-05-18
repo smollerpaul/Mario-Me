@@ -74,6 +74,9 @@ public:
 	void SetPosition(float x, float y);
 	void GetPosition(float& x, float& y);
 
+	void GetPosX(float& x);
+	void GetPosY(float& y);
+
 	void SetSpeed(float vx, float vy);
 	void GetSpeed(float& vx, float& vy);
 

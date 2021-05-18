@@ -111,7 +111,10 @@ void CGameObject::SetFlipOnNormal(int nx)
 }
 
 
-
-//void CGameObject::SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
-
+void CGameObject::GetPosX(float& x) {
+	x = this->x;
+}
+void CGameObject::GetPosY(float& y) {
+	y = this->y;
+}
 

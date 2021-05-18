@@ -2,14 +2,6 @@
 #include "GameObject.h"
 //float MARIO_WALK_SPEED = 0.27f;
 //float MARIO_RUN_SPEED = 0.48f;
-//
-//float MARIO_WALK_ACCELERATION = 0.000376f;
-//float MARIO_RUN_ACCELERATION = 0.0003613f;
-//float MARIO_WALK_DRAG_FORCE = 0.0014306f;
-//float MARIO_RUN_DRAG_FORCE = 0.0016366f;
-//float MARIO_CROUCH_DRAG_FORCE = 0.0008766f;
-//float MARIO_SKID_ACCELERATION = 0.001104f;
-//
 //float MARIO_GRAVITY = 0.002f;
 //float MARIO_MIN_JUMP_HEIGHT = 80;
 //float MARIO_JUMP_HEIGHT = 97;
@@ -17,6 +9,7 @@
 //
 //float MARIO_MIN_HIGH_JUMP_HEIGHT = 97;
 //float MARIO_HIGH_JUMP_HEIGHT = 216;
+// 
 //float MARIO_SUPER_JUMP_HEIGHT = 300;
 //float MARIO_SUPER_PUSH_FORCE = 0.632f;
 //
@@ -27,20 +20,21 @@
 #define MARIO_WALK_SPEED			0.27f
 #define MARIO_RUN_SPEED				0.48f
 
-#define MARIO_RUN_ACCELERATION		0.0003613f
-#define MARIO_WALK_ACCELERATION		0.000376f
+#define MARIO_RUN_ACCELERATION		0.0004613f
+#define MARIO_WALK_ACCELERATION		0.000476f
 #define MARIO_SKID_ACCELERATION		0.001104f
 
-#define MARIO_MIN_JUMP_HEIGHT		80
-#define MARIO_JUMP_HEIGHT			97
+#define MARIO_JUMP_FALL_POINT			80
+#define MARIO_BEGIN_HIGH_JUMP_HEIGHT	97
+#define MARIO_HIGH_JUMP_FALL_POINT		216
 
-#define MARIO_WALK_DRAG_FORCE		0.0014306f
-#define MARIO_RUN_DRAG_FORCE		0.0016366f
-#define MARIO_CROUCH_DRAG_FORCE 	0.0008766f
+#define MARIO_WALK_FRICTION		0.0014306f
+#define MARIO_RUN_FRICTION		0.0016366f
+#define MARIO_CROUCH_FRICTION 	0.0008766f
 
 #define MARIO_GRAVITY				0.002f
 
-#define MARIO_JUMP_PUSH				0.0432f
+#define MARIO_JUMP_PUSH				0.432f
 #define MARIO_JUMP_DEFLECT_SPEED	0.2f
 #define MARIO_DIE_DEFLECT_SPEED		0.5f
 
@@ -53,12 +47,9 @@
 #define MARIO_STATE_CROUCH			500
 
 #define MARIO_STATE_JUMP			600
-#define MARIO_STATE_JUMP_HIGH		700
-#define MARIO_STATE_JUMP_FALL		800
-
-
-
-
+#define MARIO_STATE_JUMP_IDLE		700
+#define MARIO_STATE_JUMP_HIGH		800
+#define MARIO_STATE_JUMP_FALL		900
 
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
@@ -81,6 +72,7 @@ class CMario : public CGameObject
 	int untouchable;
 
 	int skid = 0;
+
 	int highSpeed = 0;
 
 	bool isOnGround = true;
@@ -93,7 +85,10 @@ class CMario : public CGameObject
 	float accelerate_x = 0;
 	float accelerate_y = 0;
 
-	int lastKeyDirection = 0;
+	float friction_x = 0;
+
+	int finalKeyDirection = 0;
+	float jumpStartPosition = 0;
 
 public: 
 	CMario();
@@ -102,6 +97,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) override;
 
 	virtual void MovementUpdate(DWORD dt);
+	virtual void JumpUpdate(DWORD dt);
 
 	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects , 
 		vector<LPCOLLISIONEVENT> coEvents, 
@@ -115,6 +111,9 @@ public:
 
 	void SetSkid(int skid);
 	int GetSkid();
+
+	void SetFriction(float friction);
+	int GetFriction();
 	
 	void SetIsOnGround(bool onGround);
 	bool GetIsOnGround();
