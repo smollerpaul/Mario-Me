@@ -10,12 +10,9 @@
 #include "Camera.h"
 #include "PlayerData.h"
 #include "SolidBlock.h"
+
 using namespace std;
 
-//error mario reached max PM and stuff but when idle, doesn't decrease
-// TIMER OK , OTHER STUFF OK, JUST NOT FLYING NOW WHY
-// sai state , but timer works ok now
-// floattimer not working
 CMario::CMario() : CGameObject()
 {
 	//currently using level big only
@@ -114,7 +111,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	for (UINT i = 0; i < coEvents.size(); i++)
 		delete coEvents[i];	
-	DebugOut(L" state: %d, vy: %f, powerMeter: %f, flytimer: %f, floatTimer: %f \n ", state, vy, powerMeter, flyTimer, floatTimer);
+	DebugOut(L" state: %d, vy: %f, powerMeter: %f, floatTimer: %f, OnGround: %d \n ", state, vy, powerMeter, floatTimer, isOnGround);
 }
 
 void CMario::MovementUpdate(DWORD dt)
@@ -239,7 +236,7 @@ void CMario::JumpUpdate(DWORD dt)
 	float height = 0;
 
 	// stop float , cannot fly anymore when drops to the ground
-	if (GetIsOnGround() == 1) {
+	if (GetIsOnGround() == 1 ) {
 		ResetFloatTimer();
 	}
 
@@ -539,6 +536,7 @@ void CMario::Render()
 	RenderBoundingBox();
 }
 
+
 void CMario::SetState(int state)
 {
 	CGameObject::SetState(state);
@@ -586,7 +584,7 @@ void CMario::OnKeyUp(int keyCode)
 		}
 
 		// float down when S released but keep floating ani
-		else if (state == MARIO_STATE_FLOAT) {
+		else if (state != MARIO_STATE_FLOAT) {
 			SetState(MARIO_STATE_JUMP_FALL);
 		}
 	}
@@ -621,7 +619,7 @@ void CMario::OnKeyDown(int keyCode)
 					SetState(MARIO_STATE_FLY);
 					vy = -MARIO_FLY_PUSH * 2 - MARIO_GRAVITY * dt;
 					DebugOut(L" fly nè ! vy: %f\n", vy);
-				}
+				} //always go here
 				else {
 					SetState(MARIO_STATE_JUMP);
 					vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * dt;
@@ -630,8 +628,10 @@ void CMario::OnKeyDown(int keyCode)
 				SetIsOnGround(false);
 				GetPosY(jumpStartPosition);
 			}
-			else if (state== MARIO_STATE_FLOAT && floatTimer > 0){
-				vy = -MARIO_FLY_PUSH  - MARIO_GRAVITY * dt;
+			else {
+				if (state == MARIO_STATE_FLOAT && floatTimer > 0) {
+					vy = -MARIO_FLY_PUSH  - MARIO_GRAVITY * dt;
+				}
 			}
 		}
 		break;
