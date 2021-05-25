@@ -56,8 +56,8 @@ void CGameObject::RenderBoundingBox()
 	//DebugOut(L" left %f  top  %f  right %f   bottom %f", l,t,r,b);
 
 	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get("tex-test");
-
-	game->Draw((x- cam->GetX()),( y- cam->GetY()), bbox, rect.left, rect.top, rect.right, rect.bottom, 32, flip);
+	D3DXVECTOR3 pivot(0, 0, 0);
+	game->Draw((x- cam->GetX() + (r - l) / 2),( y- cam->GetY()) + (b-t)/2, pivot, bbox, rect.left, rect.top, rect.right, rect.bottom, 30, flip);
 }
 
 CGameObject::~CGameObject()

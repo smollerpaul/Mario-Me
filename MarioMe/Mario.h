@@ -15,26 +15,30 @@
 //
 //float MAX_FLY_SPEED = 999.0f;
 
+#define PM_MAX							1
+#define PM_INCREASE						0.008f
+#define PM_DECREASE						0.0016f
 
+#define MARIO_WALK_SPEED				0.27f
+#define MARIO_RUN_SPEED					0.48f
 
-#define MARIO_WALK_SPEED			0.27f
-#define MARIO_RUN_SPEED				0.48f
-
-#define MARIO_RUN_ACCELERATION		0.0004613f
-#define MARIO_WALK_ACCELERATION		0.000476f
-#define MARIO_SKID_ACCELERATION		0.001104f
+#define MARIO_RUN_ACCELERATION			0.0005613f
+#define MARIO_WALK_ACCELERATION			0.000476f
+#define MARIO_SKID_ACCELERATION			0.001104f
 
 #define MARIO_JUMP_FALL_POINT			80
 #define MARIO_BEGIN_HIGH_JUMP_HEIGHT	97
 #define MARIO_HIGH_JUMP_FALL_POINT		216
+#define MARIO_FLY_FALL_POINT			300
 
-#define MARIO_WALK_FRICTION		0.0014306f
-#define MARIO_RUN_FRICTION		0.0016366f
-#define MARIO_CROUCH_FRICTION 	0.0008766f
+#define MARIO_WALK_FRICTION				0.0014306f
+#define MARIO_RUN_FRICTION				0.0016366f
+#define MARIO_CROUCH_FRICTION 			0.0008766f
 
 #define MARIO_GRAVITY				0.002f
 
 #define MARIO_JUMP_PUSH				0.432f
+#define MARIO_FLY_PUSH				0.632f
 #define MARIO_JUMP_DEFLECT_SPEED	0.2f
 #define MARIO_DIE_DEFLECT_SPEED		0.5f
 
@@ -51,6 +55,11 @@
 #define MARIO_STATE_JUMP_HIGH		800
 #define MARIO_STATE_JUMP_FALL		900
 
+#define MARIO_STATE_FLY				2000
+#define MARIO_STATE_FLOAT			2001
+
+#define MARIO_STATE_ATTACK			1001
+
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
 
@@ -62,7 +71,12 @@
 #define MARIO_SMALL_BBOX_WIDTH  13
 #define MARIO_SMALL_BBOX_HEIGHT 15
 
-#define MARIO_UNTOUCHABLE_TIME 5000
+#define MARIO_UNTOUCHABLE_TIME		5000
+#define MARIO_ATTACK_TIME			250
+#define MARIO_HOLD_FLY_TIME			250
+
+#define MARIO_FLY_TIME				2000
+
 
 class Camera;
 
@@ -74,6 +88,7 @@ class CMario : public CGameObject
 	int skid = 0;
 
 	int highSpeed = 0;
+	int isAtMaxRunSpeed = 0;
 
 	bool isOnGround = true;
 
@@ -90,6 +105,16 @@ class CMario : public CGameObject
 	int finalKeyDirection = 0;
 	float jumpStartPosition = 0;
 
+	float flyTimer = 0;
+	float floatTimer = 0;
+	float attackTimer = 0;
+
+	int isAttacking = 0;
+	int keepIsAttackingAlive = 0;
+
+	float powerMeter = 0;
+
+
 public: 
 	CMario();
 	
@@ -98,6 +123,9 @@ public:
 
 	virtual void MovementUpdate(DWORD dt);
 	virtual void JumpUpdate(DWORD dt);
+	virtual void AttackUpdate(DWORD dt);
+
+	void RunPowerMeter(DWORD dt);
 
 	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects , 
 		vector<LPCOLLISIONEVENT> coEvents, 
@@ -118,16 +146,24 @@ public:
 	void SetIsOnGround(bool onGround);
 	bool GetIsOnGround();
 	
-	void SetLevel(int l) { level = l; }
+	void SetLevel(int l);
 
 	void StartUntouchable();
 	void ResetUntouchable();
+
+	void ResetFlyTimer();
+	void ResetFloatTimer();
 	
 	void Reset();
 	void ResetFlip();
 
+	void ResetAttackTimer();
+
 	void OnKeyUp(int keyCode);
 	void OnKeyDown(int keyCode);
+
+	virtual int GetObjectType() override;
+	static const int ObjectType = 1000;
 
 	
 };

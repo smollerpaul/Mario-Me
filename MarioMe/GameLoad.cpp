@@ -64,14 +64,20 @@ void CGame::LoadSprites(TiXmlElement* gameResources) {
 
 				for (TiXmlElement* sprite = sprites->FirstChildElement("Sprite"); sprite != nullptr; sprite = sprite->NextSiblingElement("Sprite")) {
 					string spriteId = sprite->Attribute("id");
-					int left = 0, top = 0, width = 0, height = 0;
+					int left = 0, top = 0, width = 0, height = 0, xPivot = 0, yPivot = 0;
 
 					sprite->QueryIntAttribute("left", &left);
 					sprite->QueryIntAttribute("top", &top);
 					sprite->QueryIntAttribute("width", &width);
 					sprite->QueryIntAttribute("height", &height);
 
-					CSprites::GetInstance()->Add(spriteId, left*3, top*3, (left + width)*3, (top + height)*3, texture);
+					if (sprite->Attribute("xPivot") != NULL) 
+						sprite->QueryIntAttribute("xPivot", &xPivot);
+
+					if (sprite->Attribute("yPivot") != NULL) 
+						sprite->QueryIntAttribute("yPivot", &yPivot);
+
+					CSprites::GetInstance()->Add(spriteId, left*3, top*3, width * 3, height * 3, xPivot * 3, yPivot * 3, texture);
 				}
 			}
 		}

@@ -37,7 +37,7 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 	return e;
 }
 
-
+// only the collisions happen in that frame
 void CGameObject::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
@@ -75,9 +75,9 @@ void CGameObject::FilterCollision(
 	for (UINT i = 0; i < coEvents.size(); i++)
 	{
 		LPCOLLISIONEVENT c = coEvents[i];
-
+		
 		if (c->t < min_tx && c->nx != 0) {
-			min_tx = c->t; 
+			min_tx = c->t; // min collision event is there
 			nx = c->nx; 
 			min_ix = i; 
 			rdx = c->dx;

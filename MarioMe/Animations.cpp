@@ -2,6 +2,15 @@
 #include "Utils.h"
 #include "Sprites.h"
 
+CAnimation::CAnimation(int defaultTime) 
+{
+	this->defaultTime = defaultTime; 
+	this->lastFrameTime = 0; 
+	this->currentFrame = 0; 
+	this->playScale = 1.0f;
+	this->frames.clear();
+}
+
 void CAnimation::Add(string spriteId, DWORD time)
 {
 	int t = time;
@@ -39,7 +48,7 @@ void CAnimation::Render(float x, float y, int flip, int alpha)
 	else
 	{
 		DWORD t = frames[currentFrame]->GetTime();
-		if (now - lastFrameTime > t)
+		if ((now - lastFrameTime)*playScale > t)
 		{
 			currentFrame++;
 			lastFrameTime = now;
@@ -48,6 +57,11 @@ void CAnimation::Render(float x, float y, int flip, int alpha)
 	}
 
 	frames[currentFrame]->GetSprite()->Draw(x, y, flip, alpha);
+}
+
+void CAnimation::SetPlayScale(float ps)
+{
+	this->playScale = ps;
 }
 
 CAnimations * CAnimations::__instance = NULL;

@@ -54,22 +54,24 @@ void CPlayScene::Render()
 	coObjects.push_back(player);
 	
 	
-	/*for (size_t i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < objects.size(); i++)
 	{
-		
 		coObjects.push_back(objects[i]);
-	}*/
+
+		//DebugOut(L"PUSH these map objects\n");
+	}
 	
- // de y cai phan tu mang ( starts at 0)
+	// de y cai phan tu mang ( starts at 0)
 
 	for (size_t i = 0; i < coObjects.size(); i++)
 	{
-		//DebugOut(L"stopppppppp size %d\n", coObjects.size());
 		coObjects[i]->Render();
+
+		//DebugOut(L"RENDER these map objects\n");
 	}
 		
-	/*for (int i = 0; i < objects.size(); i++)
-		objects[i]->RenderBoundingBox();*/
+	for (int i = 0; i < objects.size(); i++)
+		objects[i]->RenderBoundingBox();
 }
 
 
@@ -123,7 +125,7 @@ void CPlayScene::Load()
 	}
 	Camera* camera = new Camera();
 	camera->SetSize(700,480);
-	camera->SetPosition(500,900);
+	camera->SetPosition(CAM_START_X, CAM_START_Y);
 	SetCamera(camera);
 	camera->SetFocusOnPlayer(player);
 
@@ -133,19 +135,12 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 {
 	if (objectType.compare("SpawnPoint") == 0) {
 		player->SetPosition(x, y);
-		
 	}
 	if (objectType.compare("SolidBlock") == 0) {
 		SolidBlock* solidObject = new SolidBlock();
 		solidObject->SetPosition(x,y);
 		solidObject->SetSize(width, height);
 		AddObject(solidObject);
-
-		/*float ww, hh, px, py;
-		solidObject->GetPosition(px, py);
-		solidObject->GetSize(ww, hh);
-		DebugOut(L"oooooo %f, %f\n", px, py);
-		DebugOut(L"eeeeeee  w %f, h %f \n", ww,hh);*/
 	}
 	if (objectType.compare("GhostBlock") == 0) {
 		GhostBlock* ghostObject = new GhostBlock();
@@ -153,6 +148,16 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		ghostObject->SetSize(width, height);
 		AddObject(ghostObject);
 	}
+
+	/*if (objectType.compare("Spawner") == 0) {
+		CGoomba* goomba = new CGoomba();
+		goomba->SetPosition(x, y);
+		AddObject(goomba);
+
+		DebugOut(L" ra goomba oi nhaaaaaaaaaaaaaaaaaaaaaaaaa\n");
+	}*/
+
+	
 
 	// void, spawner, pipe
 }

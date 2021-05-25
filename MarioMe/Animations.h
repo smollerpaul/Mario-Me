@@ -26,12 +26,18 @@ class CAnimation
 	DWORD lastFrameTime;
 	int currentFrame;
 	int defaultTime;
+
+	float playScale ;
+
 	vector<LPANIMATION_FRAME> frames;
 public:
-	CAnimation(int defaultTime = 100) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; };
+	CAnimation(int defaultTime = 100);
 	void Add(string spriteId, DWORD time = 0);
 	CAnimation* Clone();
 	void Render(float x, float y,int flip, int alpha = 255);
+
+	void SetPlayScale(float ps);
+
 };
 
 typedef CAnimation *LPANIMATION;

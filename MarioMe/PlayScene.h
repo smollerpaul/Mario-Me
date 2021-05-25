@@ -8,6 +8,9 @@
 #include "Goomba.h"
 #include "Koopas.h"
 
+#define CAM_START_X		500
+#define CAM_START_Y		850
+
 class GameMap;
 
 class CPlayScene: public CScene
@@ -27,7 +30,7 @@ public:
 
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
-	virtual void LoadMapObjects(string objectName, float x, float y, float width, float height) override;
+	virtual void LoadMapObjects(string objectName, float x, float y, float width = 0, float height = 0) override;
 	
 
 };

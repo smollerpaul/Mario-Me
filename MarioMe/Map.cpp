@@ -114,7 +114,7 @@ void GameMap::Render()
 				int right = left + tileWidth;
 				int bottom = top + tileHeight;
 
-				CGame::GetInstance()->Draw(x, y, tileImage, left, top, right, bottom);
+				CGame::GetInstance()->Draw(x + tileWidth / 2, y + tileHeight / 2, D3DXVECTOR3(0, 0, 0), tileImage, left, top, right, bottom);
 			}
 		}
 	}

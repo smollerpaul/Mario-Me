@@ -10,7 +10,12 @@
 #include "Camera.h"
 #include "PlayerData.h"
 #include "SolidBlock.h"
+using namespace std;
 
+//error mario reached max PM and stuff but when idle, doesn't decrease
+// TIMER OK , OTHER STUFF OK, JUST NOT FLYING NOW WHY
+// sai state , but timer works ok now
+// floattimer not working
 CMario::CMario() : CGameObject()
 {
 	//currently using level big only
@@ -40,7 +45,7 @@ CMario::CMario() : CGameObject()
 void CMario::InitAnimations()
 {
 	if (this->animations.size() < 1 ) {
-		this->animations["Idle"] = CAnimations::GetInstance()->Get("ani-big-mario-idle");
+		/*this->animations["Idle"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-idle");
 		this->animations["Walk"] = CAnimations::GetInstance()->Get("ani-big-mario-walk");
 		this->animations["Run"] = CAnimations::GetInstance()->Get("ani-big-mario-run");
 		this->animations["HighSpeed"] = CAnimations::GetInstance()->Get("ani-big-mario-high-speed");
@@ -60,9 +65,30 @@ void CMario::InitAnimations()
 		this->animations["TeleVer"] = CAnimations::GetInstance()->Get("ani-big-mario-idle-front");
 		this->animations["TeleHor"] = CAnimations::GetInstance()->Get("ani-big-mario-walk");
 
+		this->animations["Spin"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-spin");*/
+
+		this->animations["Idle"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-idle");
+		this->animations["Walk"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-walk");
+		this->animations["Run"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-walk");
+		this->animations["HighSpeed"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-speed-up");
+		this->animations["Jump"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-jump");
+		this->animations["HighJump"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-jump");
+		this->animations["Fly"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-fly");
+		this->animations["Float"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-float");
+		this->animations["Fall"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-fall");
+		this->animations["Skid"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-skid");
+		this->animations["Crouch"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-crouch");
+		this->animations["Kick"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-kick");
 		this->animations["Spin"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-spin");
 
-		DebugOut(L"done init ani\n");
+		this->animations["Hold"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-hold");
+		this->animations["HoldIdle"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-hold-idle");
+		this->animations["HoldFall"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-hold-fall");
+
+		this->animations["TeleVer"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-idle-front");
+		this->animations["TeleHor"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-walk");
+
+		DebugOut(L"done init ani MARIO \n");
 	}
 }
 
@@ -78,23 +104,23 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		ResetUntouchable();
 	
 	vy += gravity * dt;
-
 	
 	MovementUpdate(dt);
+	RunPowerMeter(dt);
 	JumpUpdate(dt);
+	AttackUpdate(dt);
 	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
 	BehaviorUpdate(dt, coEventsResult);
 
-	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++)
 		delete coEvents[i];	
+	DebugOut(L" state: %d, vy: %f, powerMeter: %f, flytimer: %f, floatTimer: %f \n ", state, vy, powerMeter, flyTimer, floatTimer);
 }
 
 void CMario::MovementUpdate(DWORD dt)
 {
 	ResetFlip();
 	Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
-
 	CGameObject::Update(dt);
 
 #pragma region DOWN
@@ -114,7 +140,6 @@ void CMario::MovementUpdate(DWORD dt)
 #pragma region RIGHT LEFT
 	if (keyboard->IsKeyDown(DIK_RIGHT) || keyboard->IsKeyDown(DIK_LEFT)) {
 		int direction = 0;
-
 		direction = finalKeyDirection;
 		
 		//get up from crouch to walk
@@ -126,9 +151,8 @@ void CMario::MovementUpdate(DWORD dt)
 			SetSize(MARIO_BIG_BBOX_WIDTH, MARIO_BIG_BBOX_HEIGHT);
 		}
 
-		if (isOnGround) {
+		if (GetIsOnGround()==true) {
 			if (state != MARIO_STATE_WALK) {
-				DebugOut(L"vo day walk\n");
 				SetState(MARIO_STATE_WALK);
 			}
 		}
@@ -136,18 +160,15 @@ void CMario::MovementUpdate(DWORD dt)
 		float maxSpeed = MARIO_WALK_SPEED;
 		accelerate_x = direction * MARIO_WALK_ACCELERATION;
 
-		if (keyboard->IsKeyDown((DIK_A))) {
-
-			if (state != MARIO_STATE_RUN) {
-				DebugOut(L"vo day run\n");
+		if (keyboard->IsKeyDown(DIK_A) && GetIsOnGround()== true) {
+			// when fly -> dont change ani into ani RUN
+			if (state != MARIO_STATE_RUN && state!= MARIO_STATE_FLY && state != MARIO_STATE_FLOAT) {
 				SetState(MARIO_STATE_RUN);
 			}
-
 			maxSpeed = MARIO_RUN_SPEED;
 			accelerate_x = direction * MARIO_RUN_ACCELERATION;
 		}
 		
-
 		//skid when direction is against vx
 		if (vx * direction < 0 && GetIsOnGround() != 0) {
 			SetSkid(1);
@@ -157,18 +178,19 @@ void CMario::MovementUpdate(DWORD dt)
 				accelerate_x = 2 * direction * MARIO_SKID_ACCELERATION;
 			}
 
-			if (!GetIsOnGround()) {
+			if (GetIsOnGround() == false) {
 				accelerate_x = MARIO_SKID_ACCELERATION * direction * 2;
 			}
 		}
 
 		vx += accelerate_x * dt;
 
-		// when mario maxes out maxSpeed, slowly reduce to maxSpeed for smooth UX
-		
+		// if RUN maxSpeed is reached -> upstep power meter
 		if (abs(vx) >= maxSpeed) {
 			vx = direction * maxSpeed;
-		}
+			if (state == MARIO_STATE_RUN)
+				isAtMaxRunSpeed = 1;
+		} else isAtMaxRunSpeed = 0;
 
 		if (vx * direction >= 0) {
 			SetSkid(0);
@@ -186,15 +208,14 @@ void CMario::MovementUpdate(DWORD dt)
 			vx -= speedDirection * MARIO_WALK_FRICTION * dt;
 		}
 		else {
-			vx = 0;
-			// not crouch and on ground -> can only be idle	
-			if (state != MARIO_STATE_CROUCH && GetIsOnGround() == true) {
+			vx = 0;	
+			if (state != MARIO_STATE_CROUCH && GetIsOnGround() == true && isAttacking ==0) {
 				SetState(MARIO_STATE_IDLE);
 			}
 		}
 	}
 
-	// set normal friction (walk friction)
+	// set friction
 	if (state != MARIO_STATE_CROUCH) {
 		if (state == MARIO_STATE_RUN) {
 			SetFriction(MARIO_RUN_FRICTION);
@@ -203,80 +224,147 @@ void CMario::MovementUpdate(DWORD dt)
 			SetFriction(MARIO_WALK_FRICTION);
 		}
 	}
-	// not onGround -> no friction
+	
 	if (GetIsOnGround() == false) {
 		SetFriction(0);
 	}
-	
 #pragma endregion
 
-#pragma region JUMP
-	
 }
 
 void CMario::JumpUpdate(DWORD dt)
 {
-	//bi nhay giua giua bouncy bounce mixed state
 	Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
 
 	float height = 0;
+
+	// stop float , cannot fly anymore when drops to the ground
+	if (GetIsOnGround() == 1) {
+		ResetFloatTimer();
+	}
+
+	// if falls to ground -> set state idle
 	if (state == MARIO_STATE_JUMP_FALL) {
 		if (GetIsOnGround() == true) {
 			SetState(MARIO_STATE_IDLE);
 			vy = MARIO_GRAVITY * dt;
-			DebugOut(L" cuz it will never get into ground when.. falling lol \n");
 		}
-		
 	}
 
-	// set high jump
-	if (state == MARIO_STATE_JUMP || state == MARIO_STATE_JUMP_HIGH || state == MARIO_STATE_JUMP_FALL) {
+	//calc height
+	if (state == MARIO_STATE_JUMP || state == MARIO_STATE_JUMP_HIGH || state == MARIO_STATE_JUMP_FALL || state == MARIO_STATE_FLY || state == MARIO_STATE_FLOAT) {
 		height = abs(jumpStartPosition - y - vy * dt);
 	}
 
-	if (state != MARIO_STATE_JUMP_FALL) {
-		// height < small fall point but is jumping
-		if (height < MARIO_JUMP_FALL_POINT && height != 0) {
+	//bam S once n activate fly
+
+	// fly for a time and then float
+	if (state == MARIO_STATE_FLY) {
+		flyTimer += dt;
+
+		if (flyTimer < MARIO_FLY_TIME ) {
+			vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * dt;
+			DebugOut(L" flytimer < fly time \n");
+		}
+		else {
+			ResetFlyTimer();
+			SetState(MARIO_STATE_FLOAT);
+			vy = -MARIO_FLY_PUSH / 2;
+			DebugOut(L" float when time is up\n");
+		}
+	}
+
+	// FLOAt up if press S
+	if (state == MARIO_STATE_FLOAT) {
+		DebugOut(L" im in float\n");
+		floatTimer += dt;
+
+		//no fall point
+		if (keyboard->IsKeyDown(DIK_S) && height < MARIO_FLY_FALL_POINT) {
+			DebugOut(L"go into float fall point\n");
+			vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * dt;
+		}
+		else {
+			DebugOut(L"go into float down\n");
+			vy = MARIO_FLY_PUSH / 2;
+		}
+
+		
+	}
+
+#pragma region JUMP & HIGH_JUMP & FALL
+	if (state != MARIO_STATE_JUMP_FALL && state!= MARIO_STATE_FLY && state != MARIO_STATE_FLOAT) {
+		// continue jump when  ( not reaching fall point yet) HIGH & LOW
+		if ((height < MARIO_JUMP_FALL_POINT && height != 0)
+			|| (state == MARIO_STATE_JUMP_HIGH && height < MARIO_HIGH_JUMP_FALL_POINT)) {
 			vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * dt;
 		}
 
-		if (height > MARIO_BEGIN_HIGH_JUMP_HEIGHT && state== MARIO_STATE_JUMP) {
+		//set state HIGH
+		if (height > MARIO_BEGIN_HIGH_JUMP_HEIGHT && state == MARIO_STATE_JUMP) {
 			if (state != MARIO_STATE_JUMP_HIGH)
 				SetState(MARIO_STATE_JUMP_HIGH);
 		}
 
-		// if still holding S and pass fall point but not yet begin high jump point
+		// if still holding S + pass fall point + not yet HIGH
 		if (height > MARIO_JUMP_FALL_POINT && height < MARIO_BEGIN_HIGH_JUMP_HEIGHT) {
 			if (keyboard->IsKeyDown(DIK_S)) {
-				// if still holding S 
 				vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * dt;
 			}
-			else {// fall ( because normal jump)
+			else { //fall LOW
 				vy = -MARIO_JUMP_PUSH / 2;
 				SetState(MARIO_STATE_JUMP_FALL);
 			}
 		}
 
-		// not high fall point yet
-		if (state == MARIO_STATE_JUMP_HIGH && height < MARIO_HIGH_JUMP_FALL_POINT) {
-			vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * dt;
-		}
-		else if (height > MARIO_HIGH_JUMP_FALL_POINT) {
+		//fall HIGH
+		if (height > MARIO_HIGH_JUMP_FALL_POINT && state == MARIO_STATE_JUMP_HIGH) {
 			vy = -MARIO_JUMP_PUSH / 2;
 			SetState(MARIO_STATE_JUMP_FALL);
 		}
 	}
-	// still gets it but smoother  andddd  xử lý vụ đang rớt cái bấm S nữa, hơi sai
-	
-	
-	DebugOut(L"STATE %d , height: %f, y: %f, vy: %f \n", state,height,y,vy);
+#pragma endregion
 }
 
-void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, 
-	vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT> &coEventsResult)
+void CMario::AttackUpdate(DWORD dt)
+{
+	Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
+	if (isAttacking == 1) {
+		if (state != MARIO_STATE_ATTACK) {
+			SetState(MARIO_STATE_ATTACK);
+		}
+
+		float currentTime = dt;
+		attackTimer += currentTime;
+
+		DebugOut(L" attack timer is: %f \n", attackTimer);
+
+		if (attackTimer >= MARIO_ATTACK_TIME) {
+			isAttacking = 0;
+			ResetAttackTimer();
+
+			SetState(MARIO_STATE_IDLE);
+		}
+	}
+}
+
+void CMario::RunPowerMeter(DWORD dt)
+{
+	//power meter increase as long as onground , mario is at maxspeed
+	if (GetIsOnGround() == true && isAtMaxRunSpeed == 1 ) {
+			powerMeter = min(powerMeter + PM_INCREASE * dt, PM_MAX);
+	}
+	else { 
+		//powerMeter can't be <0
+		powerMeter = max(powerMeter - PM_DECREASE * dt, 0.0f);
+	}
+}
+
+void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
+	vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT>& coEventsResult)
 {
 	coEvents.clear();
-	
+
 	//turn off collision when die
 	if (state != MARIO_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
@@ -292,7 +380,7 @@ void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0;
 		float rdy = 0;
-		
+
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
@@ -373,74 +461,82 @@ void CMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 void CMario::Render()
 {
 	InitAnimations();
-	
 	CAnimation* ani = this->animations["Idle"];
 
 	CGameObject::SetFlipOnNormal(nx);
 
-		if (level == MARIO_LEVEL_BIG)
-		{
-		switch (this->state) {
-			case MARIO_STATE_IDLE:
-				ani = this->animations["Idle"];
-				break;
+	switch (this->state) {
+	case MARIO_STATE_IDLE:
+		ani = this->animations["Idle"];
+		break;
 
-			case MARIO_STATE_JUMP_IDLE:
-				ani = this->animations["Idle"];
-				break;
+	case MARIO_STATE_JUMP_IDLE:
+		ani = this->animations["Idle"];
+		break;
 
-			case MARIO_STATE_WALK:
-				if (GetSkid() != 0) {
-					ani = this->animations["Skid"];
-				}
-				else {
-					ani = this->animations["Walk"];
-				}
-				break;
-
-			case MARIO_STATE_RUN:
-				if (GetSkid() != 0) {
-					ani = this->animations["Skid"];
-				}
-				else {
-					ani = this->animations["HighSpeed"];
-				}
-				break;
-
-			case MARIO_STATE_RUN_HIGH_SPEED:
-				ani = this->animations["HighSpeed"];
-				break;
-
-			case MARIO_STATE_CROUCH:
-				ani = this->animations["Crouch"];
-				break;
-
-			case MARIO_STATE_JUMP:
-				ani = this->animations["Jump"];
-				break;
-
-			case MARIO_STATE_JUMP_HIGH:
-				ani = this->animations["Jump"];
-				break;
-
-			case MARIO_STATE_JUMP_FALL:
-				ani = this->animations["Fall"];
-				break;
-			}
-			
+	case MARIO_STATE_WALK:
+		if (GetSkid() != 0) {
+			ani = this->animations["Skid"];
 		}
+		else {
+			ani = this->animations["Walk"];
+		}
+		break;
+
+	case MARIO_STATE_RUN:
+		if (GetSkid() != 0) {
+			ani = this->animations["Skid"];
+		}
+		else {
+			ani = this->animations["HighSpeed"];
+		}
+		break;
+
+	case MARIO_STATE_RUN_HIGH_SPEED:
+		ani = this->animations["HighSpeed"];
+		break;
+
+	case MARIO_STATE_CROUCH:
+		ani = this->animations["Crouch"];
+		break;
+
+	case MARIO_STATE_JUMP:
+		ani = this->animations["Jump"];
+		break;
+
+	case MARIO_STATE_JUMP_HIGH:
+		ani = this->animations["Jump"];
+		break;
+
+	case MARIO_STATE_JUMP_FALL:
+		ani = this->animations["Fall"];
+		break;
+
+	case MARIO_STATE_FLY:
+		ani = this->animations["Fly"];
+		break;
+
+	case MARIO_STATE_FLOAT:
+		ani = this->animations["Float"];
+		break;
+
+	case MARIO_STATE_ATTACK:
+		ani = this->animations["Spin"];
+		break;
+	}
 
 	int alpha = 255;
-	if (untouchable) 
+	if (untouchable)
 		alpha = 128;
 
-
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-	ani->Render(x - camera->GetX(), y - camera->GetY(), flip, alpha);
+	float l, t, b, r;
+	GetBoundingBox(l, t, r, b);
+
+	ani->SetPlayScale(max(0.4f, min(abs(vx) / MARIO_WALK_SPEED, 4)) * 1.5f);
+	ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + (b - t) / 2, flip, alpha);
 
 	RenderBoundingBox();
-	/*DebugOut(L"aniiiiiiiiiiiiiiiiiiii of mario : %s\n" );*/
-
 }
 
 void CMario::SetState(int state)
@@ -457,12 +553,17 @@ void CMario::SetState(int state)
 		break;
 	}
 }
+int CMario::GetObjectType()
+{
+	return ObjectType;
+}
 
 void CMario::OnKeyUp(int keyCode)
 {
+	//when not DIK left right -> not maxSpeed for run to trigger power meter duh
+	isAtMaxRunSpeed = 0;
+
 	if (state == MARIO_STATE_CROUCH) {
-		DebugOut(L"OnKeyUp ma dang state CROUCH nè, tới đây phải update lại bb với state \n");
-		
 		float currentX, currentY;
 		GetPosition(currentX, currentY);
 
@@ -470,16 +571,25 @@ void CMario::OnKeyUp(int keyCode)
 		SetSize(MARIO_BIG_BBOX_WIDTH, MARIO_BIG_BBOX_HEIGHT);
 
 		SetState(MARIO_STATE_IDLE);
-
 	}	
 
 	if (keyCode == DIK_S) {
-		if (GetIsOnGround() == true && state == MARIO_STATE_JUMP) {
+		// from fly to float when release S
+		if (state == MARIO_STATE_FLY) {
+			ResetFlyTimer();
+			SetState(MARIO_STATE_FLOAT);
+			DebugOut(L" float when keyup S\n");
+		}
+		// fall even when high jumping
+		else  if (GetIsOnGround() == true && state == MARIO_STATE_JUMP) {
 			SetState(MARIO_STATE_IDLE);
 		}
-		else SetState(MARIO_STATE_JUMP);
+
+		// float down when S released but keep floating ani
+		else if (state == MARIO_STATE_FLOAT) {
+			SetState(MARIO_STATE_JUMP_FALL);
+		}
 	}
-	
 }
 void CMario::OnKeyDown(int keyCode)
 {
@@ -506,22 +616,34 @@ void CMario::OnKeyDown(int keyCode)
 		break;
 
 		case DIK_S: {
-			if (state != MARIO_STATE_JUMP && state!= MARIO_STATE_JUMP_FALL && GetIsOnGround()==true) {
-				SetState(MARIO_STATE_JUMP);
+			if (GetIsOnGround() == true) {
+				if (powerMeter >= PM_MAX) {
+					SetState(MARIO_STATE_FLY);
+					vy = -MARIO_FLY_PUSH * 2 - MARIO_GRAVITY * dt;
+					DebugOut(L" fly nè ! vy: %f\n", vy);
+				}
+				else {
+					SetState(MARIO_STATE_JUMP);
+					vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * dt;
+					//DebugOut(L" jump nè ! vy: %f\n", vy);
+				}
 				SetIsOnGround(false);
 				GetPosY(jumpStartPosition);
-				vy = - MARIO_JUMP_PUSH - MARIO_GRAVITY * dt;
-				DebugOut(L"onKeyDown S nè\n");
+			}
+			else if (state== MARIO_STATE_FLOAT && floatTimer > 0){
+				vy = -MARIO_FLY_PUSH  - MARIO_GRAVITY * dt;
 			}
 		}
 		break;
 
 		case DIK_A: {
 			if (state == MARIO_STATE_WALK) {
-				// prevent speed flickering when switching walk> run > walk .. everytime 
 				SetState(MARIO_STATE_RUN);
-				DebugOut(L" start run o onkeydown\n");
 			}
+			else {
+				isAttacking = 1;
+				DebugOut(L"ATTACKING STATE: [ %d ], isAttacking: [ %d ]\n", state, isAttacking);
+			}		
 		}
 		break;
 
@@ -552,6 +674,11 @@ void CMario::ResetFlip()
 		flip = 1;
 }
 
+void CMario::ResetAttackTimer()
+{
+	attackTimer = 0;
+}
+
 void CMario::SetIsOnGround(bool onGround)
 {
 	this->isOnGround = onGround;
@@ -561,8 +688,14 @@ bool CMario::GetIsOnGround()
 	return isOnGround;
 }
 
+void CMario::SetLevel(int l)
+{
+	this->level = l;
+}
+
 void CMario::StartUntouchable()
 {
+	DebugOut(L" start untouchable\n");
 	untouchable = 1;
 	untouchable_start = GetTickCount64();
 }
@@ -570,6 +703,17 @@ void CMario::ResetUntouchable()
 {
 	untouchable = 0;
 	untouchable_start = 0;
+}
+
+void CMario::ResetFlyTimer()
+{
+	flyTimer = 0;
+	DebugOut(L" fly timer resetted\n");
+}
+void CMario::ResetFloatTimer()
+{
+	floatTimer = 0;
+	DebugOut(L" float timer reseted\n");
 }
 
 void CMario::SetSkid(int skid)

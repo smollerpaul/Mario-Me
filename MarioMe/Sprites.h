@@ -7,17 +7,18 @@ using namespace std;
 
 class CSprite
 {
-	string id;				// Sprite ID in the sprite database
+	string id="";				// Sprite ID in the sprite database
 
-	int left; 
-	int top;
-	int right;
-	int bottom;
+	int left = 0; 
+	int top = 0;
+	int width = 0;
+	int height = 0;
 
-	LPDIRECT3DTEXTURE9 texture;
+	D3DXVECTOR3 pivot;
+
+	LPDIRECT3DTEXTURE9 texture= nullptr;
 public: 
-	CSprite(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
-
+	CSprite(string id, int left, int top, int right, int bottom, int xPivot, int yPivot, LPDIRECT3DTEXTURE9 tex);
 	void Draw(float x, float y, int flip, int alpha = 255);
 };
 
@@ -33,10 +34,9 @@ class CSprites
 	unordered_map<string, LPSPRITE> sprites;
 
 public:
-	void Add(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
+	void Add(string id, int left, int top, int right, int bottom, int xpivot, int ypivot, LPDIRECT3DTEXTURE9 tex);
 	LPSPRITE Get(string id);
-	void CSprites::Clear();
-
+	void Clear();
 	static CSprites * GetInstance();
 };
 

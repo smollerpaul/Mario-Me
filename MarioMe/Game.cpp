@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 
 #include "Game.h"
@@ -72,7 +72,7 @@ void CGame::Init(HWND hWnd)
 	OutputDebugString(L"[INFO] InitGame done;\n");
 }
 
-void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha, int flip)
+void CGame::Draw(float x, float y, D3DXVECTOR3 pivot, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha, int flip)
 {
 	RECT r;
 	r.left = left;
@@ -80,13 +80,23 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	r.right = right;
 	r.bottom = bottom;
 
-	//D3DXVECTOR3 leftCorner(x, y, 0);
+	x = ceil(x);
+	y = ceil(y);
+
+	pivot.x = (pivot.x == 0 ? (right - left) / 2 : pivot.x);
+	pivot.y = (pivot.y == 0 ? (bottom - top) / 2 : pivot.y);
 
 	D3DXVECTOR3 center(x, y, 0);
 
+	if (flip == 1) {
+		spriteHandler->Draw(texture, &r, &pivot, &center, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+		return;
+	}
+
 	D3DXMATRIX oldMatrix, scale;
 
-	D3DXVECTOR2 transformCenter = D3DXVECTOR2(x + (r.right - r.left) / 2, y + (r.bottom - r.top) / 2);
+	D3DXVECTOR2 transformCenter = D3DXVECTOR2(x, y);
+
 	D3DXMatrixTransformation2D(&scale, 
 		&transformCenter, 0, &D3DXVECTOR2(flip* 1.0f, 1.0f),
 		&transformCenter, 0.0f, 
@@ -94,10 +104,10 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 
 	spriteHandler->GetTransform(&oldMatrix);
 	spriteHandler->SetTransform(&scale);
-	spriteHandler->Draw(texture, &r, NULL, &center, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->Draw(texture, &r, &pivot, &center, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	spriteHandler->SetTransform(&oldMatrix);
-}
 
+}
 
 CGame::~CGame()
 {
