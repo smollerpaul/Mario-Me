@@ -120,6 +120,11 @@ void CMario::MovementUpdate(DWORD dt)
 	Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
 	CGameObject::Update(dt);
 
+	// MOVE ON vx while flying tooo
+	if (state == MARIO_STATE_FLY) {
+		vx = MARIO_FLY_SPEED_X;
+	}
+
 #pragma region DOWN
 	if (keyboard->IsKeyDown(DIK_DOWN)) {
 		if (state != MARIO_STATE_WALK && state != MARIO_STATE_RUN && state != MARIO_STATE_CROUCH )
@@ -255,38 +260,33 @@ void CMario::JumpUpdate(DWORD dt)
 
 	//bam S once n activate fly
 
-	// fly for a time and then float
+	// fly for a time -> float
 	if (state == MARIO_STATE_FLY) {
-		flyTimer += dt;
-
-		if (flyTimer < MARIO_FLY_TIME ) {
-			vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * dt;
-			DebugOut(L" flytimer < fly time \n");
-		}
-		else {
-			ResetFlyTimer();
+		if (height >= MARIO_FLY_MAX_POINT) {
 			SetState(MARIO_STATE_FLOAT);
 			vy = -MARIO_FLY_PUSH / 2;
-			DebugOut(L" float when time is up\n");
-		}
+		} else vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * dt;
 	}
 
-	// FLOAt up if press S
+	// float down
 	if (state == MARIO_STATE_FLOAT) {
-		DebugOut(L" im in float\n");
+		// if float over 500ms -> cannot press S to fly anymore
 		floatTimer += dt;
+		vy = MARIO_FLY_PUSH / 2;
 
-		//no fall point
-		if (keyboard->IsKeyDown(DIK_S) && height < MARIO_FLY_FALL_POINT) {
-			DebugOut(L"go into float fall point\n");
-			vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * dt;
-		}
-		else {
-			DebugOut(L"go into float down\n");
-			vy = MARIO_FLY_PUSH / 2;
-		}
+		if (floatTimer < MARIO_FLOAT_TIME) {
+			if (keyboard->IsKeyDown(DIK_S)) {
+				ResetFloatTimer();
 
-		
+				if (height >= MARIO_FLY_MAX_POINT) {
+					DebugOut(L" you cannot press S anymoreeee! \n");
+					floatTimer = MARIO_FLOAT_TIME; // SO i cannot press s anymore
+				}
+				else {
+					SetState(MARIO_STATE_FLY);
+				}
+			}
+		}
 	}
 
 #pragma region JUMP & HIGH_JUMP & FALL
@@ -463,7 +463,10 @@ void CMario::Render()
 	CGameObject::SetFlipOnNormal(nx);
 
 	switch (this->state) {
-	case MARIO_STATE_IDLE:
+	case MARIO_STATE_IDLE: 
+		if (vy != 0) {
+			ani = this->animations["Fall"];
+		} else
 		ani = this->animations["Idle"];
 		break;
 
@@ -574,12 +577,11 @@ void CMario::OnKeyUp(int keyCode)
 	if (keyCode == DIK_S) {
 		// from fly to float when release S
 		if (state == MARIO_STATE_FLY) {
-			ResetFlyTimer();
 			SetState(MARIO_STATE_FLOAT);
 			DebugOut(L" float when keyup S\n");
 		}
 		// fall even when high jumping
-		else  if (GetIsOnGround() == true && state == MARIO_STATE_JUMP) {
+		else  if (GetIsOnGround() == true ) {
 			SetState(MARIO_STATE_IDLE);
 		}
 
@@ -617,7 +619,7 @@ void CMario::OnKeyDown(int keyCode)
 			if (GetIsOnGround() == true) {
 				if (powerMeter >= PM_MAX) {
 					SetState(MARIO_STATE_FLY);
-					vy = -MARIO_FLY_PUSH * 2 - MARIO_GRAVITY * dt;
+					vy = -MARIO_FLY_PUSH * 3 - MARIO_GRAVITY * dt;
 					DebugOut(L" fly nè ! vy: %f\n", vy);
 				} //always go here
 				else {
@@ -629,8 +631,13 @@ void CMario::OnKeyDown(int keyCode)
 				GetPosY(jumpStartPosition);
 			}
 			else {
-				if (state == MARIO_STATE_FLOAT && floatTimer > 0) {
-					vy = -MARIO_FLY_PUSH  - MARIO_GRAVITY * dt;
+				if (state == MARIO_STATE_FLOAT ) {
+					vy -= MARIO_JUMP_PUSH/2 ;
+				}
+
+				if (state == MARIO_STATE_FLY) {
+					vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * dt;
+					DebugOut(L" fly up when press S \n");
 				}
 			}
 		}
@@ -679,6 +686,7 @@ void CMario::ResetAttackTimer()
 	attackTimer = 0;
 }
 
+
 void CMario::SetIsOnGround(bool onGround)
 {
 	this->isOnGround = onGround;
@@ -705,15 +713,9 @@ void CMario::ResetUntouchable()
 	untouchable_start = 0;
 }
 
-void CMario::ResetFlyTimer()
-{
-	flyTimer = 0;
-	DebugOut(L" fly timer resetted\n");
-}
 void CMario::ResetFloatTimer()
 {
 	floatTimer = 0;
-	DebugOut(L" float timer reseted\n");
 }
 
 void CMario::SetSkid(int skid)

@@ -21,6 +21,8 @@
 
 #define MARIO_WALK_SPEED				0.27f
 #define MARIO_RUN_SPEED					0.48f
+#define MARIO_FLY_SPEED_X				0.27f
+#define MARIO_FLOAT_SPEED_X				0.20f
 
 #define MARIO_RUN_ACCELERATION			0.0005613f
 #define MARIO_WALK_ACCELERATION			0.000476f
@@ -30,6 +32,7 @@
 #define MARIO_BEGIN_HIGH_JUMP_HEIGHT	97
 #define MARIO_HIGH_JUMP_FALL_POINT		216
 #define MARIO_FLY_FALL_POINT			300
+#define MARIO_FLY_MAX_POINT				1000
 
 #define MARIO_WALK_FRICTION				0.0014306f
 #define MARIO_RUN_FRICTION				0.0016366f
@@ -42,7 +45,8 @@
 #define MARIO_JUMP_DEFLECT_SPEED	0.2f
 #define MARIO_DIE_DEFLECT_SPEED		0.5f
 
-#define MARIO_STATE_IDLE			0
+#define MARIO_STATE_IDLE			10
+#define MARIO_STATE_IDLE_Y			11
 #define MARIO_STATE_WALK			100
 #define MARIO_STATE_RUN				200
 #define MARIO_STATE_RUN_HIGH_SPEED	300
@@ -75,8 +79,8 @@
 #define MARIO_ATTACK_TIME			250
 #define MARIO_HOLD_FLY_TIME			250
 
-#define MARIO_FLY_TIME				2000
-
+#define MARIO_FLY_TIME				500
+#define MARIO_FLOAT_TIME			500
 
 class Camera;
 
@@ -105,7 +109,7 @@ class CMario : public CGameObject
 	int finalKeyDirection = 0;
 	float jumpStartPosition = 0;
 
-	float flyTimer = 0;
+
 	float floatTimer = 0;
 	float attackTimer = 0;
 
@@ -151,13 +155,13 @@ public:
 	void StartUntouchable();
 	void ResetUntouchable();
 
-	void ResetFlyTimer();
 	void ResetFloatTimer();
 	
 	void Reset();
 	void ResetFlip();
 
 	void ResetAttackTimer();
+
 
 	void OnKeyUp(int keyCode);
 	void OnKeyDown(int keyCode);

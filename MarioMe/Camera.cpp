@@ -81,6 +81,6 @@ void Camera::Update()
 
 
 	x = cx - game->GetScreenWidth() / 2;
-	//y = cy - game->GetScreenHeight() / 2;
+	y = cy - game->GetScreenHeight()/ 2;
 
 }
