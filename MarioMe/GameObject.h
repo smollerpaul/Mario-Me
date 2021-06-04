@@ -61,6 +61,7 @@ public:
 	int flip;
 
 	int state;
+	int alive;
 
 	DWORD dt;
 
@@ -69,6 +70,7 @@ public:
 public: 
 	CGameObject();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
+	virtual void UpdatePosition();
 	virtual void Render() = 0;
 
 	void SetPosition(float x, float y);
@@ -88,6 +90,9 @@ public:
 	
 	virtual void SetState(int state);
 	int GetState();
+
+	void SetAlive(int alive);
+	int GetAlive();
 
 	virtual int GetObjectType() ;
 

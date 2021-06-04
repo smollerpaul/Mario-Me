@@ -19,17 +19,16 @@ CPlayScene::CPlayScene(string id, string filePath):
 
 void CPlayScene::Update(DWORD dt)
 {
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
+	CheckAlive(); 
 
 	vector<LPGAMEOBJECT> coObjects;
+
 	coObjects.push_back(player);
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
 	}
-
 	//player update must be called separately
 	player->Update(dt, &coObjects);
 
@@ -41,7 +40,6 @@ void CPlayScene::Update(DWORD dt)
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	
 	camera->Update();
-
 }
 
 void CPlayScene::Render()
@@ -49,29 +47,24 @@ void CPlayScene::Render()
 	this->map->Render();
 	vector<LPGAMEOBJECT> coObjects;
 
-	//add player
-	
 	coObjects.push_back(player);
-	
 	
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
-
-		//DebugOut(L"PUSH these map objects\n");
 	}
 	
-	// de y cai phan tu mang ( starts at 0)
-
 	for (size_t i = 0; i < coObjects.size(); i++)
 	{
 		coObjects[i]->Render();
-
-		//DebugOut(L"RENDER these map objects\n");
 	}
 		
-	for (int i = 0; i < objects.size(); i++)
-		objects[i]->RenderBoundingBox();
+	for (int i = 0; i < coObjects.size(); i++) {
+		coObjects[i]->RenderBoundingBox();
+	}
+		
+
+	
 }
 
 
@@ -90,8 +83,6 @@ CMario* CPlayScene::GetPlayer()
 {
 	return player;
 }
-
-
 
 void CPlayScene::OnKeyDown(int KeyCode)
 {
@@ -149,17 +140,25 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		AddObject(ghostObject);
 	}
 
-	/*if (objectType.compare("Spawner") == 0) {
+	if (objectType.compare("Goomba") == 0) {
 		CGoomba* goomba = new CGoomba();
 		goomba->SetPosition(x, y);
 		AddObject(goomba);
+		DebugOut(L"goooooooooomba\n");
+	}
 
-		DebugOut(L" ra goomba oi nhaaaaaaaaaaaaaaaaaaaaaaaaa\n");
-	}*/
-
-	
 
 	// void, spawner, pipe
+}
+
+void CPlayScene::CheckAlive()
+{
+	// check for terminated objects & remove them
+	for (size_t i = 0; i < objects.size(); i++)
+	{
+		if (objects[i]->GetAlive()!=1)
+			RemoveObject(objects[i]);
+	}
 }
 
 

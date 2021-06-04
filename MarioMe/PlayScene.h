@@ -31,6 +31,7 @@ public:
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
 	virtual void LoadMapObjects(string objectName, float x, float y, float width = 0, float height = 0) override;
+	void CheckAlive();
 	
 
 };

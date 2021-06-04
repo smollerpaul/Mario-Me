@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "GameObject.h"
 
 
 
@@ -26,4 +27,19 @@ GameMap* CScene::GetMap()
 void CScene::AddObject(CGameObject* obj)
 {
 	objects.push_back(obj);
+}
+
+void CScene::RemoveObject(CGameObject* obj)
+{
+	/*objects.erase(remove_if(objects.begin(), objects.end(), [](const CGameObject*& obj) {
+		if (obj->GetAlive()!=0) {
+			return false;
+		}
+		else {
+			delete obj;
+			return true;
+		}
+		}), objects.end());*/
+	//delete obj;
+	//DebugOut(L"Game obj removed!\n");
 }

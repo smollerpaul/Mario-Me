@@ -28,11 +28,13 @@ public:
 	virtual void OnKeyDown(int KeyCode) = 0;
 	virtual void OnKeyUp(int KeyCode) = 0;
 
+
 	Camera* GetCamera();
 	GameMap* GetMap();
 
 	void SetCamera(Camera* camera);
 	void AddObject(CGameObject* obj);
+	void RemoveObject(CGameObject* obj);
 
 };
 typedef CScene * LPSCENE;

@@ -51,14 +51,12 @@ GameMap* GameMap::Load(string path)
 
 		for (TiXmlElement* objG = root->FirstChildElement("objectgroup"); objG != nullptr; objG = objG->NextSiblingElement("objectgroup")) {
 			for (TiXmlElement* obj = objG->FirstChildElement("object"); obj != nullptr; obj = obj->NextSiblingElement("object")) {
-				
-				
 				if (obj->Attribute("type") != NULL) {
 					string objName= objG->Attribute("name");
 					
-					if (objName.compare("MapObjects") == 0) {
-
+					if (objName.compare("MapObjects") == 0 || objName.compare("Spawners")==0) {
 						string objType = obj->Attribute("type");
+
 						float x = 0,  y = 0;
 						float objWidth = 0, objHeight = 0;
 						
@@ -74,6 +72,22 @@ GameMap* GameMap::Load(string path)
 						if (obj->Attribute("height") != NULL)
 							obj->QueryFloatAttribute("height", &objHeight);
 
+						// Read spawners
+
+						if (objType.compare("Spawner") == 0) {
+							TiXmlElement* props = obj->FirstChildElement("properties");
+
+							for (TiXmlElement* objProp = props->FirstChildElement("property"); objProp != nullptr; objProp = objProp->NextSiblingElement("property")) {
+								string propName= objProp->Attribute("name");
+
+								if (propName.compare("EntityType") == 0) {
+									string propValue = objProp->Attribute("value");
+									CGame::GetInstance()->GetCurrentScene()->LoadMapObjects(propValue, x, y, objWidth, objHeight);
+								}
+							}
+						}
+
+						// read next
 						CGame::GetInstance()->GetCurrentScene()->LoadMapObjects(objType,x, y, objWidth, objHeight);
 					}
 				}

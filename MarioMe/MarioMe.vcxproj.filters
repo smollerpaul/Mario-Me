@@ -85,6 +85,27 @@
     <ClCompile Include="PlayerData.cpp">
       <Filter>Game\PlayerData</Filter>
     </ClCompile>
+    <ClCompile Include="FireBall.cpp">
+      <Filter>Game\Mario\MFire\FireBall</Filter>
+    </ClCompile>
+    <ClCompile Include="FireMario.cpp">
+      <Filter>Game\Mario\MFire</Filter>
+    </ClCompile>
+    <ClCompile Include="RacoonMario.cpp">
+      <Filter>Game\Mario\MRacoon</Filter>
+    </ClCompile>
+    <ClCompile Include="RacoonTail.cpp">
+      <Filter>Game\Mario\MRacoon\Tail</Filter>
+    </ClCompile>
+    <ClCompile Include="SmallMario.cpp">
+      <Filter>Game\Mario\MSmall</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioLevels.cpp">
+      <Filter>Game\Mario\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="BigMario.cpp">
+      <Filter>Game\Mario\MBig</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -152,6 +173,30 @@
     </ClInclude>
     <ClInclude Include="PlayerData.h">
       <Filter>Game\PlayerData</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBall.h">
+      <Filter>Game\Mario\MFire\FireBall</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioConstants.h">
+      <Filter>Game\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="FireMario.h">
+      <Filter>Game\Mario\MFire</Filter>
+    </ClInclude>
+    <ClInclude Include="RacoonMario.h">
+      <Filter>Game\Mario\MRacoon</Filter>
+    </ClInclude>
+    <ClInclude Include="RacoonTail.h">
+      <Filter>Game\Mario\MRacoon\Tail</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioLevels.h">
+      <Filter>Game\Mario\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallMario.h">
+      <Filter>Game\Mario\MSmall</Filter>
+    </ClInclude>
+    <ClInclude Include="BigMario.h">
+      <Filter>Game\Mario\MBig</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -268,6 +313,27 @@
     </Filter>
     <Filter Include="Game\PlayerData">
       <UniqueIdentifier>{d0e10311-25d3-4c2b-b752-eb62ac9440e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\Levels">
+      <UniqueIdentifier>{4bd9834b-4060-4996-ab31-979869959d1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\MSmall">
+      <UniqueIdentifier>{67d48f77-c965-4d9e-877c-7f0d64764b69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\MFire">
+      <UniqueIdentifier>{c3098a18-d49b-4331-b261-2804332c24bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\MFire\FireBall">
+      <UniqueIdentifier>{7c1bbd6d-b9bb-4095-a2fb-ae4c450e0b9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\MRacoon">
+      <UniqueIdentifier>{2d8a7e1d-9364-4c0c-aa2a-7f7945247fe0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\MRacoon\Tail">
+      <UniqueIdentifier>{56cbd28d-1ced-49f9-8cd3-b4eff505e524}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\MBig">
+      <UniqueIdentifier>{48aec114-e683-46a8-9a71-af68538a76fe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

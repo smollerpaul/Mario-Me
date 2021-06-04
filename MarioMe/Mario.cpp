@@ -10,6 +10,7 @@
 #include "Camera.h"
 #include "PlayerData.h"
 #include "SolidBlock.h"
+#include "FireBall.h"
 
 using namespace std;
 
@@ -76,7 +77,7 @@ void CMario::InitAnimations()
 		this->animations["Skid"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-skid");
 		this->animations["Crouch"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-crouch");
 		this->animations["Kick"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-kick");
-		this->animations["Spin"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-spin");
+		
 
 		this->animations["Hold"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-hold");
 		this->animations["HoldIdle"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-hold-idle");
@@ -84,6 +85,28 @@ void CMario::InitAnimations()
 
 		this->animations["TeleVer"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-idle-front");
 		this->animations["TeleHor"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-walk");
+		this->animations["Spin"] = CAnimations::GetInstance()->Get("ani-raccoon-mario-spin");
+		this->animations["AttackFire"] = CAnimations::GetInstance()->Get("ani-fire-mario-throw");
+
+		/*this->animations["Idle"] = CAnimations::GetInstance()->Get("ani-fire-mario-idle");
+		this->animations["Walk"] = CAnimations::GetInstance()->Get("ani-fire-mario-walk");
+		this->animations["Run"] = CAnimations::GetInstance()->Get("ani-fire-mario-run");
+		this->animations["HighSpeed"] = CAnimations::GetInstance()->Get("ani-fire-mario-high-speed");
+		this->animations["Jump"] = CAnimations::GetInstance()->Get("ani-fire-mario-jump");
+		this->animations["HighJump"] = CAnimations::GetInstance()->Get("ani-fire-mario-high-jump");
+		this->animations["Fly"] = CAnimations::GetInstance()->Get("ani-fire-mario-high-jump");
+		this->animations["Fall"] = CAnimations::GetInstance()->Get("ani-fire-mario-fall");
+		this->animations["Float"] = CAnimations::GetInstance()->Get("ani-fire-mario-high-jump");
+		this->animations["Skid"] = CAnimations::GetInstance()->Get("ani-fire-mario-skid");
+		this->animations["Crouch"] = CAnimations::GetInstance()->Get("ani-fire-mario-crouch");
+		this->animations["Kick"] = CAnimations::GetInstance()->Get("ani-fire-mario-kick");
+		
+		this->animations["Hold"] = CAnimations::GetInstance()->Get("ani-fire-mario-hold");
+		this->animations["HoldIdle"] = CAnimations::GetInstance()->Get("ani-fire-mario-hold-idle");
+		this->animations["HoldFall"] = CAnimations::GetInstance()->Get("ani-fire-mario-hold-fall");
+
+		this->animations["TeleVer"] = CAnimations::GetInstance()->Get("ani-fire-mario-idle-front");
+		this->animations["TeleHor"] = CAnimations::GetInstance()->Get("ani-fire-mario-walk");*/
 
 		DebugOut(L"done init ani MARIO \n");
 	}
@@ -101,6 +124,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		ResetUntouchable();
 	
 	vy += gravity * dt;
+
 	
 	MovementUpdate(dt);
 	RunPowerMeter(dt);
@@ -111,7 +135,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	for (UINT i = 0; i < coEvents.size(); i++)
 		delete coEvents[i];	
-	DebugOut(L" state: %d, vy: %f, powerMeter: %f, floatTimer: %f, OnGround: %d \n ", state, vy, powerMeter, floatTimer, isOnGround);
+
+
+	//DebugOut(L" MARIO: vx: %f  vy: %f state: %d\n", vx, vy, state);
 }
 
 void CMario::MovementUpdate(DWORD dt)
@@ -127,9 +153,12 @@ void CMario::MovementUpdate(DWORD dt)
 
 #pragma region DOWN
 	if (keyboard->IsKeyDown(DIK_DOWN)) {
-		if (state != MARIO_STATE_WALK && state != MARIO_STATE_RUN && state != MARIO_STATE_CROUCH )
+		if (state != MARIO_STATE_WALK && state != MARIO_STATE_RUN && state != MARIO_STATE_CROUCH) {
+			if (state == MARIO_STATE_ATTACK || state== MARIO_STATE_FIRE) {
+				ResetAttackTimer();
+			}
 			SetState(MARIO_STATE_CROUCH);
-
+		}
 		if (state == MARIO_STATE_CROUCH) {
 			if (vx != 0)
 				vx = 0;
@@ -334,13 +363,26 @@ void CMario::AttackUpdate(DWORD dt)
 		float currentTime = dt;
 		attackTimer += currentTime;
 
-		DebugOut(L" attack timer is: %f \n", attackTimer);
+		DebugOut(L" ATTACK TIMER: %f \n", attackTimer);
 
 		if (attackTimer >= MARIO_ATTACK_TIME) {
 			isAttacking = 0;
 			ResetAttackTimer();
+		}
+	}
+	else if (isAttackingFire == 1) {
+		if (state != MARIO_STATE_FIRE) {
+			SetState(MARIO_STATE_FIRE);
+		}
 
-			SetState(MARIO_STATE_IDLE);
+		float currentTime = dt;
+		attackTimer += currentTime;
+
+		DebugOut(L" FIRE TIMER: %f \n", attackTimer);
+
+		if (attackTimer >= MARIO_FIRE_TIME) {
+			isAttackingFire = 0;
+			ResetAttackTimer();
 		}
 	}
 }
@@ -369,8 +411,7 @@ void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
-		x += dx;
-		y += dy;
+		CGameObject::UpdatePosition();
 	}
 	else
 	{
@@ -408,13 +449,10 @@ void CMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 				{
 					CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 
-					if (e->ny < 0)
+					if (e->ny != 0)
 					{
-						if (goomba->GetState() != GOOMBA_STATE_DIE)
-						{
-							goomba->SetState(GOOMBA_STATE_DIE);
-							vy = -MARIO_JUMP_DEFLECT_SPEED;
-						}
+						vy = -MARIO_JUMP_DEFLECT_SPEED;
+						DebugOut(L"Touched Y \n");
 					}
 					else if (e->nx != 0)
 					{
@@ -523,6 +561,10 @@ void CMario::Render()
 	case MARIO_STATE_ATTACK:
 		ani = this->animations["Spin"];
 		break;
+
+	case MARIO_STATE_FIRE:
+		ani = this->animations["AttackFire"];
+		break;
 	}
 
 	int alpha = 255;
@@ -533,12 +575,11 @@ void CMario::Render()
 	float l, t, b, r;
 	GetBoundingBox(l, t, r, b);
 
-	ani->SetPlayScale(max(0.4f, min(abs(vx) / MARIO_WALK_SPEED, 4)) * 1.5f);
+	ani->SetPlayScale(1.5f);
 	ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + (b - t) / 2, flip, alpha);
 
 	RenderBoundingBox();
 }
-
 
 void CMario::SetState(int state)
 {
@@ -620,12 +661,10 @@ void CMario::OnKeyDown(int keyCode)
 				if (powerMeter >= PM_MAX) {
 					SetState(MARIO_STATE_FLY);
 					vy = -MARIO_FLY_PUSH * 3 - MARIO_GRAVITY * dt;
-					DebugOut(L" fly nè ! vy: %f\n", vy);
 				} //always go here
 				else {
 					SetState(MARIO_STATE_JUMP);
 					vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * dt;
-					//DebugOut(L" jump nè ! vy: %f\n", vy);
 				}
 				SetIsOnGround(false);
 				GetPosY(jumpStartPosition);
@@ -649,7 +688,7 @@ void CMario::OnKeyDown(int keyCode)
 			}
 			else {
 				isAttacking = 1;
-				DebugOut(L"ATTACKING STATE: [ %d ], isAttacking: [ %d ]\n", state, isAttacking);
+				DebugOut(L"A pressed \n");
 			}		
 		}
 		break;
@@ -661,6 +700,15 @@ void CMario::OnKeyDown(int keyCode)
 
 		case DIK_LEFT: {
 			finalKeyDirection = -1;
+		}
+		break;
+
+		case DIK_F: {
+			FireBall* fb = new FireBall(this);
+			CGame::GetInstance()->GetCurrentScene()->AddObject(fb);
+
+			isAttackingFire = 1;
+			DebugOut(L"ball\n");
 		}
 		break;
 	}
@@ -684,8 +732,8 @@ void CMario::ResetFlip()
 void CMario::ResetAttackTimer()
 {
 	attackTimer = 0;
+	DebugOut(L"Attack timer resetted!\n");
 }
-
 
 void CMario::SetIsOnGround(bool onGround)
 {
