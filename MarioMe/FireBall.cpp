@@ -3,6 +3,7 @@
 #include "Game.h"
 #include"Goomba.h"
 #include "GameObject.h"
+#include "QuestionBlock.h"
 
 // dung tuong bien mat
 //dung goomba chet
@@ -110,6 +111,19 @@ void FireBall::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 			}
 		}
 		break;
+
+		// disappear when hit qblock
+		case QuestionBlock::ObjectType:
+		{
+			CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+
+			if (e->ny != 0 || e->nx != 0)
+			{
+				SetAlive(0);
+			}
+		}
+		break;
+
 		}
 	}
 }

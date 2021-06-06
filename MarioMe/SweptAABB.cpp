@@ -1,4 +1,4 @@
-#include "GameObject.h"
+﻿#include "GameObject.h"
 #include "Game.h"
 #include "Utils.h"
 
@@ -7,24 +7,24 @@
 */
 LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 {
-	float sl, st, sr, sb;		// static object bbox
-	float ml, mt, mr, mb;		// moving object bbox
+	float sl, st, sr, sb;		// obj B
+	float ml, mt, mr, mb;		// obj chủ
 	float t, nx, ny;
 
-	coO->GetBoundingBox(sl, st, sr, sb);
+	coO->GetBoundingBox(sl, st, sr, sb); //get bbox of object B
 
-	// deal with moving object: m speed = original m speed - collide object speed
+	
 	float svx, svy;
-	coO->GetSpeed(svx, svy);
+	coO->GetSpeed(svx, svy); //GET SPEED OF obj B
 
-	float sdx = svx * dt;
+	float sdx = svx * dt; 
 	float sdy = svy * dt;
 
-	// (rdx, rdy) is RELATIVE movement distance/velocity 
-	float rdx = this->dx - sdx;
+	// close the gap between 2 moving objs ( if exists)
+	float rdx = this->dx - sdx;  
 	float rdy = this->dy - sdy;
 
-	GetBoundingBox(ml, mt, mr, mb);
+	this->GetBoundingBox(ml, mt, mr, mb); // GET object chủ  stats (đang đọc trong hàm thằng nào thì nó là obj chủ)
 
 	CGame::SweptAABB(
 		ml, mt, mr, mb,
@@ -33,11 +33,13 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 		t, nx, ny
 	);
 
-	CCollisionEvent* e = new CCollisionEvent(t, nx, ny, rdx, rdy, coO);
+	// trả ra t, nx,ny ( time, phương react khi va chạm)
+
+	CCollisionEvent* e = new CCollisionEvent(t, nx, ny, rdx, rdy, coO);  //involve stats  và object B ( not chủ)
+	// có ny, nx -> nice
 	return e;
 }
 
-// only the collisions happen in that frame
 void CGameObject::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
@@ -71,26 +73,36 @@ void CGameObject::FilterCollision(
 	ny = 0.0f;
 
 	coEventsResult.clear();
-
+	// đang xét những va chạm có thể xảy ra gần nhất ( vì 1 lần va chạm đc 1 cái th chứ k nhiều cái duh)
 	for (UINT i = 0; i < coEvents.size(); i++)
 	{
 		LPCOLLISIONEVENT c = coEvents[i];
+		// c->obj là object B đang xét, truyền vô là this (obj chủ)
+		if (c->obj->CanGetThrough(this, c->nx, c->ny) == true) {
+			DebugOut(L"Vô đc r nha \n");
+			continue;
+		}
 		
-		if (c->t < min_tx && c->nx != 0) {
-			min_tx = c->t; // min collision event is there
+		// truyyền stats của nx, ny của coEvents[i] vào hàm isGetThrough -> r xét cái số đó
+		//if is getthrough true -> continue; if item can get through
+		// nx, ny 1 trong 2 !=0 vì xem để biết va chạm phương x or y thôi
+
+		if (c->t < min_tx && c->nx != 0) { 
+			min_tx = c->t;
 			nx = c->nx; 
-			min_ix = i; 
 			rdx = c->dx;
+			min_ix = i; //smallest on x
 		}
 
 		if (c->t < min_ty && c->ny != 0) {
 			min_ty = c->t; 
 			ny = c->ny; 
-			min_iy = i; 
 			rdy = c->dy;
+			min_iy = i; //smallest on y
 		}
 	}
 
+	//result is only 1 only, either x or y // cần get cái phương va chạm để define cái nào get through được
 	if (min_ix >= 0) 
 		coEventsResult.push_back(coEvents[min_ix]);
 

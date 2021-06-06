@@ -47,6 +47,17 @@ void CGameObject::UpdatePosition()
 	y += dy;
 }
 
+void CGameObject::SetPositionBottom(float x, float y)
+{
+	this->x = x;
+	this->y = y - height;
+}
+
+bool CGameObject::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy)
+{
+	return false;
+}
+
 void CGameObject::RenderBoundingBox()
 {
 	D3DXVECTOR3 p(x, y, 0);
@@ -68,7 +79,7 @@ void CGameObject::RenderBoundingBox()
 
 	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get("tex-test");
 	D3DXVECTOR3 pivot(0, 0, 0);
-	game->Draw((x- cam->GetX() + width / 2),( y- cam->GetY()) + height/2, pivot, bbox, rect.left, rect.top, rect.right, rect.bottom, 100, flip);
+	game->Draw((x- cam->GetX() + width / 2),( y- cam->GetY()) + height/2, pivot, bbox, rect.left, rect.top, rect.right, rect.bottom, 50, flip);
 }
 
 void CGameObject::SetAlive(int alive)

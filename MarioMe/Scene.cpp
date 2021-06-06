@@ -31,7 +31,7 @@ void CScene::AddObject(CGameObject* obj)
 
 void CScene::RemoveObject(CGameObject* obj)
 {
-	/*objects.erase(remove_if(objects.begin(), objects.end(), [](const CGameObject*& obj) {
+	objects.erase(remove_if(objects.begin(), objects.end(), []( CGameObject*& obj) {
 		if (obj->GetAlive()!=0) {
 			return false;
 		}
@@ -39,7 +39,5 @@ void CScene::RemoveObject(CGameObject* obj)
 			delete obj;
 			return true;
 		}
-		}), objects.end());*/
-	//delete obj;
-	//DebugOut(L"Game obj removed!\n");
+		}), objects.end());
 }

@@ -1,4 +1,4 @@
-#include "Game.h"
+﻿#include "Game.h"
 
 
 /*
@@ -82,19 +82,21 @@ void CGame::SweptAABB(
 
 
 	if ((tx_entry < 0.0f && ty_entry < 0.0f) || tx_entry > 1.0f || ty_entry > 1.0f) return;
-
+	// va chạm on phương nào
 	t_entry = max(tx_entry, ty_entry);
 	t_exit = min(tx_exit, ty_exit);
 
 	if (t_entry > t_exit) return;
 
-	t = t_entry;
+	t = t_entry; //trả về t_entry
 
-	// collide x first
+	// collide x or y first
+	// trà kết quả phương va chạm here -> nếu vậy thì lấy kqua ny, nx vô luôn được k? truyền ny, nx vô luôn r decide , khỏi phương
 	if (tx_entry > ty_entry)
 	{
-		ny = 0.0f;
-		dx > 0 ? nx = -1.0f : nx = 1.0f;
+		ny = 0.0f; 
+		dx > 0 ? nx = -1.0f : nx = 1.0f; //direction of response after collision , cái này =0 nghĩa là no collision obviously
+		//whilst ny ==0
 	}
 	else
 	{

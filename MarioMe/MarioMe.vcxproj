@@ -143,6 +143,7 @@
     <ClCompile Include="MarioLevels.cpp" />
     <ClCompile Include="PlayerData.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RacoonMario.cpp" />
     <ClCompile Include="RacoonTail.cpp" />
     <ClCompile Include="SmallMario.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="MarioLevels.h" />
     <ClInclude Include="PlayerData.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="RacoonMario.h" />
     <ClInclude Include="RacoonTail.h" />
     <ClInclude Include="SmallMario.h" />

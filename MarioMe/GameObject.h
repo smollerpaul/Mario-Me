@@ -1,13 +1,9 @@
-#pragma once
+﻿#pragma once
 #include "Utils.h"
-
 #include "Sprites.h"
 #include "Animations.h"
 
-
 using namespace std;
-
-#define ID_TEX_BBOX -100		// special texture to draw object bounding box
 
 class Camera;
 class CGameObject; 
@@ -73,7 +69,10 @@ public:
 	virtual void UpdatePosition();
 	virtual void Render() = 0;
 
-	void SetPosition(float x, float y);
+	//gameobj input là cái object B , đang xét so với vật chủ
+	virtual bool CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy);
+	virtual void SetPosition(float x, float y);
+	void SetPositionBottom(float x, float y);
 	void GetPosition(float& x, float& y);
 
 	void GetPosX(float& x);

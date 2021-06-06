@@ -54,7 +54,7 @@ GameMap* GameMap::Load(string path)
 				if (obj->Attribute("type") != NULL) {
 					string objName= objG->Attribute("name");
 					
-					if (objName.compare("MapObjects") == 0 || objName.compare("Spawners")==0) {
+					if (objName.compare("MapObjects") == 0 || objName.compare("Spawners")==0|| objName.compare("Object Layer") == 0) {
 						string objType = obj->Attribute("type");
 
 						float x = 0,  y = 0;

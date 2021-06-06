@@ -1,4 +1,3 @@
-
 #include "PlayScene.h"
 #include "Utils.h"
 #include "Sprites.h"
@@ -7,7 +6,7 @@
 #include "Map.h"
 #include "SolidBlock.h"
 #include "GhostBlock.h"
-
+#include "QuestionBlock.h"
 
 using namespace std;
 
@@ -19,8 +18,6 @@ CPlayScene::CPlayScene(string id, string filePath):
 
 void CPlayScene::Update(DWORD dt)
 {
-	CheckAlive(); 
-
 	vector<LPGAMEOBJECT> coObjects;
 
 	coObjects.push_back(player);
@@ -40,6 +37,8 @@ void CPlayScene::Update(DWORD dt)
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	
 	camera->Update();
+
+	CheckAlive();
 }
 
 void CPlayScene::Render()
@@ -62,9 +61,6 @@ void CPlayScene::Render()
 	for (int i = 0; i < coObjects.size(); i++) {
 		coObjects[i]->RenderBoundingBox();
 	}
-		
-
-	
 }
 
 
@@ -95,8 +91,6 @@ void CPlayScene::OnKeyUp(int KeyCode)
 	player->OnKeyUp(KeyCode);
 }
 
-
-
 void CPlayScene::Load()
 {
 	player = new CMario();
@@ -124,6 +118,7 @@ void CPlayScene::Load()
 
 void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width, float height)
 {
+	//mario spawn point
 	if (objectType.compare("SpawnPoint") == 0) {
 		player->SetPosition(x, y);
 	}
@@ -142,9 +137,14 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 
 	if (objectType.compare("Goomba") == 0) {
 		CGoomba* goomba = new CGoomba();
-		goomba->SetPosition(x, y);
+		goomba->SetPositionBottom(x, y);
 		AddObject(goomba);
-		DebugOut(L"goooooooooomba\n");
+	}
+
+	if (objectType.compare("QuestionBlock") == 0) {
+		QuestionBlock* qb = new QuestionBlock();
+		qb->SetPosition(x, y);
+		AddObject(qb);
 	}
 
 

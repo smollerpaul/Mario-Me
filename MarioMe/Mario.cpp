@@ -38,6 +38,9 @@ CMario::CMario() : CGameObject()
 
 	this->gravity = MARIO_GRAVITY;
 
+	this->width = MARIO_BIG_BBOX_WIDTH;
+	this->height = MARIO_BIG_BBOX_HEIGHT;
+
 }
 
 void CMario::InitAnimations()
@@ -415,10 +418,12 @@ void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 	}
 	else
 	{
-		float min_tx, min_ty, nx = 0, ny;
+		float min_tx, min_ty, nx = 0, ny = 0; //predefined stuff , value doesnt matter
+
 		float rdx = 0;
 		float rdy = 0;
 
+		//is get clamp distance , still got those coEvents
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
@@ -426,9 +431,10 @@ void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 		//	x += nx*abs(rdx); 
 
 		// block every object first!
+		// updated position
+
 		x += min_tx * dx + nx * 0.4f;
 		y += min_ty * dy + ny * 0.4f;
-
 
 		if (nx != 0) vx = 0;
 		if (ny != 0) vy = 0;
@@ -452,22 +458,18 @@ void CMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 					if (e->ny != 0)
 					{
 						vy = -MARIO_JUMP_DEFLECT_SPEED;
-						DebugOut(L"Touched Y \n");
 					}
 					else if (e->nx != 0)
 					{
 						if (untouchable == 0)
 						{
-							if (goomba->GetState() != GOOMBA_STATE_DIE)
+							if (level != MARIO_LEVEL_SMALL)
 							{
-								if (level > MARIO_LEVEL_SMALL)
-								{
-									level = MARIO_LEVEL_SMALL;
-									StartUntouchable();
-								}
-								else
-									SetState(MARIO_STATE_DIE);
+								level = MARIO_LEVEL_SMALL;
+								StartUntouchable();
 							}
+							else
+								SetState(MARIO_STATE_DIE);
 						}
 					}
 				}

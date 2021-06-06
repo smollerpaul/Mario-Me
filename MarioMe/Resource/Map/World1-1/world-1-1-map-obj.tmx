@@ -104,7 +104,7 @@
 </data>
  </layer>
  <objectgroup id="24" name="Spawners">
-  <object id="243" type="Spawner" x="673" y="1246.38">
+  <object id="243" type="Spawner" x="671.986" y="1247.68">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="Goomba"/>
@@ -140,7 +140,7 @@
    </properties>
    <point/>
   </object>
-  <object id="30" type="QuestionBlock" x="1968" y="1152">
+  <object id="30" type="QuestionBlock" x="1968" y="1153">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:7,&quot;y&quot;:3},{&quot;x&quot;:7,&quot;y&quot;:4}]"/>
     <property name="HiddenItem" value="RaccoonLeaf"/>

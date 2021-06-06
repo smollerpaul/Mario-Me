@@ -106,6 +106,9 @@
     <ClCompile Include="BigMario.cpp">
       <Filter>Game\Mario\MBig</Filter>
     </ClCompile>
+    <ClCompile Include="QuestionBlock.cpp">
+      <Filter>Game\MapObject\QuestionBlock</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -197,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="BigMario.h">
       <Filter>Game\Mario\MBig</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestionBlock.h">
+      <Filter>Game\MapObject\QuestionBlock</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -334,6 +340,9 @@
     </Filter>
     <Filter Include="Game\Mario\MBig">
       <UniqueIdentifier>{48aec114-e683-46a8-9a71-af68538a76fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\MapObject\QuestionBlock">
+      <UniqueIdentifier>{563f2876-0b4d-4f20-b379-a5dc764819d2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
