@@ -90,6 +90,8 @@ public:
 	virtual void SetState(int state);
 	int GetState();
 
+	int GetNormalX();
+
 	void SetAlive(int alive);
 	int GetAlive();
 

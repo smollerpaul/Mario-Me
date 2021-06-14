@@ -36,7 +36,7 @@ CAnimation* CAnimation::Clone()
 	return result;
 }
 
-// NOTE: sometimes Animation object is NULL ??? HOW ??? 
+// lastframe time was null, hmmm
 void CAnimation::Render(float x, float y, int flip, int alpha)
 {
 	DWORD now = GetTickCount64();

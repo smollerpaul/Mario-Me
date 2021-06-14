@@ -56,7 +56,6 @@ void QuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (state == QB_STATE_BOUNCE) {
 		dyBounce += abs(dy);
-
 		if (dyBounce >= QB_BOUNCE_HEIGHT) {
 			vy += QB_GRAVITY * dt;
 		}
@@ -70,15 +69,11 @@ void QuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt, coObjects);
 	CGameObject::UpdatePosition();
 
-	
-
 	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
 	BehaviorUpdate(dt, coEventsResult);
 
 	for (UINT i = 0; i < coEvents.size(); i++)
 		delete coEvents[i];
-
-	DebugOut(L" QB:  vy: %f  Y: %f \n", vy, y, state);
 }
 
 bool QuestionBlock::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy)
@@ -114,7 +109,7 @@ void QuestionBlock::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRe
 			CMario* mario = dynamic_cast<CMario*>(e->obj);
 			if (e->ny < 0)
 			{
-				vy = -QB_BOUNCE_SPEED * 1.7 ;
+				vy = -QB_BOUNCE_SPEED ;
 				SetState(QB_STATE_BOUNCE);
 			}
 		}

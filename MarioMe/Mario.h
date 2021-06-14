@@ -47,6 +47,7 @@ public:
 	
 	virtual void InitAnimations() override;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) override;
+	virtual bool CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy) override;
 
 	virtual void MovementUpdate(DWORD dt);
 	virtual void JumpUpdate(DWORD dt);

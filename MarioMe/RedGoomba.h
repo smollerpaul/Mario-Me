@@ -1,17 +1,25 @@
 #pragma once
 #include "GameObject.h"
+#include "NormalRG.h"
+
 
 
 class Camera;
 class Mario;
 
-class CGoomba : public CGameObject
+class RedGoomba :
+    public CGameObject
 {
 public:
-	float deathTimer = 0;
+	
+	NormalRG* objState = nullptr;
 
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects=NULL) override;
+	RedGoomba();
+	virtual void InitAnimations() override;
+	void SetObjectState(NormalRG* objectState);
+
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) override;
 	virtual void Render();
 	virtual bool CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy) override;
 
@@ -20,10 +28,7 @@ public:
 		vector<LPCOLLISIONEVENT>& coEventsResult);
 	void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult);
 
-	CGoomba();
-	virtual void SetState(int state);
-	virtual void InitAnimations() override;
-
 	virtual int GetObjectType() override;
-	static const int ObjectType = 5;
+	static const int ObjectType = 1;
 };
+

@@ -1,21 +1,19 @@
-#include "Goomba.h"
+﻿#include "Goomba.h"
 #include "Game.h"
 #include "Camera.h"
 #include "Mario.h"
 #include "FireBall.h"
+#include "EnemiesConstants.h"
 
-// dung mario th� di xuyen wa
+// dung mario thì di xuyen wa
 // dung duoc tren ground
+// goomba touchesmarrio
 
 CGoomba::CGoomba()
 {
 	SetState(GOOMBA_STATE_WALK);
-	
-	width = GOOMBA_BBOX_WIDTH;
-	height = GOOMBA_BBOX_HEIGHT;
-
-	vy = GRAVITY;
-
+	width = height= GOOMBA_BBOX_SIZE;
+	vy += GRAVITY*dt;
 }
 
 void CGoomba::InitAnimations()
@@ -42,8 +40,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
-	CGameObject::Update(dt, coObjects);
-
+	this->dt = dt;
 	vy += gravity * dt;
 
 	if (state == GOOMBA_STATE_DIE) {
@@ -53,8 +50,9 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			SetAlive(0);
 	}
 
-	CGameObject::UpdatePosition();
+	UpdatePosition();
 
+	// calc potential collisions & filter collision
 	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
 	BehaviorUpdate(dt, coEventsResult);
 
@@ -83,6 +81,11 @@ void CGoomba::Render()
 		ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + (b - t) / 2, flip);
 
 	RenderBoundingBox();
+}
+
+bool CGoomba::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
+{
+	return state!=GOOMBA_STATE_WALK;
 }
 
 void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
@@ -114,11 +117,14 @@ void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 		if (ny != 0) vy = 0;
 
 	}
+
+	// output là cái collision sẽ xảy ra tiếp theo
 	
 }
 
 void CGoomba::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 {
+	// input là kết quả cái collisions và output là hành vi của vật thể khi deal với collision đó
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];

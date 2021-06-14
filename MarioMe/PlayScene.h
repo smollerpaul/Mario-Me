@@ -3,10 +3,7 @@
 #include "Textures.h"
 #include "Scene.h"
 #include "GameObject.h"
-#include "Brick.h"
 #include "Mario.h"
-#include "Goomba.h"
-#include "Koopas.h"
 
 #define CAM_START_X		500
 #define CAM_START_Y		850

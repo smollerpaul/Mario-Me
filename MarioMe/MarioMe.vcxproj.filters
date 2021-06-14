@@ -109,6 +109,18 @@
     <ClCompile Include="QuestionBlock.cpp">
       <Filter>Game\MapObject\QuestionBlock</Filter>
     </ClCompile>
+    <ClCompile Include="RedGoomba.cpp">
+      <Filter>Game\Enemies\RedGoomba</Filter>
+    </ClCompile>
+    <ClCompile Include="WingedRG.cpp">
+      <Filter>Game\Enemies\RedGoomba\RGLevels\Winged Red Goomba</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalRG.cpp">
+      <Filter>Game\Enemies\RedGoomba\RGLevels\Red Goomba</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaySceneLoad.cpp">
+      <Filter>Game\Scenes\PlayScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -203,6 +215,18 @@
     </ClInclude>
     <ClInclude Include="QuestionBlock.h">
       <Filter>Game\MapObject\QuestionBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="RedGoomba.h">
+      <Filter>Game\Enemies\RedGoomba</Filter>
+    </ClInclude>
+    <ClInclude Include="WingedRG.h">
+      <Filter>Game\Enemies\RedGoomba\RGLevels\Winged Red Goomba</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalRG.h">
+      <Filter>Game\Enemies\RedGoomba\RGLevels\Red Goomba</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemiesConstants.h">
+      <Filter>Game\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -343,6 +367,18 @@
     </Filter>
     <Filter Include="Game\MapObject\QuestionBlock">
       <UniqueIdentifier>{563f2876-0b4d-4f20-b379-a5dc764819d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\RedGoomba">
+      <UniqueIdentifier>{3b8a4ab5-e095-4bfd-8dea-961a8ac3bcff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\RedGoomba\RGLevels">
+      <UniqueIdentifier>{13cd8a95-00d3-47be-9c95-88921484a4db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\RedGoomba\RGLevels\Red Goomba">
+      <UniqueIdentifier>{e9536a18-595f-4e26-806f-8c9dba4b925f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\RedGoomba\RGLevels\Winged Red Goomba">
+      <UniqueIdentifier>{786f082d-7943-4a13-b708-215567fd031f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

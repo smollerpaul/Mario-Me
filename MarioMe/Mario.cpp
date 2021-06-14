@@ -1,9 +1,7 @@
 ﻿#include "Utils.h"
-
 #include "Mario.h"
 #include "Game.h"
 #include "Animations.h"
-
 #include "Goomba.h"
 #include "Portal.h"
 #include "Keyboard.h"
@@ -141,6 +139,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 
 	//DebugOut(L" MARIO: vx: %f  vy: %f state: %d\n", vx, vy, state);
+}
+
+bool CMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
+{
+	if (obj->GetObjectType() == CGoomba::ObjectType) {
+		return coEventNx!=0;
+	}
 }
 
 void CMario::MovementUpdate(DWORD dt)

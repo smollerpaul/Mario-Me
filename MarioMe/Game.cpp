@@ -72,7 +72,7 @@ void CGame::Init(HWND hWnd)
 	OutputDebugString(L"[INFO] InitGame done;\n");
 }
 
-void CGame::Draw(float x, float y, D3DXVECTOR3 pivot, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha, int flip)
+void CGame::Draw(float x, float y, D3DXVECTOR3 pivot, LPDIRECT3DTEXTURE9 texture, float left, float top, float right, float bottom, int alpha, int flip)
 {
 	RECT r;
 	r.left = left;

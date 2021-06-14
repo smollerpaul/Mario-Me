@@ -19,6 +19,8 @@ CGameObject::CGameObject()
 	dx = dy = 0;
 	flip = 1;
 	alive = 1;
+	dt = 0;
+	width = height = 0;
 }
 
 void CGameObject::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -27,6 +29,11 @@ void CGameObject::GetBoundingBox(float& left, float& top, float& right, float& b
 	top = y;
 	right = x + width;
 	bottom = y + height;
+}
+
+int CGameObject::GetNormalX()
+{
+	return nx;
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -43,8 +50,8 @@ void CGameObject::Render()
 
 void CGameObject::UpdatePosition()
 {
-	x += dx;
-	y += dy;
+	x += vx * dt;
+	y += vy * dt;
 }
 
 void CGameObject::SetPositionBottom(float x, float y)
@@ -80,6 +87,7 @@ void CGameObject::RenderBoundingBox()
 	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get("tex-test");
 	D3DXVECTOR3 pivot(0, 0, 0);
 	game->Draw((x- cam->GetX() + width / 2),( y- cam->GetY()) + height/2, pivot, bbox, rect.left, rect.top, rect.right, rect.bottom, 50, flip);
+	//game->Draw((x - cam->GetX() + width / 2), (y - cam->GetY()) + height / 2, pivot, bbox, l, t, r, b, 50, flip);
 }
 
 void CGameObject::SetAlive(int alive)
@@ -123,6 +131,7 @@ void CGameObject::SetDirection(int nx)
 {
 	this->nx = nx;
 }
+
 int CGameObject::GetDirection()
 {
 	return this->nx;
@@ -132,8 +141,6 @@ void CGameObject::InitAnimations()
 {
 }
 
-
-
 void CGameObject::SetFlipOnNormal(int nx)
 {
 	if (nx > 0) {
@@ -141,7 +148,6 @@ void CGameObject::SetFlipOnNormal(int nx)
 	}
 	else flip = -1;
 }
-
 
 void CGameObject::GetPosX(float& x) {
 	x = this->x;

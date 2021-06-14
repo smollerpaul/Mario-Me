@@ -142,10 +142,13 @@
     <ClCompile Include="MapLayer.cpp" />
     <ClCompile Include="MarioLevels.cpp" />
     <ClCompile Include="PlayerData.cpp" />
+    <ClCompile Include="PlaySceneLoad.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RacoonMario.cpp" />
     <ClCompile Include="RacoonTail.cpp" />
+    <ClCompile Include="NormalRG.cpp" />
+    <ClCompile Include="RedGoomba.cpp" />
     <ClCompile Include="SmallMario.cpp" />
     <ClCompile Include="SolidBlock.cpp" />
     <ClCompile Include="SweptAABB.cpp" />
@@ -163,12 +166,14 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="WingedRG.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h" />
     <ClInclude Include="BigMario.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="EnemiesConstants.h" />
     <ClInclude Include="FireBall.h" />
     <ClInclude Include="FireMario.h" />
     <ClInclude Include="GhostBlock.h" />
@@ -183,6 +188,8 @@
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="RacoonMario.h" />
     <ClInclude Include="RacoonTail.h" />
+    <ClInclude Include="NormalRG.h" />
+    <ClInclude Include="RedGoomba.h" />
     <ClInclude Include="SmallMario.h" />
     <ClInclude Include="SolidBlock.h" />
     <ClInclude Include="tinyXML\tinystr.h" />
@@ -196,6 +203,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
+    <ClInclude Include="WingedRG.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resource\Animations\EffectAnim.xml" />

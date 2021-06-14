@@ -7,7 +7,7 @@
 #define QB_SIZE				45
 #define QB_BOUNCE_HEIGHT	10
 #define QB_GRAVITY			0.004
-#define QB_BOUNCE_SPEED		0.4f
+#define QB_BOUNCE_SPEED		0.68f
 
 class Camera;
 

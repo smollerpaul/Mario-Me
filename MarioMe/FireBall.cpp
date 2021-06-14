@@ -1,9 +1,9 @@
 #include "FireBall.h"
 #include "Camera.h"
 #include "Game.h"
-#include"Goomba.h"
 #include "GameObject.h"
 #include "QuestionBlock.h"
+#include "Goomba.h"
 
 // dung tuong bien mat
 //dung goomba chet
