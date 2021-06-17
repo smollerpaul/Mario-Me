@@ -36,16 +36,14 @@ void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &botto
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	vy += dt* gravity ;
-	if (isOnGround == 1)
-		vy = 0;
 
 	if (state == GOOMBA_STATE_DIE) {
 		deathTimer += dt;
+		vy = 0;
 
 		if (deathTimer >= GOOMBA_DEATH_TIME) 
 			SetAlive(0);
@@ -57,7 +55,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++)
 		delete coEvents[i];
 
-	//DebugOut(L" GOOMBA:  vy: %f X: %f, Y: %f, state: %d\n", vy,x,y ,state);
+	DebugOut(L" GOOMBA:  vy: %f X: %f, Y: %f, state: %d\n", vy,x,y ,state);
 
 }
 
@@ -84,8 +82,6 @@ void CGoomba::Render()
 bool CGoomba::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 {
 	if(obj->GetObjectType()==RedGoomba::ObjectType)
-		return true;
-	if (obj->GetObjectType() == CGoomba::ObjectType)
 		return true;
 }
 
@@ -118,14 +114,12 @@ void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 		if (nx != 0) vx = -vx;
 		if (ny != 0) vy = 0;
 
-		isOnGround = 1;
 	}
 
 }
 
 void CGoomba::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 {
-	// input là kết quả cái collisions và output là hành vi của vật thể khi deal với collision đó
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];
@@ -151,8 +145,19 @@ void CGoomba::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 			{
 				if (state != GOOMBA_STATE_DIE) {
 					SetState(GOOMBA_STATE_DIE);
+					SetAlive(0);
 				}
 				DebugOut(L" GOOMBA DEAD by FIREBALL\n");
+			}
+		}
+		break;
+
+		case CGoomba::ObjectType:
+		{
+			CGoomba* gb = dynamic_cast<CGoomba*>(e->obj);
+			if (e->nx != 0)
+			{
+				gb->nx = -gb->nx;
 			}
 		}
 		break;

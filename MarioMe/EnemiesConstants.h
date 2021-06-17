@@ -21,7 +21,7 @@
 #define RG_BBOX_SIZE			48
 
 #define GRAVITY					0.002f;
-#define RG_WALK_SPEED			0.12f;
+#define RG_WALK_SPEED			0.15f;
 
 #define RG_WALK_TIME			1000
 #define RG_JUMP_PUSH			0.432f

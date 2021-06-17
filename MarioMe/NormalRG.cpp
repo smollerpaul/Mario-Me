@@ -33,7 +33,6 @@ void NormalRG::InitAnimations()
 
 void NormalRG::Update(DWORD dt)
 {
-	master->vy += master->gravity * dt;
 	master->vx = master->nx * RG_WALK_SPEED;
 
 	if (master->GetState() == RG_STATE_DIE) {
@@ -105,6 +104,7 @@ void NormalRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 				if (master->GetState() != RG_STATE_DIE) {
 					master->SetState(RG_STATE_DIE);
 				}
+				master->SetAlive(0);
 			}
 		}
 		break;

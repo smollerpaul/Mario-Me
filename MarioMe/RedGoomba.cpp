@@ -44,6 +44,7 @@ void RedGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	
 	NormalRG* currentState = objState;
 	this->dt = dt;
+	vy += gravity * dt;
 
 	currentState->Update(dt);
 	// update dx before xet collision

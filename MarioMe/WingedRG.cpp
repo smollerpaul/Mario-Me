@@ -30,7 +30,6 @@ void WingedRG::InitAnimations()
 
 void WingedRG::Update(DWORD dt)
 {
-	master->vy += master->gravity * dt;
 	master->vx = master->nx * RG_WALK_SPEED;
 
 	if (master->GetState()== RG_STATE_WALK) {
@@ -55,7 +54,7 @@ void WingedRG::Update(DWORD dt)
 		}
 	}
 	
-	DebugOut(L"RED GOOMBA  vx: %f, vy:%f, nx: %d, STATE: %d, walktime: %f,  jump: %f \n", master->vx,master-> vy, master->nx, master->state, walkTime, jumpHeight);
+	//DebugOut(L"RED GOOMBA  vx: %f, vy:%f, nx: %d, STATE: %d\n", master->vx,master-> vy, master->nx, master->state);
 }
 
 void WingedRG::Render()
