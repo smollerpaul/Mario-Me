@@ -89,5 +89,5 @@ public:
 	void OnKeyDown(int keyCode);
 
 	virtual int GetObjectType() override;
-	static const int ObjectType = 1000;
+	static const int ObjectType = 987;
 };

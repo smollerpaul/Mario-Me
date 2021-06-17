@@ -63,17 +63,18 @@ public:
 
 	unordered_map<string, LPANIMATION> animations;
 
-public: 
 	CGameObject();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void UpdatePosition();
 	virtual void Render() = 0;
 
-	//gameobj input là cái object B , đang xét so với vật chủ
 	virtual bool CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy);
 	virtual void SetPosition(float x, float y);
 	void SetPositionBottom(float x, float y);
 	void GetPosition(float& x, float& y);
+
+	float GetVx();
+	float GetVy();
 
 	void GetPosX(float& x);
 	void GetPosY(float& y);

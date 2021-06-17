@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="25" nextobjectid="369">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="25" nextobjectid="372">
  <editorsettings>
   <chunksize width="8" height="8"/>
   <export target="world-1-1-map.xml" format="tmx"/>
@@ -104,7 +104,7 @@
 </data>
  </layer>
  <objectgroup id="24" name="Spawners">
-  <object id="243" type="Spawner" x="671.986" y="1247.68">
+  <object id="243" type="Spawner" x="710.486" y="1044.18">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="Goomba"/>
@@ -115,7 +115,7 @@
    </properties>
    <point/>
   </object>
-  <object id="350" type="Spawner" x="2495.5" y="1197.5">
+  <object id="350" type="Spawner" x="2494" y="1147">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="Goomba"/>
@@ -150,12 +150,6 @@
   <object id="66" type="QuestionBlock" x="2112" y="1056">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:8,&quot;y&quot;:3}]"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="74" type="QuestionBlock" x="480" y="1056">
-   <properties>
-    <property name="Grid" value="[{&quot;x&quot;:1,&quot;y&quot;:3},{&quot;x&quot;:2,&quot;y&quot;:3}]"/>
    </properties>
    <point/>
   </object>
@@ -549,6 +543,12 @@
    </properties>
    <point/>
   </object>
+  <object id="369" type="QuestionBlock" x="479.909" y="1055.82">
+   <properties>
+    <property name="Grid" value="[{&quot;x&quot;:1,&quot;y&quot;:3},{&quot;x&quot;:2,&quot;y&quot;:3}]"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
  <objectgroup id="23" name="MapObjects">
   <object id="32" type="SolidBlock" x="0" y="1248" width="1872" height="48">
@@ -861,7 +861,7 @@
     <property name="Grid" value="[{&quot;x&quot;:26,&quot;y&quot;:3},{&quot;x&quot;:26,&quot;y&quot;:4}]"/>
    </properties>
   </object>
-  <object id="351" type="Spawner" x="2641" y="1198.5">
+  <object id="351" type="Spawner" x="2638.5" y="1147">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="Goomba"/>
@@ -872,7 +872,7 @@
    </properties>
    <point/>
   </object>
-  <object id="352" type="Spawner" x="2837.5" y="1198.5">
+  <object id="352" type="Spawner" x="2832" y="1150.5">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="RedGoomba"/>
@@ -938,7 +938,7 @@
    </properties>
    <point/>
   </object>
-  <object id="358" type="Spawner" x="1585" y="1246">
+  <object id="358" type="Spawner" x="1499" y="1190.5">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="Goomba"/>

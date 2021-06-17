@@ -9,6 +9,7 @@ class CGoomba : public CGameObject
 {
 public:
 	float deathTimer = 0;
+	int isOnGround = 0;
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects=NULL) override;
@@ -21,7 +22,7 @@ public:
 	void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult);
 
 	CGoomba();
-	virtual void SetState(int state);
+	virtual void SetState(int state) override;
 	virtual void InitAnimations() override;
 
 	virtual int GetObjectType() override;

@@ -4,16 +4,15 @@
 #include "Mario.h"
 #include "FireBall.h"
 #include "EnemiesConstants.h"
+#include "RedGoomba.h"
 
-// dung mario thì di xuyen wa
-// dung duoc tren ground
-// goomba touchesmarrio
 
 CGoomba::CGoomba()
 {
 	SetState(GOOMBA_STATE_WALK);
 	width = height= GOOMBA_BBOX_SIZE;
-	vy += GRAVITY*dt;
+	gravity = GRAVITY;
+	vx = -GOOMBA_WALK_SPEED;
 }
 
 void CGoomba::InitAnimations()
@@ -37,11 +36,13 @@ void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &botto
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
-	this->dt = dt;
-	vy += gravity * dt;
+	vy += dt* gravity ;
+	if (isOnGround == 1)
+		vy = 0;
 
 	if (state == GOOMBA_STATE_DIE) {
 		deathTimer += dt;
@@ -49,10 +50,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		if (deathTimer >= GOOMBA_DEATH_TIME) 
 			SetAlive(0);
 	}
-
-	UpdatePosition();
-
-	// calc potential collisions & filter collision
+	CGameObject::Update(dt, coObjects); 
 	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
 	BehaviorUpdate(dt, coEventsResult);
 
@@ -85,7 +83,10 @@ void CGoomba::Render()
 
 bool CGoomba::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 {
-	return state!=GOOMBA_STATE_WALK;
+	if(obj->GetObjectType()==RedGoomba::ObjectType)
+		return true;
+	if (obj->GetObjectType() == CGoomba::ObjectType)
+		return true;
 }
 
 void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
@@ -97,29 +98,29 @@ void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 	if (state != GOOMBA_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
-	if (coEvents.size() == 0) {
+	if (coEvents.size() == 0)
+	{
+		//DebugOut(L"coevents=0\n");
 		CGameObject::UpdatePosition();
-	} 
-	else{
-		float min_tx, min_ty, nx = 0, ny;
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny = 0;
+
 		float rdx = 0;
 		float rdy = 0;
-
+		//DebugOut(L"filtercollision now =0\n");
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 		x += min_tx * dx + nx * 0.4f;
 		y += min_ty * dy + ny * 0.4f;
 
-
-		if (nx != 0) {
-			vx = -vx;
-		}
+		if (nx != 0) vx = -vx;
 		if (ny != 0) vy = 0;
 
+		isOnGround = 1;
 	}
 
-	// output là cái collision sẽ xảy ra tiếp theo
-	
 }
 
 void CGoomba::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
@@ -155,16 +156,7 @@ void CGoomba::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 			}
 		}
 		break;
-		case CGoomba::ObjectType:
-		{
-			CGoomba* gb = dynamic_cast<CGoomba*>(e->obj);
-			if ( e->nx != 0)
-			{
-				vx = -vx;
-			}
-		}
-		break;
-
+		
 		}
 	}
 }
@@ -178,8 +170,6 @@ void CGoomba::SetState(int state)
 			vx = 0;
 			vy = 0;
 			break;
-		case GOOMBA_STATE_WALK: 
-			vx = -GOOMBA_WALK_SPEED;
 	}
 }
 

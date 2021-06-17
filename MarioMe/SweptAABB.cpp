@@ -58,10 +58,8 @@ void CGameObject::CalcPotentialCollisions(
 }
 
 void CGameObject::FilterCollision(
-	vector<LPCOLLISIONEVENT>& coEvents,
-	vector<LPCOLLISIONEVENT>& coEventsResult,
-	float& min_tx, float& min_ty,
-	float& nx, float& ny, float& rdx, float& rdy)
+	vector<LPCOLLISIONEVENT>& coEvents, vector<LPCOLLISIONEVENT>& coEventsResult,
+	float& min_tx, float& min_ty, float& nx, float& ny, float& rdx, float& rdy)
 {
 	min_tx = 1.0f;
 	min_ty = 1.0f;
@@ -78,8 +76,13 @@ void CGameObject::FilterCollision(
 	{
 		LPCOLLISIONEVENT c = coEvents[i];
 		// c->obj là object B đang xét, truyền vô là this (obj chủ)
+		///goi 1 lna 2 ham, goi ham cua gooomba -> neu true, con obj chu dc di xuyen wa con B ( con obj chu la con dang chuyen dong)
+
+		// goi ham can get through -> xem coi con nay co cho obj chu di ngang wa ko
+		// //nếu gặp cái con đc truyền vô, có cho nó đi xuyen wa minh ko
+		// goi ham cua con B, neu con B gap obj chu ma cho no di xuyen wa -> 
 		if (c->obj->CanGetThrough(this, c->nx, c->ny) == true) {
-			DebugOut(L"Vô đc r nha \n");
+			DebugOut(L"GET THRU \n");
 			continue;
 		}
 		

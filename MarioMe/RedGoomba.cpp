@@ -10,7 +10,9 @@
 RedGoomba::RedGoomba()
 {
 	width = height = RG_BBOX_SIZE;
+	nx = -1;
 	objState = new WingedRG(this);
+	gravity = GRAVITY;
 }
 
 void RedGoomba::SetObjectState(NormalRG* objectState)
@@ -39,13 +41,14 @@ void RedGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
-	// cai nay dung chung o ngoai or... yes dung chung
-	//update pos trc & Xet dk for next loop
-
+	
 	NormalRG* currentState = objState;
-	currentState->Update(dt);
+	this->dt = dt;
 
-	CGameObject::UpdatePosition();
+	currentState->Update(dt);
+	// update dx before xet collision
+	dx = vx * dt;
+	dy = vy * dt;
 
 	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
 	BehaviorUpdate(dt, coEventsResult);
@@ -64,7 +67,8 @@ void RedGoomba::Render()
 
 bool RedGoomba::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 {
-	return false;
+	if (obj->GetObjectType() == CGoomba::ObjectType)
+		return true;
 }
 
 void RedGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT>& coEventsResult)

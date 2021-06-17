@@ -13,14 +13,16 @@ CGameObject::CGameObject()
 {
 	x = y = 0;
 	vx = vy = 0;
-	gravity = 0;
-	nx = 1;	
+
 	state = 0;
-	dx = dy = 0;
+	gravity = 0;
+	width = height = 0;
+
+	nx = 1;	
 	flip = 1;
 	alive = 1;
+	dx = dy = 0;
 	dt = 0;
-	width = height = 0;
 }
 
 void CGameObject::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -106,11 +108,21 @@ CGameObject::~CGameObject()
 }
 
 void CGameObject:: SetPosition(float x, float y) { this->x = x, this->y = y; }
-void CGameObject:: SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
+void CGameObject::GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 
+void CGameObject:: SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 void CGameObject::SetSize(float w, float h){ this->width = w;	 this->height = h; }
 
-void CGameObject:: GetPosition(float& x, float& y) { x = this->x; y = this->y; }
+
+float CGameObject::GetVx()
+{
+	return this->vx;
+}
+float CGameObject::GetVy()
+{
+	return this->vy;
+}
+
 void CGameObject:: GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 
 void CGameObject::GetSize(float& w, float& h)

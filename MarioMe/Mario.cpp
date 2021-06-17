@@ -9,6 +9,7 @@
 #include "PlayerData.h"
 #include "SolidBlock.h"
 #include "FireBall.h"
+#include "RedGoomba.h"
 
 using namespace std;
 
@@ -143,8 +144,14 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 bool CMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 {
-	if (obj->GetObjectType() == CGoomba::ObjectType) {
-		return coEventNx!=0;
+	switch (obj->GetObjectType()) {
+	case CGoomba::ObjectType:
+		return coEventNx != 0;
+		break;
+
+	case RedGoomba::ObjectType:
+		return coEventNx != 0 || coEventNy < 0;
+		break;
 	}
 }
 
@@ -432,7 +439,7 @@ void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
-		//if (rdx != 0 && rdx!=dx)
+		// if (rdx != 0 && rdx!=dx)
 		//	x += nx*abs(rdx); 
 
 		// block every object first!
@@ -460,7 +467,7 @@ void CMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 				{
 					CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 
-					if (e->ny != 0)
+					if (e->ny < 0)
 					{
 						vy = -MARIO_JUMP_DEFLECT_SPEED;
 					}
@@ -479,6 +486,30 @@ void CMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 					}
 				}
 				break;
+
+			case RedGoomba::ObjectType:
+			{
+				RedGoomba* rg = dynamic_cast<RedGoomba*>(e->obj);
+
+				if (e->ny < 0)
+				{
+					vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				else if (e->nx != 0)
+				{
+					if (untouchable == 0)
+					{
+						if (level != MARIO_LEVEL_SMALL)
+						{
+							level = MARIO_LEVEL_SMALL;
+							StartUntouchable();
+						}
+						else
+							SetState(MARIO_STATE_DIE);
+					}
+				}
+			}
+			break;
 
 			case CPortal::ObjectType: 
 				{

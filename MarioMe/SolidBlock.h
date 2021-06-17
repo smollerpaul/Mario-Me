@@ -9,6 +9,7 @@ public:
 	float GetX();
 	float GetY();
 
+	virtual bool CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy) override;
 	virtual void Render() override;
 	virtual int GetObjectType() override;
 	static const int ObjectType = 11;

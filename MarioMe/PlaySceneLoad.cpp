@@ -28,7 +28,8 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 
 	if (objectType.compare("Goomba") == 0) {
 		CGoomba* goomba = new CGoomba();
-		goomba->SetPositionBottom(x, y);
+		//goomba->SetPositionBottom(x, y);
+		goomba->SetPosition(x, y);
 		AddObject(goomba);
 	}
 
@@ -40,7 +41,7 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 
 	if (objectType.compare("RedGoomba") == 0) {
 		RedGoomba* rg = new RedGoomba();
-		rg->SetPositionBottom(x, y);
+		rg->SetPosition(x, y);
 		AddObject(rg);
 	}
 

@@ -19,11 +19,11 @@ public:
 	NormalRG(RedGoomba* master);
 	virtual void Render();
 	virtual void Update(DWORD dt);
-	void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
+	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 		vector<LPCOLLISIONEVENT> coEvents,
 		vector<LPCOLLISIONEVENT>& coEventsResult);
 
-	void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult);
+	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult);
 
 	virtual void InitAnimations();
 	virtual int GetObjectType();

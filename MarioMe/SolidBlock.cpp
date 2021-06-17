@@ -23,6 +23,11 @@ float SolidBlock::GetY()
 }
 
 
+bool SolidBlock::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy)
+{
+	return false;
+}
+
 void SolidBlock::Render()
 {
 }

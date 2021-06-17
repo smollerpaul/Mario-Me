@@ -10,6 +10,7 @@
 
 NormalRG::NormalRG()
 {
+	DebugOut(L"vo normalRG\n");
 }
 
 NormalRG::NormalRG(RedGoomba* masterObj)
@@ -17,30 +18,30 @@ NormalRG::NormalRG(RedGoomba* masterObj)
 	this->master = masterObj;
 
 	master->SetState(RG_STATE_WALK);
-	master->vx = master->GetNormalX() * RG_SPEED;
-	master->gravity = RG_GRAVITY;
+	master->SetDirection(-1);
+	master->vx = master->GetDirection() * RG_WALK_SPEED;
+	master->gravity = GRAVITY;
 }
 
 void NormalRG::InitAnimations()
 {
 	if (this->animations.size() < 1) {
-		this->animations["Walk"] = CAnimations::GetInstance()->Get("ani-red-goomba-walk");
-		this->animations["Die"] = CAnimations::GetInstance()->Get("ani-red-goomba-die");
+		this->animations["Walk"] = CAnimations::GetInstance()->Get("ani-red-goomba-walk")->Clone();
+		this->animations["Die"] = CAnimations::GetInstance()->Get("ani-red-goomba-die")->Clone();
 	}
 }
 
 void NormalRG::Update(DWORD dt)
 {
-	master->dt = dt;
-	master->y += master->vy * dt;
-
 	master->vy += master->gravity * dt;
+	master->vx = master->nx * RG_WALK_SPEED;
 
 	if (master->GetState() == RG_STATE_DIE) {
 		deathTimer += dt;
 
 		if (deathTimer >= GOOMBA_DEATH_TIME)
 			master->SetAlive(0);
+		master->vy = 0;
 	}
 }
 
@@ -49,23 +50,27 @@ void NormalRG::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector
 	coEvents.clear();
 
 	if (master->GetState() != RG_STATE_DIE)
-		//tra ra coevents
 		master->CalcPotentialCollisions(coObjects, coEvents);
 
 	if (coEvents.size() == 0) {
-		//aka update position (master) co cai nay r co can update dx dy ko
-		master->x += master->vx * dt;
-		master->y += master->vy * dt;
+		master->UpdatePosition();
 	}
 	else {
 		float min_tx, min_ty, nx = 0, ny = 0;
 		float rdx = 0;
 		float rdy = 0;
-		//tra ra coevents result
 		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 		if (nx != 0) {
-			master->vx *= -1;
+			if (nx > 0) {
+				DebugOut(L"dung trai\n");
+				master->nx = 1;
+			}
+			else if (nx < 0) {
+				DebugOut(L"dung phai\n");
+				master->nx = -1;
+			}
+				
 		}
 		if (ny != 0) master->vy = 0;
 	}
@@ -87,6 +92,7 @@ void NormalRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 				if (master->GetState() != RG_STATE_DIE) {
 					master->SetState(RG_STATE_DIE);
 				}
+				DebugOut(L"mario got in yet?\n");
 			}
 		}
 		break;
@@ -126,7 +132,7 @@ void NormalRG::Render()
 
 	if (master->GetState() == RG_STATE_DIE) {
 		ani = this->animations["Die"];
-		DebugOut(L"before the storm\n");
+		
 		ani->Render( mx- camera->GetX() + (r - l) / 2, my - camera->GetY() + GOOMBA_DIE_Y + (b - t) / 2, flip);
 	}
 	else
