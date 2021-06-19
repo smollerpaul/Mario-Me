@@ -10,7 +10,9 @@
 #include "SolidBlock.h"
 #include "FireBall.h"
 #include "RedGoomba.h"
+#include "Koopas.h"
 
+//enemy va cham mario ko on
 using namespace std;
 
 CMario::CMario() : CGameObject()
@@ -144,6 +146,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 bool CMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 {
+	return untouchable;
 	switch (obj->GetObjectType()) {
 	case CGoomba::ObjectType:
 		return coEventNx != 0;
@@ -152,7 +155,12 @@ bool CMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 	case RedGoomba::ObjectType:
 		return coEventNx != 0 || coEventNy < 0;
 		break;
+
+	case CKoopas::ObjectType:
+		return coEventNx != 0 || coEventNy < 0;
+		break;
 	}
+	
 }
 
 void CMario::MovementUpdate(DWORD dt)
@@ -161,9 +169,10 @@ void CMario::MovementUpdate(DWORD dt)
 	Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
 	CGameObject::Update(dt);
 
+
 	// MOVE ON vx while flying tooo
 	if (state == MARIO_STATE_FLY) {
-		vx = MARIO_FLY_SPEED_X;
+		vx = nx* MARIO_FLY_SPEED_X;
 	}
 
 #pragma region DOWN
@@ -445,8 +454,8 @@ void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 		// block every object first!
 		// updated position
 
-		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;
+		x += min_tx * dx + nx * 0.2f;
+		y += min_ty * dy + ny * 0.2f;
 
 		if (nx != 0) vx = 0;
 		if (ny != 0) vy = 0;
@@ -471,17 +480,13 @@ void CMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 					{
 						vy = -MARIO_JUMP_DEFLECT_SPEED;
 					}
-					else if (e->nx != 0)
+					
+					if (e->nx != 0 )
 					{
 						if (untouchable == 0)
 						{
-							if (level != MARIO_LEVEL_SMALL)
-							{
-								level = MARIO_LEVEL_SMALL;
-								StartUntouchable();
-							}
-							else
-								SetState(MARIO_STATE_DIE);
+							StartUntouchable();
+						//	SetState(MARIO_STATE_DIE);
 						}
 					}
 				}
@@ -499,14 +504,26 @@ void CMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 				{
 					if (untouchable == 0)
 					{
-						if (level != MARIO_LEVEL_SMALL)
-						{
-							level = MARIO_LEVEL_SMALL;
-							StartUntouchable();
-						}
-						else
-							SetState(MARIO_STATE_DIE);
+						StartUntouchable();
+					//SetState(MARIO_STATE_DIE);
 					}
+				}
+			}
+			break;
+			//ckoopas dap mario rot -> fix dat
+			case CKoopas::ObjectType:
+			{
+				CKoopas* rg = dynamic_cast<CKoopas*>(e->obj);
+
+				if (e->ny < 0)
+				{
+					vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				else if (e->nx != 0 || e->ny > 0)
+				{
+					if (untouchable == 0)
+						StartUntouchable();
+					//SetState(MARIO_STATE_DIE);
 				}
 			}
 			break;
@@ -628,9 +645,9 @@ void CMario::SetState(int state)
 	case MARIO_STATE_IDLE:
 		vx = 0;
 		break;
-	case MARIO_STATE_DIE:
+	/*case MARIO_STATE_DIE:
 		vy = -MARIO_DIE_DEFLECT_SPEED;
-		break;
+		break;*/
 	}
 }
 int CMario::GetObjectType()

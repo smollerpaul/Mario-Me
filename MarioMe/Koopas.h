@@ -1,30 +1,26 @@
 #pragma once
-
 #include "GameObject.h"
+#include "NormalKoopas.h"
 
-#define KOOPAS_WALKING_SPEED 0.03f;
-
-#define KOOPAS_BBOX_WIDTH 16
-#define KOOPAS_BBOX_HEIGHT 26
-#define KOOPAS_BBOX_HEIGHT_DIE 16
-
-#define KOOPAS_STATE_WALKING 100
-#define KOOPAS_STATE_DIE 200
-
-#define KOOPAS_ANI_WALKING_LEFT 0
-#define KOOPAS_ANI_WALKING_RIGHT 1
-#define KOOPAS_ANI_DIE 2
 class Camera;
 class CKoopas : public CGameObject
 {
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
-	virtual void Render();
-
 public:
+	NormalKoopas* objState = NULL;
+
 	CKoopas();
-	virtual void SetState(int state);
+	CKoopas(NormalKoopas* objectState);
+	void SetObjectState(NormalKoopas* objectState);
 	virtual void InitAnimations() override;
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) override;
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) override;
+	virtual void Render();
+	virtual bool CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy) override;
+
+	void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
+		vector<LPCOLLISIONEVENT> coEvents,
+		vector<LPCOLLISIONEVENT>& coEventsResult);
+	void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult);
 
 	virtual int GetObjectType() override;
 	static const int ObjectType = 2;

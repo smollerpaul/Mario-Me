@@ -101,6 +101,7 @@ public:
 	virtual void InitAnimations();
 
 	void SetFlipOnNormal(int nx);
+	void SetFlipOnNormalEnemy(int nx);
 	
 	virtual void GetBoundingBox(
 		float& left, float& top, 

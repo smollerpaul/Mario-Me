@@ -84,7 +84,7 @@ void CGameObject::RenderBoundingBox()
 	CGame* game = CGame::GetInstance();
 	Camera* cam = game->GetCurrentScene()->GetCamera();
 	
-	//DebugOut(L" left %f  top  %f  right %f   bottom %f", l,t,r,b);
+	/*DebugOut(L" RENDERRRRRRR left %f  top  %f  right %f   bottom %f\n", l,t,r,b);*/
 
 	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get("tex-test");
 	D3DXVECTOR3 pivot(0, 0, 0);
@@ -166,5 +166,13 @@ void CGameObject::GetPosX(float& x) {
 }
 void CGameObject::GetPosY(float& y) {
 	y = this->y;
+}
+
+void CGameObject::SetFlipOnNormalEnemy(int nx)
+{
+	if (nx > 0) {
+		flip = -1;
+	}
+	else flip = 1;
 }
 

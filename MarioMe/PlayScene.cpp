@@ -56,9 +56,9 @@ void CPlayScene::Render()
 		coObjects[i]->Render();
 	}
 		
-	for (int i = 0; i < coObjects.size(); i++) {
+	/*for (int i = 0; i < coObjects.size(); i++) {
 		coObjects[i]->RenderBoundingBox();
-	}
+	}*/
 }
 
 void CPlayScene::Unload()

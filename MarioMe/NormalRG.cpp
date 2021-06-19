@@ -18,9 +18,7 @@ NormalRG::NormalRG(RedGoomba* masterObj)
 	this->master = masterObj;
 
 	master->SetState(RG_STATE_WALK);
-	master->SetDirection(-1);
 	master->vx = master->GetDirection() * RG_WALK_SPEED;
-	master->gravity = GRAVITY;
 }
 
 void NormalRG::InitAnimations()
@@ -42,6 +40,10 @@ void NormalRG::Update(DWORD dt)
 			master->SetAlive(0);
 		master->vy = 0;
 	}
+
+	master->x += master->dx;
+	//DebugOut(L"RED GOOMBA  vx: %f, x: %f, dx: %f \n", master->vx, master->x, master->dx);
+
 }
 
 void NormalRG::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT>& coEventsResult)
@@ -61,17 +63,11 @@ void NormalRG::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector
 		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 		if (nx != 0) {
-			if (nx > 0) {
-				DebugOut(L"dung trai\n");
-				master->nx = 1;
-			}
-			else if (nx < 0) {
-				DebugOut(L"dung phai\n");
-				master->nx = -1;
-			}
-				
+			master->nx = -master->nx;
 		}
 		if (ny != 0) master->vy = 0;
+
+		isOnGround = 1;
 	}
 }
 
@@ -91,7 +87,6 @@ void NormalRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 				if (master->GetState() != RG_STATE_DIE) {
 					master->SetState(RG_STATE_DIE);
 				}
-				DebugOut(L"mario got in yet?\n");
 			}
 		}
 		break;

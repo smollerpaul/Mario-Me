@@ -121,6 +121,18 @@
     <ClCompile Include="PlaySceneLoad.cpp">
       <Filter>Game\Scenes\PlayScene</Filter>
     </ClCompile>
+    <ClCompile Include="NormalKoopas.cpp">
+      <Filter>Game\Enemies\Koopas\Levels\Normal</Filter>
+    </ClCompile>
+    <ClCompile Include="Shell.cpp">
+      <Filter>Game\Enemies\Koopas\Levels\Shell</Filter>
+    </ClCompile>
+    <ClCompile Include="WingedKoopas.cpp">
+      <Filter>Game\Enemies\Koopas\Levels\Winged</Filter>
+    </ClCompile>
+    <ClCompile Include="SlidingShell.cpp">
+      <Filter>Game\Enemies\Koopas\Levels\SlidingShell</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -228,6 +240,18 @@
     <ClInclude Include="EnemiesConstants.h">
       <Filter>Game\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="NormalKoopas.h">
+      <Filter>Game\Enemies\Koopas\Levels\Normal</Filter>
+    </ClInclude>
+    <ClInclude Include="Shell.h">
+      <Filter>Game\Enemies\Koopas\Levels\Shell</Filter>
+    </ClInclude>
+    <ClInclude Include="WingedKoopas.h">
+      <Filter>Game\Enemies\Koopas\Levels\Winged</Filter>
+    </ClInclude>
+    <ClInclude Include="SlidingShell.h">
+      <Filter>Game\Enemies\Koopas\Levels\SlidingShell</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -265,9 +289,6 @@
     </Filter>
     <Filter Include="Game\Enemies">
       <UniqueIdentifier>{ed55107d-6aef-428c-a14f-2e5dc2cbbc6b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Koopas">
-      <UniqueIdentifier>{1a22a819-3f43-462f-95f4-a56fb241188b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Enemies\Goombas">
       <UniqueIdentifier>{ff31c1d7-4cbc-4aae-b627-ddc0213af472}</UniqueIdentifier>
@@ -379,6 +400,24 @@
     </Filter>
     <Filter Include="Game\Enemies\RedGoomba\RGLevels\Winged Red Goomba">
       <UniqueIdentifier>{786f082d-7943-4a13-b708-215567fd031f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas">
+      <UniqueIdentifier>{1a22a819-3f43-462f-95f4-a56fb241188b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\Levels">
+      <UniqueIdentifier>{3996cda0-898d-4bb5-a5c4-9c438422c6ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\Levels\Shell">
+      <UniqueIdentifier>{3892b4e9-0829-4013-b02b-0af9b64093d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\Levels\SlidingShell">
+      <UniqueIdentifier>{10137cfa-1cd7-42f9-b24c-3dd7fae0224d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\Levels\Normal">
+      <UniqueIdentifier>{f07ad093-9942-4943-9c20-5bebc1a0700d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\Levels\Winged">
+      <UniqueIdentifier>{8fa148a1-b385-4b12-9092-b67c5c177ce2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

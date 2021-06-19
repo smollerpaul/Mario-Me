@@ -5,6 +5,7 @@
 #include "Goomba.h"
 #include "RedGoomba.h"
 #include "Koopas.h"
+#include "WingedKoopas.h"
 
 
 void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width, float height)
@@ -44,7 +45,18 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		rg->SetPosition(x, y);
 		AddObject(rg);
 	}
+	if (objectType.compare("RedKoopas") == 0) {
+		CKoopas* kp = new CKoopas(new NormalKoopas);
+		kp->SetPosition(x, y);
+		AddObject(kp);
+		//DebugOut(L"i am koopas\n");
+	}
+	if (objectType.compare("KoopasJumping") == 0) {
+		CKoopas* kp = new CKoopas();
+		kp->SetPosition(x, y);
+		AddObject(kp);
+		//DebugOut(L"i am jumping koopas\n");
+	}
 
-
-	// void, spawner, pipe
+	// void, pipe
 }

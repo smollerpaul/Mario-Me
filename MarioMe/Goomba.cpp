@@ -5,6 +5,7 @@
 #include "FireBall.h"
 #include "EnemiesConstants.h"
 #include "RedGoomba.h"
+#include "Koopas.h"
 
 
 CGoomba::CGoomba()
@@ -48,6 +49,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		if (deathTimer >= GOOMBA_DEATH_TIME) 
 			SetAlive(0);
 	}
+
 	CGameObject::Update(dt, coObjects); 
 	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
 	BehaviorUpdate(dt, coEventsResult);
@@ -55,7 +57,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++)
 		delete coEvents[i];
 
-	DebugOut(L" GOOMBA:  vy: %f X: %f, Y: %f, state: %d\n", vy,x,y ,state);
+	//DebugOut(L" GOOMBA:  vy: %f X: %f, Y: %f, state: %d\n", vy,x,y ,state);
 
 }
 
@@ -83,6 +85,8 @@ bool CGoomba::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 {
 	if(obj->GetObjectType()==RedGoomba::ObjectType)
 		return true;
+	if (obj->GetObjectType() == CKoopas::ObjectType)
+		return true;
 }
 
 void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
@@ -96,7 +100,6 @@ void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 
 	if (coEvents.size() == 0)
 	{
-		//DebugOut(L"coevents=0\n");
 		CGameObject::UpdatePosition();
 	}
 	else
@@ -105,11 +108,10 @@ void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 
 		float rdx = 0;
 		float rdy = 0;
-		//DebugOut(L"filtercollision now =0\n");
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;
+		x += min_tx * dx + nx * 0.2f;
+		y += min_ty * dy + ny * 0.2f;
 
 		if (nx != 0) vx = -vx;
 		if (ny != 0) vy = 0;
@@ -134,6 +136,10 @@ void CGoomba::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 				if (state!= GOOMBA_STATE_DIE) {
 					SetState(GOOMBA_STATE_DIE);
 				}
+			}
+			if (e->nx != 0)
+			{
+
 			}
 		}
 		break;

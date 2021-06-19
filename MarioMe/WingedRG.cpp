@@ -8,7 +8,6 @@
 #include "Game.h"
 #include "Camera.h"
 
-//mario chua dung đc red goomba chet
 WingedRG::WingedRG() {
 }
 
@@ -31,19 +30,21 @@ void WingedRG::InitAnimations()
 void WingedRG::Update(DWORD dt)
 {
 	master->vx = master->nx * RG_WALK_SPEED;
+	if (isOnGround == 1) {
+		if (master->GetState() == RG_STATE_WALK) {
+			walkTime += dt;
 
-	if (master->GetState()== RG_STATE_WALK) {
-		walkTime += dt;
-
-		if (walkTime >= RG_WALK_TIME) {
-			if (master->GetState() != RG_STATE_JUMP) {
-				master->SetState(RG_STATE_JUMP);
+			if (walkTime >= RG_WALK_TIME) {
+				if (master->GetState() != RG_STATE_JUMP) {
+					master->SetState(RG_STATE_JUMP);
+				}
+				walkTime = 0;
 			}
-			walkTime = 0;
 		}
 	}
-
+	
 	if (master->state == RG_STATE_JUMP) {
+		isOnGround = 0;
 		master->vy = -RG_JUMP_PUSH - dt* GRAVITY;
 		jumpHeight += master->vy * dt;
 
@@ -53,14 +54,16 @@ void WingedRG::Update(DWORD dt)
 			jumpHeight = 0;
 		}
 	}
+
+	master->x += master->dx;
 	
-	//DebugOut(L"RED GOOMBA  vx: %f, vy:%f, nx: %d, STATE: %d\n", master->vx,master-> vy, master->nx, master->state);
+	//DebugOut(L"RED GOOMBA  vx: %f, x: %f, dx: %f \n", master->vx,master-> x, master->dx);
 }
 
 void WingedRG::Render()
 {
 	InitAnimations();
-	LPANIMATION ani = this->animations["Fly"];
+	LPANIMATION ani = this->animations["Walk"];
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
@@ -91,7 +94,6 @@ void WingedRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 			if (e->ny > 0)
 			{
 				master->SetObjectState(new NormalRG(this->master));
-				DebugOut(L"Switched to Normal RG!!!!!!!!!!\n");
 			}
 		}
 		break;
@@ -105,7 +107,7 @@ void WingedRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 					master->SetState(RG_STATE_DIE);
 				}
 				master->SetAlive(0);
-				DebugOut(L"killed by fireball RG NOOOOOOOOOOOO\n");
+				DebugOut(L"RG killed by fireball \n");
 			}
 		}
 		break;

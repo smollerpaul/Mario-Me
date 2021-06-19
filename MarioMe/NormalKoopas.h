@@ -2,32 +2,30 @@
 #include "Utils.h"
 #include "GameObject.h"
 
-class RedGoomba;
+class CKoopas;
 class CGameObject;
 
-class NormalRG
+class NormalKoopas
 {
 private:
-	float deathTimer = 0;
-
-protected:
-	RedGoomba* master;
+	float stillTimer = 0;
+public:
+	CKoopas* master;
 	unordered_map<string, LPANIMATION> animations;
 
-public:
-	int isOnGround = 0;
-
-	NormalRG();
-	NormalRG(RedGoomba* master);
+	NormalKoopas();
+	NormalKoopas(CKoopas* master);
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Render();
 	virtual void Update(DWORD dt);
 	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
-		vector<LPCOLLISIONEVENT> coEvents,
-		vector<LPCOLLISIONEVENT>& coEventsResult);
+	vector<LPCOLLISIONEVENT> coEvents,
+	vector<LPCOLLISIONEVENT>& coEventsResult);
 
 	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult);
 
 	virtual void InitAnimations();
 	virtual int GetObjectType();
+
 };
 

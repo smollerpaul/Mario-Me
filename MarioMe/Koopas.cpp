@@ -1,49 +1,88 @@
 #include "Koopas.h"
 #include "Game.h"
 #include "Camera.h"
+#include "EnemiesConstants.h"
+#include "WingedKoopas.h"
 
 CKoopas::CKoopas()
 {
-	SetState(KOOPAS_STATE_WALKING);
+	nx = -1;
+	objState = new WingedKoopas(this);
+	gravity = GRAVITY;
+}
+
+CKoopas::CKoopas(NormalKoopas* objectState)
+{
+	nx = -1;
+	objState =new NormalKoopas(this);
+	gravity = GRAVITY;
+}
+
+void CKoopas::SetObjectState(NormalKoopas* objectState)
+{
+	this->objState = objectState;
 }
 
 void CKoopas::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	left = x;
-	top = y;
-	right = x + KOOPAS_BBOX_WIDTH;
+	float l, t, r, b;
+	NormalKoopas* currentState = objState;
+	currentState->GetBoundingBox(l,t,r,b);
 
-	if (state == KOOPAS_STATE_DIE)
-		bottom = y + KOOPAS_BBOX_HEIGHT_DIE;
-	else
-		bottom = y + KOOPAS_BBOX_HEIGHT;
+	left = l;
+	top = t;
+	right = r;
+	bottom = b;
 }
 
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	CGameObject::Update(dt, coObjects);
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
 
-	//
-	// TO-DO: make sure Koopas can interact with the world and to each of them too!
-	// 
+	NormalKoopas* currentState = objState;
+	this->dt = dt;
+	vy += gravity * dt;
 
-	x += dx;
-	y += dy;
+	currentState->Update(dt);
 
-	if (vx < 0 && x < 0) {
-		x = 0; vx = -vx;
-	}
+	dx = vx * dt;
+	dy = vy * dt;
 
-	if (vx > 0 && x > 290) {
-		x = 290; vx = -vx;
-	}
+	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
+	BehaviorUpdate(dt, coEventsResult); 
+
+	for (UINT i = 0; i < coEvents.size(); i++)
+		delete coEvents[i];
+	
 }
 
 void CKoopas::InitAnimations()
 {
-	if (this->animations.size() < 1) {
+	/*if (this->animations.size() < 1) {
 		this->animations["Move"] = CAnimations::GetInstance()->Get("ani-green-koopa-troopa-move");
-	}
+	}*/
+
+	NormalKoopas* currentState = objState;
+	currentState->InitAnimations();
+
+}
+
+bool CKoopas::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
+{
+	return false;
+}
+
+void CKoopas::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT>& coEventsResult)
+{
+	NormalKoopas* currentState = objState;
+	currentState->CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
+}
+
+void CKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
+{
+	NormalKoopas* currentState = objState;
+	currentState->BehaviorUpdate(dt, coEventsResult);
 }
 
 int CKoopas::GetObjectType()
@@ -53,34 +92,8 @@ int CKoopas::GetObjectType()
 
 void CKoopas::Render()
 {
-	InitAnimations();
-	CAnimation* ani = this->animations["Move"];
-	if (state == KOOPAS_STATE_DIE) {
-		//ani = KOOPAS_ANI_DIE;
-	}
-	//else if (vx > 0) ani = KOOPAS_ANI_WALKING_RIGHT;
-	//else if (vx <= 0) ani = KOOPAS_ANI_WALKING_LEFT;
-
-	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-	ani->Render(x- camera->GetX(), y-camera->GetY(), flip);
-
-	RenderBoundingBox();
-}
-
-void CKoopas::SetState(int state)
-{
-	CGameObject::SetState(state);
-	switch (state)
-	{
-	case KOOPAS_STATE_DIE:
-		y += KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_DIE + 1;
-		vx = 0;
-		vy = 0;
-		break;
-	case KOOPAS_STATE_WALKING:
-		vx = KOOPAS_WALKING_SPEED;
-	}
-
+	NormalKoopas* currentState = objState;
+	currentState->Render();
 }
 
 

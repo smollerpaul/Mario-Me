@@ -82,7 +82,6 @@ void CGameObject::FilterCollision(
 		// //nếu gặp cái con đc truyền vô, có cho nó đi xuyen wa minh ko
 		// goi ham cua con B, neu con B gap obj chu ma cho no di xuyen wa -> 
 		if (c->obj->CanGetThrough(this, c->nx, c->ny) == true) {
-			DebugOut(L"GET THRU \n");
 			continue;
 		}
 		
@@ -112,3 +111,5 @@ void CGameObject::FilterCollision(
 	if (min_iy >= 0) 
 		coEventsResult.push_back(coEvents[min_iy]);
 }
+
+
