@@ -62,6 +62,9 @@ void NormalRG::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector
 		float rdy = 0;
 		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
+		/*master->x += min_tx * master->dx;
+		master->y += min_ty * master->dy;*/
+
 		if (nx != 0) {
 			master->nx = -master->nx;
 		}

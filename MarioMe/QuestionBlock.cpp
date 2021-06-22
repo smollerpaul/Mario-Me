@@ -2,8 +2,9 @@
 #include "Camera.h"
 #include "Game.h"
 #include "Mario.h"
+#include "SlidingShell.h"
 
-//BOUNCING ani -> coint effect
+//BOUNCING ani -> coin effect
 
 QuestionBlock::QuestionBlock()
 {
@@ -42,17 +43,12 @@ void QuestionBlock::Render()
 	GetBoundingBox(l, t, r, b);
 
 	ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + (b - t) / 2, flip);
-
-	RenderBoundingBox();
 }
 
 void QuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	// bounce and then drop to original position
-	
 
 	if (state == QB_STATE_BOUNCE) {
 		dyBounce += abs(dy);
@@ -94,6 +90,10 @@ void QuestionBlock::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, v
 	float rdy = 0;
 
 	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+	if (nx != 0) {
+		DebugOut(L"owwwwwwwwwwww\n");
+	}
 }
 
 void QuestionBlock::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
@@ -111,6 +111,18 @@ void QuestionBlock::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRe
 			{
 				vy = -QB_BOUNCE_SPEED ;
 				SetState(QB_STATE_BOUNCE);
+			}
+		}
+		break;
+
+		case SlidingShell::ObjectType:
+		{
+			SlidingShell* ss = dynamic_cast<SlidingShell*>(e->obj);
+			if (e->nx != 0)
+			{
+				if(state!=QB_STATE_FROZEN)
+					SetState(QB_STATE_FROZEN);
+				DebugOut(L"pooooooooooooooooooooof\n");
 			}
 		}
 		break;

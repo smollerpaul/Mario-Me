@@ -17,5 +17,6 @@ public:
 	virtual void Render();
 	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT>& coEventsResult) override;
 	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult) override;
+	static const int ObjectType = 33;
 };
 

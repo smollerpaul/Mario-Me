@@ -26,6 +26,7 @@ public:
 
 	virtual void InitAnimations();
 	virtual int GetObjectType();
+	static const int ObjectType = 30;
 
 };
 

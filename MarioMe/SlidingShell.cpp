@@ -10,6 +10,7 @@
 #include "Koopas.h"
 #include "Utils.h"
 #include "EnemiesConstants.h"
+#include "QuestionBlock.h"
 
 SlidingShell::SlidingShell()
 {
@@ -19,6 +20,7 @@ SlidingShell::SlidingShell(CKoopas* master)
 {
 	this->master = master;
 	master->vx = -master->nx * KOOPAS_SHELL_SPEED;
+	master->width = master->height = KOOPAS_SHELL_SIZE;
 }
 
 void SlidingShell::InitAnimations()
@@ -39,6 +41,14 @@ void SlidingShell::Update(DWORD dt)
 	// lam cái đụng 1 cái độ nào đó r quay lại
 	master->x += master->vx * dt;
 	DebugOut(L"vx: %f\n", master->vx);
+
+	if (master->state == KOOPAS_STATE_DIE) {
+		deathTime += dt;
+
+		if (deathTime >= KOOPAS_DEATH_TIME) {
+			master->SetAlive(0);
+		}
+	}
 }
 
 void SlidingShell::Render()
@@ -99,6 +109,18 @@ void SlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 		}
 		break;
 
+		case QuestionBlock::ObjectType:
+		{
+			QuestionBlock* qb = dynamic_cast<QuestionBlock*>(e->obj);
+			if (e->ny != 0 || e->nx != 0)
+			{
+				/*if (master->state != KOOPAS_STATE_DIE)
+					master->SetState(KOOPAS_STATE_DIE);*/
+
+				DebugOut(L"shell is about to despawn\n");
+			}
+		}
+		break;
 		}
 	}
 }

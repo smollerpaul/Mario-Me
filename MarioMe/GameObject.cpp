@@ -31,6 +31,8 @@ void CGameObject::GetBoundingBox(float& left, float& top, float& right, float& b
 	top = y;
 	right = x + width;
 	bottom = y + height;
+
+	
 }
 
 int CGameObject::GetNormalX()
@@ -76,6 +78,7 @@ void CGameObject::RenderBoundingBox()
 
 	GetBoundingBox(l, t, r, b);
 
+
 	rect.left = l;
 	rect.top = t;
 	rect.right = r;
@@ -84,11 +87,11 @@ void CGameObject::RenderBoundingBox()
 	CGame* game = CGame::GetInstance();
 	Camera* cam = game->GetCurrentScene()->GetCamera();
 	
-	/*DebugOut(L" RENDERRRRRRR left %f  top  %f  right %f   bottom %f\n", l,t,r,b);*/
+	//DebugOut(L" RENDERRRRRRR left %f  top  %f  right %f   bottom %f\n", l,t,r,b);
 
 	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get("tex-test");
 	D3DXVECTOR3 pivot(0, 0, 0);
-	game->Draw((x- cam->GetX() + width / 2),( y- cam->GetY()) + height/2, pivot, bbox, rect.left, rect.top, rect.right, rect.bottom, 50, flip);
+	game->Draw((x- cam->GetX() + width/2 ),( y- cam->GetY()) + height/2, pivot, bbox, rect.left, rect.top, rect.right, rect.bottom, 50, flip);
 	//game->Draw((x - cam->GetX() + width / 2), (y - cam->GetY()) + height / 2, pivot, bbox, l, t, r, b, 50, flip);
 }
 

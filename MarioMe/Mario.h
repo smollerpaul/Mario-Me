@@ -1,31 +1,27 @@
 #pragma once
 #include "GameObject.h"
 #include "MarioConstants.h"
+#include "BigMario.h"
+#include "FireMario.h"
+#include "RacoonMario.h"
+#include "SmallMario.h"
+
 
 class Camera;
 
-//set up state machine
-
 class CMario : public CGameObject
 {
-	int level;
+public: 
 	int untouchable;
-
-	int skid = 0;
-
-	int highSpeed = 0;
-	int isAtMaxRunSpeed = 0;
-
-	bool isOnGround = true;
-
 	DWORD untouchable_start;
 
-	float start_x = 0;
-	float start_y = 0;
-
+	int skid = 0;
+	int highSpeed = 0;
+	int isAtMaxRunSpeed = 0;
 	float accelerate_x = 0;
 	float accelerate_y = 0;
 
+	bool isOnGround = true;
 	float friction_x = 0;
 
 	int finalKeyDirection = 0;
@@ -33,18 +29,21 @@ class CMario : public CGameObject
 
 	float floatTimer = 0;
 	float attackTimer = 0;
+	float aliveTimer = 0;
+	float effectTimer = 0;
 
 	int isAttacking = 0;
-	int isAttackingFire = 0;
+	int transforming = 0;
 
 	int keepIsAttackingAlive = 0;
 
 	float powerMeter = 0;
 
-
-public: 
+	SmallMario* objState = nullptr;
 	CMario();
 	
+	void SetObjectState( SmallMario* objectState);
+
 	virtual void InitAnimations() override;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) override;
 	virtual bool CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy) override;
@@ -52,29 +51,19 @@ public:
 	virtual void MovementUpdate(DWORD dt);
 	virtual void JumpUpdate(DWORD dt);
 	virtual void AttackUpdate(DWORD dt);
-
 	void RunPowerMeter(DWORD dt);
 
 	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects , 
 		vector<LPCOLLISIONEVENT> coEvents, 
 		vector<LPCOLLISIONEVENT>& coEventsResult);
-
 	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult);
-
+	
 	virtual void Render() override;
 
 	void SetState(int state);
-
 	void SetSkid(int skid);
-	int GetSkid();
-
 	void SetFriction(float friction);
-	int GetFriction();
-	
 	void SetIsOnGround(bool onGround);
-	bool GetIsOnGround();
-	
-	void SetLevel(int l);
 
 	void StartUntouchable();
 	void ResetUntouchable();

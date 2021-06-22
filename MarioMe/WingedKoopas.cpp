@@ -17,6 +17,8 @@ WingedKoopas::WingedKoopas(CKoopas* master): NormalKoopas()
 	this->master = master;
 	master->SetState(KOOPAS_STATE_WALK);
 	master->vx = master->GetDirection() * KOOPAS_WALK_SPEED;
+	master->width = KOOPAS_WIDTH;
+	master->height = KOOPAS_HEIGHT;
 }
 
 void WingedKoopas::InitAnimations()

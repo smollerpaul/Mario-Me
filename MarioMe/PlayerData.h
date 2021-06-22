@@ -3,7 +3,9 @@ class PlayerData
 {
 	static PlayerData* instance;
 
-	int marioType = 2; //1= small, 2= big, 3= racoon, 4=fire
+
+	//chinh mariotype theo small
+	int marioType = 2;
 	int score = 0;
 	int coins = 0;
 

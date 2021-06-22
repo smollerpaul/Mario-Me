@@ -4,6 +4,7 @@
 #include "EnemiesConstants.h"
 #include "WingedKoopas.h"
 
+//koopas sliding shell dung question block chua dxxxxxx question block ko chiu change states
 CKoopas::CKoopas()
 {
 	nx = -1;
@@ -94,6 +95,9 @@ void CKoopas::Render()
 {
 	NormalKoopas* currentState = objState;
 	currentState->Render();
+
+	RenderBoundingBox();
+
 }
 
 

@@ -17,5 +17,6 @@ public:
 	virtual void Render();
 
 	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult) override;
+	
 };
 

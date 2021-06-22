@@ -6,6 +6,7 @@
 #include "RedGoomba.h"
 #include "Koopas.h"
 #include "WingedKoopas.h"
+#include "Coin.h"
 
 
 void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width, float height)
@@ -53,6 +54,12 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 	}
 	if (objectType.compare("KoopasJumping") == 0) {
 		CKoopas* kp = new CKoopas();
+		kp->SetPosition(x, y);
+		AddObject(kp);
+		//DebugOut(L"i am jumping koopas\n");
+	}
+	if (objectType.compare("Coin") == 0) {
+		Coin* kp = new Coin();
 		kp->SetPosition(x, y);
 		AddObject(kp);
 		//DebugOut(L"i am jumping koopas\n");

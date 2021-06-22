@@ -16,5 +16,6 @@ public:
 	virtual void Render();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) override;
 	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult) override;
+	static const int ObjectType = 31;
 };
 

@@ -16,6 +16,8 @@ NormalKoopas::NormalKoopas(CKoopas* master)
 	this->master = master;
 	master->SetState(KOOPAS_STATE_WALK);
 	master->vx = master->GetDirection() * KOOPAS_WALK_SPEED;
+	master->width = KOOPAS_WIDTH;
+	master->height = KOOPAS_HEIGHT;
 
 }
 
@@ -24,10 +26,6 @@ void NormalKoopas::GetBoundingBox(float& left, float& top, float& right, float& 
 	left = master->x;
 	top = master->y;
 	right = left + KOOPAS_WIDTH;
-
-	/*if (state == KOOPAS_STATE_DIE)
-		bottom = y + KOOPAS_BBOX_HEIGHT_DIE;
-	else*/
 	bottom = top + KOOPAS_HEIGHT;
 }
 
@@ -61,8 +59,12 @@ void NormalKoopas::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, ve
 		float rdy = 0;
 		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 		
+		//master->x += min_tx * master->dx;
+		//master->y += min_ty * master->dy;
+
 		if (nx != 0) {
 			master->nx = -master->nx;
+			DebugOut(L"okkkkkkkkkkkkkkkk\n");
 		}
 		if (ny != 0) master->vy = 0;
 	}
@@ -126,5 +128,5 @@ void NormalKoopas::Render()
 
 int NormalKoopas::GetObjectType()
 {
-	return master->ObjectType;
+	return ObjectType;
 }

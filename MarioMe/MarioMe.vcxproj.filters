@@ -133,6 +133,9 @@
     <ClCompile Include="SlidingShell.cpp">
       <Filter>Game\Enemies\Koopas\Levels\SlidingShell</Filter>
     </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Game\Rewards\Coin</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -251,6 +254,9 @@
     </ClInclude>
     <ClInclude Include="SlidingShell.h">
       <Filter>Game\Enemies\Koopas\Levels\SlidingShell</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Game\Rewards\Coin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -418,6 +424,12 @@
     </Filter>
     <Filter Include="Game\Enemies\Koopas\Levels\Winged">
       <UniqueIdentifier>{8fa148a1-b385-4b12-9092-b67c5c177ce2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Rewards">
+      <UniqueIdentifier>{60affa4a-c6c6-4ab4-8c01-73ca55d7c2ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Rewards\Coin">
+      <UniqueIdentifier>{c3f6e71c-e72d-4f94-bc51-f7d048642e1c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -51,7 +51,6 @@ void Update(DWORD dt)
 	CGame::GetInstance()->GetCurrentScene()->Update(dt);
 }
 
-
 void Render()
 {
 	LPDIRECT3DDEVICE9 d3ddv = game->GetDirect3DDevice();

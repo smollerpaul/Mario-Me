@@ -16,6 +16,7 @@ ShelledKoopas::ShelledKoopas(CKoopas* master)
 {
 	this->master = master;
 	master->vx = 0;
+	master->width = master->height = KOOPAS_SHELL_SIZE;
 }
 
 void ShelledKoopas::InitAnimations()
@@ -68,6 +69,7 @@ void ShelledKoopas::Render()
 	}
 
 	ani->Render(mx - camera->GetX() + (r - l) / 2, my - camera->GetY() + (b - t) / 2, flip);
+	
 
 }
 

@@ -1,27 +1,18 @@
 #pragma once
 #include "GameObject.h"
 
-#define QB_STATE_ACTIVE		100
-#define QB_STATE_BOUNCE		300
-#define QB_STATE_FROZEN		200
-#define QB_SIZE				45
-#define QB_BOUNCE_HEIGHT	10
-#define QB_GRAVITY			0.01
-#define QB_BOUNCE_SPEED		0.68f
+#define COIN_STATE_ACTIVE   100
+#define COINT_STATE_INACTIVE 200
+#define COIN_SIZE 48
+
 
 class Camera;
-
-class QuestionBlock :
+class Coin :
     public CGameObject
 {
 public:
-
-	float yStill = 0;
-	float dyBounce = 0;
-	QuestionBlock();
-
+	Coin();
 	virtual void InitAnimations() override;
-	virtual void SetPosition(float x, float y) override;
 	virtual void Render() override;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) override;
 	virtual bool CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy) override;
@@ -32,6 +23,7 @@ public:
 	void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult);
 
 	virtual int GetObjectType() override;
-	static const int ObjectType = 22;
+	static const int ObjectType = 534;
+
 };
 
