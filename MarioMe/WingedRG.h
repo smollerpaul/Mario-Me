@@ -16,7 +16,7 @@ public:
 	virtual void Update(DWORD dt) override;
 	virtual void Render();
 
-	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult) override;
+	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents) override;
 	
 };
 

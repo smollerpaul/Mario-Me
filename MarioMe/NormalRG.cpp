@@ -10,7 +10,6 @@
 
 NormalRG::NormalRG()
 {
-	DebugOut(L"vo normalRG\n");
 }
 
 NormalRG::NormalRG(RedGoomba* masterObj)
@@ -41,29 +40,32 @@ void NormalRG::Update(DWORD dt)
 		master->vy = 0;
 	}
 
-	master->x += master->dx;
 	//DebugOut(L"RED GOOMBA  vx: %f, x: %f, dx: %f \n", master->vx, master->x, master->dx);
 
 }
 
-void NormalRG::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT>& coEventsResult)
+void NormalRG::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents)
 {
-	coEvents.clear();
+	master->coEvents.clear();
 
 	if (master->GetState() != RG_STATE_DIE)
-		master->CalcPotentialCollisions(coObjects, coEvents);
+		master->CalcPotentialCollisions(coObjects, master->coEvents);
 
-	if (coEvents.size() == 0) {
+	if (master->coEvents.size() == 0) {
 		master->UpdatePosition();
 	}
-	else {
+}
+
+void NormalRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
+{
+	if (coEvents.size() != 0) {
 		float min_tx, min_ty, nx = 0, ny = 0;
 		float rdx = 0;
 		float rdy = 0;
 		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		/*master->x += min_tx * master->dx;
-		master->y += min_ty * master->dy;*/
+		master->x += min_tx * master->dx;
+		master->y += min_ty * master->dy;
 
 		if (nx != 0) {
 			master->nx = -master->nx;
@@ -72,10 +74,7 @@ void NormalRG::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector
 
 		isOnGround = 1;
 	}
-}
 
-void NormalRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
-{
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];

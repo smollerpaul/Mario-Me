@@ -35,11 +35,8 @@ void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &botto
 		bottom = y + GOOMBA_BBOX_HEIGHT_DIE;	
 }
 
-void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void CGoomba::Update(DWORD dt)
 {
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
 	vy += dt* gravity ;
 
 	if (state == GOOMBA_STATE_DIE) {
@@ -50,15 +47,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			SetAlive(0);
 	}
 
-	CGameObject::Update(dt, coObjects); 
-	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
-	BehaviorUpdate(dt, coEventsResult);
-
-	for (UINT i = 0; i < coEvents.size(); i++)
-		delete coEvents[i];
-
-	//DebugOut(L" GOOMBA:  vy: %f X: %f, Y: %f, state: %d\n", vy,x,y ,state);
-
+	CGameObject::Update(dt); 
 }
 
 void CGoomba::Render()
@@ -85,25 +74,28 @@ bool CGoomba::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 {
 	if(obj->GetObjectType()==RedGoomba::ObjectType)
 		return true;
+	if (obj->GetObjectType() == CMario::ObjectType)
+		return true;
 	if (obj->GetObjectType() == CKoopas::ObjectType)
 		return true;
 }
 
-void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
-	vector<LPCOLLISIONEVENT> coEvents,
-	vector<LPCOLLISIONEVENT>& coEventsResult)
+void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	coEvents.clear();
-
 	if (state != GOOMBA_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	if (coEvents.size() == 0)
 	{
+		//DebugOut(L"gooomba coevents=0\n");
 		CGameObject::UpdatePosition();
 	}
-	else
-	{
+}
+
+void CGoomba::BehaviorUpdate(DWORD dt)
+{
+	if (coEvents.size()!= 0) {
 		float min_tx, min_ty, nx = 0, ny = 0;
 
 		float rdx = 0;
@@ -113,15 +105,12 @@ void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 		x += min_tx * dx + nx * 0.2f;
 		y += min_ty * dy + ny * 0.2f;
 
+		//DebugOut(L"gooomba coevents=1\n");
+
 		if (nx != 0) vx = -vx;
 		if (ny != 0) vy = 0;
-
 	}
-
-}
-
-void CGoomba::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
-{
+	
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];
@@ -133,13 +122,10 @@ void CGoomba::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 			CMario* mario = dynamic_cast<CMario*>(e->obj);
 			if (e->ny > 0)
 			{
+				DebugOut(L"Goomb touches Mario in goomba\n");
 				if (state!= GOOMBA_STATE_DIE) {
 					SetState(GOOMBA_STATE_DIE);
 				}
-			}
-			if (e->nx != 0)
-			{
-
 			}
 		}
 		break;
@@ -153,7 +139,6 @@ void CGoomba::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 					SetState(GOOMBA_STATE_DIE);
 					SetAlive(0);
 				}
-				DebugOut(L" GOOMBA DEAD by FIREBALL\n");
 			}
 		}
 		break;

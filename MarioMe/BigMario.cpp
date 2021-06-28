@@ -1,7 +1,5 @@
 #include "BigMario.h"
 
-
-
 BigMario::BigMario()
 {
 }
@@ -9,15 +7,13 @@ BigMario::BigMario()
 BigMario::BigMario(CMario* masterObj)
 {
 	this->master = masterObj;
+	if (master->height != 81) {
+		master->SetPosition(master->x, master->y - 40);
+		DebugOut(L"x: %f, y:%f, height: %f\n", master->x, master->y, master->height);
+	}
+
 	master->SetSize(MARIO_WIDTH, MARIO_HEIGHT);
-	if (master->y != 1056) {
-		master->y = 1056;
-	}
-	if (master->transforming == 1) {
-		master->y -= 36;
-		master->transforming = 0;
-		DebugOut(L"finish growing = %d\n", master->transforming);
-	}
+
 }
 
 void BigMario::InitAnimations()
@@ -49,16 +45,28 @@ void BigMario::InitAnimations()
 
 void BigMario::Update(DWORD dt)
 {
-	if (master->state == MARIO_STATE_SHRINK) {
-		master->transforming = 1;
-		master->effectTimer += dt;
+	if (master->untouchable == 1) {
+		master->untouchableTimer += dt;
 
-		DebugOut(L"im transforming %f \n", master->transforming);
-		if (master->effectTimer >= 1000) {
-			master->SetObjectState(new SmallMario(master));
-			master->effectTimer = 0;
+		if (master->untouchableTimer >= MARIO_UNTOUCHABLE_TIME) {
+			master->ResetUntouchable();
+
+			if (powerUpLeaf == 1) {
+				master->SetObjectState(new RacoonMario(master));
+				powerUpLeaf = 0;
+			}
+			else if (powerUpMushroom == 1) {
+				master->SetObjectState(new BigMario(master));
+				powerUpMushroom = 0;
+			}
+			else {
+				master->SetObjectState(new SmallMario(master));
+			}
+
+			master->visible = 1;
 		}
 	}
+
 }
 
 bool BigMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
@@ -201,8 +209,10 @@ void BigMario::AttackUpdate(DWORD dt)
 {
 }
 
-void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
+void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
+	SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
+
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];
@@ -213,17 +223,14 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 		{
 			CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 
-			if (e->ny < 0)
-			{
+			if (e->ny < 0){
 				master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
 
-			if (e->nx != 0)
-			{
-				if (master->untouchable == 0)
-				{
+			if (e->nx != 0){
+				if (master->untouchable == 0){
 					master->StartUntouchable();
-					master->SetState(MARIO_STATE_SHRINK);
+					master->visible = 0;
 				}
 			}
 		}
@@ -233,35 +240,29 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 		{
 			RedGoomba* rg = dynamic_cast<RedGoomba*>(e->obj);
 
-			if (e->ny < 0)
-			{
+			if (e->ny < 0){
 				master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
-			else if (e->nx != 0)
-			{
-				if (master->untouchable == 0)
-				{
+			else if (e->nx != 0){
+				if (master->untouchable == 0){
 					master->StartUntouchable();
-					master->SetState(MARIO_STATE_SHRINK);
+					master->visible = 0;
 				}
 			}
 		}
 		break;
-		//ckoopas dap mario rot -> fix dat
+		
 		case CKoopas::ObjectType:
 		{
 			CKoopas* rg = dynamic_cast<CKoopas*>(e->obj);
 
-			if (e->ny < 0)
-			{
+			if (e->ny < 0){
 				master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
-			else if (e->nx != 0 || e->ny > 0)
-			{
-				if (master->untouchable == 0)
-				{
+			else if (e->nx != 0 || e->ny > 0){
+				if (master->untouchable == 0){
 					master->StartUntouchable();
-					master->SetState(MARIO_STATE_SHRINK);
+					master->visible = 0;
 				}
 			}
 		}
@@ -271,21 +272,31 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
 		{
 			FireBall* fb = dynamic_cast<FireBall*>(e->obj);
 
-			if (e->ny < 0)
-			{
+			if (e->ny < 0){
 				master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
 
-			if (e->nx != 0)
-			{
-				if (master->untouchable == 0)
-				{
-					master->StartUntouchable();
-					master->SetState(MARIO_STATE_SHRINK);
+			if (e->nx != 0){
+				if (master->untouchable == 0){
+					master->StartUntouchable(); 
+					master->visible = 0;
 				}
 			}
 		}
 		break;
+
+		case Leaf::ObjectType:
+		{
+			Leaf* leaf = dynamic_cast<Leaf*>(e->obj);
+
+			if (e->nx != 0 || e->ny != 0) {
+				master->StartUntouchable();
+				master->visible = 0;
+				powerUpLeaf = 1;
+			}
+		}
+		break;
+
 		}
 	}
 }
@@ -401,6 +412,10 @@ void BigMario::Render()
 {
 	InitAnimations();
 	CAnimation* ani = this->animations["Idle"];
+
+	//dont render when transforming
+	if (master->visible == 0)
+		return;
 
 	switch (master->state) {
 	case MARIO_STATE_IDLE:

@@ -9,7 +9,7 @@ void CGame::SweptAABB(
 	float ml, float mt, float mr, float mb,
 	float dx, float dy,
 	float sl, float st, float sr, float sb,
-	float& t, float& nx, float& ny)
+	float& t, float& nx, float& ny, float& tl)
 {
 
 	float dx_entry, dx_exit, tx_entry, tx_exit;
@@ -20,6 +20,7 @@ void CGame::SweptAABB(
 
 	t = -1.0f;			// no collision
 	nx = ny = 0;
+	tl = 0;
 
 	//
 	// Broad-phase test 
@@ -97,11 +98,18 @@ void CGame::SweptAABB(
 		ny = 0.0f; 
 		dx > 0 ? nx = -1.0f : nx = 1.0f; //direction of response after collision , cái này =0 nghĩa là no collision obviously
 		//whilst ny ==0
+		float mst = mt + dy * t_entry;
+		float msb = mb + dy * t_entry;
+		tl = min(msb, sb) - max(mst, st); //touching length
 	}
 	else
 	{
 		nx = 0.0f;
 		dy > 0 ? ny = -1.0f : ny = 1.0f;
+
+		float msl = ml + dx * t_entry;
+		float msr = mr + dx * t_entry;
+		tl = (min(msr, sr) - max(msl, sl));
 	}
 
 }

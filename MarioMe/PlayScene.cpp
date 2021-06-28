@@ -25,15 +25,35 @@ void CPlayScene::Update(DWORD dt)
 		coObjects.push_back(objects[i]);
 	}
 	//player update must be called separately
-	player->Update(dt, &coObjects);
+	// movement update 
+	player->Update(dt);
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
-		objects[i]->Update(dt, &coObjects);
+		objects[i]->Update(dt);
 	}
 
-	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	
+	player->CollisionUpdate(dt, &coObjects);
+
+	for (size_t i = 0; i < objects.size(); i++)
+	{
+		objects[i]->CollisionUpdate(dt, &coObjects);
+	}
+
+	player->BehaviorUpdate(dt);
+
+	for (size_t i = 0; i < objects.size(); i++)
+	{
+		objects[i]->BehaviorUpdate(dt);
+	}
+
+	player->ClearCollision();
+
+	for (size_t i = 0; i < objects.size(); i++)
+	{
+		objects[i]->ClearCollision();
+	}
+
 	camera->Update();
 
 	CheckAlive();

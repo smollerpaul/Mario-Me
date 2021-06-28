@@ -12,14 +12,12 @@ public:
 	int isOnGround = 0;
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects=NULL) override;
+	virtual void Update(DWORD dt) override;
 	virtual void Render();
 	virtual bool CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy) override;
 
-	void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
-		vector<LPCOLLISIONEVENT> coEvents,
-		vector<LPCOLLISIONEVENT>& coEventsResult);
-	void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult);
+	void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	void BehaviorUpdate(DWORD dt);
 
 	CGoomba();
 	virtual void SetState(int state) override;

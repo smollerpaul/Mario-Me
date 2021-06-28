@@ -40,7 +40,7 @@ int CGameObject::GetNormalX()
 	return nx;
 }
 
-void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void CGameObject::Update(DWORD dt)
 {
 	this->dt = dt;
 	dx = vx*dt;
@@ -56,12 +56,6 @@ void CGameObject::UpdatePosition()
 {
 	x += vx * dt;
 	y += vy * dt;
-}
-
-void CGameObject::SetPositionBottom(float x, float y)
-{
-	this->x = x;
-	this->y = y - height;
 }
 
 bool CGameObject::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy)
@@ -108,6 +102,22 @@ int CGameObject::GetAlive()
 CGameObject::~CGameObject()
 {
 
+}
+
+void CGameObject::ClearCollision()
+{
+	/*for (UINT i = 0; i < coEvents.size(); i++)
+		 delete coEvents[i];*/
+
+	coEvents.clear();
+}
+
+void CGameObject::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+}
+
+void CGameObject::BehaviorUpdate(DWORD dt)
+{
 }
 
 void CGameObject:: SetPosition(float x, float y) { this->x = x, this->y = y; }

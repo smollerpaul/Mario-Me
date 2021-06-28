@@ -12,8 +12,8 @@ class Camera;
 class CMario : public CGameObject
 {
 public: 
-	int untouchable;
-	DWORD untouchable_start;
+	int untouchable = 0;
+	float untouchableTimer = 0;
 
 	int skid = 0;
 	int highSpeed = 0;
@@ -34,6 +34,7 @@ public:
 
 	int isAttacking = 0;
 	int transforming = 0;
+	int visible = 1;
 
 	int keepIsAttackingAlive = 0;
 
@@ -45,7 +46,7 @@ public:
 	void SetObjectState( SmallMario* objectState);
 
 	virtual void InitAnimations() override;
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) override;
+	virtual void Update(DWORD dt) override;
 	virtual bool CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy) override;
 
 	virtual void MovementUpdate(DWORD dt);
@@ -53,13 +54,11 @@ public:
 	virtual void AttackUpdate(DWORD dt);
 	void RunPowerMeter(DWORD dt);
 
-	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects , 
-		vector<LPCOLLISIONEVENT> coEvents, 
-		vector<LPCOLLISIONEVENT>& coEventsResult);
-	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult);
-	
-	virtual void Render() override;
+	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	virtual void BehaviorUpdate(DWORD dt);
 
+	virtual void Render() override;
+	
 	void SetState(int state);
 	void SetSkid(int skid);
 	void SetFriction(float friction);

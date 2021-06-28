@@ -75,7 +75,8 @@ public:
 		float sb,
 		float &t, 
 		float &nx, 
-		float &ny);
+		float &ny,
+		float &tl);
 
 	LPDIRECT3DDEVICE9 GetDirect3DDevice();
 	LPDIRECT3DSURFACE9 GetBackBuffer();

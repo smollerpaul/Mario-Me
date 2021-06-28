@@ -1,17 +1,23 @@
 #pragma once
 #include "GameObject.h"
 
-#define COIN_STATE_ACTIVE   100
-#define COINT_STATE_INACTIVE 200
-#define COIN_SIZE 48
+#define MUSHROOM_WIDTH			44
+#define MUSHROOM_HEIGHT			45
 
+#define MUSHROOM_SPEED			0.15f;
+#define MUSHROOM_GRAVITY		0.0024f;
+#define MUSHROOM_GROWUP_SPEED	0.0012f;
 
-class Camera;
-class Coin :
+class GreenMushroom :
     public CGameObject
 {
 public:
-	Coin();
+	int scriptStep = 1;
+	float xBegin = 0;
+	float yBegin = 0;
+
+    GreenMushroom();
+	virtual void SetPosition(float x, float y) override;
 	virtual void InitAnimations() override;
 	virtual void Render() override;
 	virtual void Update(DWORD dt) override;
@@ -21,7 +27,6 @@ public:
 	void BehaviorUpdate(DWORD dt);
 
 	virtual int GetObjectType() override;
-	static const int ObjectType = 534;
-
+	static const int ObjectType = 4000;
 };
 

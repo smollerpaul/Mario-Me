@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="25" nextobjectid="377">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="25" nextobjectid="383">
  <editorsettings>
   <chunksize width="8" height="8"/>
   <export target="world-1-1-map.xml" format="tmx"/>
@@ -104,17 +104,6 @@
 </data>
  </layer>
  <objectgroup id="24" name="Spawners">
-  <object id="243" type="Spawner" x="710.486" y="1044.18">
-   <properties>
-    <property name="AutoSpawn" type="bool" value="false"/>
-    <property name="EntityType" value="Goomba"/>
-    <property name="Grid" value="[{&quot;x&quot;:2,&quot;y&quot;:4}]"/>
-    <property name="RespawnLimit" type="int" value="999"/>
-    <property name="SpawnDelay" type="int" value="3000"/>
-    <property name="SpawnLimit" type="int" value="1"/>
-   </properties>
-   <point/>
-  </object>
   <object id="350" type="Spawner" x="2494" y="1147">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
@@ -229,14 +218,6 @@
   <object id="277" type="Coin" x="3936" y="240.004">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:15,&quot;y&quot;:0}]"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="278" type="QuestionBlock" x="4272" y="384.004">
-   <properties>
-    <property name="AsBrick" type="bool" value="true"/>
-    <property name="Grid" value="[{&quot;x&quot;:16,&quot;y&quot;:1}]"/>
-    <property name="HiddenItem" value="GreenMushroom"/>
    </properties>
    <point/>
   </object>
@@ -549,15 +530,11 @@
    </properties>
    <point/>
   </object>
-  <object id="375" type="QuestionBlock" x="192" y="1201">
+  <object id="377" type="QuestionBlock" x="4270" y="375">
    <properties>
-    <property name="Grid" value="[{&quot;x&quot;:1,&quot;y&quot;:3},{&quot;x&quot;:2,&quot;y&quot;:3}]"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="376" type="Coin" x="246" y="1088">
-   <properties>
+    <property name="AsBrick" type="bool" value="true"/>
     <property name="Grid" value="[{&quot;x&quot;:16,&quot;y&quot;:1}]"/>
+    <property name="HiddenItem" value="GreenMushroom"/>
    </properties>
    <point/>
   </object>
@@ -950,7 +927,7 @@
    </properties>
    <point/>
   </object>
-  <object id="358" type="Spawner" x="1514" y="1191.5">
+  <object id="358" type="Spawner" x="693" y="1177.5">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="Goomba"/>
@@ -961,7 +938,7 @@
    </properties>
    <point/>
   </object>
-  <object id="359" type="Spawner" x="1729.5" y="1087.5">
+  <object id="359" type="Spawner" x="585.5" y="1149.5">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="RedKoopas"/>
@@ -983,13 +960,35 @@
    </properties>
    <point/>
   </object>
-  <object id="374" type="Spawner" x="384" y="1114">
+  <object id="380" type="Spawner" x="638" y="1155">
+   <properties>
+    <property name="AutoSpawn" type="bool" value="false"/>
+    <property name="EntityType" value="RedGoomba"/>
+    <property name="Grid" value="[{&quot;x&quot;:10,&quot;y&quot;:4},{&quot;x&quot;:11,&quot;y&quot;:4}]"/>
+    <property name="RespawnLimit" type="int" value="3"/>
+    <property name="SpawnDelay" type="int" value="15000"/>
+    <property name="SpawnLimit" type="int" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="381" type="Spawner" x="1729" y="1077">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="RedKoopas"/>
     <property name="Grid" value="[{&quot;x&quot;:6,&quot;y&quot;:3},{&quot;x&quot;:6,&quot;y&quot;:4}]"/>
     <property name="RespawnLimit" type="int" value="999"/>
     <property name="SpawnDelay" type="int" value="3000"/>
+    <property name="SpawnLimit" type="int" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="382" type="Spawner" x="1506" y="1178">
+   <properties>
+    <property name="AutoSpawn" type="bool" value="false"/>
+    <property name="EntityType" value="Goomba"/>
+    <property name="Grid" value="[{&quot;x&quot;:6,&quot;y&quot;:4}]"/>
+    <property name="RespawnLimit" type="int" value="999"/>
+    <property name="SpawnDelay" type="int" value="60000"/>
     <property name="SpawnLimit" type="int" value="1"/>
    </properties>
    <point/>

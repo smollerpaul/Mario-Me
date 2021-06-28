@@ -19,10 +19,9 @@ public:
 	virtual void Render();
 	virtual void Update(DWORD dt);
 	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
-	vector<LPCOLLISIONEVENT> coEvents,
-	vector<LPCOLLISIONEVENT>& coEventsResult);
-
-	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult);
+	vector<LPCOLLISIONEVENT> coEvents);
+	virtual void PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT> &coEventsResult, vector<LPCOLLISIONEVENT> &coEvents);
+	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult , vector<LPCOLLISIONEVENT> coEvents);
 
 	virtual void InitAnimations();
 	virtual int GetObjectType();

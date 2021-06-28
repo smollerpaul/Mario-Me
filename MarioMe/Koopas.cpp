@@ -4,7 +4,6 @@
 #include "EnemiesConstants.h"
 #include "WingedKoopas.h"
 
-//koopas sliding shell dung question block chua dxxxxxx question block ko chiu change states
 CKoopas::CKoopas()
 {
 	nx = -1;
@@ -36,11 +35,9 @@ void CKoopas::GetBoundingBox(float &left, float &top, float &right, float &botto
 	bottom = b;
 }
 
-void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void CKoopas::Update(DWORD dt)
 {
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
+	
 	NormalKoopas* currentState = objState;
 	this->dt = dt;
 	vy += gravity * dt;
@@ -49,13 +46,6 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	dx = vx * dt;
 	dy = vy * dt;
-
-	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
-	BehaviorUpdate(dt, coEventsResult); 
-
-	for (UINT i = 0; i < coEvents.size(); i++)
-		delete coEvents[i];
-	
 }
 
 void CKoopas::InitAnimations()
@@ -74,21 +64,22 @@ bool CKoopas::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 	return false;
 }
 
-void CKoopas::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT>& coEventsResult)
+void CKoopas::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects )
 {
 	NormalKoopas* currentState = objState;
-	currentState->CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
+	currentState->CollisionUpdate(dt, coObjects, coEvents);
 }
 
-void CKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
+void CKoopas::BehaviorUpdate(DWORD dt)
 {
 	NormalKoopas* currentState = objState;
-	currentState->BehaviorUpdate(dt, coEventsResult);
+	currentState->BehaviorUpdate(dt, coEventsResult, coEvents);
 }
 
 int CKoopas::GetObjectType()
 {
-	return ObjectType;
+	NormalKoopas* currentState = objState;
+	return currentState->GetObjectType();
 }
 
 void CKoopas::Render()

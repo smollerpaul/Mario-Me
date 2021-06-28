@@ -37,33 +37,22 @@ void RedGoomba::GetBoundingBox(float& left, float& top, float& right, float& bot
 		bottom = y + RG_BBOX_HEIGHT_DIE;
 }
 
-void RedGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void RedGoomba::Update(DWORD dt)
 {
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-	
 	NormalRG* currentState = objState;
 	this->dt = dt;
-	vy += gravity * dt;
+	vy += gravity*dt;
 
 	currentState->Update(dt);
-	// update dx before xet collision
+
 	dx = vx * dt;
 	dy = vy * dt;
-
-	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
-	BehaviorUpdate(dt, coEventsResult);
-
-	for (UINT i = 0; i < coEvents.size(); i++)
-		delete coEvents[i];
 }
 
 void RedGoomba::Render()
 {
 	NormalRG* currentState = objState;
 	currentState->Render();
-
-	RenderBoundingBox();
 }
 
 bool RedGoomba::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
@@ -72,16 +61,16 @@ bool RedGoomba::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy
 		return true;
 }
 
-void RedGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT>& coEventsResult)
+void RedGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects )
 {
 	NormalRG* currentState = objState;
-	currentState->CollisionUpdate(dt, coObjects,coEvents, coEventsResult);
+	currentState->CollisionUpdate(dt, coObjects,coEvents);
 }
 
-void RedGoomba::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
+void RedGoomba::BehaviorUpdate(DWORD dt)
 {
 	NormalRG* currentState = objState;
-	currentState->BehaviorUpdate(dt, coEventsResult);
+	currentState->BehaviorUpdate(dt, coEventsResult, coEvents);
 }
 
 int RedGoomba::GetObjectType()

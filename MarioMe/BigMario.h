@@ -16,7 +16,7 @@ public:
 	virtual void JumpUpdate(DWORD dt);
 	virtual void AttackUpdate(DWORD dt);
 
-	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult) override;
+	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents) override;
 	virtual void OnKeyUp(int keyCode) override;
 	virtual void OnKeyDown(int keyCode) override;
 	virtual void Render();

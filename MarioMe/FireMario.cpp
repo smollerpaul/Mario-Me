@@ -5,15 +5,13 @@ FireMario::FireMario() {
 
 FireMario::FireMario(CMario* masterObj) {
 	this->master = masterObj;
-	master->SetSize(MARIO_WIDTH, MARIO_HEIGHT);
 
-	if (master->y != 1056) {
-		master->y = 1056;
+	if (master->height != 81) {
+		master->SetPosition(master->x, master->y - 40);
+		DebugOut(L"x: %f, y:%f, height: %f\n", master->x, master->y, master->height);
 	}
-	if (master->transforming == 1) {
-		master->transforming = 0;
-		DebugOut(L"finish growing = %d\n", master->transforming);
-	}
+
+	master->SetSize(MARIO_WIDTH, MARIO_HEIGHT);
 }
 
 void FireMario::InitAnimations()
@@ -47,6 +45,25 @@ void FireMario::InitAnimations()
 
 void FireMario::Update(DWORD dt)
 {
+	if (master->untouchable == 1) {
+		master->untouchableTimer += dt;
+
+		if (master->untouchableTimer >= MARIO_UNTOUCHABLE_TIME) {
+			master->ResetUntouchable();
+
+			if (powerUpLeaf == 1) {
+				master->SetObjectState(new RacoonMario(master));
+				powerUpLeaf = 0;
+			} 
+			else {
+				if (powerUpMushroom != 0)
+					powerUpMushroom = 0;
+				master->SetObjectState(new BigMario(master));
+			}
+
+			master->visible = 1;
+		}
+	}
 }
 
 bool FireMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
@@ -194,15 +211,17 @@ void FireMario::AttackUpdate(DWORD dt)
 		}
 		float currentTime = dt;
 		master->attackTimer += currentTime;
-		if (master->attackTimer >= MARIO_ATTACK_TIME) {
+		if (master->attackTimer >= MARIO_ATTACK_TIME_FIRE) {
 			master->isAttacking = 0;
 			master->ResetAttackTimer();
 		}
 	}
 }
 
-void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
+void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
+	SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
+
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];
@@ -213,17 +232,14 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 		{
 			CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 
-			if (e->ny < 0)
-			{
+			if (e->ny < 0) {
 				master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
 
-			if (e->nx != 0)
-			{
-				if (master->untouchable == 0)
-				{
+			if (e->nx != 0) {
+				if (master->untouchable == 0) {
 					master->StartUntouchable();
-					master->SetState(MARIO_STATE_SHRINK);
+					master->visible = 0;
 				}
 			}
 		}
@@ -233,35 +249,29 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 		{
 			RedGoomba* rg = dynamic_cast<RedGoomba*>(e->obj);
 
-			if (e->ny < 0)
-			{
+			if (e->ny < 0) {
 				master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
-			else if (e->nx != 0)
-			{
-				if (master->untouchable == 0)
-				{
+			else if (e->nx != 0) {
+				if (master->untouchable == 0) {
 					master->StartUntouchable();
-					master->SetState(MARIO_STATE_SHRINK);
+					master->visible = 0;
 				}
 			}
 		}
 		break;
-		
+
 		case CKoopas::ObjectType:
 		{
 			CKoopas* rg = dynamic_cast<CKoopas*>(e->obj);
 
-			if (e->ny < 0)
-			{
+			if (e->ny < 0) {
 				master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
-			else if (e->nx != 0 || e->ny > 0)
-			{
-				if (master->untouchable == 0)
-				{
+			else if (e->nx != 0 || e->ny > 0) {
+				if (master->untouchable == 0) {
 					master->StartUntouchable();
-					master->SetState(MARIO_STATE_SHRINK);
+					master->visible = 0;
 				}
 			}
 		}
@@ -271,21 +281,31 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 		{
 			FireBall* fb = dynamic_cast<FireBall*>(e->obj);
 
-			if (e->ny < 0)
-			{
+			if (e->ny < 0) {
 				master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
 
-			if (e->nx != 0)
-			{
-				if (master->untouchable == 0)
-				{
+			if (e->nx != 0) {
+				if (master->untouchable == 0) {
 					master->StartUntouchable();
-					master->SetState(MARIO_STATE_SHRINK);
+					master->visible = 0;
 				}
 			}
 		}
 		break;
+
+		case Leaf::ObjectType:
+		{
+			Leaf* leaf = dynamic_cast<Leaf*>(e->obj);
+
+			if (e->nx != 0 || e->ny != 0) {
+				master->StartUntouchable();
+				master->visible = 0;
+				powerUpLeaf = 1;
+			}
+		}
+		break;
+
 		}
 	}
 }
@@ -294,6 +314,9 @@ void FireMario::Render()
 {
 	InitAnimations();
 	CAnimation* ani = this->animations["Idle"];
+
+	if (master->visible == 0)
+		return;
 
 	switch (master->state) {
 		case MARIO_STATE_IDLE: 

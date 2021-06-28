@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "SolidBlock.h"
 
 #define GRAVITY                     0.002f
 #define FIREBALL_SPEED              0.48f
@@ -14,20 +15,14 @@ class FireBall :
     public CGameObject
 {
 public:
-
     CGameObject* player;
          
     FireBall(CGameObject* fplayer);
     virtual void InitAnimations() override;
-    virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) override;
-    void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
-        vector<LPCOLLISIONEVENT> coEvents,
-        vector<LPCOLLISIONEVENT>& coEventsResult);
-    void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult);
-
-    
+    virtual void Update(DWORD dt) override;
+    void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+    void BehaviorUpdate(DWORD dt);
     virtual void Render() override;
-    void ResetAll();
 
     virtual int GetObjectType() override;
     static const int ObjectType = 2000;

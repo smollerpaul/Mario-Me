@@ -15,10 +15,12 @@ struct CCollisionEvent
 {
 	LPGAMEOBJECT obj;
 	float t, nx, ny;
+
+	float tl;
 	
 	float dx, dy;		// *RELATIVE* movement distance between this object and obj
 
-	CCollisionEvent(float t, float nx, float ny, float dx = 0, float dy = 0, LPGAMEOBJECT obj = NULL) 
+	CCollisionEvent(float t, float tl, float nx, float ny, float dx = 0, float dy = 0, LPGAMEOBJECT obj = NULL) 
 	{ 
 		this->t = t; 
 		this->nx = nx; 
@@ -26,6 +28,7 @@ struct CCollisionEvent
 		this->dx = dx;
 		this->dy = dy;
 		this->obj = obj; 
+		this->tl = tl;
 	}
 
 	static bool compare(const LPCOLLISIONEVENT &a, LPCOLLISIONEVENT &b)
@@ -62,15 +65,20 @@ public:
 	DWORD dt;
 
 	unordered_map<string, LPANIMATION> animations;
+	//day a ha?
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
 
 	CGameObject();
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
+	virtual void Update(DWORD dt);
 	virtual void UpdatePosition();
+	
 	virtual void Render() = 0;
 
 	virtual bool CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy);
 	virtual void SetPosition(float x, float y);
-	void SetPositionBottom(float x, float y);
+	
 	void GetPosition(float& x, float& y);
 
 	float GetVx();
@@ -119,6 +127,9 @@ public:
 		float &ny, 
 		float &rdx, 
 		float &rdy);
+	void ClearCollision();
+	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
+	virtual void BehaviorUpdate(DWORD dt);
 
 	~CGameObject();
 };

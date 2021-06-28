@@ -10,6 +10,9 @@
 #include "Koopas.h"
 #include "Goomba.h"
 #include "Portal.h"
+#include "GreenMushroom.h"
+#include "RedMushroom.h"
+#include "Leaf.h"
 
 class CMario;
 class CGameObject;
@@ -20,6 +23,10 @@ protected:
 	CMario* master = nullptr;
 	unordered_map<string, LPANIMATION> animations;
 public:
+
+	int powerUpLeaf = 0;
+	int powerUpMushroom = 0;
+
 	SmallMario();
 	SmallMario(CMario* masterObj);
 	virtual void InitAnimations() ;
@@ -30,11 +37,10 @@ public:
 	virtual void JumpUpdate(DWORD dt);
 	virtual void AttackUpdate(DWORD dt);
 	virtual void RunPowerMeter(DWORD dt);
-
+	virtual void PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT>& coEventsResult, vector<LPCOLLISIONEVENT>& coEvents);
 	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
-		vector<LPCOLLISIONEVENT> coEvents,
-		vector<LPCOLLISIONEVENT>& coEventsResult);
-	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult);
+		vector<LPCOLLISIONEVENT> coEvents);
+	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents);
 
 	virtual void Render();
 
@@ -44,5 +50,3 @@ public:
 	virtual int GetObjectType();
 	static const int ObjectType = 1234;
 };
-
-//set power down stuff

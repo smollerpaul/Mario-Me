@@ -14,12 +14,9 @@ using namespace std;
 CMario::CMario() : CGameObject()
 {
 	SetSize(MARIO_WIDTH, MARIO_HEIGHT);
-	SetObjectState(new BigMario(this));
-	x = 0;
-	y = 0;
+	SetObjectState(new SmallMario(this));
 	nx = 1;
 	flip = 1;
-	untouchable = 0;
 	SetState(MARIO_STATE_IDLE);
 	gravity = MARIO_GRAVITY;
 }
@@ -37,20 +34,12 @@ void CMario::InitAnimations()
 	DebugOut(L"done init ani MARIO \n");
 }
 
-void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void CMario::Update(DWORD dt)
 {
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	DWORD now = GetTickCount64();
-	if (now - untouchable_start > MARIO_UNTOUCHABLE_TIME)
-		ResetUntouchable();
-
 	vy += gravity * dt;
 
 	SmallMario* currentState = objState;
 	currentState->Update(dt);
-	DebugOut(L" AFTER UPDATE:  state: %d\n", state);
 
 	if (state != MARIO_STATE_DIE && state != MARIO_STATE_REALLY_DIE && transforming != 1) {
 		MovementUpdate(dt);
@@ -58,13 +47,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		JumpUpdate(dt);
 		AttackUpdate(dt);
 	}
-	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
-	BehaviorUpdate(dt, coEventsResult);
+	//goi rieng
 
-	for (UINT i = 0; i < coEvents.size(); i++)
-		delete coEvents[i];	
+	//call update ->collision -> behavior outside in playscene
+	/*CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
+	BehaviorUpdate(dt, coEventsResult);*/
 
-	DebugOut(L" MARIO: vx: %f  vy: %f state: %d\n", vx, vy, state);
 }
 
 bool CMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
@@ -116,57 +104,26 @@ void CMario::RunPowerMeter(DWORD dt)
 	}
 }
 
-void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
-	vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT>& coEventsResult)
+void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	coEvents.clear();
 
-	//turn off collision when die
-	if (state != MARIO_STATE_DIE)
+	if (state != MARIO_STATE_DIE) 
 		CalcPotentialCollisions(coObjects, coEvents);
-	else {
-		CGameObject::UpdatePosition();
-		DebugOut(L"im outttttttttttttt\n");
-		return;
-	}
 
-	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
-		CGameObject::UpdatePosition();
-	}
-	else
-	{
-		float min_tx, min_ty, nx = 0, ny = 0; //predefined stuff , value doesnt matter
-
-		float rdx = 0;
-		float rdy = 0;
-
-		//is get clamp distance , still got those coEvents
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
-		// if (rdx != 0 && rdx!=dx)
-		//	x += nx*abs(rdx); 
-
-		// block every object first!
-		// updated position
-
-		x += min_tx * dx + nx * 0.2f;
-		y += min_ty * dy + ny * 0.2f;
-
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
-
-		SetIsOnGround(true);
+		CGameObject::UpdatePosition(); 
+		//including DIE
 	}
 }
 
-void CMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
+void CMario::BehaviorUpdate(DWORD dt)
 {
 	SmallMario* currentState = objState;
-	currentState->BehaviorUpdate(dt,coEventsResult);
+	currentState->BehaviorUpdate(dt,coEventsResult,coEvents);
 }
+
 
 void CMario::Render()
 {
@@ -227,6 +184,7 @@ void CMario::Reset()
 	SetSpeed(0, 0);
 	ResetUntouchable();
 	ResetFlip();
+	visible = 1;
 }
 void CMario::ResetFlip()
 {
@@ -245,14 +203,14 @@ void CMario::ResetFloatTimer()
 
 void CMario::StartUntouchable()
 {
-	DebugOut(L" start untouchable\n");
+	DebugOut(L" MARIO start untouchable\n");
 	untouchable = 1;
-	untouchable_start = GetTickCount64();
 }
 void CMario::ResetUntouchable()
 {
+	DebugOut(L"Reset Untouchable!\n");
 	untouchable = 0;
-	untouchable_start = 0;
+	untouchableTimer = 0;
 }
 
 void CMario::SetIsOnGround(bool onGround)

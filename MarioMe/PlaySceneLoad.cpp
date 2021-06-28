@@ -8,6 +8,7 @@
 #include "WingedKoopas.h"
 #include "Coin.h"
 
+//chinh qblock
 
 void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width, float height)
 {
@@ -30,15 +31,29 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 
 	if (objectType.compare("Goomba") == 0) {
 		CGoomba* goomba = new CGoomba();
-		//goomba->SetPositionBottom(x, y);
 		goomba->SetPosition(x, y);
 		AddObject(goomba);
+	}
+
+	
+	if (objectType.compare("RaccoonLeaf") == 0) {
+		QuestionBlock* qb = new QuestionBlock(LEAF_PRIZE);
+		qb->SetPosition(x, y);
+		AddObject(qb);
+		DebugOut(L"RacoonLeaf created!\n");
+	}
+	if (objectType.compare("GreenMushroom") == 0) {
+		QuestionBlock* qb = new QuestionBlock(GMUSH_PRIZE);
+		qb->SetPosition(x, y);
+		AddObject(qb);
+		DebugOut(L"GreenMushroom created!\n");
 	}
 
 	if (objectType.compare("QuestionBlock") == 0) {
 		QuestionBlock* qb = new QuestionBlock();
 		qb->SetPosition(x, y);
 		AddObject(qb);
+		DebugOut(L"QuestionBlock created!\n");
 	}
 
 	if (objectType.compare("RedGoomba") == 0) {
@@ -50,19 +65,16 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		CKoopas* kp = new CKoopas(new NormalKoopas);
 		kp->SetPosition(x, y);
 		AddObject(kp);
-		//DebugOut(L"i am koopas\n");
 	}
 	if (objectType.compare("KoopasJumping") == 0) {
 		CKoopas* kp = new CKoopas();
 		kp->SetPosition(x, y);
 		AddObject(kp);
-		//DebugOut(L"i am jumping koopas\n");
 	}
 	if (objectType.compare("Coin") == 0) {
 		Coin* kp = new Coin();
 		kp->SetPosition(x, y);
 		AddObject(kp);
-		//DebugOut(L"i am jumping koopas\n");
 	}
 
 	// void, pipe

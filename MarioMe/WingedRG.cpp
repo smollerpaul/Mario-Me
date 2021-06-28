@@ -30,6 +30,7 @@ void WingedRG::InitAnimations()
 void WingedRG::Update(DWORD dt)
 {
 	master->vx = master->nx * RG_WALK_SPEED;
+
 	if (isOnGround == 1) {
 		if (master->GetState() == RG_STATE_WALK) {
 			walkTime += dt;
@@ -80,8 +81,25 @@ void WingedRG::Render()
 	ani->Render(mx - camera->GetX() + (r - l) / 2, my - camera->GetY() + (b - t) / 2, flip);
 }
 
-void WingedRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
+void WingedRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
+	if (coEvents.size() != 0) {
+		float min_tx, min_ty, nx = 0, ny = 0;
+		float rdx = 0;
+		float rdy = 0;
+		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+		master->x += min_tx * master->dx;
+		master->y += min_ty * master->dy;
+
+		if (nx != 0) {
+			master->nx = -master->nx;
+		}
+		if (ny != 0) master->vy = 0;
+
+		isOnGround = 1;
+	}
+	
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];

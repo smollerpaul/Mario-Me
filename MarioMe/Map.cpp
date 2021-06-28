@@ -73,6 +73,19 @@ GameMap* GameMap::Load(string path)
 							obj->QueryFloatAttribute("height", &objHeight);
 
 						// Read spawners
+						if (objType.compare("QuestionBlock") == 0) {
+							TiXmlElement* props = obj->FirstChildElement("properties");
+
+							for (TiXmlElement* objProp = props->FirstChildElement("property"); objProp != nullptr; objProp = objProp->NextSiblingElement("property")) {
+								string propName = objProp->Attribute("name");
+
+								if (propName.compare("HiddenItem") == 0) {
+									string propValue = objProp->Attribute("value");
+									CGame::GetInstance()->GetCurrentScene()->LoadMapObjects(propValue, x, y, objWidth, objHeight);
+								}
+							}
+						}
+
 
 						if (objType.compare("Spawner") == 0) {
 							TiXmlElement* props = obj->FirstChildElement("properties");

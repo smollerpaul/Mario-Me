@@ -81,22 +81,17 @@ void WingedKoopas::Render()
 
 }
 
-void WingedKoopas::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT>& coEventsResult)
+void WingedKoopas::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT> &coEventsResult, vector<LPCOLLISIONEVENT> &coEvents)
 {
-	coEvents.clear();
-	
-	if (master->GetState() != RG_STATE_DIE)
-		master->CalcPotentialCollisions(coObjects, coEvents);
-	
-	if (coEvents.size() == 0) {
-		master->UpdatePosition();
-	}
-	else {
+	if (coEvents.size() != 0) {
 		float min_tx, min_ty, nx = 0, ny = 0;
 		float rdx = 0;
 		float rdy = 0;
 		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-	
+
+		master->x += min_tx * master->dx + nx * 0.2f;
+		master->y += min_ty * master->dy + ny * 0.2f;
+
 		if (nx != 0) {
 			master->nx = -master->nx;
 		}
@@ -107,8 +102,9 @@ void WingedKoopas::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, ve
 	}
 }
 
-void WingedKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
+void WingedKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
+	NormalKoopas::PostCollisionUpdate(dt, coEventsResult, coEvents);
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];

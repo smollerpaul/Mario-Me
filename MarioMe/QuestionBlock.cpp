@@ -1,11 +1,11 @@
-#include "QuestionBlock.h"
+﻿#include "QuestionBlock.h"
 #include "Camera.h"
 #include "Game.h"
 #include "Mario.h"
 #include "SlidingShell.h"
+#include "Leaf.h"
 
-//BOUNCING ani -> coin effect
-
+//bouncing ani -> coin effect
 QuestionBlock::QuestionBlock()
 {
 	vx = vy = 0;
@@ -14,6 +14,17 @@ QuestionBlock::QuestionBlock()
 
 	width = height = QB_SIZE;
 	SetState(QB_STATE_ACTIVE);
+}
+
+QuestionBlock::QuestionBlock(int blockReward)
+{
+	vx = vy = 0;
+	dx = dy = 0;
+	gravity = 0;
+
+	width = height = QB_SIZE;
+	SetState(QB_STATE_ACTIVE);
+	this->reward = blockReward;
 }
 
 void QuestionBlock::InitAnimations()
@@ -43,13 +54,12 @@ void QuestionBlock::Render()
 	GetBoundingBox(l, t, r, b);
 
 	ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + (b - t) / 2, flip);
+
+	RenderBoundingBox();
 }
 
-void QuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void QuestionBlock::Update(DWORD dt)
 {
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
 	if (state == QB_STATE_BOUNCE) {
 		dyBounce += abs(dy);
 		if (dyBounce >= QB_BOUNCE_HEIGHT) {
@@ -60,16 +70,26 @@ void QuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			vy = 0;
 			y = yStill;
 			SetState(QB_STATE_FROZEN);
+
+			if (reward == LEAF_PRIZE) {
+				Leaf* leaf = new Leaf();
+				leaf->SetPosition(x, y - 48);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(leaf);
+			}
+
+			if (reward == COIN_PRIZE) {
+				// adđ effect + score
+			}
+
+			if (reward == GMUSH_PRIZE) {
+				GreenMushroom* gm = new GreenMushroom();
+				gm->SetPosition(x, y -45);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(gm);
+			}
 		}
 	}
-	CGameObject::Update(dt, coObjects);
+	CGameObject::Update(dt);
 	CGameObject::UpdatePosition();
-
-	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
-	BehaviorUpdate(dt, coEventsResult);
-
-	for (UINT i = 0; i < coEvents.size(); i++)
-		delete coEvents[i];
 }
 
 bool QuestionBlock::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy)
@@ -77,7 +97,7 @@ bool QuestionBlock::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx
 	return false;
 }
 
-void QuestionBlock::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT>& coEventsResult)
+void QuestionBlock::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	coEvents.clear();
 	if (state != QB_STATE_ACTIVE)
@@ -85,19 +105,17 @@ void QuestionBlock::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, v
 
 	CalcPotentialCollisions(coObjects, coEvents);
 
+	
+}
+
+void QuestionBlock::BehaviorUpdate(DWORD dt)
+{
 	float min_tx, min_ty, nx = 0, ny;
 	float rdx = 0;
 	float rdy = 0;
 
 	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-	if (nx != 0) {
-		DebugOut(L"owwwwwwwwwwww\n");
-	}
-}
-
-void QuestionBlock::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
-{
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];
@@ -122,7 +140,6 @@ void QuestionBlock::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRe
 			{
 				if(state!=QB_STATE_FROZEN)
 					SetState(QB_STATE_FROZEN);
-				DebugOut(L"pooooooooooooooooooooof\n");
 			}
 		}
 		break;

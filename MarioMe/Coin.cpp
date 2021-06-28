@@ -3,8 +3,6 @@
 #include "Game.h"
 #include "Mario.h"
 
-
-
 Coin::Coin()
 {
 	vx = vy = 0;
@@ -37,19 +35,10 @@ void Coin::Render()
 	ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + (b - t) / 2, flip);
 }
 
-void Coin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Coin::Update(DWORD dt)
 {
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	CGameObject::Update(dt, coObjects);
+	CGameObject::Update(dt);
 	CGameObject::UpdatePosition();
-
-	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
-	BehaviorUpdate(dt, coEventsResult);
-
-	for (UINT i = 0; i < coEvents.size(); i++)
-		delete coEvents[i];
 }
 
 bool Coin::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy)
@@ -57,14 +46,17 @@ bool Coin::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float c
 	return true;
 }
 
-void Coin::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT>& coEventsResult)
+void Coin::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	coEvents.clear();
 	if (state != COIN_STATE_ACTIVE)
 		return;
 
 	CalcPotentialCollisions(coObjects, coEvents);
+}
 
+void Coin::BehaviorUpdate(DWORD dt)
+{
 	float min_tx, min_ty, nx = 0, ny;
 	float rdx = 0;
 	float rdy = 0;
@@ -73,10 +65,6 @@ void Coin::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPC
 
 	if (nx != 0) SetAlive(0);
 	if (ny != 0) SetAlive(0);
-}
-
-void Coin::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
-{
 }
 
 int Coin::GetObjectType()

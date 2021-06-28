@@ -81,8 +81,10 @@ void ShelledKoopas::GetBoundingBox(float& left, float& top, float& right, float&
 	bottom = master->y + KOOPAS_SIZE;
 }
 
-void ShelledKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
+void ShelledKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
+	NormalKoopas::PostCollisionUpdate(dt, coEventsResult, coEvents);
+
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];

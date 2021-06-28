@@ -137,8 +137,10 @@
     <ClCompile Include="FireMario.cpp" />
     <ClCompile Include="GameLoad.cpp" />
     <ClCompile Include="GhostBlock.cpp" />
+    <ClCompile Include="GreenMushroom.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Koopas.cpp" />
+    <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapLayer.cpp" />
     <ClCompile Include="MarioLevels.cpp" />
@@ -151,6 +153,7 @@
     <ClCompile Include="RacoonTail.cpp" />
     <ClCompile Include="NormalRG.cpp" />
     <ClCompile Include="RedGoomba.cpp" />
+    <ClCompile Include="RedMushroom.cpp" />
     <ClCompile Include="Shell.cpp" />
     <ClCompile Include="SlidingShell.cpp" />
     <ClCompile Include="SmallMario.cpp" />
@@ -183,8 +186,10 @@
     <ClInclude Include="FireBall.h" />
     <ClInclude Include="FireMario.h" />
     <ClInclude Include="GhostBlock.h" />
+    <ClInclude Include="GreenMushroom.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Koopas.h" />
+    <ClInclude Include="Leaf.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapLayer.h" />
     <ClInclude Include="MarioConstants.h" />
@@ -197,6 +202,7 @@
     <ClInclude Include="RacoonTail.h" />
     <ClInclude Include="NormalRG.h" />
     <ClInclude Include="RedGoomba.h" />
+    <ClInclude Include="RedMushroom.h" />
     <ClInclude Include="Shell.h" />
     <ClInclude Include="SlidingShell.h" />
     <ClInclude Include="SmallMario.h" />

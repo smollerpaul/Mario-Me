@@ -5,9 +5,6 @@
 #include "QuestionBlock.h"
 #include "Goomba.h"
 
-// dung tuong bien mat
-//dung goomba chet
-
 FireBall::FireBall(CGameObject* fplayer)
 {
 	this->player = fplayer;
@@ -17,19 +14,14 @@ FireBall::FireBall(CGameObject* fplayer)
 
 	nx = player->GetDirection();
 
-	if (nx > 0) {
-		x = pr;
-	}
-	else {
+	//start position fireball
+	if (nx > 0) x = pr;
+	else 
 		x = pl;
-	}
+
 	y = pt + FIREBALL_START_Y;
 
 	vy = GRAVITY;
-	vx = FIREBALL_SPEED * nx;
-
-	dx = vx * dt;
-
 	width = height = FIREBALL_SIZE;
 }
 
@@ -40,79 +32,54 @@ void FireBall::InitAnimations()
 	}
 }
 
-void FireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void FireBall::Update(DWORD dt)
 {
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	CGameObject::Update(dt, coObjects);
-
+	vx = FIREBALL_SPEED * nx;
 	vy += GRAVITY * dt;
 
+	CGameObject::Update(dt);
+
 	CGameObject::UpdatePosition();
-
-	CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
-	BehaviorUpdate(dt, coEventsResult);
-
-	
-	for (UINT i = 0; i < coEvents.size(); i++)
-		delete coEvents[i];
-
-	DebugOut(L"[fireball] vx: %f, vy: %f\n", vx, vy);
 }
 
-void FireBall::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT>& coEventsResult)
+void FireBall::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	coEvents.clear();
 
-	if (this) //exists
+	if (this)
 		CalcPotentialCollisions(coObjects, coEvents);
+}
 
+void FireBall::BehaviorUpdate(DWORD dt)
+{
 	if (coEvents.size() != 0) {
-		//cuz its a moving object
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0;
 		float rdy = 0;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;
+		/*x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;*/
 
+		x += min_tx * dx ;
+		y += min_ty * dy ;
 
 		if (nx != 0) {
-			//vx = -FIREBALL_BOUNCE_PUSH;
 			SetAlive(0);
-			DebugOut(L"touch wall \n");
-		} 
+		}
 		if (ny != 0) {
-			vy = - FIREBALL_BOUNCE_PUSH;
-			DebugOut(L"bounce \n");
-		} 
+			vy = -FIREBALL_BOUNCE_PUSH;
+			DebugOut(L"fireball bounce \n");
+		}
 	}
-}
 
-void FireBall::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
-{
-	// when fireball hit ground , bounces back
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];
 
 		switch (e->obj->GetObjectType()) {
-			
-		case CGoomba::ObjectType:
-		{
-			CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-
-			if (e->ny!=0 || e->nx!=0)
-			{
-				DebugOut(L"Fireball hit Goomba yay!\n");
-			}
-		}
-		break;
-
-		// disappear when hit qblock
+		
 		case QuestionBlock::ObjectType:
 		{
 			CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
@@ -143,11 +110,6 @@ void FireBall::Render()
 	ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + (b - t) / 2, flip);
 
 	RenderBoundingBox();
-}
-
-void FireBall::ResetAll()
-{
-	
 }
 
 int FireBall::GetObjectType()

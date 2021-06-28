@@ -136,6 +136,15 @@
     <ClCompile Include="Coin.cpp">
       <Filter>Game\Rewards\Coin</Filter>
     </ClCompile>
+    <ClCompile Include="GreenMushroom.cpp">
+      <Filter>Game\Rewards\GreenMushroom</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>Game\Rewards\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="RedMushroom.cpp">
+      <Filter>Game\Rewards\RedMushroom</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -257,6 +266,15 @@
     </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>Game\Rewards\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenMushroom.h">
+      <Filter>Game\Rewards\GreenMushroom</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>Game\Rewards\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="RedMushroom.h">
+      <Filter>Game\Rewards\RedMushroom</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -430,6 +448,15 @@
     </Filter>
     <Filter Include="Game\Rewards\Coin">
       <UniqueIdentifier>{c3f6e71c-e72d-4f94-bc51-f7d048642e1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Rewards\GreenMushroom">
+      <UniqueIdentifier>{a323cf07-2902-48ba-92f2-95df21da7b9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Rewards\Leaf">
+      <UniqueIdentifier>{69d1ebbb-5fa0-4d54-a14e-58b67af8445b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Rewards\RedMushroom">
+      <UniqueIdentifier>{470d6c08-dfa8-4ccb-86cf-343c8debdf25}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

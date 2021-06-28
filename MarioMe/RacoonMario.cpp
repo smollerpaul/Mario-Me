@@ -7,14 +7,11 @@ RacoonMario::RacoonMario()
 RacoonMario::RacoonMario(CMario* masterObj)
 {
 	this->master = masterObj;
+	if (master->height != 81) {
+		master->SetPosition(master->x, master->y - 40);
+		DebugOut(L"x: %f, y:%f, height: %f\n", master->x, master->y, master->height);
+	}
 	master->SetSize(MARIO_WIDTH, MARIO_HEIGHT);
-	if (master->y != 1056) {
-		master->y = 1056;
-	}
-	if (master->transforming == 1) {
-		master->transforming = 0;
-		DebugOut(L"finish growing = %d\n", master->transforming);
-	}
 }
 
 void RacoonMario::InitAnimations()
@@ -48,6 +45,26 @@ void RacoonMario::InitAnimations()
 
 void RacoonMario::Update(DWORD dt)
 {
+	if (master->untouchable == 1) {
+		master->untouchableTimer += dt;
+
+		if (master->untouchableTimer >= MARIO_UNTOUCHABLE_TIME) {
+			master->ResetUntouchable();
+
+			if (powerUpMushroom == 1) {
+				master->SetObjectState(new BigMario(master));
+				powerUpMushroom = 0;
+			} 
+			else {
+				master->SetObjectState(new FireMario(master));
+			}
+
+			if (powerUpLeaf != 0)
+				powerUpLeaf= 0;
+
+			master->visible = 1;
+		}
+	}
 }
 
 bool RacoonMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
@@ -287,8 +304,83 @@ void RacoonMario::AttackUpdate(DWORD dt)
 	}
 }
 
-void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
+void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
+	SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
+	
+	for (UINT i = 0; i < coEventsResult.size(); i++)
+	{
+		LPCOLLISIONEVENT e = coEventsResult[i];
+
+		switch (e->obj->GetObjectType()) {
+
+		case CGoomba::ObjectType:
+		{
+			CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+
+			if (e->ny < 0) {
+				master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+
+			if (e->nx != 0) {
+				if (master->untouchable == 0) {
+					master->StartUntouchable();
+					master->visible = 0;
+				}
+			}
+		}
+		break;
+
+		case RedGoomba::ObjectType:
+		{
+			RedGoomba* rg = dynamic_cast<RedGoomba*>(e->obj);
+
+			if (e->ny < 0) {
+				master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+			else if (e->nx != 0) {
+				if (master->untouchable == 0) {
+					master->StartUntouchable();
+					master->visible = 0;
+				}
+			}
+		}
+		break;
+
+		case CKoopas::ObjectType:
+		{
+			CKoopas* rg = dynamic_cast<CKoopas*>(e->obj);
+
+			if (e->ny < 0) {
+				master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+			else if (e->nx != 0 || e->ny > 0) {
+				if (master->untouchable == 0) {
+					master->StartUntouchable();
+					master->visible = 0;
+				}
+			}
+		}
+		break;
+
+		case FireBall::ObjectType:
+		{
+			FireBall* fb = dynamic_cast<FireBall*>(e->obj);
+
+			if (e->ny < 0) {
+				master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+
+			if (e->nx != 0) {
+				if (master->untouchable == 0) {
+					master->StartUntouchable();
+					master->visible = 0;
+				}
+			}
+		}
+		break;
+		}
+	}
 }
 
 void RacoonMario::OnKeyUp(int keyCode)
@@ -406,6 +498,9 @@ void RacoonMario::Render()
 {
 	InitAnimations();
 	CAnimation* ani = this->animations["Idle"];
+
+	if (master->visible == 0)
+		return;
 
 	switch (master->state) {
 	case MARIO_STATE_IDLE: {

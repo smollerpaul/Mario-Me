@@ -11,11 +11,7 @@ SmallMario::SmallMario(CMario* masterObj)
 	this->master = masterObj;
 	master->SetSize(MARIO_WIDTH, MARIO_WIDTH);
 
-	if (master->transforming == 1) {
-		master->y += 36;
-		master->transforming = 0;
-		DebugOut(L"finish shrinking= %d\n", master->transforming);
-	}
+	master->y += 30;
 }
 
 void SmallMario::InitAnimations()
@@ -51,7 +47,7 @@ void SmallMario::Update(DWORD dt)
 	if (master->state == MARIO_STATE_REALLY_DIE) {
 		master->aliveTimer += dt;
 		if (master->aliveTimer >= 2000) {
-			//DebugOut(L"respawn bitch\n");
+			DebugOut(L"[RESPAWN] bitch\n");
 			master->aliveTimer = 0;
 			master->Reset();
 		}
@@ -63,7 +59,8 @@ void SmallMario::Update(DWORD dt)
 		//camera release player from mario
 		//camera freeze
 		master->vy = -0.5f;
-		
+
+		DebugOut(L"mario die height: mario die: %f\n", height);
 		if (height >= 120) {
 			master->vy = MARIO_JUMP_PUSH/2;
 			master->SetState(MARIO_STATE_REALLY_DIE);
@@ -81,11 +78,32 @@ void SmallMario::Update(DWORD dt)
 			}
 		}
 	}
+
+	//powerUp
+	if (master->untouchable == 1) {
+		master->untouchableTimer += dt;
+
+		if (master->untouchableTimer >= MARIO_UNTOUCHABLE_TIME) {
+			master->ResetUntouchable();
+
+			//power up reward
+			if (powerUpLeaf == 1) {
+				master->SetObjectState(new RacoonMario(master));
+				powerUpLeaf = 0;
+			}
+			else if(powerUpMushroom == 1) {
+				master->SetObjectState(new BigMario(master));
+				powerUpMushroom = 0;
+			}
+
+			master->visible = 1;
+		}
+	}
 }
 
 bool SmallMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 {
-	return false;
+	return master->untouchable =1;
 }
 
 void SmallMario::MovementUpdate(DWORD dt)
@@ -297,18 +315,46 @@ void SmallMario::RunPowerMeter(DWORD dt)
 {
 }
 
-void SmallMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT>& coEventsResult)
+void SmallMario::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT>& coEventsResult, vector<LPCOLLISIONEVENT>& coEvents)
 {
+	if (coEvents.size() != 0) {
+		float min_tx, min_ty, nx = 0, ny = 0;
+
+		float rdx = 0;
+		float rdy = 0;
+
+		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+		/*master->x += min_tx * master->dx + nx * 0.2f;
+		master->y += min_ty * master->dy + ny * 0.1f;*/
+		master->x += min_tx * master->dx;
+		master->y += min_ty * master->dy;
+
+		if (nx != 0) master->vx = 0;
+		if (ny != 0) master->vy = 0;
+
+		master->SetIsOnGround(true);
+	}
 }
 
-void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
+void SmallMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents)
 {
+	master->CollisionUpdate(dt, coObjects);
+
+}
+
+void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
+{
+	PostCollisionUpdate(dt, coEventsResult, coEvents);
+
+	DebugOut(L" coEventsResult size: %d\n", coEventsResult.size());
+	
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];
 
 		switch (e->obj->GetObjectType()) {
-
+			
 		case CGoomba::ObjectType:
 		{
 			CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
@@ -354,6 +400,30 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 		}
 		break;
 
+		case Leaf::ObjectType:
+		{
+			Leaf* leaf = dynamic_cast<Leaf*>(e->obj);
+			
+			if (e->nx != 0 || e->ny!=0) {
+				master->StartUntouchable();
+				master->visible = 0;
+				powerUpLeaf = 1;
+			}
+		}
+		break;
+
+		case GreenMushroom::ObjectType:
+		{
+			GreenMushroom* gm = dynamic_cast<GreenMushroom*>(e->obj);
+
+			if (e->nx != 0 || e->ny != 0) {
+				master->StartUntouchable();
+				master->visible = 0;
+				powerUpMushroom = 1;
+			}
+		}
+		break;
+
 		case CPortal::ObjectType:
 		{
 			CPortal* p = dynamic_cast<CPortal*>(e->obj);
@@ -367,6 +437,9 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 
 void SmallMario::Render()
 {
+	if (master->visible == 0)
+		return;
+
 	InitAnimations();
 	CAnimation* ani = this->animations["Idle"];
 

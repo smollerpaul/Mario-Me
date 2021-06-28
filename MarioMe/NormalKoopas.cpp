@@ -40,38 +40,25 @@ void NormalKoopas::Update(DWORD dt)
 {
 	master->vx = master->nx * RG_WALK_SPEED;
 
-	master->x += master->dx;
+	master->dx = master->vx * dt;
 }
 
-void NormalKoopas::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents, vector<LPCOLLISIONEVENT>& coEventsResult)
+void NormalKoopas::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents)
 {
 	coEvents.clear();
 
 	if (master->GetState() != RG_STATE_DIE)
 		master->CalcPotentialCollisions(coObjects, coEvents);
-
 	if (coEvents.size() == 0) {
 		master->UpdatePosition();
 	}
-	else {
-		float min_tx, min_ty, nx = 0, ny = 0;
-		float rdx = 0;
-		float rdy = 0;
-		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-		
-		//master->x += min_tx * master->dx;
-		//master->y += min_ty * master->dy;
-
-		if (nx != 0) {
-			master->nx = -master->nx;
-			DebugOut(L"okkkkkkkkkkkkkkkk\n");
-		}
-		if (ny != 0) master->vy = 0;
-	}
 }
 
-void NormalKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult)
+void NormalKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
+	
+	PostCollisionUpdate(dt, coEventsResult, coEvents);
+
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];
@@ -129,4 +116,24 @@ void NormalKoopas::Render()
 int NormalKoopas::GetObjectType()
 {
 	return ObjectType;
+}
+
+void NormalKoopas::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT> &coEventsResult, vector<LPCOLLISIONEVENT> &coEvents)
+{
+	if (coEvents.size() != 0) {
+		float min_tx, min_ty, nx = 0, ny = 0;
+		float rdx = 0;
+		float rdy = 0;
+		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+		master->x += min_tx * master->dx;
+		master->y += min_ty * master->dy;
+
+		if (nx != 0) {
+			master->nx = -master->nx;
+		}
+		if (ny > 0) master->vy *= -1;
+		if (ny < 0) master->vy = 0;
+
+	}
 }
