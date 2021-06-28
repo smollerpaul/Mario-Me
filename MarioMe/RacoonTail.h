@@ -1,7 +1,23 @@
 #pragma once
 #include "GameObject.h"
+
+class Camera;
+
 class RacoonTail :
     public CGameObject
 {
+public:
+    float aliveTimer = 0;
+    CGameObject* player;
+
+    RacoonTail();
+    RacoonTail(CGameObject* fplayer);
+    virtual void Update(DWORD dt) override;
+    void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+    void BehaviorUpdate(DWORD dt);
+    virtual void Render() override;
+
+    virtual int GetObjectType() override;
+    static const int ObjectType = 2002;
 };
 

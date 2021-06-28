@@ -1,7 +1,9 @@
 #pragma once
 #include "GameObject.h"
 #include "NormalRG.h"
-
+#include "RacoonTail.h"
+#include "FireBall.h"
+#include "EnemiesConstants.h"
 
 
 class Camera;

@@ -1,6 +1,5 @@
 ﻿#include "Game.h"
 
-
 /*
 	Standard sweptAABB implementation
 	Source: GameDev.net
@@ -83,6 +82,7 @@ void CGame::SweptAABB(
 
 
 	if ((tx_entry < 0.0f && ty_entry < 0.0f) || tx_entry > 1.0f || ty_entry > 1.0f) return;
+
 	// va chạm on phương nào
 	t_entry = max(tx_entry, ty_entry);
 	t_exit = min(tx_exit, ty_exit);
@@ -96,11 +96,11 @@ void CGame::SweptAABB(
 	if (tx_entry > ty_entry)
 	{
 		ny = 0.0f; 
-		dx > 0 ? nx = -1.0f : nx = 1.0f; //direction of response after collision , cái này =0 nghĩa là no collision obviously
-		//whilst ny ==0
+		dx > 0 ? nx = -1.0f : nx = 1.0f; //direction of response after collision , cái này =0 nghĩa là no collision obviously //whilst ny ==0
+		
 		float mst = mt + dy * t_entry;
 		float msb = mb + dy * t_entry;
-		tl = min(msb, sb) - max(mst, st); //touching length
+		tl = min(msb, sb) - max(mst, st); //trả về touching length
 	}
 	else
 	{

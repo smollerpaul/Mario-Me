@@ -1,6 +1,7 @@
 #pragma once
 #include "SmallMario.h"
 #include "Mario.h"
+#include "RacoonTail.h"
 
 class RacoonMario :
     public SmallMario

@@ -46,6 +46,8 @@ void CGameObject::CalcPotentialCollisions(
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
 	vector<LPCOLLISIONEVENT> temp;
+
+	//push into temp after sweptAABBEx
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
@@ -100,12 +102,14 @@ void CGameObject::CalcPotentialCollisions(
 
 			CCollisionEvent* e = new CCollisionEvent(t, tl, nx, ny, rdx, rdy, coll->obj);  //involve stats  và object B
 
+			//no collision
 			if (e->t < 0 || e->t > 1.0f || e->tl == 0) {
 				coll->t = -100;
 			}
 			delete e;
 		}
 
+		//push into temp after sweptAABBEx
 		if (coll->t >= 0 && coll->t <= 1.0f && coll->tl > 0) {
 			coEvents.push_back(coll);
 

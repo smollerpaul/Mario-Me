@@ -1,10 +1,8 @@
 ﻿#include "RedGoomba.h"
 #include "Camera.h"
 #include "Mario.h"
-#include "FireBall.h"
 #include "Goomba.h"
 #include "Game.h"
-#include "EnemiesConstants.h"
 #include "WingedRG.h"
 
 RedGoomba::RedGoomba()

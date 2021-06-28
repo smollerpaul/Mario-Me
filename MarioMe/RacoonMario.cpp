@@ -294,6 +294,9 @@ void RacoonMario::AttackUpdate(DWORD dt)
 	if (master->isAttacking == 1) {
 		if (master->state != MARIO_STATE_ATTACK) {
 			master->SetState(MARIO_STATE_ATTACK);
+
+			RacoonTail* tail = new RacoonTail(master);
+			CGame::GetInstance()->GetCurrentScene()->AddObject(tail);
 		}
 		float currentTime = dt;
 		master->attackTimer += currentTime;

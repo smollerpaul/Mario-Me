@@ -73,3 +73,12 @@
 
 #define MARIO_FLY_TIME				500
 #define MARIO_FLOAT_TIME			500
+
+#define GRAVITY                     0.002f
+#define FIREBALL_SPEED              0.48f
+#define FIREBALL_BOUNCE_PUSH        0.4f
+
+#define FIREBALL_SIZE               24
+#define TAIL_SIZE					30
+
+#define FIREBALL_START_Y            35

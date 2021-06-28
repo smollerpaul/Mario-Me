@@ -5,6 +5,10 @@
 #include "QuestionBlock.h"
 #include "Goomba.h"
 
+FireBall::FireBall()
+{
+}
+
 FireBall::FireBall(CGameObject* fplayer)
 {
 	this->player = fplayer;
@@ -59,11 +63,11 @@ void FireBall::BehaviorUpdate(DWORD dt)
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		/*x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;*/
+		x += min_tx * dx + nx * 0.1f;
+		y += min_ty * dy + ny * 0.1f;
 
-		x += min_tx * dx ;
-		y += min_ty * dy ;
+		/*x += min_tx * dx ;
+		y += min_ty * dy ;*/
 
 		if (nx != 0) {
 			SetAlive(0);
@@ -82,7 +86,7 @@ void FireBall::BehaviorUpdate(DWORD dt)
 		
 		case QuestionBlock::ObjectType:
 		{
-			CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+			QuestionBlock* qb = dynamic_cast<QuestionBlock*>(e->obj);
 
 			if (e->ny != 0 || e->nx != 0)
 			{

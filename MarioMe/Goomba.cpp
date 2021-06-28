@@ -6,6 +6,7 @@
 #include "EnemiesConstants.h"
 #include "RedGoomba.h"
 #include "Koopas.h"
+#include "RacoonTail.h"
 
 
 CGoomba::CGoomba()
@@ -88,7 +89,6 @@ void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (coEvents.size() == 0)
 	{
-		//DebugOut(L"gooomba coevents=0\n");
 		CGameObject::UpdatePosition();
 	}
 }
@@ -122,7 +122,6 @@ void CGoomba::BehaviorUpdate(DWORD dt)
 			CMario* mario = dynamic_cast<CMario*>(e->obj);
 			if (e->ny > 0)
 			{
-				DebugOut(L"Goomb touches Mario in goomba\n");
 				if (state!= GOOMBA_STATE_DIE) {
 					SetState(GOOMBA_STATE_DIE);
 				}
@@ -139,6 +138,20 @@ void CGoomba::BehaviorUpdate(DWORD dt)
 					SetState(GOOMBA_STATE_DIE);
 					SetAlive(0);
 				}
+			}
+		}
+		break;
+
+		case RacoonTail::ObjectType:
+		{
+			RacoonTail* tail = dynamic_cast<RacoonTail*>(e->obj);
+			if (e->ny != 0 || e->nx != 0)
+			{
+				if (state != GOOMBA_STATE_DIE) {
+					SetState(GOOMBA_STATE_DIE);
+					SetAlive(0);
+				}
+				DebugOut(L"died by tail\n");
 			}
 		}
 		break;

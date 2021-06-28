@@ -327,6 +327,7 @@ void SmallMario::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT>& coEvent
 
 		/*master->x += min_tx * master->dx + nx * 0.2f;
 		master->y += min_ty * master->dy + ny * 0.1f;*/
+
 		master->x += min_tx * master->dx;
 		master->y += min_ty * master->dy;
 
@@ -340,7 +341,6 @@ void SmallMario::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT>& coEvent
 void SmallMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents)
 {
 	master->CollisionUpdate(dt, coObjects);
-
 }
 
 void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)

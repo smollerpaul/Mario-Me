@@ -1,10 +1,9 @@
 ﻿#include "WingedRG.h"
 #include "Mario.h"
-#include "FireBall.h"
 #include "GameObject.h"
 #include "RedGoomba.h"
 #include "NormalRG.h"
-#include "EnemiesConstants.h"
+
 #include "Game.h"
 #include "Camera.h"
 
@@ -126,6 +125,20 @@ void WingedRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 				}
 				master->SetAlive(0);
 				DebugOut(L"RG killed by fireball \n");
+			}
+		}
+		break;
+
+		case RacoonTail::ObjectType:
+		{
+			RacoonTail* tail = dynamic_cast<RacoonTail*>(e->obj);
+			if (e->ny != 0 || e->nx != 0)
+			{
+				if (master->state != RG_STATE_DIE) {
+					master->SetState(RG_STATE_DIE);
+					master->SetAlive(0);
+				}
+				DebugOut(L"died by tail\n");
 			}
 		}
 		break;

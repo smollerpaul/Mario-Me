@@ -605,12 +605,12 @@
     <property name="Grid" value="[{&quot;x&quot;:25,&quot;y&quot;:4},{&quot;x&quot;:26,&quot;y&quot;:4},{&quot;x&quot;:27,&quot;y&quot;:4},{&quot;x&quot;:28,&quot;y&quot;:4},{&quot;x&quot;:29,&quot;y&quot;:4},{&quot;x&quot;:30,&quot;y&quot;:4},{&quot;x&quot;:31,&quot;y&quot;:4},{&quot;x&quot;:32,&quot;y&quot;:4}]"/>
    </properties>
   </object>
-  <object id="46" type="GhostBlock" x="816" y="1008" width="144" height="48">
+  <object id="46" type="GhostBlock" x="816" y="1008" width="141" height="48">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:3,&quot;y&quot;:3}]"/>
    </properties>
   </object>
-  <object id="47" type="GhostBlock" x="720" y="1104" width="144" height="48">
+  <object id="47" type="GhostBlock" x="720" y="1104" width="141" height="48">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:2,&quot;y&quot;:3},{&quot;x&quot;:3,&quot;y&quot;:3}]"/>
    </properties>

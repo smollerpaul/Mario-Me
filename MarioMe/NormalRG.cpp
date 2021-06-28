@@ -106,6 +106,19 @@ void NormalRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 		}
 		break;
 
+		case RacoonTail::ObjectType:
+		{
+			RacoonTail* tail = dynamic_cast<RacoonTail*>(e->obj);
+			if (e->ny != 0 || e->nx != 0)
+			{
+				if (master->state != RG_STATE_DIE) {
+					master->SetState(RG_STATE_DIE);
+					master->SetAlive(0);
+				}
+				DebugOut(L"died by tail\n");
+			}
+		}
+		break;
 		}
 	}
 }
