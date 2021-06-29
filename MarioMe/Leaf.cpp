@@ -80,7 +80,7 @@ void Leaf::Update(DWORD dt)
    vy = min(vy + gravity * dt, LEAF_FALLING_VEL);
 
     CGameObject::Update(dt);
-    DebugOut(L"leaf : x: %f, y: %f, vy: %f . step: %d\n", x,y, vy, scriptStep);
+    //DebugOut(L"leaf : x: %f, y: %f, vy: %f . step: %d\n", x,y, vy, scriptStep);
 }
 
 bool Leaf::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy)

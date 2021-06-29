@@ -4,6 +4,7 @@
 #include "RacoonTail.h"
 #include "FireBall.h"
 #include "EnemiesConstants.h"
+#include "StarWhipTail.h"
 
 
 class Camera;

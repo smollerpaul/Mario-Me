@@ -1,7 +1,8 @@
 ﻿#include "SmallMario.h"
 #include "Mario.h"
 #include "GameObject.h"
-//lam mario chet 1 2 3 đổi hình power down
+
+
 SmallMario::SmallMario()
 {
 }
@@ -43,39 +44,30 @@ void SmallMario::InitAnimations()
 
 void SmallMario::Update(DWORD dt)
 {
-	//respawn
-	if (master->state == MARIO_STATE_REALLY_DIE) {
-		master->aliveTimer += dt;
-		if (master->aliveTimer >= 2000) {
-			DebugOut(L"[RESPAWN] bitch\n");
-			master->aliveTimer = 0;
-			master->Reset();
-		}
+	////respawn
+	//if (master->state == MARIO_STATE_REALLY_DIE) {
+	//	/*master->aliveTimer += dt;
+	//	if (master->aliveTimer >= 2000) {
+	//		DebugOut(L"[RESPAWN] bitch\n");
+	//		master->aliveTimer = 0;
+	//		master->Reset();
+	//	}*/
+	//	
+	//}
+
+	//death
+	if (master->state == MARIO_STATE_DIE) {
+		master->SetAlive(0);
+		master->visible = 0;
 	}
 
-	//death effect
-	if (master->state == MARIO_STATE_DIE) {
-		float height = abs(master->jumpStartPosition - master->y - master->vy * dt);
-		//camera release player from mario
-		//camera freeze
-		master->vy = -0.5f;
+	//grow to BIG MARIO
+	if (master->state == MARIO_STATE_GROW) {
+		master->effectTimer += dt;
 
-		DebugOut(L"mario die height: mario die: %f\n", height);
-		if (height >= 120) {
-			master->vy = MARIO_JUMP_PUSH/2;
-			master->SetState(MARIO_STATE_REALLY_DIE);
-		}	
-
-		//grow to BIG MARIO
-		if (master->state == MARIO_STATE_GROW) {
-			master->transforming = 1;
-			master->effectTimer += dt;
-
-			DebugOut(L"im transforming %f \n", master->transforming);
-			if (master->effectTimer >= 1000) {
-				master->SetObjectState(new BigMario(master));
-				master->effectTimer = 0;
-			}
+		if (master->effectTimer >= 2000) {
+			master->SetObjectState(new BigMario(master));
+			master->effectTimer = 0;
 		}
 	}
 
@@ -108,112 +100,114 @@ bool SmallMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventN
 
 void SmallMario::MovementUpdate(DWORD dt)
 {
-	master->ResetFlip();
-	Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
+	if (master->untouchable != 1) {
+		master->ResetFlip();
+		Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
 
-	master->dt = dt;
-	master->dx = master->vx * dt;
-	master->dy = master->vy * dt;
-	//cant fly
-	// MOVE ON vx while flying tooo
-	//if (master->state == MARIO_STATE_FLY) {
-	//	master->vx = master->nx * MARIO_FLY_SPEED_X;
-	//}
+		master->dt = dt;
+		master->dx = master->vx * dt;
+		master->dy = master->vy * dt;
+		//cant fly
+		// MOVE ON vx while flying tooo
+		//if (master->state == MARIO_STATE_FLY) {
+		//	master->vx = master->nx * MARIO_FLY_SPEED_X;
+		//}
 
 #pragma region RIGHT LEFT
-	if (keyboard->IsKeyDown(DIK_RIGHT) || keyboard->IsKeyDown(DIK_LEFT)) {
-		int direction = 0;
-		direction = master->finalKeyDirection;
+		if (keyboard->IsKeyDown(DIK_RIGHT) || keyboard->IsKeyDown(DIK_LEFT)) {
+			int direction = 0;
+			direction = master->finalKeyDirection;
 
-		//get up from crouch to walk
-		if (master->state == MARIO_STATE_CROUCH) {
-			float currentX, currentY;
-			master->GetPosition(currentX, currentY);
+			//get up from crouch to walk
+			if (master->state == MARIO_STATE_CROUCH) {
+				float currentX, currentY;
+				master->GetPosition(currentX, currentY);
 
-			master->SetPosition(currentX, currentY - MARIO_CROUCH_SUBSTRACT);
-			master->SetSize(MARIO_WIDTH, MARIO_HEIGHT);
-		}
-
-		if (master->isOnGround == true) {
-			if (master->state != MARIO_STATE_WALK) {
-				master->SetState(MARIO_STATE_WALK);
-			}
-		}
-
-		float maxSpeed = MARIO_WALK_SPEED;
-		master->accelerate_x = direction * MARIO_WALK_ACCELERATION;
-
-		if (keyboard->IsKeyDown(DIK_A) && master->isOnGround == true) {
-			// when fly -> dont change ani into ani RUN
-			if (master->state != MARIO_STATE_RUN && master->state != MARIO_STATE_FLY && master->state != MARIO_STATE_FLOAT) {
-				master->SetState(MARIO_STATE_RUN);
-			}
-			maxSpeed = MARIO_RUN_SPEED;
-			master->accelerate_x = direction * MARIO_RUN_ACCELERATION;
-		}
-
-		//skid when direction is against vx
-		if (master->vx * direction < 0 && master->isOnGround != 0) {
-			master->SetSkid(1);
-			master->accelerate_x = direction * MARIO_SKID_ACCELERATION;
-
-			if (keyboard->IsKeyDown(DIK_A)) {
-				master->accelerate_x = 2 * direction * MARIO_SKID_ACCELERATION;
+				master->SetPosition(currentX, currentY - MARIO_CROUCH_SUBSTRACT);
+				master->SetSize(MARIO_WIDTH, MARIO_HEIGHT);
 			}
 
-			if (master->isOnGround == false) {
-				master->accelerate_x = MARIO_SKID_ACCELERATION * direction * 2;
+			if (master->isOnGround == true) {
+				if (master->state != MARIO_STATE_WALK) {
+					master->SetState(MARIO_STATE_WALK);
+				}
 			}
+
+			float maxSpeed = MARIO_WALK_SPEED;
+			master->accelerate_x = direction * MARIO_WALK_ACCELERATION;
+
+			if (keyboard->IsKeyDown(DIK_A) && master->isOnGround == true) {
+				// when fly -> dont change ani into ani RUN
+				if (master->state != MARIO_STATE_RUN && master->state != MARIO_STATE_FLY && master->state != MARIO_STATE_FLOAT) {
+					master->SetState(MARIO_STATE_RUN);
+				}
+				maxSpeed = MARIO_RUN_SPEED;
+				master->accelerate_x = direction * MARIO_RUN_ACCELERATION;
+			}
+
+			//skid when direction is against vx
+			if (master->vx * direction < 0 && master->isOnGround != 0) {
+				master->SetSkid(1);
+				master->accelerate_x = direction * MARIO_SKID_ACCELERATION;
+
+				if (keyboard->IsKeyDown(DIK_A)) {
+					master->accelerate_x = 2 * direction * MARIO_SKID_ACCELERATION;
+				}
+
+				if (master->isOnGround == false) {
+					master->accelerate_x = MARIO_SKID_ACCELERATION * direction * 2;
+				}
+			}
+
+			master->vx += master->accelerate_x * dt;
+
+			// if RUN maxSpeed is reached -> upstep power meter
+			if (abs(master->vx) >= maxSpeed) {
+				master->vx = direction * maxSpeed;
+				if (master->state == MARIO_STATE_RUN)
+					master->isAtMaxRunSpeed = 1;
+			}
+			else master->isAtMaxRunSpeed = 0;
+
+			if (master->vx * direction >= 0) {
+				master->SetSkid(0);
+			}
+
+			master->SetDirection(direction);
 		}
-
-		master->vx += master->accelerate_x * dt;
-
-		// if RUN maxSpeed is reached -> upstep power meter
-		if (abs(master->vx) >= maxSpeed) {
-			master->vx = direction * maxSpeed;
-			if (master->state == MARIO_STATE_RUN)
-				master->isAtMaxRunSpeed = 1;
-		}
-		else master->isAtMaxRunSpeed = 0;
-
-		if (master->vx * direction >= 0) {
+		else {
+			//still goes in here everytime
 			master->SetSkid(0);
-		}
 
-		master->SetDirection(direction);
-	}
-	else {
-		//still goes in here everytime
-		master->SetSkid(0);
-
-		// slow down to reach vx=0 (stop)
-		if (abs(master->vx) > MARIO_WALK_FRICTION * dt) {
-			int speedDirection = (master->vx > 0) ? 1 : -1;
-			master->vx -= speedDirection * MARIO_WALK_FRICTION * dt;
-		}
-		else {
-			master->vx = 0;
-			if (master->state != MARIO_STATE_CROUCH && master->isOnGround == true && master->isAttacking == 0) {
-				master->SetState(MARIO_STATE_IDLE);
+			// slow down to reach vx=0 (stop)
+			if (abs(master->vx) > MARIO_WALK_FRICTION * dt) {
+				int speedDirection = (master->vx > 0) ? 1 : -1;
+				master->vx -= speedDirection * MARIO_WALK_FRICTION * dt;
+			}
+			else {
+				master->vx = 0;
+				if (master->state != MARIO_STATE_CROUCH && master->isOnGround == true && master->isAttacking == 0) {
+					master->SetState(MARIO_STATE_IDLE);
+				}
 			}
 		}
-	}
 
-	// set friction
-	if (master->state != MARIO_STATE_CROUCH) {
-		if (master->state == MARIO_STATE_RUN) {
-			master->SetFriction(MARIO_RUN_FRICTION);
+		// set friction
+		if (master->state != MARIO_STATE_CROUCH) {
+			if (master->state == MARIO_STATE_RUN) {
+				master->SetFriction(MARIO_RUN_FRICTION);
+			}
+			else {
+				master->SetFriction(MARIO_WALK_FRICTION);
+			}
 		}
-		else {
-			master->SetFriction(MARIO_WALK_FRICTION);
-		}
-	}
 
-	if (master->isOnGround == false) {
-		master->SetFriction(0);
-	}
+		if (master->isOnGround == false) {
+			master->SetFriction(0);
+		}
 #pragma endregion
 
+}
 }
 
 void SmallMario::JumpUpdate(DWORD dt)
@@ -222,89 +216,89 @@ void SmallMario::JumpUpdate(DWORD dt)
 
 	float height = 0;
 
-
-	
-
-	// stop float , cannot fly anymore when drops to the ground
-	if (master->isOnGround == 1) {
-		master->ResetFloatTimer();
-	}
-
-	// if falls to ground -> set state idle
-	if (master->state == MARIO_STATE_JUMP_FALL) {
-		if (master->isOnGround == true) {
-			master->SetState(MARIO_STATE_IDLE);
-			master->vy = MARIO_GRAVITY * dt;
+	if (master->untouchable != 1) {
+		// stop float , cannot fly anymore when drops to the ground
+		if (master->isOnGround == 1) {
+			master->ResetFloatTimer();
 		}
-	}
 
-	//calc height
-	if (master->state == MARIO_STATE_JUMP || master->state == MARIO_STATE_JUMP_HIGH || master->state == MARIO_STATE_JUMP_FALL || master->state == MARIO_STATE_FLY || master->state == MARIO_STATE_FLOAT) {
-		height = abs(master->jumpStartPosition - master->y - master->vy * dt);
-	}
-
-	// fly for a time -> float
-	if (master->state == MARIO_STATE_FLY) {
-		if (height >= MARIO_FLY_FALL_POINT) {
-			master->SetState(MARIO_STATE_FLOAT);
-			master->vy = MARIO_FLY_PUSH;
-		}
-		else master->vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * dt;
-	}
-
-	// float down
-	if (master->state == MARIO_STATE_FLOAT) {
-		//change float speed lightly
-		// if float over 500ms -> cannot press S to fly anymore
-		master->floatTimer += dt;
-		master->vy = MARIO_FLY_PUSH;
-
-		if (master->floatTimer < MARIO_FLOAT_TIME) {
-			if (keyboard->IsKeyDown(DIK_S)) {
-				master->ResetFloatTimer();
-
-				if (height >= MARIO_FLY_FALL_POINT) {
-					master->floatTimer = MARIO_FLOAT_TIME; 
-				}
-				else {
-					master->SetState(MARIO_STATE_FLY);
-				}
+		// if falls to ground -> set state idle
+		if (master->state == MARIO_STATE_JUMP_FALL) {
+			if (master->isOnGround == true) {
+				master->SetState(MARIO_STATE_IDLE);
+				master->vy = MARIO_GRAVITY * dt;
 			}
 		}
+
+		//calc height
+		if (master->state == MARIO_STATE_JUMP || master->state == MARIO_STATE_JUMP_HIGH || master->state == MARIO_STATE_JUMP_FALL || master->state == MARIO_STATE_FLY || master->state == MARIO_STATE_FLOAT) {
+			height = abs(master->jumpStartPosition - master->y - master->vy * dt);
+		}
+
+		// fly for a time -> float
+		if (master->state == MARIO_STATE_FLY) {
+			if (height >= MARIO_FLY_FALL_POINT) {
+				master->SetState(MARIO_STATE_FLOAT);
+				master->vy = MARIO_FLY_PUSH;
+			}
+			else master->vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * dt;
+		}
+
+		// float down
+		if (master->state == MARIO_STATE_FLOAT) {
+			//change float speed lightly
+			// if float over 500ms -> cannot press S to fly anymore
+			master->floatTimer += dt;
+			master->vy = MARIO_FLY_PUSH;
+
+			if (master->floatTimer < MARIO_FLOAT_TIME) {
+				if (keyboard->IsKeyDown(DIK_S)) {
+					master->ResetFloatTimer();
+
+					if (height >= MARIO_FLY_FALL_POINT) {
+						master->floatTimer = MARIO_FLOAT_TIME;
+					}
+					else {
+						master->SetState(MARIO_STATE_FLY);
+					}
+				}
+			}
 	}
-
+	
 #pragma region JUMP & HIGH_JUMP & FALL
-	if (master->state != MARIO_STATE_JUMP_FALL && master->state != MARIO_STATE_FLY && master->state != MARIO_STATE_FLOAT) {
-		// continue jump when  ( not reaching fall point yet) HIGH & LOW
-		if ((height < MARIO_JUMP_FALL_POINT && height != 0)
-			|| (master->state == MARIO_STATE_JUMP_HIGH && height < MARIO_HIGH_JUMP_FALL_POINT)) {
-			master->vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * dt;
-		}
-
-		//set state HIGH
-		if (height > MARIO_BEGIN_HIGH_JUMP_HEIGHT && master->state == MARIO_STATE_JUMP) {
-			if (master->state != MARIO_STATE_JUMP_HIGH)
-				master->SetState(MARIO_STATE_JUMP_HIGH);
-		}
-
-		// if still holding S + pass fall point + not yet HIGH
-		if (height > MARIO_JUMP_FALL_POINT && height < MARIO_BEGIN_HIGH_JUMP_HEIGHT) {
-			if (keyboard->IsKeyDown(DIK_S)) {
+		if (master->state != MARIO_STATE_JUMP_FALL && master->state != MARIO_STATE_FLY && master->state != MARIO_STATE_FLOAT) {
+			// continue jump when  ( not reaching fall point yet) HIGH & LOW
+			if ((height < MARIO_JUMP_FALL_POINT && height != 0)
+				|| (master->state == MARIO_STATE_JUMP_HIGH && height < MARIO_HIGH_JUMP_FALL_POINT)) {
 				master->vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * dt;
 			}
-			else { //fall LOW
+
+			//set state HIGH
+			if (height > MARIO_BEGIN_HIGH_JUMP_HEIGHT && master->state == MARIO_STATE_JUMP) {
+				if (master->state != MARIO_STATE_JUMP_HIGH)
+					master->SetState(MARIO_STATE_JUMP_HIGH);
+			}
+
+			// if still holding S + pass fall point + not yet HIGH
+			if (height > MARIO_JUMP_FALL_POINT && height < MARIO_BEGIN_HIGH_JUMP_HEIGHT) {
+				if (keyboard->IsKeyDown(DIK_S)) {
+					master->vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * dt;
+				}
+				else { //fall LOW
+					master->vy = -MARIO_JUMP_PUSH / 2;
+					master->SetState(MARIO_STATE_JUMP_FALL);
+				}
+			}
+
+			//fall HIGH
+			if (height > MARIO_HIGH_JUMP_FALL_POINT && master->state == MARIO_STATE_JUMP_HIGH) {
 				master->vy = -MARIO_JUMP_PUSH / 2;
 				master->SetState(MARIO_STATE_JUMP_FALL);
 			}
 		}
-
-		//fall HIGH
-		if (height > MARIO_HIGH_JUMP_FALL_POINT && master->state == MARIO_STATE_JUMP_HIGH) {
-			master->vy = -MARIO_JUMP_PUSH / 2;
-			master->SetState(MARIO_STATE_JUMP_FALL);
-		}
-	}
 #pragma endregion
+	}
+
 }
 
 void SmallMario::AttackUpdate(DWORD dt)
@@ -340,99 +334,103 @@ void SmallMario::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT>& coEvent
 
 void SmallMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents)
 {
-	master->CollisionUpdate(dt, coObjects);
+	if (master->untouchable != 1) 
+		master->CollisionUpdate(dt, coObjects);
 }
 
 void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
-	PostCollisionUpdate(dt, coEventsResult, coEvents);
+	if (master->untouchable != 1) {
+		PostCollisionUpdate(dt, coEventsResult, coEvents);
 
-	DebugOut(L" coEventsResult size: %d\n", coEventsResult.size());
-	
-	for (UINT i = 0; i < coEventsResult.size(); i++)
-	{
-		LPCOLLISIONEVENT e = coEventsResult[i];
-
-		switch (e->obj->GetObjectType()) {
-			
-		case CGoomba::ObjectType:
+		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
-			CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-			if (e->ny < 0){
-				master->vy = -MARIO_JUMP_DEFLECT_SPEED;
-			}
+			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (e->nx != 0){
-				if(master->state!=MARIO_STATE_DIE)
-					master->SetState(MARIO_STATE_DIE);
-				master->GetPosY(master->jumpStartPosition);
-			}
-		}
-		break;
+			switch (e->obj->GetObjectType()) {
 
-		case RedGoomba::ObjectType:
-		{
-			RedGoomba* rg = dynamic_cast<RedGoomba*>(e->obj);
-			
-			if (e->ny < 0){
-				master->vy = -MARIO_JUMP_DEFLECT_SPEED;
-			}
-			else if (e->nx != 0){
-				if (master->state != MARIO_STATE_DIE)
-					master->SetState(MARIO_STATE_DIE);
-				master->GetPosY(master->jumpStartPosition);
-			}
-		}
-		break;
-		
-		case CKoopas::ObjectType:
-		{
-			CKoopas* rg = dynamic_cast<CKoopas*>(e->obj);
+			case CGoomba::ObjectType:
+			{
+				CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
 
-			if (e->ny < 0){
-				master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				if (e->nx != 0) {
+					if (master->state != MARIO_STATE_DIE)
+						master->SetState(MARIO_STATE_DIE);
+					EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+				}
 			}
-			else if (e->nx != 0 || e->ny > 0){
-				if (master->state != MARIO_STATE_DIE)
-					master->SetState(MARIO_STATE_DIE);
-				master->GetPosY(master->jumpStartPosition);
+			break;
+
+			case RedGoomba::ObjectType:
+			{
+				RedGoomba* rg = dynamic_cast<RedGoomba*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				else if (e->nx != 0) {
+					if (master->state != MARIO_STATE_DIE)
+						master->SetState(MARIO_STATE_DIE);
+					EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+				}
 			}
-		}
-		break;
+			break;
 
-		case Leaf::ObjectType:
-		{
-			Leaf* leaf = dynamic_cast<Leaf*>(e->obj);
-			
-			if (e->nx != 0 || e->ny!=0) {
-				master->StartUntouchable();
-				master->visible = 0;
-				powerUpLeaf = 1;
+			case CKoopas::ObjectType:
+			{
+				CKoopas* rg = dynamic_cast<CKoopas*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				else if (e->nx != 0 || e->ny > 0) {
+					if (master->state != MARIO_STATE_DIE)
+						master->SetState(MARIO_STATE_DIE);
+					EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+				}
 			}
-		}
-		break;
+			break;
 
-		case GreenMushroom::ObjectType:
-		{
-			GreenMushroom* gm = dynamic_cast<GreenMushroom*>(e->obj);
+			case Leaf::ObjectType:
+			{
+				Leaf* leaf = dynamic_cast<Leaf*>(e->obj);
 
-			if (e->nx != 0 || e->ny != 0) {
-				master->StartUntouchable();
-				master->visible = 0;
-				powerUpMushroom = 1;
+				if (e->nx != 0 || e->ny != 0) {
+					master->StartUntouchable();
+					master->visible = 0;
+					powerUpLeaf = 1;
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y+25, MARIO_UNTOUCHABLE_TIME));
+				}
 			}
-		}
-		break;
+			break;
 
-		case CPortal::ObjectType:
-		{
-			CPortal* p = dynamic_cast<CPortal*>(e->obj);
-			CGame::GetInstance()->SwitchScene(p->GetSceneId());
-		}
-		break;
+			case GreenMushroom::ObjectType:
+			{
+				GreenMushroom* gm = dynamic_cast<GreenMushroom*>(e->obj);
 
+				if (e->nx != 0 || e->ny != 0) {
+					master->StartUntouchable();
+					master->visible = 0;
+					powerUpMushroom = 1;
+					EffectVault::GetInstance()->AddEffect(new ToBigMario(master->x, master->y -35, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
+			case CPortal::ObjectType:
+			{
+				CPortal* p = dynamic_cast<CPortal*>(e->obj);
+				CGame::GetInstance()->SwitchScene(p->GetSceneId());
+			}
+			break;
+
+			}
 		}
 	}
+	
 }
 
 void SmallMario::Render()
@@ -505,18 +503,6 @@ void SmallMario::Render()
 	case MARIO_STATE_FLOAT:
 		ani = this->animations["Float"];
 		break;
-
-	case MARIO_STATE_DIE:
-		ani = this->animations["Die"];
-		break;
-
-	case MARIO_STATE_REALLY_DIE:
-		ani = this->animations["Die"];
-		break;
-
-	case MARIO_STATE_GROW:
-		ani = this->animations["Grow"];
-		break;
 	}
 
 	int alpha = 255;
@@ -529,6 +515,10 @@ void SmallMario::Render()
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 	float l, t, b, r;
 	master->GetBoundingBox(l, t, r, b);
+
+	if (master->state == MARIO_STATE_DIE) {
+		camera->ReleasePlayer();
+	}
 
 	ani->SetPlayScale(1.5f);
 	ani->Render(master->x - camera->GetX() + (r - l) / 2, master->y - camera->GetY() + (b - t) / 2, flip, alpha);
@@ -559,64 +549,66 @@ void SmallMario::OnKeyUp(int keyCode)
 
 void SmallMario::OnKeyDown(int keyCode)
 {
-	switch (keyCode)
-	{
-	case DIK_X: {
-		if (master->state != MARIO_STATE_JUMP && master->state != MARIO_STATE_JUMP_FALL) {
-			master->SetState(MARIO_STATE_JUMP);
-			master->SetIsOnGround(false);
-			master->GetPosY(master->jumpStartPosition);
-			master->vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * master->dt;
-		}
-	}
-	break;
-
-	case DIK_S: {
-		if (master->isOnGround == true) {
-			if (master->powerMeter >= PM_MAX) {
-				master->SetState(MARIO_STATE_FLY);
-				master->vy = -MARIO_FLY_PUSH * 2 - MARIO_GRAVITY * master->dt;
-			} 
-			else {
+	if (master->untouchable != 1) {
+		switch (keyCode)
+		{
+		case DIK_X: {
+			if (master->state != MARIO_STATE_JUMP && master->state != MARIO_STATE_JUMP_FALL) {
 				master->SetState(MARIO_STATE_JUMP);
+				master->SetIsOnGround(false);
+				master->GetPosY(master->jumpStartPosition);
 				master->vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * master->dt;
 			}
-			master->SetIsOnGround(false);
-			master->GetPosY(master->jumpStartPosition);
 		}
-		else {
-			if (master->state == MARIO_STATE_FLOAT) {
-				master->vy -= MARIO_JUMP_PUSH / 2;
-			}
+				  break;
 
-			if (master->state == MARIO_STATE_FLY) {
-				master->vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * master->dt;
-				//DebugOut(L" fly up when press S \n");
+		case DIK_S: {
+			if (master->isOnGround == true) {
+				if (master->powerMeter >= PM_MAX) {
+					master->SetState(MARIO_STATE_FLY);
+					master->vy = -MARIO_FLY_PUSH * 2 - MARIO_GRAVITY * master->dt;
+				}
+				else {
+					master->SetState(MARIO_STATE_JUMP);
+					master->vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * master->dt;
+				}
+				master->SetIsOnGround(false);
+				master->GetPosY(master->jumpStartPosition);
+			}
+			else {
+				if (master->state == MARIO_STATE_FLOAT) {
+					master->vy -= MARIO_JUMP_PUSH / 2;
+				}
+
+				if (master->state == MARIO_STATE_FLY) {
+					master->vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * master->dt;
+					//DebugOut(L" fly up when press S \n");
+				}
 			}
 		}
-	}
-	break;
+				  break;
 
-	case DIK_A: {
-		if (master->state == MARIO_STATE_WALK)
-			master->SetState(MARIO_STATE_RUN);
-	}
-	break;
+		case DIK_A: {
+			if (master->state == MARIO_STATE_WALK)
+				master->SetState(MARIO_STATE_RUN);
+		}
+				  break;
 
-	case DIK_RIGHT: {
-		master->finalKeyDirection = 1;
-	}
-	break;
+		case DIK_RIGHT: {
+			master->finalKeyDirection = 1;
+		}
+					  break;
 
-	case DIK_LEFT: {
-		master->finalKeyDirection = -1;
-	}
-	break;
+		case DIK_LEFT: {
+			master->finalKeyDirection = -1;
+		}
+					 break;
 
-	case DIK_R: {
-		master->Reset();
-	}
-	break;
+		case DIK_R: {
+			master->Reset();
+		}
+				  break;
+		}
 	}
 }
 

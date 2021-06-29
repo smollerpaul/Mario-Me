@@ -7,6 +7,7 @@
 #include "RedGoomba.h"
 #include "Koopas.h"
 #include "RacoonTail.h"
+#include "StarWhipTail.h"
 
 
 CGoomba::CGoomba()
@@ -97,9 +98,9 @@ void CGoomba::BehaviorUpdate(DWORD dt)
 {
 	if (coEvents.size()!= 0) {
 		float min_tx, min_ty, nx = 0, ny = 0;
-
 		float rdx = 0;
 		float rdy = 0;
+
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 		x += min_tx * dx + nx * 0.2f;
@@ -152,6 +153,7 @@ void CGoomba::BehaviorUpdate(DWORD dt)
 					SetAlive(0);
 				}
 				DebugOut(L"died by tail\n");
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(x, y+20));
 			}
 		}
 		break;

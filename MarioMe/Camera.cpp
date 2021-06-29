@@ -57,6 +57,12 @@ CGameObject* Camera::GetPlayer()
 	return player;
 }
 
+void Camera::ReleasePlayer()
+{
+	if (this->player)
+		this->player = NULL;
+}
+
 void Camera::Render()
 {
 }

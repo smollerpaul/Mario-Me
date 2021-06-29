@@ -10,6 +10,7 @@ class NormalKoopas
 private:
 	float stillTimer = 0;
 public:
+	int isOnGround = 1;
 	CKoopas* master;
 	unordered_map<string, LPANIMATION> animations;
 

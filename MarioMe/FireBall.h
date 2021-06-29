@@ -9,7 +9,7 @@ class FireBall :
     public CGameObject
 {
 public:
-    CGameObject* player;
+    CGameObject* player=nullptr;
     FireBall();
     FireBall(CGameObject* fplayer);
     virtual void InitAnimations() override;

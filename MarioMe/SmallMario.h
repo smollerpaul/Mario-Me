@@ -14,6 +14,11 @@
 #include "RedMushroom.h"
 #include "Leaf.h"
 
+#include "MarioDieFx.h"
+#include "ToBigMario.h"
+#include "ToSmallMario.h"
+#include "MarioTransform.h"
+
 class CMario;
 class CGameObject;
 

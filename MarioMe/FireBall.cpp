@@ -4,6 +4,8 @@
 #include "GameObject.h"
 #include "QuestionBlock.h"
 #include "Goomba.h"
+#include "PoofFx.h"
+#include "RedGoomba.h"
 
 FireBall::FireBall()
 {
@@ -26,6 +28,7 @@ FireBall::FireBall(CGameObject* fplayer)
 	y = pt + FIREBALL_START_Y;
 
 	vy = GRAVITY;
+	gravity = GRAVITY;
 	width = height = FIREBALL_SIZE;
 }
 
@@ -39,7 +42,7 @@ void FireBall::InitAnimations()
 void FireBall::Update(DWORD dt)
 {
 	vx = FIREBALL_SPEED * nx;
-	vy += GRAVITY * dt;
+	vy += dt* gravity;
 
 	CGameObject::Update(dt);
 
@@ -74,7 +77,6 @@ void FireBall::BehaviorUpdate(DWORD dt)
 		}
 		if (ny != 0) {
 			vy = -FIREBALL_BOUNCE_PUSH;
-			DebugOut(L"fireball bounce \n");
 		}
 	}
 
@@ -91,6 +93,31 @@ void FireBall::BehaviorUpdate(DWORD dt)
 			if (e->ny != 0 || e->nx != 0)
 			{
 				SetAlive(0);
+				EffectVault::GetInstance()->AddEffect(new PoofFx(x,y));
+			}
+		}
+		break;
+
+		case CGoomba::ObjectType:
+		{
+			CGoomba* qb = dynamic_cast<CGoomba*>(e->obj);
+
+			if (e->ny != 0 || e->nx != 0)
+			{
+				SetAlive(0);
+				EffectVault::GetInstance()->AddEffect(new PoofFx(x, y));
+			}
+		}
+		break;
+
+		case RedGoomba::ObjectType:
+		{
+			RedGoomba* qb = dynamic_cast<RedGoomba*>(e->obj);
+
+			if (e->ny != 0 || e->nx != 0)
+			{
+				SetAlive(0);
+				EffectVault::GetInstance()->AddEffect(new PoofFx(x, y));
 			}
 		}
 		break;

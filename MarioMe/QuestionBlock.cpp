@@ -4,6 +4,8 @@
 #include "Mario.h"
 #include "SlidingShell.h"
 #include "Leaf.h"
+#include "MoneyFx.h"
+#include "EffectVault.h"
 
 //bouncing ani -> coin effect
 QuestionBlock::QuestionBlock()
@@ -129,6 +131,9 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 			{
 				vy = -QB_BOUNCE_SPEED ;
 				SetState(QB_STATE_BOUNCE);
+				if (reward != LEAF_PRIZE && reward != GMUSH_PRIZE) {
+					EffectVault::GetInstance()->AddEffect(new MoneyFx(this->x, this->y));
+				}
 			}
 		}
 		break;

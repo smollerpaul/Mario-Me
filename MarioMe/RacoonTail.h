@@ -8,7 +8,7 @@ class RacoonTail :
 {
 public:
     float aliveTimer = 0;
-    CGameObject* player;
+    CGameObject* player = nullptr;
 
     RacoonTail();
     RacoonTail(CGameObject* fplayer);

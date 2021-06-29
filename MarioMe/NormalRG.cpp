@@ -18,6 +18,9 @@ NormalRG::NormalRG(RedGoomba* masterObj)
 
 	master->SetState(RG_STATE_WALK);
 	master->vx = master->GetDirection() * RG_WALK_SPEED;
+
+	/*startX = master->x;
+	startY = master->y;*/
 }
 
 void NormalRG::InitAnimations()
@@ -30,6 +33,14 @@ void NormalRG::InitAnimations()
 
 void NormalRG::Update(DWORD dt)
 {
+	//relive refresh only relive the ones from the moment they were transformed into normalRG though fff
+	/*if (master->state == RG_STATE_DIE) {
+		reliveTimer += dt;
+		if (reliveTimer >= 4000) {
+			reliveTimer = 0;
+			Reset();
+		}
+	}*/
 	master->vx = master->nx * RG_WALK_SPEED;
 
 	if (master->GetState() == RG_STATE_DIE) {
@@ -115,12 +126,20 @@ void NormalRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 					master->SetState(RG_STATE_DIE);
 					master->SetAlive(0);
 				}
-				DebugOut(L"died by tail\n");
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y+20));
 			}
 		}
 		break;
 		}
 	}
+}
+
+void NormalRG::Reset()
+{
+	master->SetState(RG_STATE_WALK);
+	master->SetObjectState(new NormalRG(master));
+	master->SetPosition(startX, startY);
+	master->nx = -1;
 }
 
 void NormalRG::Render()

@@ -15,10 +15,7 @@ NormalKoopas::NormalKoopas(CKoopas* master)
 {
 	this->master = master;
 	master->SetState(KOOPAS_STATE_WALK);
-	master->vx = master->GetDirection() * KOOPAS_WALK_SPEED;
-	master->width = KOOPAS_WIDTH;
-	master->height = KOOPAS_HEIGHT;
-
+	master->vx = master->nx * KOOPAS_WALK_SPEED;
 }
 
 void NormalKoopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -40,15 +37,16 @@ void NormalKoopas::Update(DWORD dt)
 {
 	master->vx = master->nx * RG_WALK_SPEED;
 
-	master->dx = master->vx * dt;
+	master->x += master->vx * dt;
 }
 
 void NormalKoopas::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents)
 {
 	coEvents.clear();
 
-	if (master->GetState() != RG_STATE_DIE)
+	if (master->GetState() != KOOPAS_STATE_DIE)
 		master->CalcPotentialCollisions(coObjects, coEvents);
+
 	if (coEvents.size() == 0) {
 		master->UpdatePosition();
 	}
@@ -56,8 +54,9 @@ void NormalKoopas::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, ve
 
 void NormalKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
-	
 	PostCollisionUpdate(dt, coEventsResult, coEvents);
+
+	//DebugOut(L" coEventsResult NORKOOPAS: %d\n", coEventsResult.size());
 
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
@@ -71,7 +70,7 @@ void NormalKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 			if (e->ny > 0)
 			{
 				master->SetObjectState(new ShelledKoopas(master));
-				DebugOut(L"crouch to shell !!!!!!!\n");
+				DebugOut(L"[KOOPAS CROUCH TO SHELL]\n");
 			}
 		}
 		break;
@@ -91,6 +90,8 @@ void NormalKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 
 		}
 	}
+
+	DebugOut(L"Normal Koop: vx: %f, vy %f, x %f, y %f\n", master->vx, master->vy, master->x, master->y);
 }
 
 void NormalKoopas::Render()
@@ -110,7 +111,6 @@ void NormalKoopas::Render()
 	master->GetPosition(mx, my);
 
 	ani->Render(mx - camera->GetX() + (r - l)/2 , my - camera->GetY() + (b - t)/2, flip);
-
 }
 
 int NormalKoopas::GetObjectType()
@@ -121,19 +121,19 @@ int NormalKoopas::GetObjectType()
 void NormalKoopas::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT> &coEventsResult, vector<LPCOLLISIONEVENT> &coEvents)
 {
 	if (coEvents.size() != 0) {
+
 		float min_tx, min_ty, nx = 0, ny = 0;
 		float rdx = 0;
 		float rdy = 0;
+
 		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		master->x += min_tx * master->dx;
-		master->y += min_ty * master->dy;
+		master->x += min_tx * master->dx + nx * 0.2f;
+		master->y += min_ty * master->dy + ny * 0.2f;
 
 		if (nx != 0) {
 			master->nx = -master->nx;
 		}
-		if (ny > 0) master->vy *= -1;
-		if (ny < 0) master->vy = 0;
-
+		if (ny !=0) master->vy = 0;
 	}
 }

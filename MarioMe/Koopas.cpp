@@ -2,10 +2,12 @@
 #include "Game.h"
 #include "Camera.h"
 #include "EnemiesConstants.h"
+#include "Mario.h"
 #include "WingedKoopas.h"
 
 CKoopas::CKoopas()
 {
+	width = height = KOOPAS_WIDTH;
 	nx = -1;
 	objState = new WingedKoopas(this);
 	gravity = GRAVITY;
@@ -14,8 +16,8 @@ CKoopas::CKoopas()
 CKoopas::CKoopas(NormalKoopas* objectState)
 {
 	nx = -1;
-	objState =new NormalKoopas(this);
 	gravity = GRAVITY;
+	objState = new NormalKoopas(this);
 }
 
 void CKoopas::SetObjectState(NormalKoopas* objectState)
@@ -26,6 +28,7 @@ void CKoopas::SetObjectState(NormalKoopas* objectState)
 void CKoopas::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	float l, t, r, b;
+
 	NormalKoopas* currentState = objState;
 	currentState->GetBoundingBox(l,t,r,b);
 
@@ -37,26 +40,18 @@ void CKoopas::GetBoundingBox(float &left, float &top, float &right, float &botto
 
 void CKoopas::Update(DWORD dt)
 {
-	
 	NormalKoopas* currentState = objState;
-	this->dt = dt;
 	vy += gravity * dt;
 
 	currentState->Update(dt);
 
-	dx = vx * dt;
-	dy = vy * dt;
+	CGameObject::Update(dt);
 }
 
 void CKoopas::InitAnimations()
 {
-	/*if (this->animations.size() < 1) {
-		this->animations["Move"] = CAnimations::GetInstance()->Get("ani-green-koopa-troopa-move");
-	}*/
-
 	NormalKoopas* currentState = objState;
 	currentState->InitAnimations();
-
 }
 
 bool CKoopas::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)

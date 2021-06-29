@@ -145,6 +145,33 @@
     <ClCompile Include="RedMushroom.cpp">
       <Filter>Game\Rewards\RedMushroom</Filter>
     </ClCompile>
+    <ClCompile Include="Effects.cpp">
+      <Filter>Game\Effects\Base\Base Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectVault.cpp">
+      <Filter>Game\Effects\Base\Vault</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneyFx.cpp">
+      <Filter>Game\Effects\Effects\Money</Filter>
+    </ClCompile>
+    <ClCompile Include="PoofFx.cpp">
+      <Filter>Game\Effects\Effects\TransFX\Poof</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioDieFx.cpp">
+      <Filter>Game\Effects\Effects\MarioDie</Filter>
+    </ClCompile>
+    <ClCompile Include="StarWhipTail.cpp">
+      <Filter>Game\Effects\Effects\TransFX\StarWhipTail</Filter>
+    </ClCompile>
+    <ClCompile Include="ToBigMario.cpp">
+      <Filter>Game\Effects\Effects\TransFX\ToBigMario</Filter>
+    </ClCompile>
+    <ClCompile Include="ToSmallMario.cpp">
+      <Filter>Game\Effects\Effects\TransFX\ToSmallMario</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioTransform.cpp">
+      <Filter>Game\Effects\Effects\TransFX\Level Transform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -275,6 +302,33 @@
     </ClInclude>
     <ClInclude Include="RedMushroom.h">
       <Filter>Game\Rewards\RedMushroom</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects.h">
+      <Filter>Game\Effects\Base\Base Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectVault.h">
+      <Filter>Game\Effects\Base\Vault</Filter>
+    </ClInclude>
+    <ClInclude Include="MoneyFx.h">
+      <Filter>Game\Effects\Effects\Money</Filter>
+    </ClInclude>
+    <ClInclude Include="PoofFx.h">
+      <Filter>Game\Effects\Effects\TransFX\Poof</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioDieFx.h">
+      <Filter>Game\Effects\Effects\MarioDie</Filter>
+    </ClInclude>
+    <ClInclude Include="StarWhipTail.h">
+      <Filter>Game\Effects\Effects\TransFX\StarWhipTail</Filter>
+    </ClInclude>
+    <ClInclude Include="ToBigMario.h">
+      <Filter>Game\Effects\Effects\TransFX\ToBigMario</Filter>
+    </ClInclude>
+    <ClInclude Include="ToSmallMario.h">
+      <Filter>Game\Effects\Effects\TransFX\ToSmallMario</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioTransform.h">
+      <Filter>Game\Effects\Effects\TransFX\Level Transform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -457,6 +511,48 @@
     </Filter>
     <Filter Include="Game\Rewards\RedMushroom">
       <UniqueIdentifier>{470d6c08-dfa8-4ccb-86cf-343c8debdf25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects">
+      <UniqueIdentifier>{107aa3de-f5de-46d0-acb3-86eb374ea9a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Base">
+      <UniqueIdentifier>{6694fc36-6ed5-4b5c-b671-42f4efd1f4f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Base\Vault">
+      <UniqueIdentifier>{46ed1c3d-514b-494d-873c-5ac2592e4357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Base\Base Effects">
+      <UniqueIdentifier>{0380d76a-bd96-4aba-a3ec-58bb1e5ef75d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects">
+      <UniqueIdentifier>{a0dc8eaf-6fa9-4867-97a1-2714e14ae1ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects\Money">
+      <UniqueIdentifier>{31bcbebf-4f5a-4068-b03b-129fc1180d1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koops">
+      <UniqueIdentifier>{eda86f2d-df79-4279-9e73-5a59f057507b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects\TransFX">
+      <UniqueIdentifier>{237abbf6-9a1a-4585-80e2-e02472cbab9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects\TransFX\Level Transform">
+      <UniqueIdentifier>{da040499-ba18-45f0-8e8c-b46b8b1d57e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects\TransFX\Poof">
+      <UniqueIdentifier>{28db18d0-fd9f-49e5-94ea-d9871f1dde8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects\TransFX\StarWhipTail">
+      <UniqueIdentifier>{a8d5cf9b-bbc6-42fb-8274-becb3c3e098b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects\TransFX\ToBigMario">
+      <UniqueIdentifier>{52172d2c-27a3-4e73-8c14-2672e9670f94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects\TransFX\ToSmallMario">
+      <UniqueIdentifier>{477317f7-61b8-4c38-b3e7-3086b2e074b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects\MarioDie">
+      <UniqueIdentifier>{c354d3f9-5f3e-4150-9262-ff4f29f10359}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

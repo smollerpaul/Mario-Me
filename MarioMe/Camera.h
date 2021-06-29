@@ -22,11 +22,12 @@ public:
 
 	float GetWidth();
 	float GetHeight();
-	
+
 	void SetPosition(float x, float y);
 	void SetSize(float w, float h);
 
 	void SetFocusOnPlayer(CGameObject* player);
+	void ReleasePlayer();
 	CGameObject* GetPlayer();
 
 };

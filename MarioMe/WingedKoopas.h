@@ -8,7 +8,7 @@ protected:
 	float walkTime = 0;
 	float jumpHeight = 0;
 	float yGround = 0;
-	int isOnGround = 0;
+	
 public:
 	WingedKoopas();
 	WingedKoopas(CKoopas* master);

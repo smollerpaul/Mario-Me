@@ -3,6 +3,7 @@
 #include "NormalKoopas.h"
 
 class Camera;
+
 class CKoopas : public CGameObject
 {
 public:
@@ -22,4 +23,10 @@ public:
 
 	virtual int GetObjectType() override;
 	static const int ObjectType = 2;
+
+
+	class Koopas :
+		public CGameObject
+	{
+	};
 };

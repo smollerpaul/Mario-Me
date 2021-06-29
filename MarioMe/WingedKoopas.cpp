@@ -12,13 +12,11 @@ WingedKoopas::WingedKoopas()
 {
 }
 
-WingedKoopas::WingedKoopas(CKoopas* master): NormalKoopas()
+WingedKoopas::WingedKoopas(CKoopas* master)
 {
 	this->master = master;
 	master->SetState(KOOPAS_STATE_WALK);
-	master->vx = master->GetDirection() * KOOPAS_WALK_SPEED;
-	master->width = KOOPAS_WIDTH;
-	master->height = KOOPAS_HEIGHT;
+	master->vx = master->nx * KOOPAS_WALK_SPEED;
 }
 
 void WingedKoopas::InitAnimations()
@@ -31,6 +29,7 @@ void WingedKoopas::InitAnimations()
 void WingedKoopas::Update(DWORD dt)
 {
 	master->vx = master->nx * KOOPAS_WALK_SPEED;
+
 	if (isOnGround == 1) {
 		if (master->GetState() == KOOPAS_STATE_WALK) {
 			walkTime += dt;
@@ -58,7 +57,6 @@ void WingedKoopas::Update(DWORD dt)
 	}
 
 	master->x += master->dx;
-	//DebugOut(L"vy: %f, isOnGround : %d, STATE: %d \n", master->vy, isOnGround, master->state);
 }
 
 void WingedKoopas::Render()
@@ -72,13 +70,12 @@ void WingedKoopas::Render()
 	int flip = master->flip;
 
 	float l, t, b, r;
-	master->GetBoundingBox(l, t, r, b);
+	GetBoundingBox(l, t, r, b);
 
 	float mx, my;
 	master->GetPosition(mx, my);
 
-	ani->Render(mx - camera->GetX() + (r - l)/2 , my - camera->GetY() + (b - t)/2, flip);
-
+	ani->Render(mx - camera->GetX() + abs(r - l)/2 , my - camera->GetY() + abs(b - t)/2, flip);
 }
 
 void WingedKoopas::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT> &coEventsResult, vector<LPCOLLISIONEVENT> &coEvents)
@@ -136,5 +133,7 @@ void WingedKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 
 		}
 	}
+
+	DebugOut(L" WING KOOPS vy: %f, isOnGround : %d, STATE: %d \n", master->vy, isOnGround, master->state);
 }
 

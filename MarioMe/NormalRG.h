@@ -9,11 +9,14 @@ class NormalRG
 {
 private:
 	float deathTimer = 0;
+	float reliveTimer = 0;
 
+	float startX = 0;
+	float startY = 0;
 protected:
-	RedGoomba* master;
+	RedGoomba* master = NULL;
 	unordered_map<string, LPANIMATION> animations;
-
+	
 public:
 	int isOnGround = 0;
 
@@ -25,7 +28,7 @@ public:
 		vector<LPCOLLISIONEVENT> coEvents);
 
 	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents);
-
+	virtual void Reset();
 	virtual void InitAnimations();
 	virtual int GetObjectType();
 };

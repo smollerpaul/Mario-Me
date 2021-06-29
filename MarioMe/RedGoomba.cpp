@@ -45,12 +45,15 @@ void RedGoomba::Update(DWORD dt)
 
 	dx = vx * dt;
 	dy = vy * dt;
+
 }
 
 void RedGoomba::Render()
 {
 	NormalRG* currentState = objState;
 	currentState->Render();
+
+
 }
 
 bool RedGoomba::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)

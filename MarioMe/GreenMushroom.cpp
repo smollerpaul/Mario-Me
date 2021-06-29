@@ -73,25 +73,29 @@ bool GreenMushroom::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx
 void GreenMushroom::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
     coEvents.clear();
-    CalcPotentialCollisions(coObjects, coEvents);
+    if(this)
+        CalcPotentialCollisions(coObjects, coEvents);
+   
     if(coEvents.size()==0)
         CGameObject::UpdatePosition();
 }
 
 void GreenMushroom::BehaviorUpdate(DWORD dt)
 {
-    float min_tx, min_ty, nx = 0, ny;
-    float rdx = 0;
-    float rdy = 0;
+    if (coEvents.size() != 0) {
+        float min_tx, min_ty, nx = 0, ny;
+        float rdx = 0;
+        float rdy = 0;
 
-    FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+        FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-    x += min_tx * dx + nx * 0.2f;
-    y += min_ty * dy + ny * 0.2f;
+        x += min_tx * dx + nx * 0.2f;
+        y += min_ty * dy + ny * 0.2f;
 
-    if (nx != 0) vx = -vx;
-    if (ny != 0) vy = 0;
-
+        if (nx != 0) vx = -vx;
+        if (ny != 0) vy = 0;
+    }
+    
     for (UINT i = 0; i < coEventsResult.size(); i++)
     {
         LPCOLLISIONEVENT e = coEventsResult[i];

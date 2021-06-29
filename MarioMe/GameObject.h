@@ -2,6 +2,7 @@
 #include "Utils.h"
 #include "Sprites.h"
 #include "Animations.h"
+#include "EffectVault.h"
 
 using namespace std;
 

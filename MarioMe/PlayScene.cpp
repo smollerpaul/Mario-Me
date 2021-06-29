@@ -4,6 +4,7 @@
 #include "Portal.h"
 #include "Camera.h"
 #include "Map.h"
+#include "EffectVault.h"
 
 
 using namespace std;
@@ -55,7 +56,7 @@ void CPlayScene::Update(DWORD dt)
 	}
 
 	camera->Update();
-
+	EffectVault::GetInstance()->Update(dt);
 	CheckAlive();
 }
 
@@ -75,7 +76,10 @@ void CPlayScene::Render()
 	{
 		coObjects[i]->Render();
 	}
-		
+
+
+	EffectVault::GetInstance()->Render();
+
 	/*for (int i = 0; i < coObjects.size(); i++) {
 		coObjects[i]->RenderBoundingBox();
 	}*/
@@ -132,7 +136,6 @@ void CPlayScene::Load()
 	camera->SetFocusOnPlayer(player);
 
 }
-
 
 void CPlayScene::CheckAlive()
 {

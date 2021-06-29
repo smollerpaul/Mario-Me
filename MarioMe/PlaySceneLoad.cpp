@@ -61,6 +61,7 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		rg->SetPosition(x, y);
 		AddObject(rg);
 	}
+
 	if (objectType.compare("RedKoopas") == 0) {
 		CKoopas* kp = new CKoopas(new NormalKoopas);
 		kp->SetPosition(x, y);

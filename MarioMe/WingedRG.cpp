@@ -56,8 +56,6 @@ void WingedRG::Update(DWORD dt)
 	}
 
 	master->x += master->dx;
-	
-	//DebugOut(L"RED GOOMBA  vx: %f, x: %f, dx: %f \n", master->vx,master-> x, master->dx);
 }
 
 void WingedRG::Render()
@@ -124,7 +122,6 @@ void WingedRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 					master->SetState(RG_STATE_DIE);
 				}
 				master->SetAlive(0);
-				DebugOut(L"RG killed by fireball \n");
 			}
 		}
 		break;
@@ -138,7 +135,7 @@ void WingedRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 					master->SetState(RG_STATE_DIE);
 					master->SetAlive(0);
 				}
-				DebugOut(L"died by tail\n");
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y + 20));
 			}
 		}
 		break;
@@ -146,3 +143,4 @@ void WingedRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 		}
 	}
 }
+
