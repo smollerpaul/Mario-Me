@@ -23,11 +23,11 @@ public:
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt) override;
-	virtual void Render();
+	virtual void Render() override;
 	virtual bool CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy) override;
 
-	void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	void BehaviorUpdate(DWORD dt);
+	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) override;
+	virtual void BehaviorUpdate(DWORD dt) override;
 
 	virtual int GetObjectType() override;
 	static const int ObjectType = 1;

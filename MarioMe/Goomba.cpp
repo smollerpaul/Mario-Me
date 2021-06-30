@@ -9,12 +9,11 @@
 #include "RacoonTail.h"
 #include "StarWhipTail.h"
 
-
 CGoomba::CGoomba()
 {
 	SetState(GOOMBA_STATE_WALK);
 	width = height= GOOMBA_BBOX_SIZE;
-	gravity = GRAVITY;
+	gravity = MARIO_GRAVITY;
 	vx = -GOOMBA_WALK_SPEED;
 }
 

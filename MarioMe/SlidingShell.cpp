@@ -40,7 +40,7 @@ void SlidingShell::Update(DWORD dt)
 	master->vx = -master->nx * KOOPAS_SHELL_SPEED;
 	// lam cái đụng 1 cái độ nào đó r quay lại
 	master->x += master->vx * dt;
-	DebugOut(L"vx: %f\n", master->vx);
+	
 
 	if (master->state == KOOPAS_STATE_DIE) {
 		deathTime += dt;
@@ -79,14 +79,6 @@ void SlidingShell::Render()
 	
 }
 
-void SlidingShell::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = master->x;
-	top = master->y;
-	right = master->x + KOOPAS_SIZE;
-	bottom = master->y + KOOPAS_SIZE;
-}
-
 void SlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
 	NormalKoopas::PostCollisionUpdate(dt, coEventsResult, coEvents);
@@ -120,6 +112,20 @@ void SlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 					master->SetState(KOOPAS_STATE_DIE);*/
 
 				DebugOut(L"shell is about to despawn\n");
+			}
+		}
+		break;
+
+		case RacoonTail::ObjectType:
+		{
+			RacoonTail* tail = dynamic_cast<RacoonTail*>(e->obj);
+			if (e->ny != 0 || e->nx != 0)
+			{
+				if (master->GetState() != KOOPAS_STATE_DIE) {
+					master->SetState(KOOPAS_STATE_DIE);
+				}
+				master->SetAlive(0);
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y + 20));
 			}
 		}
 		break;

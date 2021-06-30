@@ -9,7 +9,7 @@ BigMario::BigMario(CMario* masterObj)
 	this->master = masterObj;
 	if (master->height != 81) {
 		master->SetPosition(master->x, master->y - 40);
-		DebugOut(L"x: %f, y:%f, height: %f\n", master->x, master->y, master->height);
+		//DebugOut(L"x: %f, y:%f, height: %f\n", master->x, master->y, master->height);
 	}
 
 	master->SetSize(MARIO_WIDTH, MARIO_HEIGHT);
@@ -257,9 +257,9 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 			}
 			break;
 
-			case CKoopas::ObjectType:
+			case NormalKoopas::ObjectType:
 			{
-				CKoopas* rg = dynamic_cast<CKoopas*>(e->obj);
+				NormalKoopas* rg = dynamic_cast<NormalKoopas*>(e->obj);
 
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
@@ -273,6 +273,58 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 				}
 			}
 			break;
+
+			case SlidingShell::ObjectType:
+			{
+				SlidingShell* rg = dynamic_cast<SlidingShell*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				else if (e->nx != 0 || e->ny > 0) {
+					if(master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
+			case WingedKoopas::ObjectType:
+			{
+				WingedKoopas* rg = dynamic_cast<WingedKoopas*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				else if (e->nx != 0 || e->ny > 0) {
+					if (master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
+			case ShelledKoopas::ObjectType:
+			{
+				ShelledKoopas* rg = dynamic_cast<ShelledKoopas*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				/*else if (e->nx != 0 || e->ny > 0) {
+					if (master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+				}*/
+			}
+			break;
+
 
 			case FireBall::ObjectType:
 			{
@@ -300,15 +352,22 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 					master->StartUntouchable();
 					master->visible = 0;
 					powerUpLeaf = 1; 
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x + 20, master->y + 40, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
 				}
 			}
 			break;
 
+			case EndCard::ObjectType:
+			{
+				EndCard* p = dynamic_cast<EndCard*>(e->obj);
+				EffectVault::GetInstance()->AddEffect(new FlyingCard(8038, 973));
+
+				p->SetAlive(0);
+			}
+			break;
 			}
 		}
 	}
-	
 }
 
 void BigMario::OnKeyUp(int keyCode)

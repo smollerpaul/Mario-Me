@@ -7,6 +7,7 @@
 #include "Koopas.h"
 #include "WingedKoopas.h"
 #include "Coin.h"
+#include "EndCard.h"
 
 //chinh qblock
 
@@ -35,7 +36,6 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		AddObject(goomba);
 	}
 
-	
 	if (objectType.compare("RaccoonLeaf") == 0) {
 		QuestionBlock* qb = new QuestionBlock(LEAF_PRIZE);
 		qb->SetPosition(x, y);
@@ -74,6 +74,12 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 	}
 	if (objectType.compare("Coin") == 0) {
 		Coin* kp = new Coin();
+		kp->SetPosition(x, y);
+		AddObject(kp);
+	}
+
+	if (objectType.compare("EndmapReward") == 0) {
+		EndCard* kp = new EndCard();
 		kp->SetPosition(x, y);
 		AddObject(kp);
 	}

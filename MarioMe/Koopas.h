@@ -7,7 +7,7 @@ class Camera;
 class CKoopas : public CGameObject
 {
 public:
-	NormalKoopas* objState = NULL;
+	NormalKoopas* objState = nullptr;
 
 	CKoopas();
 	CKoopas(NormalKoopas* objectState);
@@ -15,18 +15,13 @@ public:
 	virtual void InitAnimations() override;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) override;
 	virtual void Update(DWORD dt) override;
-	virtual void Render();
+	virtual void Render() override;
 	virtual bool CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy) override;
 
-	void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	void BehaviorUpdate(DWORD dt);
+	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) override;
+	virtual void BehaviorUpdate(DWORD dt) override;
 
 	virtual int GetObjectType() override;
 	static const int ObjectType = 2;
 
-
-	class Koopas :
-		public CGameObject
-	{
-	};
 };

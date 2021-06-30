@@ -96,7 +96,6 @@ void Leaf::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 
 void Leaf::BehaviorUpdate(DWORD dt)
-
 {
     float min_tx, min_ty, nx = 0, ny;
     float rdx = 0;

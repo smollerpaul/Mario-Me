@@ -7,16 +7,15 @@ class CGameObject;
 
 class NormalKoopas
 {
-private:
-	float stillTimer = 0;
 public:
+	float stillTimer = 0;
 	int isOnGround = 1;
-	CKoopas* master;
+
+	CKoopas* master=nullptr;
 	unordered_map<string, LPANIMATION> animations;
 
 	NormalKoopas();
 	NormalKoopas(CKoopas* master);
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Render();
 	virtual void Update(DWORD dt);
 	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,

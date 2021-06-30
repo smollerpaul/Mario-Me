@@ -1,5 +1,4 @@
 #pragma once
-#define GRAVITY					0.002f;
 
 #define GOOMBA_WALK_SPEED		0.07f;
 #define GOOMBA_BBOX_SIZE		48
@@ -20,7 +19,7 @@
 #define RG_JUMP_PUSH			0.332f
 
 #define KOOPAS_WALK_SPEED		0.03f
-#define KOOPAS_SHELL_SPEED		0.7f
+#define KOOPAS_SHELL_SPEED		0.4f
 
 #define KOOPAS_SIZE				48
 #define KOOPAS_WIDTH			50

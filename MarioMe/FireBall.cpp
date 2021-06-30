@@ -6,6 +6,10 @@
 #include "Goomba.h"
 #include "PoofFx.h"
 #include "RedGoomba.h"
+#include "SlidingShell.h"
+#include "Shell.h"
+#include "WingedKoopas.h"
+#include "NormalKoopas.h"
 
 FireBall::FireBall()
 {
@@ -17,18 +21,17 @@ FireBall::FireBall(CGameObject* fplayer)
 	
 	float pl = 0, pt = 0, pr = 0, pb = 0;
 	player->GetBoundingBox(pl, pt, pr, pb);
-
 	nx = player->GetDirection();
 
-	//start position fireball
-	if (nx > 0) x = pr;
+	if (nx > 0) 
+		x = pr;
 	else 
 		x = pl;
 
 	y = pt + FIREBALL_START_Y;
 
-	vy = GRAVITY;
-	gravity = GRAVITY;
+	vy = MARIO_GRAVITY;
+	gravity = MARIO_GRAVITY;
 	width = height = FIREBALL_SIZE;
 }
 
@@ -122,6 +125,55 @@ void FireBall::BehaviorUpdate(DWORD dt)
 		}
 		break;
 
+		case NormalKoopas::ObjectType:
+		{
+			NormalKoopas* rg = dynamic_cast<NormalKoopas*>(e->obj);
+
+			if (e->ny != 0 || e->nx != 0)
+			{
+				SetAlive(0);
+				EffectVault::GetInstance()->AddEffect(new PoofFx(x, y));
+			}
+		}
+		break;
+
+		case SlidingShell::ObjectType:
+		{
+			SlidingShell* rg = dynamic_cast<SlidingShell*>(e->obj);
+
+			if (e->ny != 0 || e->nx != 0)
+			{
+				SetAlive(0);
+				EffectVault::GetInstance()->AddEffect(new PoofFx(x, y));
+			}
+		}
+		break;
+
+		case WingedKoopas::ObjectType:
+		{
+			WingedKoopas* rg = dynamic_cast<WingedKoopas*>(e->obj);
+
+			if (e->ny != 0 || e->nx != 0)
+			{
+				SetAlive(0);
+				EffectVault::GetInstance()->AddEffect(new PoofFx(x, y));
+			}
+		}
+		break;
+
+		case ShelledKoopas::ObjectType:
+		{
+			ShelledKoopas* rg = dynamic_cast<ShelledKoopas*>(e->obj);
+
+			if (e->ny != 0 || e->nx != 0)
+			{
+				SetAlive(0);
+				EffectVault::GetInstance()->AddEffect(new PoofFx(x, y));
+			}
+		}
+		break;
+
+		
 		}
 	}
 }

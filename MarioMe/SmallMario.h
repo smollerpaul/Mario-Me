@@ -13,7 +13,12 @@
 #include "GreenMushroom.h"
 #include "RedMushroom.h"
 #include "Leaf.h"
+#include "SlidingShell.h"
+#include "Shell.h"
+#include "WingedKoopas.h"
+#include "EndCard.h"
 
+#include "FlyingCard.h"
 #include "MarioDieFx.h"
 #include "ToBigMario.h"
 #include "ToSmallMario.h"

@@ -124,7 +124,6 @@ void CMario::BehaviorUpdate(DWORD dt)
 	currentState->BehaviorUpdate(dt,coEventsResult,coEvents);
 }
 
-
 void CMario::Render()
 {
 	SmallMario* currentState = objState;
@@ -172,6 +171,9 @@ void CMario::OnKeyDown(int keyCode)
 		break;
 	case DIK_4:
 		SetObjectState(new RacoonMario(this));
+		break;
+	case DIK_E:
+		SetPosition(7600,985);
 		break;
 	}
 }

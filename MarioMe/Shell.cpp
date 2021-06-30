@@ -24,19 +24,13 @@ void ShelledKoopas::InitAnimations()
 	if (this->animations.size() < 1 ) {
 		this->animations["Crouch"] = CAnimations::GetInstance()->Get("ani-green-koopa-troopa-crouch")->Clone();
 		this->animations["Respawn"] = CAnimations::GetInstance()->Get("ani-green-koopa-troopa-respawning")->Clone();
-
-		/*if (this->flip) {
-			this->animations["Move"]->GetTransform()->Scale.y = -1;
-		}*/
 	}
 }
 
 void ShelledKoopas::Update(DWORD dt)
 {
 	crouchTime += dt;
-	//doi thanh normal koopas
 	if (crouchTime >= KOOPAS_CROUCH_TIME) {
-		DebugOut(L"Changing to walking state\n");
 		flicker = 1;
 	}
 	
@@ -73,14 +67,6 @@ void ShelledKoopas::Render()
 
 }
 
-void ShelledKoopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = master->x;
-	top = master->y;
-	right = master->x + KOOPAS_SIZE;
-	bottom = master->y + KOOPAS_SIZE;
-}
-
 void ShelledKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
 	NormalKoopas::PostCollisionUpdate(dt, coEventsResult, coEvents);
@@ -112,6 +98,20 @@ void ShelledKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRe
 				}
 				master->SetAlive(0);
 				DebugOut(L"koopas killed by fireball \n");
+			}
+		}
+		break;
+
+		case RacoonTail::ObjectType:
+		{
+			RacoonTail* tail = dynamic_cast<RacoonTail*>(e->obj);
+			if (e->ny != 0 || e->nx != 0)
+			{
+				if (master->GetState() != KOOPAS_STATE_DIE) {
+					master->SetState(KOOPAS_STATE_DIE);
+				}
+				master->SetAlive(0);
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y + 20));
 			}
 		}
 		break;

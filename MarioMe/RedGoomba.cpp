@@ -10,7 +10,7 @@ RedGoomba::RedGoomba()
 	width = height = RG_BBOX_SIZE;
 	nx = -1;
 	objState = new WingedRG(this);
-	gravity = GRAVITY;
+	gravity = MARIO_GRAVITY;
 }
 
 void RedGoomba::SetObjectState(NormalRG* objectState)
@@ -52,8 +52,6 @@ void RedGoomba::Render()
 {
 	NormalRG* currentState = objState;
 	currentState->Render();
-
-
 }
 
 bool RedGoomba::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)

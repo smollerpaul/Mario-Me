@@ -10,13 +10,14 @@ CKoopas::CKoopas()
 	width = height = KOOPAS_WIDTH;
 	nx = -1;
 	objState = new WingedKoopas(this);
-	gravity = GRAVITY;
+	gravity = MARIO_GRAVITY;
 }
 
 CKoopas::CKoopas(NormalKoopas* objectState)
 {
+	width = height = KOOPAS_WIDTH;
 	nx = -1;
-	gravity = GRAVITY;
+	gravity = MARIO_GRAVITY;
 	objState = new NormalKoopas(this);
 }
 
@@ -27,25 +28,22 @@ void CKoopas::SetObjectState(NormalKoopas* objectState)
 
 void CKoopas::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	float l, t, r, b;
-
-	NormalKoopas* currentState = objState;
-	currentState->GetBoundingBox(l,t,r,b);
-
-	left = l;
-	top = t;
-	right = r;
-	bottom = b;
+	left = this->x;
+	top = this->y;
+	right = left + width;
+	bottom = top + height;
 }
 
 void CKoopas::Update(DWORD dt)
 {
-	NormalKoopas* currentState = objState;
+	this->dt = dt;
 	vy += gravity * dt;
 
+	NormalKoopas* currentState = objState;
 	currentState->Update(dt);
 
-	CGameObject::Update(dt);
+	dx = vx * dt;
+	dy = vy * dt;
 }
 
 void CKoopas::InitAnimations()
@@ -69,6 +67,7 @@ void CKoopas::BehaviorUpdate(DWORD dt)
 {
 	NormalKoopas* currentState = objState;
 	currentState->BehaviorUpdate(dt, coEventsResult, coEvents);
+
 }
 
 int CKoopas::GetObjectType()
@@ -82,7 +81,7 @@ void CKoopas::Render()
 	NormalKoopas* currentState = objState;
 	currentState->Render();
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 
 }
 

@@ -124,14 +124,14 @@ void CGameObject::CalcPotentialCollisions(
 			//	DebugOut(L"Vi tri cua mario: %f %f %f %f\n", ml, mt, mr, mb);
 			//}
 
-			if (this->GetObjectType() == 987 && coll->obj->GetObjectType() == 1) {
-				DebugOut(L"Mario cham RED GOOMBA %f  %f\n", coll->t, coll->tl);
+			if (this->GetObjectType() == 666 && coll->obj->GetObjectType() == 987) {
+				DebugOut(L"Mario cham CARD %f  %f\n", coll->t, coll->tl);
 				float sl, st, sr, sb;		// obj B
 				float ml, mt, mr, mb;
 				coll->obj->GetBoundingBox(sl, st, sr, sb);
 				this->GetBoundingBox(ml, mt, mr, mb);
 
-				DebugOut(L"Vi tri cua RED GOOMBA: %f %f %f %f\n", sl, st, sr, sb);
+				DebugOut(L"Vi tri cua CARD: %f %f %f %f\n", sl, st, sr, sb);
 				DebugOut(L"Vi tri cua mario: %f %f %f %f\n", ml, mt, mr, mb);
 			}
 		}

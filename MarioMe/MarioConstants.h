@@ -19,7 +19,7 @@
 #define MARIO_BEGIN_HIGH_JUMP_HEIGHT	97
 #define MARIO_HIGH_JUMP_FALL_POINT		216
 #define MARIO_FLY_FALL_POINT			300
-#define MARIO_FLY_MAX_POINT				1000
+#define MARIO_FLY_MAX_POINT				1500
 
 
 #define MARIO_WALK_FRICTION				0.0014306f
@@ -74,7 +74,6 @@
 #define MARIO_FLY_TIME				500
 #define MARIO_FLOAT_TIME			500
 
-#define GRAVITY                     0.002f
 #define FIREBALL_SPEED              0.48f
 #define FIREBALL_BOUNCE_PUSH        0.4f
 

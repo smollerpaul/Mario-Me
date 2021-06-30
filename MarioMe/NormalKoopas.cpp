@@ -10,20 +10,11 @@
 NormalKoopas::NormalKoopas()
 {
 }
-
 NormalKoopas::NormalKoopas(CKoopas* master)
 {
 	this->master = master;
 	master->SetState(KOOPAS_STATE_WALK);
 	master->vx = master->nx * KOOPAS_WALK_SPEED;
-}
-
-void NormalKoopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = master->x;
-	top = master->y;
-	right = left + KOOPAS_WIDTH;
-	bottom = top + KOOPAS_HEIGHT;
 }
 
 void NormalKoopas::InitAnimations()
@@ -35,19 +26,19 @@ void NormalKoopas::InitAnimations()
 
 void NormalKoopas::Update(DWORD dt)
 {
-	master->vx = master->nx * RG_WALK_SPEED;
+	master->vx = master->nx * KOOPAS_WALK_SPEED;
 
 	master->x += master->vx * dt;
 }
 
 void NormalKoopas::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents)
 {
-	coEvents.clear();
+	master->coEvents.clear();
 
 	if (master->GetState() != KOOPAS_STATE_DIE)
-		master->CalcPotentialCollisions(coObjects, coEvents);
+		master->CalcPotentialCollisions(coObjects, master->coEvents);
 
-	if (coEvents.size() == 0) {
+	if (master->coEvents.size() == 0) {
 		master->UpdatePosition();
 	}
 }
@@ -56,7 +47,7 @@ void NormalKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 {
 	PostCollisionUpdate(dt, coEventsResult, coEvents);
 
-	//DebugOut(L" coEventsResult NORKOOPAS: %d\n", coEventsResult.size());
+	//DebugOut(L" coEventsResult NK: %d\n", coEventsResult.size());
 
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
@@ -88,10 +79,24 @@ void NormalKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 		}
 		break;
 
+		case RacoonTail::ObjectType:
+		{
+			RacoonTail* tail = dynamic_cast<RacoonTail*>(e->obj);
+			if (e->ny != 0 || e->nx != 0)
+			{
+				if (master->GetState() != KOOPAS_STATE_DIE) {
+					master->SetState(KOOPAS_STATE_DIE);
+				}
+				master->SetAlive(0);
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y+20));
+			}
+		}
+		break;
+
 		}
 	}
 
-	DebugOut(L"Normal Koop: vx: %f, vy %f, x %f, y %f\n", master->vx, master->vy, master->x, master->y);
+	//DebugOut(L"NK: vx: %f, vy %f, x %f, y %f\n", master->vx, master->vy, master->x, master->y);
 }
 
 void NormalKoopas::Render()
@@ -109,13 +114,14 @@ void NormalKoopas::Render()
 
 	float mx, my;
 	master->GetPosition(mx, my);
+	//DebugOut(L"NK: Render: mx: %f, my: %f \n", mx, my);
 
 	ani->Render(mx - camera->GetX() + (r - l)/2 , my - camera->GetY() + (b - t)/2, flip);
 }
 
 int NormalKoopas::GetObjectType()
 {
-	return ObjectType;
+	return this->ObjectType;
 }
 
 void NormalKoopas::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT> &coEventsResult, vector<LPCOLLISIONEVENT> &coEvents)

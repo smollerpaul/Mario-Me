@@ -3,14 +3,12 @@
 class CKoopas;
 
 class WingedKoopas : public NormalKoopas
-{
-protected:
+{	
+public:
 	float walkTime = 0;
 	float jumpHeight = 0;
 	float yGround = 0;
-	
-public:
-	WingedKoopas();
+
 	WingedKoopas(CKoopas* master);
 	virtual void InitAnimations() override;
 	virtual void Update(DWORD dt) override;

@@ -135,8 +135,10 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Effects.cpp" />
     <ClCompile Include="EffectVault.cpp" />
+    <ClCompile Include="EndCard.cpp" />
     <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="FireMario.cpp" />
+    <ClCompile Include="FlyingCard.cpp" />
     <ClCompile Include="GameLoad.cpp" />
     <ClCompile Include="GhostBlock.cpp" />
     <ClCompile Include="GreenMushroom.cpp" />
@@ -193,9 +195,11 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Effects.h" />
     <ClInclude Include="EffectVault.h" />
+    <ClInclude Include="EndCard.h" />
     <ClInclude Include="EnemiesConstants.h" />
     <ClInclude Include="FireBall.h" />
     <ClInclude Include="FireMario.h" />
+    <ClInclude Include="FlyingCard.h" />
     <ClInclude Include="GhostBlock.h" />
     <ClInclude Include="GreenMushroom.h" />
     <ClInclude Include="Keyboard.h" />
@@ -292,7 +296,6 @@
   <ItemGroup>
     <None Include="Resource\Map\Demo\demo.tmx" />
     <None Include="Resource\Map\World1-1\world-1-1-map-obj.tmx" />
-    <None Include="Resource\Map\World1-1\world-1-1-map.tmx" />
     <None Include="Resource\Map\World1-1\world-1-1.tsx" />
     <None Include="Resource\Textures\intro.psd" />
   </ItemGroup>

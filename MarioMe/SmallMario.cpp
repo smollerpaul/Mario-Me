@@ -3,6 +3,8 @@
 #include "GameObject.h"
 
 
+
+
 SmallMario::SmallMario()
 {
 }
@@ -379,9 +381,9 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 			}
 			break;
 
-			case CKoopas::ObjectType:
+			case NormalKoopas::ObjectType:
 			{
-				CKoopas* rg = dynamic_cast<CKoopas*>(e->obj);
+				NormalKoopas* rg = dynamic_cast<NormalKoopas*>(e->obj);
 
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
@@ -390,6 +392,46 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 					if (master->state != MARIO_STATE_DIE)
 						master->SetState(MARIO_STATE_DIE);
 					EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+				}
+			}
+			break;
+
+			case SlidingShell::ObjectType:
+			{
+				SlidingShell* rg = dynamic_cast<SlidingShell*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				else if (e->nx != 0 || e->ny > 0) {
+					if (master->state != MARIO_STATE_DIE)
+						master->SetState(MARIO_STATE_DIE);
+					EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+				}
+			}
+			break;
+
+			case WingedKoopas::ObjectType:
+			{
+				WingedKoopas* rg = dynamic_cast<WingedKoopas*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				else if (e->nx != 0 || e->ny > 0) {
+					if (master->state != MARIO_STATE_DIE)
+						master->SetState(MARIO_STATE_DIE);
+					EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+				}
+			}
+			break;
+
+			case ShelledKoopas::ObjectType:
+			{
+				ShelledKoopas* rg = dynamic_cast<ShelledKoopas*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 				}
 			}
 			break;
@@ -427,6 +469,14 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 			}
 			break;
 
+			case EndCard::ObjectType:
+			{
+				EndCard* p = dynamic_cast<EndCard*>(e->obj);
+				EffectVault::GetInstance()->AddEffect(new FlyingCard(8038, 973));
+
+				p->SetAlive(0);
+			}
+			break;
 			}
 		}
 	}

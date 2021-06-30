@@ -152,7 +152,7 @@
       <Filter>Game\Effects\Base\Vault</Filter>
     </ClCompile>
     <ClCompile Include="MoneyFx.cpp">
-      <Filter>Game\Effects\Effects\Money</Filter>
+      <Filter>Game\Effects\Effects\Rewards\Money</Filter>
     </ClCompile>
     <ClCompile Include="PoofFx.cpp">
       <Filter>Game\Effects\Effects\TransFX\Poof</Filter>
@@ -171,6 +171,12 @@
     </ClCompile>
     <ClCompile Include="MarioTransform.cpp">
       <Filter>Game\Effects\Effects\TransFX\Level Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="EndCard.cpp">
+      <Filter>Game\Rewards\Endmap Card</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingCard.cpp">
+      <Filter>Game\Effects\Effects\Rewards\EndCard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -310,7 +316,7 @@
       <Filter>Game\Effects\Base\Vault</Filter>
     </ClInclude>
     <ClInclude Include="MoneyFx.h">
-      <Filter>Game\Effects\Effects\Money</Filter>
+      <Filter>Game\Effects\Effects\Rewards\Money</Filter>
     </ClInclude>
     <ClInclude Include="PoofFx.h">
       <Filter>Game\Effects\Effects\TransFX\Poof</Filter>
@@ -329,6 +335,12 @@
     </ClInclude>
     <ClInclude Include="MarioTransform.h">
       <Filter>Game\Effects\Effects\TransFX\Level Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="EndCard.h">
+      <Filter>Game\Rewards\Endmap Card</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingCard.h">
+      <Filter>Game\Effects\Effects\Rewards\EndCard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -527,12 +539,6 @@
     <Filter Include="Game\Effects\Effects">
       <UniqueIdentifier>{a0dc8eaf-6fa9-4867-97a1-2714e14ae1ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Effects\Effects\Money">
-      <UniqueIdentifier>{31bcbebf-4f5a-4068-b03b-129fc1180d1d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Koops">
-      <UniqueIdentifier>{eda86f2d-df79-4279-9e73-5a59f057507b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Effects\Effects\TransFX">
       <UniqueIdentifier>{237abbf6-9a1a-4585-80e2-e02472cbab9d}</UniqueIdentifier>
     </Filter>
@@ -553,6 +559,18 @@
     </Filter>
     <Filter Include="Game\Effects\Effects\MarioDie">
       <UniqueIdentifier>{c354d3f9-5f3e-4150-9262-ff4f29f10359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Rewards\Endmap Card">
+      <UniqueIdentifier>{052eea7c-da26-4c4d-b682-e776ad8f5356}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects\Rewards">
+      <UniqueIdentifier>{c9523323-95f1-4f9a-8f48-11cc9897bde6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects\Rewards\Money">
+      <UniqueIdentifier>{31bcbebf-4f5a-4068-b03b-129fc1180d1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects\Rewards\EndCard">
+      <UniqueIdentifier>{7074605d-c12e-4424-a732-f0c65278150f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -705,9 +723,6 @@
       <Filter>Resources\Maps\Demo</Filter>
     </None>
     <None Include="Resource\Map\World1-1\world-1-1.tsx">
-      <Filter>Resources\Maps\World 1-1</Filter>
-    </None>
-    <None Include="Resource\Map\World1-1\world-1-1-map.tmx">
       <Filter>Resources\Maps\World 1-1</Filter>
     </None>
     <None Include="Resource\Map\World1-1\world-1-1-map-obj.tmx">

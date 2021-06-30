@@ -45,7 +45,7 @@ void WingedRG::Update(DWORD dt)
 	
 	if (master->state == RG_STATE_JUMP) {
 		isOnGround = 0;
-		master->vy = -RG_JUMP_PUSH - dt* GRAVITY;
+		master->vy = -RG_JUMP_PUSH - dt* MARIO_GRAVITY;
 		jumpHeight += master->vy * dt;
 
 		if (abs(jumpHeight) >= RG_JUMP_HEIGHT) {

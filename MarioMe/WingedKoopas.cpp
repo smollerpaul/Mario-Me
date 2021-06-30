@@ -8,10 +8,6 @@
 #include "Mario.h"
 #include "Utils.h"
 
-WingedKoopas::WingedKoopas()
-{
-}
-
 WingedKoopas::WingedKoopas(CKoopas* master)
 {
 	this->master = master;
@@ -46,7 +42,7 @@ void WingedKoopas::Update(DWORD dt)
 	
 	if (master->state == KOOPAS_STATE_JUMP) {
 		isOnGround = 0;
-		master->vy = -RG_JUMP_PUSH - dt * GRAVITY;
+		master->vy = -RG_JUMP_PUSH - dt * MARIO_GRAVITY;
 		jumpHeight = master->y - yGround;
 
 		if (abs(jumpHeight) >= KOOPAS_JUMP_HEIGHT) {
@@ -70,7 +66,7 @@ void WingedKoopas::Render()
 	int flip = master->flip;
 
 	float l, t, b, r;
-	GetBoundingBox(l, t, r, b);
+	master->GetBoundingBox(l, t, r, b);
 
 	float mx, my;
 	master->GetPosition(mx, my);
@@ -101,7 +97,7 @@ void WingedKoopas::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT> &coEve
 
 void WingedKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
-	NormalKoopas::PostCollisionUpdate(dt, coEventsResult, coEvents);
+	PostCollisionUpdate(dt, coEventsResult, coEvents);
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];
@@ -131,9 +127,23 @@ void WingedKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 		}
 		break;
 
+		case RacoonTail::ObjectType:
+		{
+			RacoonTail* tail = dynamic_cast<RacoonTail*>(e->obj);
+			if (e->ny != 0 || e->nx != 0)
+			{
+				if (master->GetState() != KOOPAS_STATE_DIE) {
+					master->SetState(KOOPAS_STATE_DIE);
+				}
+				master->SetAlive(0);
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y + 20));
+			}
+		}
+		break;
+
 		}
 	}
 
-	DebugOut(L" WING KOOPS vy: %f, isOnGround : %d, STATE: %d \n", master->vy, isOnGround, master->state);
+	//DebugOut(L" WING KOOPS vy: %f, isOnGround : %d, STATE: %d \n", master->vy, isOnGround, master->state);
 }
 
