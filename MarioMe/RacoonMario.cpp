@@ -45,6 +45,10 @@ void RacoonMario::InitAnimations()
 
 void RacoonMario::Update(DWORD dt)
 {
+	if (master->state == MARIO_STATE_DIE) {
+		master->SetAlive(0);
+		master->visible = 0;
+	}
 	if (master->untouchable == 1) {
 		master->untouchableTimer += dt;
 
@@ -465,7 +469,7 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 				if (master->state != MARIO_STATE_DIE)
 					master->SetState(MARIO_STATE_DIE);
 				EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
-
+				master->SetAlive(0);
 			}
 			break;
 			}
@@ -670,6 +674,10 @@ void RacoonMario::Render()
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 	float l, t, b, r;
 	master->GetBoundingBox(l, t, r, b);
+
+	if (master->state == MARIO_STATE_DIE) {
+		camera->ReleasePlayer();
+	}
 
 	ani->SetPlayScale(1.5f);
 	ani->Render(master->x - camera->GetX() + (r - l) / 2, master->y - camera->GetY() + (b - t) / 2, flip, alpha);

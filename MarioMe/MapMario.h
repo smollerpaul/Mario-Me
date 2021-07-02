@@ -25,9 +25,7 @@ public:
 	virtual void InitAnimations();
 	virtual void Update(DWORD dt);
 	virtual bool CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy);
-	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
-		vector<LPCOLLISIONEVENT> coEvents);
-	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents);
+
 	void AddNode(MapEntry* node);
 	virtual void Render();
 	virtual void OnKeyUp(int keyCode);

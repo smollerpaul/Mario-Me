@@ -50,7 +50,7 @@ void MapMario::Update(DWORD dt)
 		else if (dy < 0)
 			y -= vy * dt;
 
-		//k hiu so nay lam
+		
 		float al = x + 21;
 		float at = y + 21;
 		float ar = x + 27;
@@ -73,14 +73,6 @@ void MapMario::Update(DWORD dt)
 bool MapMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 {
 	return false;
-}
-
-void MapMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents)
-{
-}
-
-void MapMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
-{
 }
 
 void MapMario::AddNode(MapEntry* node)
@@ -135,19 +127,23 @@ void MapMario::OnKeyDown(int keyCode)
 		break;
 	}
 
-	MapEntry* current = graph->GetNode(currentNodeId);
-	unordered_map<string, int> adjList = current->GetAdjacentNodes();
-	
-	if (adjList.find(direction) == adjList.end())
-		return;
-	else {
-		canMove = 1;
-		MapEntry* nextTargetNode = graph->GetNode(adjList.at(direction));
-		targetX = nextTargetNode->x;
-		targetY = nextTargetNode->y;
+	//if S is not pressed
+	if (direction != ""){
+		MapEntry* current = graph->GetNode(currentNodeId);
+		unordered_map<string, int> adjList = current->GetAdjacentNodes();
 
-		targetNodeId = nextTargetNode->GetNodeId();
+		if (adjList.find(direction) == adjList.end())
+			return;
+		else {
+			canMove = 1;
+			MapEntry* nextTargetNode = graph->GetNode(adjList.at(direction));
+			targetX = nextTargetNode->x;
+			targetY = nextTargetNode->y;
+
+			targetNodeId = nextTargetNode->GetNodeId();
+		}
 	}
+	
 }
 
 bool MapMario::CollisionHappen(float al, float at, float ar, float ab, 

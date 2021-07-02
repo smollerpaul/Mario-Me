@@ -10,7 +10,6 @@
 
 #define MAX_GAME_LINE 1024
 
-
 void CGame::Load(string gameFile)
 {
 	TiXmlDocument doc(gameFile.c_str());

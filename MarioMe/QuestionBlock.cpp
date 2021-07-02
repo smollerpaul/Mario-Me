@@ -57,7 +57,7 @@ void QuestionBlock::Render()
 
 	ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + (b - t) / 2, flip);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void QuestionBlock::Update(DWORD dt)

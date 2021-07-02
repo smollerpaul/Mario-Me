@@ -74,7 +74,7 @@ void WorldScene::Unload()
 	EffectVault::GetInstance()->ClearEffects();
 	player = NULL;
 
-	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
+	DebugOut(L"[INFO] Scene %s unloaded! \n", ToLPCWSTR(sceneFilePath));
 }
 
 void WorldScene::LoadMapObjects(string objectType, float x, float y, float width, float height)

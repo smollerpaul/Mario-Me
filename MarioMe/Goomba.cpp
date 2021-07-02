@@ -68,7 +68,7 @@ void CGoomba::Render()
 	else
 		ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + (b - t) / 2, flip);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 bool CGoomba::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)

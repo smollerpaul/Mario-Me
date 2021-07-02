@@ -94,6 +94,7 @@ void CPlayScene::Unload()
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
 
+	EffectVault::GetInstance()->ClearEffects();
 	objects.clear();
 	player = NULL;
 
@@ -149,14 +150,14 @@ void CPlayScene::Load()
 	/*	region->QueryFloatAttribute("right", &camWidth);
 		region->QueryFloatAttribute("bottom", &camHeight);*/
 
-		DebugOut(L"done cam playscene  %f  %f %f %f  \n", camStartX, camStartY, camWidth, camHeight);
+	//	DebugOut(L"done cam playscene  %f  %f %f %f  \n", camStartX, camStartY, camWidth, camHeight);
 
 		doc.Clear();
 	}
 	Camera* camera = new Camera();
 	//camera->SetSize(camWidth, camHeight);
 	//camera->SetPosition(camStartX, camStartY);
-	camera->SetSize(700,480);
+	camera->SetSize(769,579);
 	camera->SetPosition(CAM_START_X, CAM_START_Y);
 	SetCamera(camera);
 	camera->SetFocusOnPlayer(player);

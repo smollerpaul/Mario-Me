@@ -493,7 +493,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				if (master->state != MARIO_STATE_DIE)
 					master->SetState(MARIO_STATE_DIE);
 				EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
-
+				master->SetAlive(0);
 			}
 			break;
 			}

@@ -129,7 +129,7 @@ void CMario::Render()
 	SmallMario* currentState = objState;
 	currentState->Render();
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CMario::SetState(int state)

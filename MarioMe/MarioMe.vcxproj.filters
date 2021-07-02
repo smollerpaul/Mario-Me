@@ -5,7 +5,7 @@
       <Filter>Framework\Graphics\Animations</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
-      <Filter>Game\MapObject\Brick</Filter>
+      <Filter>Game\Objects\Brick</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Framework\Camera</Filter>
@@ -29,7 +29,7 @@
       <Filter>Game\Mario</Filter>
     </ClCompile>
     <ClCompile Include="Portal.cpp">
-      <Filter>Game\MapObject\Portal</Filter>
+      <Filter>Game\Objects\Portal</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Framework\Graphics\Textures</Filter>
@@ -77,10 +77,10 @@
       <Filter>Framework\Map\MapLayer</Filter>
     </ClCompile>
     <ClCompile Include="SolidBlock.cpp">
-      <Filter>Game\MapObject\SolidBlock</Filter>
+      <Filter>Game\Objects\SolidBlock</Filter>
     </ClCompile>
     <ClCompile Include="GhostBlock.cpp">
-      <Filter>Game\MapObject\GhostBlock</Filter>
+      <Filter>Game\Objects\GhostBlock</Filter>
     </ClCompile>
     <ClCompile Include="PlayerData.cpp">
       <Filter>Game\PlayerData</Filter>
@@ -107,7 +107,7 @@
       <Filter>Game\Mario\MBig</Filter>
     </ClCompile>
     <ClCompile Include="QuestionBlock.cpp">
-      <Filter>Game\MapObject\QuestionBlock</Filter>
+      <Filter>Game\Objects\QuestionBlock</Filter>
     </ClCompile>
     <ClCompile Include="RedGoomba.cpp">
       <Filter>Game\Enemies\RedGoomba</Filter>
@@ -179,19 +179,19 @@
       <Filter>Game\Effects\Effects\Rewards\EndCard</Filter>
     </ClCompile>
     <ClCompile Include="Void.cpp">
-      <Filter>Game\MapObject\Void</Filter>
+      <Filter>Game\Objects\Void</Filter>
     </ClCompile>
     <ClCompile Include="MapEntry.cpp">
-      <Filter>Game\Overworld\MapEntry</Filter>
+      <Filter>Game\Overworld Objects\MapEntry</Filter>
     </ClCompile>
     <ClCompile Include="MapMario.cpp">
-      <Filter>Game\Overworld\MapMario</Filter>
+      <Filter>Game\Overworld Objects\MapMario</Filter>
     </ClCompile>
     <ClCompile Include="WorldScene.cpp">
       <Filter>Game\Scenes\WorldScene</Filter>
     </ClCompile>
     <ClCompile Include="Entries.cpp">
-      <Filter>Game\Overworld\Entries</Filter>
+      <Filter>Game\Overworld Objects\Entries</Filter>
     </ClCompile>
     <ClCompile Include="OverworldTrees.cpp">
       <Filter>Game\Effects\Effects\OverworldTrees</Filter>
@@ -202,7 +202,7 @@
       <Filter>Framework\Graphics\Animations</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
-      <Filter>Game\MapObject\Brick</Filter>
+      <Filter>Game\Objects\Brick</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Framework\Camera</Filter>
@@ -226,7 +226,7 @@
       <Filter>Game\Mario</Filter>
     </ClInclude>
     <ClInclude Include="Portal.h">
-      <Filter>Game\MapObject\Portal</Filter>
+      <Filter>Game\Objects\Portal</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
       <Filter>Framework\Graphics\Textures</Filter>
@@ -256,10 +256,10 @@
       <Filter>Framework\Map\MapLayer</Filter>
     </ClInclude>
     <ClInclude Include="SolidBlock.h">
-      <Filter>Game\MapObject\SolidBlock</Filter>
+      <Filter>Game\Objects\SolidBlock</Filter>
     </ClInclude>
     <ClInclude Include="GhostBlock.h">
-      <Filter>Game\MapObject\GhostBlock</Filter>
+      <Filter>Game\Objects\GhostBlock</Filter>
     </ClInclude>
     <ClInclude Include="PlayerData.h">
       <Filter>Game\PlayerData</Filter>
@@ -289,7 +289,7 @@
       <Filter>Game\Mario\MBig</Filter>
     </ClInclude>
     <ClInclude Include="QuestionBlock.h">
-      <Filter>Game\MapObject\QuestionBlock</Filter>
+      <Filter>Game\Objects\QuestionBlock</Filter>
     </ClInclude>
     <ClInclude Include="RedGoomba.h">
       <Filter>Game\Enemies\RedGoomba</Filter>
@@ -361,19 +361,19 @@
       <Filter>Game\Effects\Effects\Rewards\EndCard</Filter>
     </ClInclude>
     <ClInclude Include="Void.h">
-      <Filter>Game\MapObject\Void</Filter>
+      <Filter>Game\Objects\Void</Filter>
     </ClInclude>
     <ClInclude Include="MapEntry.h">
-      <Filter>Game\Overworld\MapEntry</Filter>
+      <Filter>Game\Overworld Objects\MapEntry</Filter>
     </ClInclude>
     <ClInclude Include="MapMario.h">
-      <Filter>Game\Overworld\MapMario</Filter>
+      <Filter>Game\Overworld Objects\MapMario</Filter>
     </ClInclude>
     <ClInclude Include="WorldScene.h">
       <Filter>Game\Scenes\WorldScene</Filter>
     </ClInclude>
     <ClInclude Include="Entries.h">
-      <Filter>Game\Overworld\Entries</Filter>
+      <Filter>Game\Overworld Objects\Entries</Filter>
     </ClInclude>
     <ClInclude Include="OverworldTrees.h">
       <Filter>Game\Effects\Effects\OverworldTrees</Filter>
@@ -464,23 +464,8 @@
     <Filter Include="Resources\Maps\World 1-1">
       <UniqueIdentifier>{cffc1beb-c0ce-4d82-9cbe-70b6b0bbbcc5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\MapObject">
-      <UniqueIdentifier>{60029a8e-a7fc-4440-b0c0-d02a669d24aa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\GameObject">
       <UniqueIdentifier>{fd873f02-1627-4a91-9996-4b918f12cc1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\MapObject\SolidBlock">
-      <UniqueIdentifier>{7ac20bbf-ca32-4a23-b070-eb63f55ab485}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\MapObject\GhostBlock">
-      <UniqueIdentifier>{8aed6746-8870-4ca0-8ed4-297094b9a2d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\MapObject\Brick">
-      <UniqueIdentifier>{17f5de1e-9c70-4a0f-bd4b-fc3f3a4d733d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\MapObject\Portal">
-      <UniqueIdentifier>{2eecf0ac-7cc2-448a-8f38-269b503ee2c7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\PlayerData">
       <UniqueIdentifier>{d0e10311-25d3-4c2b-b752-eb62ac9440e4}</UniqueIdentifier>
@@ -505,9 +490,6 @@
     </Filter>
     <Filter Include="Game\Mario\MBig">
       <UniqueIdentifier>{48aec114-e683-46a8-9a71-af68538a76fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\MapObject\QuestionBlock">
-      <UniqueIdentifier>{563f2876-0b4d-4f20-b379-a5dc764819d2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Enemies\RedGoomba">
       <UniqueIdentifier>{3b8a4ab5-e095-4bfd-8dea-961a8ac3bcff}</UniqueIdentifier>
@@ -602,32 +584,50 @@
     <Filter Include="Game\Effects\Effects\Rewards\EndCard">
       <UniqueIdentifier>{7074605d-c12e-4424-a732-f0c65278150f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\MapObject\Void">
-      <UniqueIdentifier>{f876b03a-6867-4be2-889f-b4f3242f365b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources\Maps\WorldScene">
       <UniqueIdentifier>{3c464261-e5c7-4433-a9a1-a6deb6a3a7cb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Scenes\WorldScene">
       <UniqueIdentifier>{64ce7166-3266-43eb-b772-71657ae7acd7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Overworld">
-      <UniqueIdentifier>{25dd92cb-fe6c-45e6-8eef-cf01c29c787f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Overworld\MapMario">
-      <UniqueIdentifier>{27a4c48a-dadc-4d34-9ddc-ed7f463c1d6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Overworld\MapEntry">
-      <UniqueIdentifier>{21075e82-9c4d-4116-bded-7346a2f52fc1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Overworld\Entries">
-      <UniqueIdentifier>{849dd4c3-16da-467e-8c2f-094054045d04}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources\Scenes">
       <UniqueIdentifier>{77d614cf-c6dc-4963-bc0f-4a3ef737db20}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Effects\Effects\OverworldTrees">
       <UniqueIdentifier>{f5049493-f0ce-458e-9f00-07ccdadb9df3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects">
+      <UniqueIdentifier>{60029a8e-a7fc-4440-b0c0-d02a669d24aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects\SolidBlock">
+      <UniqueIdentifier>{7ac20bbf-ca32-4a23-b070-eb63f55ab485}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects\GhostBlock">
+      <UniqueIdentifier>{8aed6746-8870-4ca0-8ed4-297094b9a2d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects\Brick">
+      <UniqueIdentifier>{17f5de1e-9c70-4a0f-bd4b-fc3f3a4d733d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects\Portal">
+      <UniqueIdentifier>{2eecf0ac-7cc2-448a-8f38-269b503ee2c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects\QuestionBlock">
+      <UniqueIdentifier>{563f2876-0b4d-4f20-b379-a5dc764819d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects\Void">
+      <UniqueIdentifier>{f876b03a-6867-4be2-889f-b4f3242f365b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Overworld Objects">
+      <UniqueIdentifier>{25dd92cb-fe6c-45e6-8eef-cf01c29c787f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Overworld Objects\MapMario">
+      <UniqueIdentifier>{27a4c48a-dadc-4d34-9ddc-ed7f463c1d6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Overworld Objects\MapEntry">
+      <UniqueIdentifier>{21075e82-9c4d-4116-bded-7346a2f52fc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Overworld Objects\Entries">
+      <UniqueIdentifier>{849dd4c3-16da-467e-8c2f-094054045d04}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

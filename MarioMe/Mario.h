@@ -6,7 +6,6 @@
 #include "RacoonMario.h"
 #include "SmallMario.h"
 
-
 class Camera;
 
 class CMario : public CGameObject

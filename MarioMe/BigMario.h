@@ -21,7 +21,6 @@ public:
 	virtual void OnKeyDown(int keyCode) override;
 	virtual void Render();
 
-	void Shrink();
 	static const int ObjectType = 1235;
 };
 
