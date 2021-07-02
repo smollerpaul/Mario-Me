@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#f8eca0" nextlayerid="7" nextobjectid="71">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#f8eca0" nextlayerid="7" nextobjectid="72">
  <tileset firstgid="1" name="tileset(x3)" tilewidth="48" tileheight="48" tilecount="32" columns="8">
   <image source="overworld-1.png" width="384" height="192"/>
  </tileset>
@@ -269,9 +269,10 @@
     <property name="adjacent_list" value="4,6"/>
     <property name="adjacent_weight" value="l,r"/>
     <property name="node_id" type="int" value="5"/>
-    <property name="scene" value=""/>
+    <property name="scene" value="world-1-3"/>
     <property name="sprite_checked" value="spr-M-0"/>
     <property name="sprite_uncheck" value="spr-gate-3"/>
+    <property name="world_number" type="int" value="3"/>
    </properties>
    <point/>
   </object>

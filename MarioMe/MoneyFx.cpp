@@ -19,12 +19,10 @@ void MoneyFx::Update(DWORD dt)
 		}
 	}
 	else {
-		DebugOut(L"go here first\n");
 		y += fallDownSpeed * dt;
 
 		if (yBegin - y < 40) {
 			alive = 0;
-			DebugOut(L"Coin will disappear now\n");
 		}
 	}
 }

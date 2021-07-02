@@ -17,12 +17,14 @@
 #include "Shell.h"
 #include "WingedKoopas.h"
 #include "EndCard.h"
+#include "Void.h"
 
 #include "FlyingCard.h"
 #include "MarioDieFx.h"
 #include "ToBigMario.h"
 #include "ToSmallMario.h"
 #include "MarioTransform.h"
+#include "PlayerData.h"
 
 class CMario;
 class CGameObject;
@@ -59,4 +61,5 @@ public:
 
 	virtual int GetObjectType();
 	static const int ObjectType = 1234;
+
 };

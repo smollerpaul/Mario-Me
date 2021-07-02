@@ -1,12 +1,24 @@
 #include "Scene.h"
 #include "GameObject.h"
+#include "Camera.h"
 
 
+CScene::CScene() {
+	this->camera = new Camera();
+}
 
 CScene::CScene(string id, string filePath)
 {
 	this->id = id;
 	this->sceneFilePath = filePath;
+}
+
+void CScene::LoadMapObjects(string objectName, float x, float y, float width, float height)
+{
+}
+
+void CScene::LoadBackground(float xPos, float yPos)
+{
 }
 
 Camera* CScene::GetCamera()
@@ -17,6 +29,11 @@ Camera* CScene::GetCamera()
 void CScene::SetCamera(Camera* camera)
 {
 	this->camera = camera;
+}
+
+void CScene::LoadMapEntries(float xPos, float yPos, int nodeID, string sceneID, string checkedSprite, string uncheckedSprite, 
+	string adjList, string adjWeight,int worldNumber, bool isStartPos)
+{
 }
 
 GameMap* CScene::GetMap()
@@ -41,3 +58,8 @@ void CScene::RemoveObject(CGameObject* obj)
 		}
 		}), objects.end());
 }
+
+void CScene::Render()
+{
+}
+

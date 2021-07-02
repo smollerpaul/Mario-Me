@@ -303,6 +303,7 @@ void SmallMario::JumpUpdate(DWORD dt)
 
 }
 
+
 void SmallMario::AttackUpdate(DWORD dt)
 {
 }
@@ -342,6 +343,8 @@ void SmallMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vect
 
 void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
+	PlayerData* pd = PlayerData::GetInstance();
+
 	if (master->untouchable != 1) {
 		PostCollisionUpdate(dt, coEventsResult, coEvents);
 
@@ -356,6 +359,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					pd->SetScore(pd->GetScore() + 100);
 				}
 
 				if (e->nx != 0) {
@@ -372,6 +376,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					pd->SetScore(pd->GetScore() + 100);
 				}
 				else if (e->nx != 0) {
 					if (master->state != MARIO_STATE_DIE)
@@ -387,6 +392,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					pd->SetScore(pd->GetScore() + 100);
 				}
 				else if (e->nx != 0 || e->ny > 0) {
 					if (master->state != MARIO_STATE_DIE)
@@ -417,6 +423,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					pd->SetScore(pd->GetScore() + 100);
 				}
 				else if (e->nx != 0 || e->ny > 0) {
 					if (master->state != MARIO_STATE_DIE)
@@ -441,10 +448,11 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				Leaf* leaf = dynamic_cast<Leaf*>(e->obj);
 
 				if (e->nx != 0 || e->ny != 0) {
+					pd->SetScore(pd->GetScore() + 100);
 					master->StartUntouchable();
 					master->visible = 0;
 					powerUpLeaf = 1;
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y+25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
 				}
 			}
 			break;
@@ -454,6 +462,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				GreenMushroom* gm = dynamic_cast<GreenMushroom*>(e->obj);
 
 				if (e->nx != 0 || e->ny != 0) {
+					pd->SetScore(pd->GetScore() + 100);
 					master->StartUntouchable();
 					master->visible = 0;
 					powerUpMushroom = 1;
@@ -477,10 +486,19 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				p->SetAlive(0);
 			}
 			break;
+
+			case Void::ObjectType:
+			{
+				Void* p = dynamic_cast<Void*>(e->obj);
+				if (master->state != MARIO_STATE_DIE)
+					master->SetState(MARIO_STATE_DIE);
+				EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+
+			}
+			break;
 			}
 		}
 	}
-	
 }
 
 void SmallMario::Render()

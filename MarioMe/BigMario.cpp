@@ -213,6 +213,7 @@ void BigMario::AttackUpdate(DWORD dt)
 
 void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
+	PlayerData* pd = PlayerData::GetInstance();
 	if (master->untouchable != 1) {
 		SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
 
@@ -228,6 +229,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					pd->SetScore(pd->GetScore() + 100);
 				}
 
 				if (e->nx != 0) {
@@ -246,6 +248,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					pd->SetScore(pd->GetScore() + 100);
 				}
 				else if (e->nx != 0) {
 					if (master->untouchable == 0) {
@@ -263,6 +266,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					pd->SetScore(pd->GetScore() + 100);
 				}
 				else if (e->nx != 0 || e->ny > 0) {
 					if (master->untouchable == 0) {
@@ -297,6 +301,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					pd->SetScore(pd->GetScore() + 100);
 				}
 				else if (e->nx != 0 || e->ny > 0) {
 					if (master->untouchable == 0) {
@@ -325,7 +330,6 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 			}
 			break;
 
-
 			case FireBall::ObjectType:
 			{
 				FireBall* fb = dynamic_cast<FireBall*>(e->obj);
@@ -349,6 +353,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 				Leaf* leaf = dynamic_cast<Leaf*>(e->obj);
 
 				if (e->nx != 0 || e->ny != 0) {
+					pd->SetScore(pd->GetScore() + 100);
 					master->StartUntouchable();
 					master->visible = 0;
 					powerUpLeaf = 1; 
@@ -361,8 +366,18 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 			{
 				EndCard* p = dynamic_cast<EndCard*>(e->obj);
 				EffectVault::GetInstance()->AddEffect(new FlyingCard(8038, 973));
-
+				pd->SetScore(pd->GetScore() + 100);
 				p->SetAlive(0);
+			}
+			break;
+
+			case Void::ObjectType:
+			{
+				Void* p = dynamic_cast<Void*>(e->obj);
+				if (master->state != MARIO_STATE_DIE)
+					master->SetState(MARIO_STATE_DIE);
+				EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+
 			}
 			break;
 			}

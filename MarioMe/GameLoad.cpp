@@ -6,6 +6,7 @@
 #include "Textures.h"
 #include "PlayScene.h"
 #include "tinyxml/tinyxml.h"
+#include "WorldScene.h"
 
 #define MAX_GAME_LINE 1024
 
@@ -131,7 +132,6 @@ void CGame::LoadAnimations(TiXmlElement* gameResources) {
 	}
 }
 
-
 void CGame::LoadGameHud(TiXmlElement* gameContent)
 {
 	TiXmlElement* gameHud = gameContent->FirstChildElement("Hud");
@@ -157,10 +157,16 @@ void CGame::LoadScenes(TiXmlElement* gameContent)
 
 			DebugOut(L"[PLAYSCENE ADDED]: %s \n", ToLPCWSTR(sceneId));
 		}
+
+		if (type.compare("WorldScene") == 0) {
+			CScene* scene = new WorldScene(sceneId, sceneFilePath);
+			this->scenes[sceneId] = scene;
+
+			DebugOut(L"[WORLDSCENE ADDED]: %s \n", ToLPCWSTR(sceneId));
+		}
 	}
 	SwitchScene(scenes->Attribute("start"));
 }
-
 
 void CGame::SwitchScene(string scene_id)
 {

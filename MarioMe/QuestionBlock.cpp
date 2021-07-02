@@ -112,6 +112,8 @@ void QuestionBlock::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void QuestionBlock::BehaviorUpdate(DWORD dt)
 {
+	PlayerData* pd = PlayerData::GetInstance();
+
 	float min_tx, min_ty, nx = 0, ny;
 	float rdx = 0;
 	float rdy = 0;
@@ -134,6 +136,8 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 				if (reward != LEAF_PRIZE && reward != GMUSH_PRIZE) {
 					EffectVault::GetInstance()->AddEffect(new MoneyFx(this->x, this->y));
 				}
+				pd->SetScore(pd->GetScore() + 100);
+				pd->SetCoins(pd->GetCoins() + 1);
 			}
 		}
 		break;
@@ -145,6 +149,7 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 			{
 				if(state!=QB_STATE_FROZEN)
 					SetState(QB_STATE_FROZEN);
+
 			}
 		}
 		break;

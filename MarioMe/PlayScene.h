@@ -13,7 +13,13 @@ class GameMap;
 class CPlayScene: public CScene
 {
 protected: 
-	CMario *player;				
+	float camStartX = 0;
+	float camStartY = 0;
+
+	float camWidth = 0;
+	float camHeight = 0;
+
+	CMario* player = nullptr;
 	
 public: 
 	CPlayScene(string id, string filePath);
@@ -30,5 +36,6 @@ public:
 	virtual void LoadMapObjects(string objectName, float x, float y, float width = 0, float height = 0) override;
 	void CheckAlive();
 	
-
+	static const int SceneType = 776;
+	virtual int GetSceneType();
 };

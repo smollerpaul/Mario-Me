@@ -19,6 +19,7 @@ CGameObject::CGameObject()
 	width = height = 0;
 
 	nx = 1;	
+
 	flip = 1;
 	alive = 1;
 	dx = dy = 0;

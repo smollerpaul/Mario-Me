@@ -11,11 +11,11 @@ protected:
 	int tileWidth = 1;
 	int tileHeight = 1;
 
-	LPDIRECT3DTEXTURE9 tileImage;
+	LPDIRECT3DTEXTURE9 tileImage = NULL;
 #pragma endregion
 
-	int width;
-	int height;
+	int width = 0;
+	int height = 0;
 
 	vector<MapLayer*> layers;
 

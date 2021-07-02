@@ -178,6 +178,24 @@
     <ClCompile Include="FlyingCard.cpp">
       <Filter>Game\Effects\Effects\Rewards\EndCard</Filter>
     </ClCompile>
+    <ClCompile Include="Void.cpp">
+      <Filter>Game\MapObject\Void</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEntry.cpp">
+      <Filter>Game\Overworld\MapEntry</Filter>
+    </ClCompile>
+    <ClCompile Include="MapMario.cpp">
+      <Filter>Game\Overworld\MapMario</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldScene.cpp">
+      <Filter>Game\Scenes\WorldScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Entries.cpp">
+      <Filter>Game\Overworld\Entries</Filter>
+    </ClCompile>
+    <ClCompile Include="OverworldTrees.cpp">
+      <Filter>Game\Effects\Effects\OverworldTrees</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -342,6 +360,24 @@
     <ClInclude Include="FlyingCard.h">
       <Filter>Game\Effects\Effects\Rewards\EndCard</Filter>
     </ClInclude>
+    <ClInclude Include="Void.h">
+      <Filter>Game\MapObject\Void</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEntry.h">
+      <Filter>Game\Overworld\MapEntry</Filter>
+    </ClInclude>
+    <ClInclude Include="MapMario.h">
+      <Filter>Game\Overworld\MapMario</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldScene.h">
+      <Filter>Game\Scenes\WorldScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Entries.h">
+      <Filter>Game\Overworld\Entries</Filter>
+    </ClInclude>
+    <ClInclude Include="OverworldTrees.h">
+      <Filter>Game\Effects\Effects\OverworldTrees</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -404,9 +440,6 @@
     <Filter Include="Resources\Sprites">
       <UniqueIdentifier>{0b9b4c28-f92d-4076-aaf2-9c44486194be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\Scenes">
-      <UniqueIdentifier>{77d614cf-c6dc-4963-bc0f-4a3ef737db20}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources\Maps">
       <UniqueIdentifier>{957b04ec-e5fd-4543-bcde-a6cf07af3bb0}</UniqueIdentifier>
     </Filter>
@@ -433,9 +466,6 @@
     </Filter>
     <Filter Include="Game\MapObject">
       <UniqueIdentifier>{60029a8e-a7fc-4440-b0c0-d02a669d24aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Map\ObjectLayer">
-      <UniqueIdentifier>{3b4d45d1-5330-42b7-b3ef-220b7bc10054}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\GameObject">
       <UniqueIdentifier>{fd873f02-1627-4a91-9996-4b918f12cc1c}</UniqueIdentifier>
@@ -572,6 +602,33 @@
     <Filter Include="Game\Effects\Effects\Rewards\EndCard">
       <UniqueIdentifier>{7074605d-c12e-4424-a732-f0c65278150f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\MapObject\Void">
+      <UniqueIdentifier>{f876b03a-6867-4be2-889f-b4f3242f365b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Maps\WorldScene">
+      <UniqueIdentifier>{3c464261-e5c7-4433-a9a1-a6deb6a3a7cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scenes\WorldScene">
+      <UniqueIdentifier>{64ce7166-3266-43eb-b772-71657ae7acd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Overworld">
+      <UniqueIdentifier>{25dd92cb-fe6c-45e6-8eef-cf01c29c787f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Overworld\MapMario">
+      <UniqueIdentifier>{27a4c48a-dadc-4d34-9ddc-ed7f463c1d6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Overworld\MapEntry">
+      <UniqueIdentifier>{21075e82-9c4d-4116-bded-7346a2f52fc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Overworld\Entries">
+      <UniqueIdentifier>{849dd4c3-16da-467e-8c2f-094054045d04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Scenes">
+      <UniqueIdentifier>{77d614cf-c6dc-4963-bc0f-4a3ef737db20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects\OverworldTrees">
+      <UniqueIdentifier>{f5049493-f0ce-458e-9f00-07ccdadb9df3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resource\Animations\MiscAnim.xml">
@@ -633,9 +690,6 @@
     </Xml>
     <Xml Include="Resource\Scenes\demo.xml">
       <Filter>Resources\Scenes</Filter>
-    </Xml>
-    <Xml Include="Resource\Map\World1-1\objecttypes.xml">
-      <Filter>Resources\Maps\World 1-1</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>
@@ -708,12 +762,6 @@
     <Image Include="Resource\Textures\ui_x3.png">
       <Filter>Resources\Textures</Filter>
     </Image>
-    <Image Include="Resource\Map\World1-1\Demo.png">
-      <Filter>Resources\Maps\World 1-1</Filter>
-    </Image>
-    <Image Include="Resource\Map\World1-1\world-1-1.png">
-      <Filter>Resources\Maps\World 1-1</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\Textures\intro.psd">
@@ -722,11 +770,11 @@
     <None Include="Resource\Map\Demo\demo.tmx">
       <Filter>Resources\Maps\Demo</Filter>
     </None>
-    <None Include="Resource\Map\World1-1\world-1-1.tsx">
-      <Filter>Resources\Maps\World 1-1</Filter>
-    </None>
     <None Include="Resource\Map\World1-1\world-1-1-map-obj.tmx">
       <Filter>Resources\Maps\World 1-1</Filter>
+    </None>
+    <None Include="Resource\Map\Overworld\overworld-1-map.tmx">
+      <Filter>Resources\Maps\WorldScene</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -136,6 +136,7 @@
     <ClCompile Include="Effects.cpp" />
     <ClCompile Include="EffectVault.cpp" />
     <ClCompile Include="EndCard.cpp" />
+    <ClCompile Include="Entries.cpp" />
     <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="FireMario.cpp" />
     <ClCompile Include="FlyingCard.cpp" />
@@ -146,7 +147,11 @@
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapEntry.cpp" />
     <ClCompile Include="MapLayer.cpp" />
+    <ClCompile Include="MapMario.cpp" />
+    <ClCompile Include="OverworldTrees.cpp" />
+    <ClCompile Include="WorldScene.cpp" />
     <ClCompile Include="MarioDieFx.cpp" />
     <ClCompile Include="MarioLevels.cpp" />
     <ClCompile Include="MarioTransform.cpp" />
@@ -184,6 +189,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="Void.cpp" />
     <ClCompile Include="WingedKoopas.cpp" />
     <ClCompile Include="WingedRG.cpp" />
   </ItemGroup>
@@ -197,6 +203,7 @@
     <ClInclude Include="EffectVault.h" />
     <ClInclude Include="EndCard.h" />
     <ClInclude Include="EnemiesConstants.h" />
+    <ClInclude Include="Entries.h" />
     <ClInclude Include="FireBall.h" />
     <ClInclude Include="FireMario.h" />
     <ClInclude Include="FlyingCard.h" />
@@ -206,7 +213,11 @@
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="Leaf.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MapEntry.h" />
     <ClInclude Include="MapLayer.h" />
+    <ClInclude Include="MapMario.h" />
+    <ClInclude Include="OverworldTrees.h" />
+    <ClInclude Include="WorldScene.h" />
     <ClInclude Include="MarioConstants.h" />
     <ClInclude Include="MarioDieFx.h" />
     <ClInclude Include="MarioLevels.h" />
@@ -240,6 +251,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
+    <ClInclude Include="Void.h" />
     <ClInclude Include="WingedKoopas.h" />
     <ClInclude Include="WingedRG.h" />
   </ItemGroup>
@@ -252,7 +264,6 @@
     <Xml Include="Resource\Animations\OverworldMapAnim.xml" />
     <Xml Include="Resource\Animations\UiAnim.xml" />
     <Xml Include="Resource\GameData.xml" />
-    <Xml Include="Resource\Map\World1-1\objecttypes.xml" />
     <Xml Include="Resource\Scenes\demo.xml" />
     <Xml Include="Resource\Scenes\Intro.xml" />
     <Xml Include="Resource\Scenes\Overworld.xml" />
@@ -267,8 +278,6 @@
     <Xml Include="Resource\Sprites\UiDB.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resource\Map\World1-1\Demo.png" />
-    <Image Include="Resource\Map\World1-1\world-1-1.png" />
     <Image Include="Resource\Textures\box-small.png" />
     <Image Include="Resource\Textures\box.png" />
     <Image Include="Resource\Textures\brick-debris.png" />
@@ -295,8 +304,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\Map\Demo\demo.tmx" />
+    <None Include="Resource\Map\Overworld\overworld-1-map.tmx" />
     <None Include="Resource\Map\World1-1\world-1-1-map-obj.tmx" />
-    <None Include="Resource\Map\World1-1\world-1-1.tsx" />
     <None Include="Resource\Textures\intro.psd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

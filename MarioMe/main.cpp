@@ -19,11 +19,13 @@
 #define MAIN_WINDOW_TITLE L"MARIO SUPER BROS KNOCK-OFF"
 
 #define BACKGROUND_COLOR	D3DCOLOR_XRGB(181, 235, 242)
+#define OVERWORLD_COLOR		D3DCOLOR_XRGB(248, 236, 160)
+
 #define SCREEN_WIDTH_MAP 769
 #define SCREEN_HEIGHT_MAP 721
 
-#define SCREEN_WIDTH 700
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 769
+#define SCREEN_HEIGHT 579
 
 #define MAX_FRAME_RATE 120
 
@@ -59,7 +61,12 @@ void Render()
 
 	d3ddv->BeginScene();
 		// Clear back buffer with a color
+
+	int currentSceneType = CGame::GetInstance()->GetCurrentScene()->GetSceneType();
+	if(currentSceneType == CPlayScene::SceneType)
 		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
+	else
+		d3ddv->ColorFill(bb, NULL, OVERWORLD_COLOR);
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 

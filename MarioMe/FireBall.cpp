@@ -10,6 +10,7 @@
 #include "Shell.h"
 #include "WingedKoopas.h"
 #include "NormalKoopas.h"
+#include "PlayerData.h"
 
 FireBall::FireBall()
 {
@@ -83,6 +84,8 @@ void FireBall::BehaviorUpdate(DWORD dt)
 		}
 	}
 
+	PlayerData* pd = PlayerData::GetInstance();
+
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];
@@ -108,7 +111,9 @@ void FireBall::BehaviorUpdate(DWORD dt)
 			if (e->ny != 0 || e->nx != 0)
 			{
 				SetAlive(0);
+				pd->SetScore(pd->GetScore() + 100);
 				EffectVault::GetInstance()->AddEffect(new PoofFx(x, y));
+
 			}
 		}
 		break;
@@ -120,6 +125,7 @@ void FireBall::BehaviorUpdate(DWORD dt)
 			if (e->ny != 0 || e->nx != 0)
 			{
 				SetAlive(0);
+				pd->SetScore(pd->GetScore() + 100);
 				EffectVault::GetInstance()->AddEffect(new PoofFx(x, y));
 			}
 		}
@@ -132,6 +138,7 @@ void FireBall::BehaviorUpdate(DWORD dt)
 			if (e->ny != 0 || e->nx != 0)
 			{
 				SetAlive(0);
+				pd->SetScore(pd->GetScore() + 100);
 				EffectVault::GetInstance()->AddEffect(new PoofFx(x, y));
 			}
 		}
@@ -144,6 +151,7 @@ void FireBall::BehaviorUpdate(DWORD dt)
 			if (e->ny != 0 || e->nx != 0)
 			{
 				SetAlive(0);
+				pd->SetScore(pd->GetScore() + 100);
 				EffectVault::GetInstance()->AddEffect(new PoofFx(x, y));
 			}
 		}
@@ -156,6 +164,7 @@ void FireBall::BehaviorUpdate(DWORD dt)
 			if (e->ny != 0 || e->nx != 0)
 			{
 				SetAlive(0);
+				pd->SetScore(pd->GetScore() + 100);
 				EffectVault::GetInstance()->AddEffect(new PoofFx(x, y));
 			}
 		}

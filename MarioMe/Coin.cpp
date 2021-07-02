@@ -57,14 +57,26 @@ void Coin::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Coin::BehaviorUpdate(DWORD dt)
 {
-	float min_tx, min_ty, nx = 0, ny;
-	float rdx = 0;
-	float rdy = 0;
+	PlayerData* pd = PlayerData::GetInstance();
 
-	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+	if (coEvents.size() != 0) {
+		float min_tx, min_ty, nx = 0, ny;
+		float rdx = 0;
+		float rdy = 0;
 
-	if (nx != 0) SetAlive(0);
-	if (ny != 0) SetAlive(0);
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+		if (nx != 0) {
+			SetAlive(0);
+			pd->SetCoins(pd->GetCoins() + 1);
+		}
+			
+		if (ny != 0) {
+			SetAlive(0);
+			pd->SetCoins(pd->GetCoins() + 1);
+		}
+	}
+	
 }
 
 int Coin::GetObjectType()

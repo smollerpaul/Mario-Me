@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "Game.h"
 #include "GameObject.h"
+#include "MapEntry.h"
 
 GameMap* GameMap::Load(string path)
 {
@@ -53,8 +54,9 @@ GameMap* GameMap::Load(string path)
 			for (TiXmlElement* obj = objG->FirstChildElement("object"); obj != nullptr; obj = obj->NextSiblingElement("object")) {
 				if (obj->Attribute("type") != NULL) {
 					string objName= objG->Attribute("name");
-					
-					if (objName.compare("MapObjects") == 0 || objName.compare("Spawners")==0|| objName.compare("Object Layer") == 0) {
+				
+					if (objName.compare("MapObjects") == 0 || objName.compare("Spawners")==0|| 
+						objName.compare("Object Layer") == 0) {
 						string objType = obj->Attribute("type");
 
 						float x = 0,  y = 0;
@@ -103,6 +105,68 @@ GameMap* GameMap::Load(string path)
 						// read next
 						CGame::GetInstance()->GetCurrentScene()->LoadMapObjects(objType,x, y, objWidth, objHeight);
 					}
+
+					if (objName.compare("WorldGraph") == 0) {
+
+						float xPos =0, yPos=0;
+						obj->QueryFloatAttribute("x", &xPos);
+						obj->QueryFloatAttribute("y", &yPos);
+
+						string adjList, adjWeight, uncheckedSprite, checkedSprite, sceneID;
+						int worldNumber = 0 , nodeID = 0;
+						bool isStartPos = false;
+
+						TiXmlElement* props = obj->FirstChildElement("properties");
+						for (TiXmlElement* objProp = props->FirstChildElement("property"); objProp != nullptr; objProp = objProp->NextSiblingElement("property")) {
+							string propName = objProp->Attribute("name");
+
+							if (propName.compare("adjacent_list") == 0) {
+								adjList = objProp->Attribute("value");
+								DebugOut(L" adjList: %s \n", ToLPCWSTR(adjList));
+							}
+							if (propName.compare("adjacent_weight") == 0) {
+								adjWeight = objProp->Attribute("value");
+								DebugOut(L" adjWeight: %s \n", ToLPCWSTR(adjWeight));
+							}
+							if (propName.compare("node_id") == 0) {
+								objProp->QueryIntAttribute("value", &nodeID);
+								DebugOut(L"3\n");
+							}
+							if (propName.compare("scene") == 0) {
+								sceneID = objProp->Attribute("value");
+								DebugOut(L"4\n");
+							}
+							if (propName.compare("sprite_checked") == 0) {
+								checkedSprite = objProp->Attribute("value");
+								DebugOut(L"5\n");
+							}
+							if (propName.compare("sprite_uncheck") == 0) {
+								uncheckedSprite = objProp->Attribute("value");
+								DebugOut(L"5\n");
+							}
+							if (propName.compare("world_number") == 0) {
+								objProp->QueryIntAttribute("value", &worldNumber);
+								DebugOut(L"6\n");
+							}
+							if (propName.compare("Start") == 0) {
+								objProp->QueryBoolAttribute("value", &isStartPos);
+								DebugOut(L"7\n");
+							}
+
+							DebugOut(L"8\n");
+						}
+						CGame::GetInstance()->GetCurrentScene()->LoadMapEntries(xPos, yPos, nodeID, sceneID, checkedSprite, uncheckedSprite, adjList, adjWeight, worldNumber, isStartPos);
+
+			
+					}
+
+					if (objName.compare("AnimatedBG") == 0) {
+						float xPos = 0, yPos = 0;
+						obj->QueryFloatAttribute("x", &xPos);
+						obj->QueryFloatAttribute("y", &yPos);
+
+						CGame::GetInstance()->GetCurrentScene()->LoadBackground(xPos, yPos);
+					}
 				}
 
 			}
@@ -149,9 +213,6 @@ void GameMap::Render()
 
 GameMap::GameMap()
 {
-	int firstgid = columns = tileWidth = tileHeight = 0;
-	tileImage = NULL;
-	int width= height = 0;
 }
 
 void GameMap::AddMapLayer(MapLayer* layer)

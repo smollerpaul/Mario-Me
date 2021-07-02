@@ -57,7 +57,7 @@ public:
 
 	float gravity;
 
-	int nx;	 
+	int nx;	
 	int flip;
 
 	int state;

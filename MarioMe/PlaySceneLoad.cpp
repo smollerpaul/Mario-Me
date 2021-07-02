@@ -8,8 +8,7 @@
 #include "WingedKoopas.h"
 #include "Coin.h"
 #include "EndCard.h"
-
-//chinh qblock
+#include "Void.h"
 
 void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width, float height)
 {
@@ -23,11 +22,19 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		solidObject->SetSize(width, height);
 		AddObject(solidObject);
 	}
+
 	if (objectType.compare("GhostBlock") == 0) {
 		GhostBlock* ghostObject = new GhostBlock();
 		ghostObject->SetPosition(x, y);
 		ghostObject->SetSize(width, height);
 		AddObject(ghostObject);
+	}
+
+	if (objectType.compare("Void") == 0) {
+		Void* v = new Void();
+		v->SetPosition(x, y);
+		v->SetSize(width, height);
+		AddObject(v);
 	}
 
 	if (objectType.compare("Goomba") == 0) {
@@ -40,20 +47,17 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		QuestionBlock* qb = new QuestionBlock(LEAF_PRIZE);
 		qb->SetPosition(x, y);
 		AddObject(qb);
-		DebugOut(L"RacoonLeaf created!\n");
 	}
 	if (objectType.compare("GreenMushroom") == 0) {
 		QuestionBlock* qb = new QuestionBlock(GMUSH_PRIZE);
 		qb->SetPosition(x, y);
 		AddObject(qb);
-		DebugOut(L"GreenMushroom created!\n");
 	}
 
 	if (objectType.compare("QuestionBlock") == 0) {
 		QuestionBlock* qb = new QuestionBlock();
 		qb->SetPosition(x, y);
 		AddObject(qb);
-		DebugOut(L"QuestionBlock created!\n");
 	}
 
 	if (objectType.compare("RedGoomba") == 0) {

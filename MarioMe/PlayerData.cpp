@@ -9,6 +9,20 @@ PlayerData* PlayerData::GetInstance()
 	return instance;
 }
 
+void PlayerData::UpdateGameTime(DWORD dt)
+{
+	if (gameTimeIsOver != 1)
+		gameTime -= dt;
+
+	if (gameTime <= 0)
+		gameTimeIsOver = 1;
+}
+
+float PlayerData::GetGameTime()
+{
+	return this->gameTime;
+}
+
 int PlayerData::GetMarioType()
 {
 	return marioType;

@@ -6,7 +6,6 @@
 #include "Map.h"
 #include "EffectVault.h"
 
-
 using namespace std;
 
 CPlayScene::CPlayScene(string id, string filePath):
@@ -17,6 +16,7 @@ CPlayScene::CPlayScene(string id, string filePath):
 
 void CPlayScene::Update(DWORD dt)
 {
+
 	vector<LPGAMEOBJECT> coObjects;
 
 	coObjects.push_back(player);
@@ -58,6 +58,11 @@ void CPlayScene::Update(DWORD dt)
 	camera->Update();
 	EffectVault::GetInstance()->Update(dt);
 	CheckAlive();
+
+	PlayerData* pd = PlayerData::GetInstance();
+	pd->UpdateGameTime(dt);
+
+	DebugOut(L"[SCORE]: %d  [COINS]: %d  [Time left]: %f \n ", pd->GetScore(), pd->GetCoins(), pd->GetGameTime());
 }
 
 void CPlayScene::Render()
@@ -76,7 +81,6 @@ void CPlayScene::Render()
 	{
 		coObjects[i]->Render();
 	}
-
 
 	EffectVault::GetInstance()->Render();
 
@@ -103,12 +107,16 @@ CMario* CPlayScene::GetPlayer()
 
 void CPlayScene::OnKeyDown(int KeyCode)
 {
-	player->OnKeyDown(KeyCode);
+	if (!player)
+		return;
 
+	player->OnKeyDown(KeyCode);
 }
 
 void CPlayScene::OnKeyUp(int KeyCode)
 {
+	if (!player)
+		return;
 	player->OnKeyUp(KeyCode);
 }
 
@@ -127,9 +135,27 @@ void CPlayScene::Load()
 		string mapPath = tmxMap->Attribute("path");
 		this->map = GameMap::Load(mapPath);
 
+		/*TiXmlElement* cam = root->FirstChildElement("Camera");
+		TiXmlElement* region = cam->FirstChildElement("Region");
+
+		int regionId = region->QueryIntAttribute("id", &regionId);
+
+		if (regionId.compare("0") == 0) {
+			region->QueryFloatAttribute("left", &camStartX);
+			region->QueryFloatAttribute("top", &camStartY);
+		}
+		*/
+		
+	/*	region->QueryFloatAttribute("right", &camWidth);
+		region->QueryFloatAttribute("bottom", &camHeight);*/
+
+		DebugOut(L"done cam playscene  %f  %f %f %f  \n", camStartX, camStartY, camWidth, camHeight);
+
 		doc.Clear();
 	}
 	Camera* camera = new Camera();
+	//camera->SetSize(camWidth, camHeight);
+	//camera->SetPosition(camStartX, camStartY);
 	camera->SetSize(700,480);
 	camera->SetPosition(CAM_START_X, CAM_START_Y);
 	SetCamera(camera);
@@ -145,6 +171,11 @@ void CPlayScene::CheckAlive()
 		if (objects[i]->GetAlive()!=1)
 			RemoveObject(objects[i]);
 	}
+}
+
+int CPlayScene::GetSceneType()
+{
+	return SceneType;
 }
 
 
