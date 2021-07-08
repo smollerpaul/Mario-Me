@@ -88,6 +88,23 @@ GameMap* GameMap::Load(string path)
 							}
 						}
 
+						if (objType.compare("Pipe") == 0) {
+							TiXmlElement* props = obj->FirstChildElement("properties");
+
+							int length, type, direction;
+							for (TiXmlElement* objProp = props->FirstChildElement("property"); objProp != nullptr; objProp = objProp->NextSiblingElement("property")) {
+								string propName = objProp->Attribute("name");
+
+								if (propName.compare("Length") == 0)
+									objProp->QueryIntAttribute("value", &length);
+								if (propName.compare("Type") == 0)
+									objProp->QueryIntAttribute("value", &type);			
+								if (propName.compare("Direction") == 0)
+									objProp->QueryIntAttribute("value", &direction);
+							}
+							CGame::GetInstance()->GetCurrentScene()->LoadSpecialObject(x, y, objWidth, objHeight, length, type, direction);
+						}
+
 
 						if (objType.compare("Spawner") == 0) {
 							TiXmlElement* props = obj->FirstChildElement("properties");

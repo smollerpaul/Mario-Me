@@ -16,7 +16,11 @@ CPlayScene::CPlayScene(string id, string filePath):
 
 void CPlayScene::Update(DWORD dt)
 {
-
+	if (EffectVault::GetInstance()->GetMarioIsDead() == 1) {
+		CGame::GetInstance()->SwitchScene("overworld");
+		EffectVault::GetInstance()->SetMarioIsDead(0);
+		return;
+	}
 	vector<LPGAMEOBJECT> coObjects;
 
 	coObjects.push_back(player);
@@ -62,20 +66,20 @@ void CPlayScene::Update(DWORD dt)
 	PlayerData* pd = PlayerData::GetInstance();
 	pd->UpdateGameTime(dt);
 
-	DebugOut(L"[SCORE]: %d  [COINS]: %d  [Time left]: %f \n ", pd->GetScore(), pd->GetCoins(), pd->GetGameTime());
+	//DebugOut(L"[SCORE]: %d  [COINS]: %d  [Time left]: %f \n ", pd->GetScore(), pd->GetCoins(), pd->GetGameTime());
 }
 
 void CPlayScene::Render()
 {
 	this->map->Render();
 	vector<LPGAMEOBJECT> coObjects;
-
-	coObjects.push_back(player);
 	
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
 	}
+
+	player->Render();
 	
 	for (size_t i = 0; i < coObjects.size(); i++)
 	{
@@ -98,7 +102,7 @@ void CPlayScene::Unload()
 	objects.clear();
 	player = NULL;
 
-	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
+	DebugOut(L"[INFO] Scene %s unloaded! \n", ToLPCWSTR(sceneFilePath));
 }
 
 CMario* CPlayScene::GetPlayer()
@@ -124,7 +128,8 @@ void CPlayScene::OnKeyUp(int KeyCode)
 void CPlayScene::Load()
 {
 	player = new CMario();
-
+	Camera* camera = new Camera();
+	camera->SetFocusOnPlayer(player);
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", ToLPCWSTR(sceneFilePath));
 
 	TiXmlDocument doc(sceneFilePath.c_str());
@@ -136,31 +141,36 @@ void CPlayScene::Load()
 		string mapPath = tmxMap->Attribute("path");
 		this->map = GameMap::Load(mapPath);
 
-		/*TiXmlElement* cam = root->FirstChildElement("Camera");
-		TiXmlElement* region = cam->FirstChildElement("Region");
+		TiXmlElement* cam = root->FirstChildElement("Camera");
+		for (TiXmlElement* region = cam->FirstChildElement("Region"); region != nullptr; region = region->NextSiblingElement("Region")) {
+			int regionId; 
+			region->QueryIntAttribute("id", &regionId);
+			
+			float l, t, r, b;
+			region->QueryFloatAttribute("left", &l);
+			region->QueryFloatAttribute("top", &t);
+			region->QueryFloatAttribute("right", &r);
+			region->QueryFloatAttribute("bottom", &b);
 
-		int regionId = region->QueryIntAttribute("id", &regionId);
+			RECT rect{};
 
-		if (regionId.compare("0") == 0) {
-			region->QueryFloatAttribute("left", &camStartX);
-			region->QueryFloatAttribute("top", &camStartY);
+			rect.left = l;
+			rect.top = t;
+			rect.right = r;
+			rect.bottom = b;
+			
+			camera->AddRegion(rect, regionId);
 		}
-		*/
-		
-	/*	region->QueryFloatAttribute("right", &camWidth);
-		region->QueryFloatAttribute("bottom", &camHeight);*/
-
-	//	DebugOut(L"done cam playscene  %f  %f %f %f  \n", camStartX, camStartY, camWidth, camHeight);
 
 		doc.Clear();
 	}
-	Camera* camera = new Camera();
-	//camera->SetSize(camWidth, camHeight);
-	//camera->SetPosition(camStartX, camStartY);
-	camera->SetSize(769,579);
-	camera->SetPosition(CAM_START_X, CAM_START_Y);
+	
+	camera->SetCurrentRegion(0);
+	//RECT currentReg= camera->GetCurrentRegion(1);
+	camera->SetSize(CAM_WIDTH_SIZE, CAM_HEIGHT_SIZE);
+	//camera->SetPosition(currentReg.left, currentReg.top);
 	SetCamera(camera);
-	camera->SetFocusOnPlayer(player);
+	DebugOut(L"Camera ok\n");
 
 }
 
@@ -173,6 +183,7 @@ void CPlayScene::CheckAlive()
 			RemoveObject(objects[i]);
 	}
 }
+
 
 int CPlayScene::GetSceneType()
 {

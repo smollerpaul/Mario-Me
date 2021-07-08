@@ -1,7 +1,6 @@
 #pragma once
 #include "GameObject.h"
 
-
 class Camera;
 class Mario;
 
@@ -11,9 +10,9 @@ public:
 	float deathTimer = 0;
 	int isOnGround = 0;
 
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) override;
 	virtual void Update(DWORD dt) override;
-	virtual void Render();
+	virtual void Render()override ;
 	virtual bool CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy) override;
 
 	void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

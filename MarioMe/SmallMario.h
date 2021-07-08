@@ -18,6 +18,7 @@
 #include "WingedKoopas.h"
 #include "EndCard.h"
 #include "Void.h"
+#include "Venus.h"
 
 #include "FlyingCard.h"
 #include "MarioDieFx.h"

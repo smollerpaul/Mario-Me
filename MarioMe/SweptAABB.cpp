@@ -113,27 +113,17 @@ void CGameObject::CalcPotentialCollisions(
 		if (coll->t >= 0 && coll->t <= 1.0f && coll->tl > 0) {
 			coEvents.push_back(coll);
 
-			//if (this->GetObjectType() == 987 && coll->obj->GetObjectType() == 5) {
-			//	DebugOut(L"Mario cham gb %f  %f\n", coll->t, coll->tl);
+
+			//if (this->GetObjectType() == 22 && coll->obj->GetObjectType() == 2002) {
+			//	DebugOut(L"QB cham TAIL %f  %f\n", coll->t, coll->tl);
 			//	float sl, st, sr, sb;		// obj B
 			//	float ml, mt, mr, mb;
 			//	coll->obj->GetBoundingBox(sl, st, sr, sb);
 			//	this->GetBoundingBox(ml, mt, mr, mb);
 
-			//	DebugOut(L"Vi tri cua gb: %f %f %f %f\n", sl, st, sr, sb);
+			//	DebugOut(L"Vi tri cua CARD: %f %f %f %f\n", sl, st, sr, sb);
 			//	DebugOut(L"Vi tri cua mario: %f %f %f %f\n", ml, mt, mr, mb);
 			//}
-
-			if (this->GetObjectType() == 666 && coll->obj->GetObjectType() == 987) {
-				DebugOut(L"Mario cham CARD %f  %f\n", coll->t, coll->tl);
-				float sl, st, sr, sb;		// obj B
-				float ml, mt, mr, mb;
-				coll->obj->GetBoundingBox(sl, st, sr, sb);
-				this->GetBoundingBox(ml, mt, mr, mb);
-
-				DebugOut(L"Vi tri cua CARD: %f %f %f %f\n", sl, st, sr, sb);
-				DebugOut(L"Vi tri cua mario: %f %f %f %f\n", ml, mt, mr, mb);
-			}
 		}
 		else
 			delete coll;
@@ -164,9 +154,10 @@ void CGameObject::FilterCollision(vector<LPCOLLISIONEVENT>& coEvents, vector<LPC
 	{
 		LPCOLLISIONEVENT c = coEvents[i];
 		coEventsResult.push_back(c);
-		/*if (this->GetObjectType() == 987 && c->obj->GetObjectType() == 5) {
-			DebugOut(L"hellooooooo gooomba filter");
-		}*/
+
+		if (this->GetObjectType() == 32 && c->obj->GetObjectType() == 5) {
+			DebugOut(L"hellooooooo gooomba touches maiiiiiiiiiiii");
+		}
 		
 		if (c->obj->CanGetThrough(this, c->nx, c->ny) == true) {
 			continue;

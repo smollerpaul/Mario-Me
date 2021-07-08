@@ -18,6 +18,8 @@ protected:
 	GameMap* map = NULL;
 
 public: 
+
+	int pSwitchActivated = 0;
 	CScene();
 	CScene(string id, string filePath);
 	virtual void LoadMapObjects(string objectName, float x, float y, float width, float height);
@@ -32,12 +34,14 @@ public:
 		string adjList, string adjWeight,int worldNumber, bool isStartPos);
 
 	virtual void LoadBackground(float xPos, float yPos);
+	virtual void LoadSpecialObject(float xPos, float yPos, float width, float height, int length=0, int type=0, int direction=0);
 	Camera* GetCamera();
 	GameMap* GetMap();
 
 	void SetCamera(Camera* camera);
 	void AddObject(CGameObject* obj);
 	void RemoveObject(CGameObject* obj);
+
 
 	virtual int GetSceneType()=0;
 };

@@ -11,6 +11,7 @@
 #include "WingedKoopas.h"
 #include "NormalKoopas.h"
 #include "PlayerData.h"
+#include "Venus.h"
 
 FireBall::FireBall()
 {
@@ -100,6 +101,20 @@ void FireBall::BehaviorUpdate(DWORD dt)
 			{
 				SetAlive(0);
 				EffectVault::GetInstance()->AddEffect(new PoofFx(x,y));
+			}
+		}
+		break;
+
+		case Venus::ObjectType:
+		{
+			Venus* vv = dynamic_cast<Venus*>(e->obj);
+
+			if (e->ny != 0 || e->nx != 0)
+			{
+				SetAlive(0);
+				EffectVault::GetInstance()->AddEffect(new PoofFx(x, y));
+
+				vv->scriptStep = 2;
 			}
 		}
 		break;

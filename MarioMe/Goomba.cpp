@@ -77,8 +77,6 @@ bool CGoomba::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 		return true;
 	if (obj->GetObjectType() == CMario::ObjectType)
 		return true;
-	if (obj->GetObjectType() == CKoopas::ObjectType)
-		return true;
 }
 
 void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -129,6 +127,18 @@ void CGoomba::BehaviorUpdate(DWORD dt)
 		}
 		break;
 
+		case SlidingShell::ObjectType:
+		{
+			SlidingShell* ss = dynamic_cast<SlidingShell*>(e->obj);
+			if (e->nx != 0)
+			{
+				if (state != GOOMBA_STATE_DIE) {
+					SetState(GOOMBA_STATE_DIE);
+				}
+			}
+		}
+		break;
+
 		case FireBall::ObjectType:
 		{
 			FireBall* fireball = dynamic_cast<FireBall*>(e->obj);
@@ -151,8 +161,6 @@ void CGoomba::BehaviorUpdate(DWORD dt)
 					SetState(GOOMBA_STATE_DIE);
 					SetAlive(0);
 				}
-				DebugOut(L"died by tail\n");
-				EffectVault::GetInstance()->AddEffect(new StarWhipTail(x, y+20));
 			}
 		}
 		break;

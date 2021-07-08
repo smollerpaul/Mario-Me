@@ -6,6 +6,7 @@
 #include "Leaf.h"
 #include "MoneyFx.h"
 #include "EffectVault.h"
+#include "PSwitch.h"
 
 //bouncing ani -> coin effect
 QuestionBlock::QuestionBlock()
@@ -106,8 +107,6 @@ void QuestionBlock::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 
 	CalcPotentialCollisions(coObjects, coEvents);
-
-	
 }
 
 void QuestionBlock::BehaviorUpdate(DWORD dt)
@@ -133,7 +132,7 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 			{
 				vy = -QB_BOUNCE_SPEED ;
 				SetState(QB_STATE_BOUNCE);
-				if (reward != LEAF_PRIZE && reward != GMUSH_PRIZE) {
+				if (reward != LEAF_PRIZE && reward != GMUSH_PRIZE && reward!= PSWITCH_PRIZE) {
 					EffectVault::GetInstance()->AddEffect(new MoneyFx(this->x, this->y));
 				}
 				pd->SetScore(pd->GetScore() + 100);
@@ -149,10 +148,30 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 			{
 				if(state!=QB_STATE_FROZEN)
 					SetState(QB_STATE_FROZEN);
-
+				pd->SetScore(pd->GetScore() + 100);
 			}
 		}
 		break;
+
+		case RacoonTail::ObjectType:
+		{
+			RacoonTail* tail = dynamic_cast<RacoonTail*>(e->obj);
+			if (e->nx != 0)
+			{
+				if (state != QB_STATE_FROZEN)
+					SetState(QB_STATE_FROZEN);
+
+				if (reward == PSWITCH_PRIZE) {
+					PSwitch* ps = new PSwitch();
+					ps->SetPosition(this->x, this->y);
+					CGame::GetInstance()->GetCurrentScene()->AddObject(ps);
+				}
+
+				pd->SetScore(pd->GetScore() + 100);
+			}
+		}
+		break;
+
 
 		}
 	}

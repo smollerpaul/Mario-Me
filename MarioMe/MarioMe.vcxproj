@@ -151,6 +151,9 @@
     <ClCompile Include="MapLayer.cpp" />
     <ClCompile Include="MapMario.cpp" />
     <ClCompile Include="OverworldTrees.cpp" />
+    <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="PSwitch.cpp" />
+    <ClCompile Include="Venus.cpp" />
     <ClCompile Include="WorldScene.cpp" />
     <ClCompile Include="MarioDieFx.cpp" />
     <ClCompile Include="MarioLevels.cpp" />
@@ -217,6 +220,9 @@
     <ClInclude Include="MapLayer.h" />
     <ClInclude Include="MapMario.h" />
     <ClInclude Include="OverworldTrees.h" />
+    <ClInclude Include="Pipe.h" />
+    <ClInclude Include="PSwitch.h" />
+    <ClInclude Include="Venus.h" />
     <ClInclude Include="WorldScene.h" />
     <ClInclude Include="MarioConstants.h" />
     <ClInclude Include="MarioDieFx.h" />

@@ -7,6 +7,7 @@ Camera::Camera()
 	x = y = 0;
 	width = height = 0;
 	player = NULL;
+
 }
 
 Camera::Camera(float xCam, float yCam, float w, float h)
@@ -23,6 +24,7 @@ void Camera::SetPosition(float x, float y)
 	this->x = x;
 	this->y = y;
 }
+
 void Camera::SetSize(float w, float h)
 {
 	width = w;
@@ -63,6 +65,7 @@ void Camera::ReleasePlayer()
 		this->player = NULL;
 }
 
+
 void Camera::Render()
 {
 }
@@ -77,16 +80,44 @@ void Camera::Update()
 
 	player->GetPosition(cx, cy);
 
-	// set limits of the camera position
-	if (this->x < 0) {
-		this->x = 0;
-	}
-	if (this->y < 0) {
-		this->y = 0;
-	}
-
-
 	x = cx - game->GetScreenWidth() / 2;
-	y = cy - game->GetScreenHeight()/ 2;
+	//if (cy - 45 <= 0) {
+		y = cy - game->GetScreenHeight() / 2;
+	//}
 
+	RECT currentRegBoundary = GetCurrentRegion(currentRegion);
+
+	// set limits of the camera position to allowed region
+	if (this->x < currentRegBoundary.left) 
+		this->x = currentRegBoundary.left;
+	
+	if (this->y < currentRegBoundary.top) 
+		this->y = currentRegBoundary.top;
+
+	if (this->x + width > currentRegBoundary.right)
+		this->x = currentRegBoundary.right -width;
+
+	/*if(this->y + height> currentRegBoundary.bottom)
+		this->y = currentRegBoundary.bottom - game->GetScreenHeight();*/
+
+	//DebugOut(L"reg bound right : %ld %ld %ld %ld %d \n", currentRegBoundary.left, currentRegBoundary.top, currentRegBoundary.bottom, currentRegBoundary.right, currentRegion);
+	// chinh lai region
+	//lam enemy
+}
+
+void Camera::AddRegion(RECT rect, int regionId)
+{
+	this->regions[regionId] = rect;
+
+	DebugOut(L"[CAMERA REGION] added %ld %ld %ld %ld  %d \n ", rect.left, rect.top, rect.right, rect.bottom, regionId);
+}
+
+RECT Camera::GetCurrentRegion(int regionId)
+{
+	return this->regions[regionId];
+}
+
+void Camera::SetCurrentRegion(int regionId)
+{
+	this->currentRegion = regionId;
 }

@@ -126,6 +126,7 @@ void CMario::BehaviorUpdate(DWORD dt)
 
 void CMario::Render()
 {
+	
 	SmallMario* currentState = objState;
 	currentState->Render();
 
@@ -174,6 +175,9 @@ void CMario::OnKeyDown(int keyCode)
 		break;
 	case DIK_E:
 		SetPosition(7600,985);
+		break;
+	case DIK_P:
+		SetPosition(6240, 985);
 		break;
 	}
 }

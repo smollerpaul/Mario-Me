@@ -247,6 +247,20 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 			}
 			break;
 
+			case Venus::ObjectType:
+			{
+				Venus* vn = dynamic_cast<Venus*>(e->obj);
+
+				if (e->nx != 0 || e->ny != 0) {
+					if (master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
 			case RedGoomba::ObjectType:
 			{
 				RedGoomba* rg = dynamic_cast<RedGoomba*>(e->obj);

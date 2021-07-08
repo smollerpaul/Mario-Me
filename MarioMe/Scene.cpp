@@ -26,6 +26,11 @@ Camera* CScene::GetCamera()
 	return this->camera;
 }
 
+
+void CScene::LoadSpecialObject(float xPos, float yPos, float width, float height,int length, int type, int direction)
+{
+}
+
 void CScene::SetCamera(Camera* camera)
 {
 	this->camera = camera;

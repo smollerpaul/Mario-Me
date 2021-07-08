@@ -10,6 +10,14 @@ MarioDieFx::MarioDieFx(float xPos, float yPos, float aliveTime)
 
 void MarioDieFx::Update(DWORD dt)
 {
+	aliveTimerCount += dt;
+	if (aliveTimerCount > aliveTime) {
+		alive = 0;
+		EffectVault::GetInstance()->SetMarioIsDead(1);
+		return;
+
+	}
+
 	if(step == 1) {
 		y -= bounceSpeed * dt;
 		if (yBegin - y > 180) {
@@ -19,6 +27,7 @@ void MarioDieFx::Update(DWORD dt)
 	else {
 	y += fallDownSpeed * dt;
 	}
+
 }
 
 void MarioDieFx::Render()

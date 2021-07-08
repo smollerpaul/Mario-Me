@@ -196,6 +196,15 @@
     <ClCompile Include="OverworldTrees.cpp">
       <Filter>Game\Effects\Effects\OverworldTrees</Filter>
     </ClCompile>
+    <ClCompile Include="Pipe.cpp">
+      <Filter>Game\Objects\Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="Venus.cpp">
+      <Filter>Game\Venus</Filter>
+    </ClCompile>
+    <ClCompile Include="PSwitch.cpp">
+      <Filter>Game\Rewards\PSwitch</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -377,6 +386,15 @@
     </ClInclude>
     <ClInclude Include="OverworldTrees.h">
       <Filter>Game\Effects\Effects\OverworldTrees</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipe.h">
+      <Filter>Game\Objects\Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="Venus.h">
+      <Filter>Game\Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="PSwitch.h">
+      <Filter>Game\Rewards\PSwitch</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -628,6 +646,15 @@
     </Filter>
     <Filter Include="Game\Overworld Objects\Entries">
       <UniqueIdentifier>{849dd4c3-16da-467e-8c2f-094054045d04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects\Pipe">
+      <UniqueIdentifier>{c5dc76e4-ee84-4d99-9aaf-9b8be40d2090}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Venus">
+      <UniqueIdentifier>{63341f1e-9830-44c8-afc7-ec297c2c1696}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Rewards\PSwitch">
+      <UniqueIdentifier>{42573f54-9ea1-4a64-9bf3-beed7f5af7b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,7 @@ public:
 
     int step = 1;
 
-    MarioDieFx(float xPos, float yPos, float aliveTime = 10000);
+    MarioDieFx(float xPos, float yPos, float aliveTime = 1500);
     virtual void Update(DWORD dt);
     virtual void Render();
 };

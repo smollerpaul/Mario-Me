@@ -1,4 +1,5 @@
 #include "RacoonMario.h"
+#include "PSwitch.h"
 
 RacoonMario::RacoonMario()
 {
@@ -348,6 +349,20 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 			}
 			break;
 
+			case Venus::ObjectType:
+			{
+				Venus* vn = dynamic_cast<Venus*>(e->obj);
+
+				if (e->nx != 0 || e->ny!=0) {
+					if (master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
 			case RedGoomba::ObjectType:
 			{
 				RedGoomba* rg = dynamic_cast<RedGoomba*>(e->obj);
@@ -470,6 +485,18 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 					master->SetState(MARIO_STATE_DIE);
 				EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
 				master->SetAlive(0);
+			}
+			break;
+
+			case PSwitch::ObjectType: {
+
+				PSwitch* p = dynamic_cast<PSwitch*>(e->obj);
+				if (e->ny < 0) {
+					p->activated = 1;
+					int pp = CGame::GetInstance()->GetCurrentScene()->pSwitchActivated;
+					if (pp != 1)
+						pp = 1;
+				}
 			}
 			break;
 			}

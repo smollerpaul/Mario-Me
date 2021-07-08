@@ -11,6 +11,7 @@
 #include "Utils.h"
 #include "EnemiesConstants.h"
 #include "QuestionBlock.h"
+#include "Brick.h"
 
 SlidingShell::SlidingShell()
 {
@@ -28,10 +29,6 @@ void SlidingShell::InitAnimations()
 	if (this->animations.size() < 1) {
 		this->animations["Crouch"] = CAnimations::GetInstance()->Get("ani-green-koopa-troopa-crouch")->Clone();
 		this->animations["Respawn"] = CAnimations::GetInstance()->Get("ani-green-koopa-troopa-respawning")->Clone();
-
-		/*if (this->flip) {
-			this->animations["Move"]->GetTransform()->Scale.y = -1;
-		}*/
 	}
 }
 
@@ -89,6 +86,7 @@ void SlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 
 		switch (e->obj->GetObjectType()) {
 		
+			
 		case FireBall::ObjectType:
 		{
 			FireBall* fireball = dynamic_cast<FireBall*>(e->obj);
@@ -112,6 +110,18 @@ void SlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 					master->SetState(KOOPAS_STATE_DIE);*/
 
 				DebugOut(L"shell is about to despawn\n");
+			}
+		}
+		break;
+
+		case CBrick::ObjectType:
+		{
+			CBrick* qb = dynamic_cast<CBrick*>(e->obj);
+			if (e->ny != 0 || e->nx != 0)
+			{
+				qb->SetAlive(0);
+				//effect brick break
+				//DebugOut(L"BRICK BROKE\n");
 			}
 		}
 		break;

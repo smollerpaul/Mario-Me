@@ -52,3 +52,13 @@ EffectVault* EffectVault::GetInstance()
 	}
 	return __instance;
 }
+
+void EffectVault::SetMarioIsDead(int md)
+{
+	marioIsDead = md;
+}
+
+int EffectVault::GetMarioIsDead()
+{
+	return marioIsDead;
+}

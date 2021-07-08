@@ -5,23 +5,20 @@
 #include "GameObject.h"
 #include "Mario.h"
 
-#define CAM_START_X		500
-#define CAM_START_Y		850
+#define CAM_WIDTH_SIZE	769
+#define CAM_HEIGHT_SIZE	579
+
 
 class GameMap;
 
 class CPlayScene: public CScene
 {
 protected: 
-	float camStartX = 0;
-	float camStartY = 0;
-
-	float camWidth = 0;
-	float camHeight = 0;
-
+	
 	CMario* player = nullptr;
 	
-public: 
+public:
+	
 	CPlayScene(string id, string filePath);
 
 	virtual void Load() override;
@@ -34,6 +31,7 @@ public:
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
 	virtual void LoadMapObjects(string objectName, float x, float y, float width = 0, float height = 0) override;
+	virtual void LoadSpecialObject(float xPos, float yPos, float width, float height, int length = 0, int type = 0, int direction=0) override;
 	void CheckAlive();
 	
 	static const int SceneType = 776;

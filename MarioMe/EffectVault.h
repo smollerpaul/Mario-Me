@@ -11,6 +11,7 @@ protected:
 	vector <Effects*> effects;
 
 public:
+	int marioIsDead = 0;
 	EffectVault();
 
 	void Update(DWORD dt);
@@ -22,6 +23,9 @@ public:
 	void ClearEffects();
 
 	static EffectVault* GetInstance();
+
+	void SetMarioIsDead(int md);
+	int GetMarioIsDead();
 
 };
 

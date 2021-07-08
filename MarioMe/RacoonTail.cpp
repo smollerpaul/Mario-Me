@@ -15,29 +15,36 @@ RacoonTail::RacoonTail()
 RacoonTail::RacoonTail(CGameObject* fplayer)
 {
 	this->player = fplayer;
-
+	
 	float pl = 0, pt = 0, pr = 0, pb = 0;
 	player->GetBoundingBox(pl, pt, pr, pb);
 
 	nx = player->GetDirection();
 	width = height = TAIL_SIZE;
 
-	if (nx > 0) 
-		x = pr;
-	else {
-		x = pl - width;
-	}
+	if (nx > 0)
+		x = player->x + (pb - pt) / 2;
+	else x = player->x;
 
-	y = pt + FIREBALL_START_Y;
+	y = player->y + (pr - pl) / 2 + 20;
+
+	vx = nx * TAIL_SPEED;
+
+
 }
 
 void RacoonTail::Update(DWORD dt)
 {
+	vx = nx * TAIL_SPEED;
+
 	aliveTimer += dt;
-	if (aliveTimer >= MARIO_ATTACK_TIME) {
+	if (aliveTimer >= TAIL_ALIVE_TIME) {
 		aliveTimer = 0;
 		SetAlive(0);
 	}
+	CGameObject::Update(dt);
+	CGameObject:UpdatePosition();
+	DebugOut(L"vx tail: %f\n", vx);
 }
 
 void RacoonTail::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -56,8 +63,8 @@ void RacoonTail::BehaviorUpdate(DWORD dt)
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		x += min_tx * dx + nx * 0.1f;
-		y += min_ty * dy + ny * 0.1f;
+		/*x += min_tx * dx + nx * 0.1f;
+		y += min_ty * dy + ny * 0.1f;*/
 
 		if (nx != 0) {
 			SetAlive(0);
@@ -76,8 +83,8 @@ void RacoonTail::BehaviorUpdate(DWORD dt)
 
 			if (e->ny != 0 || e->nx != 0)
 			{
-				EffectVault::GetInstance()->AddEffect(new StarWhipTail(x, y));
-				SetAlive(0);
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(x, y-10));
+				qb->SetState(QB_STATE_FROZEN);
 			}
 		}
 		break;
@@ -88,7 +95,7 @@ void RacoonTail::BehaviorUpdate(DWORD dt)
 
 			if (e->nx != 0)
 			{
-				EffectVault::GetInstance()->AddEffect(new StarWhipTail(x, y));
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(qb->x, qb->y));
 				SetAlive(0);
 			}
 		}
@@ -100,7 +107,7 @@ void RacoonTail::BehaviorUpdate(DWORD dt)
 
 			if (e->ny != 0 || e->nx != 0)
 			{
-				EffectVault::GetInstance()->AddEffect(new StarWhipTail(x, y));
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(qb->x, qb->y));
 				SetAlive(0);
 			}
 		}
@@ -161,6 +168,7 @@ void RacoonTail::BehaviorUpdate(DWORD dt)
 void RacoonTail::Render()
 {
 	RenderBoundingBox();
+
 }
 
 int RacoonTail::GetObjectType()

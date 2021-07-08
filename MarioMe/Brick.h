@@ -7,9 +7,12 @@
 class CBrick : public CGameObject
 {
 public:
+	CBrick();
 	virtual void Render();
-	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 	virtual void InitAnimations() override;
+	virtual void Update(DWORD dt) override;
+	void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	void BehaviorUpdate(DWORD dt);
 
 	virtual int GetObjectType() override;
 	static const int ObjectType = 10;

@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
+#define TAIL_SPEED 0.3
 
+#define TAIL_ALIVE_TIME 70
 class Camera;
 
 class RacoonTail :

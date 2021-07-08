@@ -51,16 +51,10 @@ void Leaf::Update(DWORD dt)
             vy -= LEAF_GROWUP_SPEED * dt;
 
         if (y + height + 50 <= yBegin) {
-            y = yBegin - width - 50;
+            y = yBegin - height - 50;
             vy = 0;
             scriptStep = 1;
-        }
-       /* else {
-            if (visible == 0 && y + 10.0f <= yBegin) {
-                visible = 1;
-            }
-            
-        } */   
+        } 
     }
         break;
         case 1:

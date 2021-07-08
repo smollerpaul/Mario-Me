@@ -2,9 +2,6 @@
 #include "Mario.h"
 #include "GameObject.h"
 
-
-
-
 SmallMario::SmallMario()
 {
 }
@@ -363,6 +360,18 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				}
 
 				if (e->nx != 0) {
+					if (master->state != MARIO_STATE_DIE)
+						master->SetState(MARIO_STATE_DIE);
+					EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+				}
+			}
+			break;
+
+			case Venus::ObjectType:
+			{
+				Venus* vn = dynamic_cast<Venus*>(e->obj);
+
+				if (e->nx != 0 || e->ny!=0) {
 					if (master->state != MARIO_STATE_DIE)
 						master->SetState(MARIO_STATE_DIE);
 					EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));

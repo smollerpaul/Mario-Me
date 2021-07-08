@@ -13,6 +13,7 @@
 #define GMUSH_PRIZE			12
 #define RMUSH_PRIZE			13
 #define LEAF_PRIZE			14
+#define PSWITCH_PRIZE		15
 
 //states -> tail -> player data
 

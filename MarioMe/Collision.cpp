@@ -19,7 +19,7 @@ void CGame::SweptAABB(
 
 	t = -1.0f;			// no collision
 	nx = ny = 0;
-	tl = 0;
+	tl = 0;				// the measurement of collision surface, if that =0, no collision
 
 	//
 	// Broad-phase test 

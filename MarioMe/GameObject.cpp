@@ -64,12 +64,11 @@ bool CGameObject::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, 
 void CGameObject::RenderBoundingBox()
 {
 	D3DXVECTOR3 p(x, y, 0);
-	RECT rect;
+	RECT rect{};
 
 	float l,t,r,b; 
 
 	GetBoundingBox(l, t, r, b);
-
 
 	rect.left = l;
 	rect.top = t;
@@ -83,7 +82,7 @@ void CGameObject::RenderBoundingBox()
 
 	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get("tex-test");
 	D3DXVECTOR3 pivot(0, 0, 0);
-	game->Draw((x- cam->GetX() + width/2 ),( y- cam->GetY()) + height/2, pivot, bbox, rect.left, rect.top, rect.right, rect.bottom, 50, flip);
+	game->Draw((x- cam->GetX() + width/2 ),( y- cam->GetY()) + height/2, pivot, bbox, rect.left, rect.top, rect.right, rect.bottom, 70, flip);
 	//game->Draw((x - cam->GetX() + width / 2), (y - cam->GetY()) + height / 2, pivot, bbox, l, t, r, b, 50, flip);
 }
 

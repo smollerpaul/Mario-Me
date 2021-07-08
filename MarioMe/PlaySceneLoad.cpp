@@ -9,13 +9,21 @@
 #include "Coin.h"
 #include "EndCard.h"
 #include "Void.h"
+#include "Pipe.h"
+#include "Venus.h"
+#include "Brick.h"
+#include "PSwitch.h"
 
 void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width, float height)
 {
 	//mario spawn point
-	if (objectType.compare("SpawnPoint") == 0) {
-		player->SetPosition(x, y);
+	
+	if (objectType.compare("Venus") == 0) {
+		Venus* kp = new Venus();
+		kp->SetPosition(x, y);
+		AddObject(kp);
 	}
+
 	if (objectType.compare("SolidBlock") == 0) {
 		SolidBlock* solidObject = new SolidBlock();
 		solidObject->SetPosition(x, y);
@@ -28,6 +36,12 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		ghostObject->SetPosition(x, y);
 		ghostObject->SetSize(width, height);
 		AddObject(ghostObject);
+	}
+
+	if (objectType.compare("Brick") == 0) {
+		CBrick* bb = new CBrick();
+		bb->SetPosition(x, y);
+		AddObject(bb);
 	}
 
 	if (objectType.compare("Void") == 0) {
@@ -43,11 +57,18 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		AddObject(goomba);
 	}
 
+	if (objectType.compare("PSwitch") == 0) {
+		QuestionBlock* qb = new QuestionBlock(PSWITCH_PRIZE);
+		qb->SetPosition(x, y);
+		AddObject(qb);
+	}
+
 	if (objectType.compare("RaccoonLeaf") == 0) {
 		QuestionBlock* qb = new QuestionBlock(LEAF_PRIZE);
 		qb->SetPosition(x, y);
 		AddObject(qb);
 	}
+
 	if (objectType.compare("GreenMushroom") == 0) {
 		QuestionBlock* qb = new QuestionBlock(GMUSH_PRIZE);
 		qb->SetPosition(x, y);
@@ -59,7 +80,7 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		qb->SetPosition(x, y);
 		AddObject(qb);
 	}
-
+	
 	if (objectType.compare("RedGoomba") == 0) {
 		RedGoomba* rg = new RedGoomba();
 		rg->SetPosition(x, y);
@@ -88,5 +109,15 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		AddObject(kp);
 	}
 
-	// void, pipe
+	if (objectType.compare("SpawnPoint") == 0) {
+		player->SetPosition(x, y);
+	}
+
+}
+
+void CPlayScene::LoadSpecialObject(float xPos, float yPos, float width, float height, int length, int type, int direction)
+{
+	Pipe* pipe = new Pipe(length, type, width, height, direction);
+	pipe->SetPosition(xPos, yPos);
+	AddObject(pipe);
 }

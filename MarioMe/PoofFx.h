@@ -5,7 +5,7 @@ class PoofFx :
 {
 public:
     PoofFx();
-    PoofFx(float xPos, float yPos, float aliveTime = 500);
+    PoofFx(float xPos, float yPos, float aliveTime = 1000);
     virtual void Update(DWORD dt);
     virtual void Render();
 };
