@@ -63,6 +63,12 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		AddObject(qb);
 	}
 
+	if (objectType.compare("QuestionBlock") == 0) {
+		QuestionBlock* qb = new QuestionBlock();
+		qb->SetPosition(x, y);
+		AddObject(qb);
+	}
+
 	if (objectType.compare("RaccoonLeaf") == 0) {
 		QuestionBlock* qb = new QuestionBlock(LEAF_PRIZE);
 		qb->SetPosition(x, y);
@@ -75,11 +81,7 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		AddObject(qb);
 	}
 
-	if (objectType.compare("QuestionBlock") == 0) {
-		QuestionBlock* qb = new QuestionBlock();
-		qb->SetPosition(x, y);
-		AddObject(qb);
-	}
+	
 	
 	if (objectType.compare("RedGoomba") == 0) {
 		RedGoomba* rg = new RedGoomba();

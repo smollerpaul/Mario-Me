@@ -31,10 +31,12 @@ QuestionBlock::QuestionBlock(int blockReward)
 }
 
 void QuestionBlock::InitAnimations()
+
 {
 	if (this->animations.size() < 1) {
 		this->animations["Active"] = CAnimations::GetInstance()->Get("ani-question-block");
 		this->animations["Frozen"] = CAnimations::GetInstance()->Get("ani-empty-block");
+		this->animations["Brick"] = CAnimations::GetInstance()->Get("ani-brick");
 	}
 }
 
@@ -51,6 +53,9 @@ void QuestionBlock::Render()
 
 	if(state==QB_STATE_FROZEN || state == QB_STATE_BOUNCE)
 		ani = this->animations["Frozen"];
+
+	if (reward == PSWITCH_PRIZE)
+		ani = this->animations["Brick"];
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 	float l, t, b, r;

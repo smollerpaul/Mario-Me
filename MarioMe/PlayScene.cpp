@@ -66,7 +66,7 @@ void CPlayScene::Update(DWORD dt)
 	PlayerData* pd = PlayerData::GetInstance();
 	pd->UpdateGameTime(dt);
 
-	//DebugOut(L"[SCORE]: %d  [COINS]: %d  [Time left]: %f \n ", pd->GetScore(), pd->GetCoins(), pd->GetGameTime());
+	DebugOut(L"[SCORE]: %d  [COINS]: %d  [Time left]: %f \n ", pd->GetScore(), pd->GetCoins(), pd->GetGameTime());
 }
 
 void CPlayScene::Render()

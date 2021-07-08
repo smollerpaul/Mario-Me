@@ -495,7 +495,7 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 					p->activated = 1;
 					int pp = CGame::GetInstance()->GetCurrentScene()->pSwitchActivated;
 					if (pp != 1)
-						pp = 1;
+						CGame::GetInstance()->GetCurrentScene()->pSwitchActivated=1;
 				}
 			}
 			break;

@@ -4,15 +4,19 @@
 #include "SlidingShell.h"
 #include "Mario.h"
 #include "StarWhipTail.h"
+#include "Coin.h"
 
 
 CBrick::CBrick()
 {
 	width = height = 48;
+	alive = 1;
 }
 
 void CBrick::Render()
 {
+	if (alive == 0)
+		return;
 	InitAnimations();
 	LPANIMATION ani = this->animations["Default"];
 	
@@ -30,6 +34,14 @@ void CBrick::InitAnimations()
 
 void CBrick::Update(DWORD dt)
 {
+	int pp=CGame::GetInstance()->GetCurrentScene()->pSwitchActivated;
+
+	if (pp == 1) {
+		SetAlive(0);
+		Coin* cc = new Coin();
+		cc->SetPosition(x, y);
+		CGame::GetInstance()->GetCurrentScene()->AddObject(cc);
+	}
 }
 
 void CBrick::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

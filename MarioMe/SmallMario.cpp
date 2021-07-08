@@ -351,6 +351,19 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 
 			switch (e->obj->GetObjectType()) {
 
+			case PSwitch::ObjectType: 
+			{
+
+				PSwitch* p = dynamic_cast<PSwitch*>(e->obj);
+				if (e->ny < 0) {
+					p->activated = 1;
+					int pp = CGame::GetInstance()->GetCurrentScene()->pSwitchActivated;
+					if (pp != 1)
+						CGame::GetInstance()->GetCurrentScene()->pSwitchActivated = 1;
+				}
+			}
+			break;
+
 			case CGoomba::ObjectType:
 			{
 				CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
