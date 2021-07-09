@@ -155,6 +155,7 @@
     <ClCompile Include="Piranha.cpp" />
     <ClCompile Include="PSwitch.cpp" />
     <ClCompile Include="Venus.cpp" />
+    <ClCompile Include="VenusFireBall.cpp" />
     <ClCompile Include="WorldScene.cpp" />
     <ClCompile Include="MarioDieFx.cpp" />
     <ClCompile Include="MarioLevels.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="Piranha.h" />
     <ClInclude Include="PSwitch.h" />
     <ClInclude Include="Venus.h" />
+    <ClInclude Include="VenusFireBall.h" />
     <ClInclude Include="WorldScene.h" />
     <ClInclude Include="MarioConstants.h" />
     <ClInclude Include="MarioDieFx.h" />

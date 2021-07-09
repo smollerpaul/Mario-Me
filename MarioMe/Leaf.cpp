@@ -115,7 +115,6 @@ void Leaf::BehaviorUpdate(DWORD dt)
             if (e->ny != 0 || e->nx != 0) {
                 SetAlive(0);
             }
-            DebugOut(L"Leaf dung mario\n");
         }
         break;
         }

@@ -15,6 +15,7 @@ QuestionBlock::QuestionBlock()
 	dx = dy = 0;
 	gravity = 0;
 
+	renderOrder = 102;
 	width = height = QB_SIZE;
 	SetState(QB_STATE_ACTIVE);
 }
@@ -24,9 +25,10 @@ QuestionBlock::QuestionBlock(int blockReward)
 	vx = vy = 0;
 	dx = dy = 0;
 	gravity = 0;
-
+	renderOrder = 102;
 	width = height = QB_SIZE;
 	SetState(QB_STATE_ACTIVE);
+
 	this->reward = blockReward;
 }
 
@@ -170,6 +172,12 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 					PSwitch* ps = new PSwitch();
 					ps->SetPosition(this->x, this->y);
 					CGame::GetInstance()->GetCurrentScene()->AddObject(ps);
+				}
+
+				if (reward == LEAF_PRIZE) {
+					Leaf* leaf = new Leaf();
+					leaf->SetPosition(x, y);
+					CGame::GetInstance()->GetCurrentScene()->AddObject(leaf);
 				}
 
 				pd->SetScore(pd->GetScore() + 100);

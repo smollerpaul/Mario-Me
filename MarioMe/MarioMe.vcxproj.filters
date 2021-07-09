@@ -199,15 +199,16 @@
     <ClCompile Include="Pipe.cpp">
       <Filter>Game\Enemies\Plants\Pipe</Filter>
     </ClCompile>
-    <ClCompile Include="Venus.cpp">
-      <Filter>Game\Enemies\Plants</Filter>
-    </ClCompile>
     <ClCompile Include="PSwitch.cpp">
       <Filter>Game\Rewards\PSwitch</Filter>
     </ClCompile>
     <ClCompile Include="Piranha.cpp">
       <Filter>Game\Enemies\Plants\Piranha</Filter>
     </ClCompile>
+    <ClCompile Include="Venus.cpp">
+      <Filter>Game\Enemies\Plants\Venus</Filter>
+    </ClCompile>
+    <ClCompile Include="VenusFireBall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -393,15 +394,16 @@
     <ClInclude Include="Pipe.h">
       <Filter>Game\Enemies\Plants\Pipe</Filter>
     </ClInclude>
-    <ClInclude Include="Venus.h">
-      <Filter>Game\Enemies\Plants</Filter>
-    </ClInclude>
     <ClInclude Include="PSwitch.h">
       <Filter>Game\Rewards\PSwitch</Filter>
     </ClInclude>
     <ClInclude Include="Piranha.h">
       <Filter>Game\Enemies\Plants\Piranha</Filter>
     </ClInclude>
+    <ClInclude Include="Venus.h">
+      <Filter>Game\Enemies\Plants\Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="VenusFireBall.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -664,6 +666,9 @@
     </Filter>
     <Filter Include="Game\Enemies\Plants\Pipe">
       <UniqueIdentifier>{c5dc76e4-ee84-4d99-9aaf-9b8be40d2090}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Plants\Venus">
+      <UniqueIdentifier>{db65c0d1-4c75-4710-a1ca-ebac4028b97e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
