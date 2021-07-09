@@ -19,6 +19,7 @@ CMario::CMario() : CGameObject()
 	flip = 1;
 	SetState(MARIO_STATE_IDLE);
 	gravity = MARIO_GRAVITY;
+	renderOrder = 101;
 }
 
 void CMario::SetObjectState(SmallMario* objectState)

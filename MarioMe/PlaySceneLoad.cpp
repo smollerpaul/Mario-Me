@@ -13,6 +13,7 @@
 #include "Venus.h"
 #include "Brick.h"
 #include "PSwitch.h"
+#include "Piranha.h"
 
 void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width, float height)
 {
@@ -20,6 +21,12 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 	
 	if (objectType.compare("Venus") == 0) {
 		Venus* kp = new Venus();
+		kp->SetPosition(x, y);
+		AddObject(kp);
+	}
+
+	if (objectType.compare("Piranha") == 0) {
+		Piranha* kp = new Piranha();
 		kp->SetPosition(x, y);
 		AddObject(kp);
 	}

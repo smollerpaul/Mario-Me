@@ -152,6 +152,7 @@
     <ClCompile Include="MapMario.cpp" />
     <ClCompile Include="OverworldTrees.cpp" />
     <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="Piranha.cpp" />
     <ClCompile Include="PSwitch.cpp" />
     <ClCompile Include="Venus.cpp" />
     <ClCompile Include="WorldScene.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="MapMario.h" />
     <ClInclude Include="OverworldTrees.h" />
     <ClInclude Include="Pipe.h" />
+    <ClInclude Include="Piranha.h" />
     <ClInclude Include="PSwitch.h" />
     <ClInclude Include="Venus.h" />
     <ClInclude Include="WorldScene.h" />

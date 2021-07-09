@@ -20,6 +20,7 @@
 #include "Void.h"
 #include "Venus.h"
 #include "PSwitch.h"
+#include "Piranha.h"
 
 #include "FlyingCard.h"
 #include "MarioDieFx.h"

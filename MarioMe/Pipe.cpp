@@ -4,6 +4,7 @@
 
 Pipe::Pipe(int length, int type, float width, float height, int direction)
 {
+	renderOrder = 99;
 	this->width = width;
 	this->height = height;
 
@@ -43,7 +44,7 @@ void Pipe::Render()
 		break;
 
 	}
-	RenderBoundingBox();
+//	RenderBoundingBox();
 
 }
 

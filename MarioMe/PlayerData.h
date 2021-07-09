@@ -28,4 +28,8 @@ public:
 
 	int GetCoins();
 	void  SetCoins(int coins);
+
+	int GetPlayerLives();
+	void SetPlayerLives(int pl);
+	void ResetAll();
 };

@@ -52,3 +52,24 @@ void PlayerData::SetCoins(int coins)
 {
 	this->coins = coins;
 }
+
+int PlayerData::GetPlayerLives()
+{
+	return playerLives;
+}
+
+void PlayerData::SetPlayerLives(int pl)
+{
+	this->playerLives = pl;
+}
+
+void PlayerData::ResetAll()
+{
+	playerLives = 4;
+	coins = 0;
+	marioType = 1234;
+	gameTime = 300000;
+	score = 0;
+
+	DebugOut(L"[PLAYER DATA]  RESETTED ALL\n");
+}

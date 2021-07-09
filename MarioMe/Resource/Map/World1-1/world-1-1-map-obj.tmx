@@ -817,7 +817,7 @@
     <property name="Grid" value="[{&quot;x&quot;:25,&quot;y&quot;:3},{&quot;x&quot;:26,&quot;y&quot;:3}]"/>
    </properties>
   </object>
-  <object id="261" type="Piranha" x="5352" y="1153.2">
+  <object id="261" type="Piranha" x="5352" y="1153">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:20,&quot;y&quot;:3},{&quot;x&quot;:20,&quot;y&quot;:4}]"/>
    </properties>

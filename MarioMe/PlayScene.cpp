@@ -16,9 +16,18 @@ CPlayScene::CPlayScene(string id, string filePath):
 
 void CPlayScene::Update(DWORD dt)
 {
+
+	PlayerData* pd = PlayerData::GetInstance();
+
 	if (EffectVault::GetInstance()->GetMarioIsDead() == 1) {
+		int pl = pd->GetPlayerLives();
+		if (pl > 0)
+			pd->SetPlayerLives(pl - 1);
+		else pd->ResetAll();
+
 		CGame::GetInstance()->SwitchScene("overworld");
 		EffectVault::GetInstance()->SetMarioIsDead(0);
+
 		return;
 	}
 	vector<LPGAMEOBJECT> coObjects;
@@ -63,28 +72,32 @@ void CPlayScene::Update(DWORD dt)
 	EffectVault::GetInstance()->Update(dt);
 	CheckAlive();
 
-	PlayerData* pd = PlayerData::GetInstance();
 	pd->UpdateGameTime(dt);
 
-	DebugOut(L"[SCORE]: %d  [COINS]: %d  [Time left]: %f \n ", pd->GetScore(), pd->GetCoins(), pd->GetGameTime());
+
+	//DebugOut(L"[SCORE]: %d  [COINS]: %d  [Time left]: %f \n ", pd->GetScore(), pd->GetCoins(), pd->GetGameTime());
 }
 
 void CPlayScene::Render()
 {
 	this->map->Render();
-	vector<LPGAMEOBJECT> coObjects;
+	vector<LPGAMEOBJECT> renderObjects;
 	
 	for (size_t i = 0; i < objects.size(); i++)
 	{
-		coObjects.push_back(objects[i]);
+		renderObjects.push_back(objects[i]);
+	}
+
+	sort(renderObjects.begin(), renderObjects.end(), [](CGameObject*& a, CGameObject*& b) {
+		return a->renderOrder < b->renderOrder;
+		});
+
+	for (size_t i = 0; i < renderObjects.size(); i++)
+	{
+		renderObjects[i]->Render();
 	}
 
 	player->Render();
-	
-	for (size_t i = 0; i < coObjects.size(); i++)
-	{
-		coObjects[i]->Render();
-	}
 
 	EffectVault::GetInstance()->Render();
 
@@ -183,7 +196,6 @@ void CPlayScene::CheckAlive()
 			RemoveObject(objects[i]);
 	}
 }
-
 
 int CPlayScene::GetSceneType()
 {

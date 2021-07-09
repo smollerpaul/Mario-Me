@@ -65,8 +65,9 @@ public:
 
 	DWORD dt;
 
+	int renderOrder = 100;
+
 	unordered_map<string, LPANIMATION> animations;
-	//day a ha?
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 

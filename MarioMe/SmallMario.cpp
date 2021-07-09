@@ -392,6 +392,18 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 			}
 			break;
 
+			case Piranha::ObjectType:
+			{
+				Piranha* vn = dynamic_cast<Piranha*>(e->obj);
+
+				if (e->nx != 0 || e->ny != 0) {
+					if (master->state != MARIO_STATE_DIE)
+						master->SetState(MARIO_STATE_DIE);
+					EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+				}
+			}
+			break;
+
 			case RedGoomba::ObjectType:
 			{
 				RedGoomba* rg = dynamic_cast<RedGoomba*>(e->obj);
