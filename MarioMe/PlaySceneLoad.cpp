@@ -20,8 +20,15 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 	//mario spawn point
 	
 	if (objectType.compare("Venus") == 0) {
-		Venus* kp = new Venus();
+		Venus* kp = new Venus(this);
 		kp->SetPosition(x, y);
+		AddObject(kp);
+	}
+
+	if (objectType.compare("RedVenus") == 0) {
+		Venus* kp = new Venus(this);
+		kp->SetPosition(x, y);
+		kp->isRedVenus = 1;
 		AddObject(kp);
 	}
 

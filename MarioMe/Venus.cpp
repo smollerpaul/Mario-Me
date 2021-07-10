@@ -2,12 +2,15 @@
 #include "Mario.h"
 #include "Game.h"
 #include "Camera.h"
+#include "PlayScene.h"
+#include "VenusFireBall.h"
 
-Venus::Venus()
+Venus::Venus(CPlayScene *ss)
 {
 	width = VENUS_WIDTH;
 	height = VENUS_HEIGHT;
 	renderOrder = 90;
+	this->scene = ss;
 }
 
 void Venus::SetPosition(float xPos, float yPos)
@@ -18,8 +21,49 @@ void Venus::SetPosition(float xPos, float yPos)
 	beginY = yPos;
 }
 
+void Venus::CalcFireBallStat(float playerX, float playerY, float &fbVx, float &fbVy, float &fbX, float &fbY)
+{
+	float l, t, r, b;
+	GetBoundingBox(l, t, r, b);
+
+	float ballX = l + width / 2;
+	float ballY = t + 15;
+
+	float dxFromPlayer = playerX - ballX;
+	float dyFromPlayer = playerY - ballY;
+
+	float magDistance = sqrt(dxFromPlayer * dxFromPlayer + dyFromPlayer * dyFromPlayer);
+
+	float angle = 0;
+
+	if (abs(dxFromPlayer) > 48 * 6 || (0 < abs(dyFromPlayer) && abs(dyFromPlayer) < 96))
+		angle = (dxFromPlayer > 0 ? 25 : 155) * (dyFromPlayer < 0 ? -1 : 1);
+	else
+		angle = (dxFromPlayer > 0 ? 45 : 135) * (dyFromPlayer < 0 ? -1 : 1);
+
+	if (dyFromPlayer <0) {
+		shootHeadDown = 0;
+	}
+	else shootHeadDown = 1;
+
+	angle = angle * 3.14 / 180.0f;
+
+	float magV = sqrt(cos(angle) * cos(angle) + sin(angle) * sin(angle));
+
+	fbVx = VFIREBALL_SPEED * cos(angle) / magV;
+	fbVy = VFIREBALL_SPEED * sin(angle) / magV;
+
+	fbX = ballX;
+	fbY = ballY;
+}
+
 void Venus::Update(DWORD dt)
 {
+	CMario* player = scene->GetPlayer();
+
+	float px, py;
+	player->GetPosition(px, py);
+
 	if (scriptStep == 3) {
 		waitTimer += dt;
 		if (waitTimer >= VENUS_WAIT_TIME) {
@@ -27,19 +71,37 @@ void Venus::Update(DWORD dt)
 			scriptStep = 0;
 		 }
 	}
-	//set some thing venus can go down wwhen shot and ur gud
+	
 	if (scriptStep == 1) {
 		revealTimer += dt;
 
-		if (revealTimer >= VENUS_REVEAL_TIME) {
+		if (hasShot == 0 && state==VENUS_HEAD_UP) {
+			if (abs(px - x) <= 48 * 6) {
+				float ballVx, ballVy, ballX, ballY;
+
+				CalcFireBallStat(px, py, ballVx, ballVy, ballX, ballY);
+
+				VenusFireBall* fb = new VenusFireBall(ballVx, ballVy, ballX, ballY);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(fb);
+
+				hasShot = 1;
+
+			}
+		}
+
+		if (revealTimer > VENUS_REVEAL_TIME) {
 			y += dt * VENUS_SPEED;
+			hasShot = 0;
 			SetState(VENUS_HEAD_DOWN);
+			shootHeadDown = 1;
+
 			if (y >=beginY) {
 				y = beginY ;
 				scriptStep = 3;
 				revealTimer = 0;
 			}
 		}
+		
 	}
 	
 	if (scriptStep == 0) {
@@ -62,20 +124,53 @@ void Venus::Update(DWORD dt)
 			revealTimer = 0;
 		}
 	}
-	//DebugOut(L"Current Script Step: %d\n", scriptStep);
+
+	if (player->x < this->x) {
+		nx = -1;
+	}
+	else if (player->x >= this->x) {
+		nx = 1;
+	}
+
+	DebugOut(L"shoot head down %d\n", shootHeadDown);
 }
 
 void Venus::Render()
 {
 	InitAnimations();
+
 	CAnimation* ani = this->animations["RevealHeadUp"];
 
-	if (state == VENUS_HEAD_DOWN)
-		ani = this->animations["RevealHeadDown"];
+	if (isRedVenus == 1) {
+		ani = this->animations["RedRevealHeadUp"];
+	}
+		
+	if (state == VENUS_HEAD_DOWN) {
+		if(isRedVenus==1)
+			ani = this->animations["RedRevealHeadDown"];
+		else
+			ani = this->animations["RevealHeadDown"];
+	}
+
+	if (shootHeadDown == 0) {
+		if(isRedVenus == 1)
+			ani = this->animations["RedRevealHeadUp"];
+		else 
+			ani = this->animations["RevealHeadUp"];
+	}
+	else {
+		if (isRedVenus == 1)
+			ani = this->animations["RedRevealHeadDown"];
+		else
+			ani = this->animations["RevealHeadDown"];
+	}
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 	float l, t, b, r;
 	GetBoundingBox(l, t, r, b);
+
+	SetFlipOnNormalEnemy(nx);
+
 	ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + (b - t) / 2, flip);
 
 	//RenderBoundingBox();
@@ -159,6 +254,11 @@ void Venus::InitAnimations()
 		this->animations["RevealHeadDown"] = CAnimations::GetInstance()->Get("ani-green-venus-fire-trap-headdown")->Clone();
 		this->animations["IdleHeadUp"] = CAnimations::GetInstance()->Get("ani-green-venus-fire-trap-headup-idle")->Clone();
 		this->animations["IdleHeadDown"] = CAnimations::GetInstance()->Get("ani-green-venus-fire-trap-headdown-idle")->Clone();
+
+		this->animations["RedRevealHeadUp"] = CAnimations::GetInstance()->Get("ani-red-venus-fire-trap-headup")->Clone();
+		this->animations["RedRevealHeadDown"] = CAnimations::GetInstance()->Get("ani-red-venus-fire-trap-headdown")->Clone();
+		this->animations["RedIdleHeadUp"] = CAnimations::GetInstance()->Get("ani-red-venus-fire-trap-headup-idle")->Clone();
+		this->animations["RedIdleHeadDown"] = CAnimations::GetInstance()->Get("ani-red-venus-fire-trap-headdown-idle")->Clone();
 	}
 }
 

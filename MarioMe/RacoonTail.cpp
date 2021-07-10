@@ -44,7 +44,7 @@ void RacoonTail::Update(DWORD dt)
 	}
 	CGameObject::Update(dt);
 	CGameObject:UpdatePosition();
-	DebugOut(L"vx tail: %f\n", vx);
+	//DebugOut(L"vx tail: %f\n", vx);
 }
 
 void RacoonTail::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

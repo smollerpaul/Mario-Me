@@ -90,9 +90,9 @@ void Camera::Update()
 	// set limits of the camera position to allowed region
 	if (this->x < currentRegBoundary.left) 
 		this->x = currentRegBoundary.left;
-	
+	/*
 	if (this->y < currentRegBoundary.top) 
-		this->y = currentRegBoundary.top;
+		this->y = currentRegBoundary.top;*/
 
 	if (this->x + width > currentRegBoundary.right)
 		this->x = currentRegBoundary.right -width;
@@ -101,8 +101,7 @@ void Camera::Update()
 		this->y = currentRegBoundary.bottom - game->GetScreenHeight();*/
 
 	//DebugOut(L"reg bound right : %ld %ld %ld %ld %d \n", currentRegBoundary.left, currentRegBoundary.top, currentRegBoundary.bottom, currentRegBoundary.right, currentRegion);
-	// chinh lai region
-	//lam enemy
+	
 }
 
 void Camera::AddRegion(RECT rect, int regionId)

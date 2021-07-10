@@ -75,6 +75,7 @@
 #define MARIO_FLOAT_TIME			500
 
 #define FIREBALL_SPEED              0.48f
+#define VFIREBALL_SPEED              0.18f
 #define FIREBALL_BOUNCE_PUSH        0.4f
 
 #define FIREBALL_SIZE               24

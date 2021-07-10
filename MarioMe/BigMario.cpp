@@ -273,6 +273,20 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 			}
 			break;
 
+			case VenusFireBall::ObjectType:
+			{
+				VenusFireBall* vn = dynamic_cast<VenusFireBall*>(e->obj);
+
+				if (e->nx != 0 || e->ny != 0) {
+					if (master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
 			case Piranha::ObjectType:
 			{
 				Piranha* vn = dynamic_cast<Piranha*>(e->obj);

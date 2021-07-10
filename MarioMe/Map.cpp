@@ -139,38 +139,38 @@ GameMap* GameMap::Load(string path)
 
 							if (propName.compare("adjacent_list") == 0) {
 								adjList = objProp->Attribute("value");
-								DebugOut(L" adjList: %s \n", ToLPCWSTR(adjList));
+								//DebugOut(L" adjList: %s \n", ToLPCWSTR(adjList));
 							}
 							if (propName.compare("adjacent_weight") == 0) {
 								adjWeight = objProp->Attribute("value");
-								DebugOut(L" adjWeight: %s \n", ToLPCWSTR(adjWeight));
+								//DebugOut(L" adjWeight: %s \n", ToLPCWSTR(adjWeight));
 							}
 							if (propName.compare("node_id") == 0) {
 								objProp->QueryIntAttribute("value", &nodeID);
-								DebugOut(L"3\n");
+								//DebugOut(L"3\n");
 							}
 							if (propName.compare("scene") == 0) {
 								sceneID = objProp->Attribute("value");
-								DebugOut(L"4\n");
+								//DebugOut(L"4\n");
 							}
 							if (propName.compare("sprite_checked") == 0) {
 								checkedSprite = objProp->Attribute("value");
-								DebugOut(L"5\n");
+								//DebugOut(L"5\n");
 							}
 							if (propName.compare("sprite_uncheck") == 0) {
 								uncheckedSprite = objProp->Attribute("value");
-								DebugOut(L"5\n");
+								//DebugOut(L"5\n");
 							}
 							if (propName.compare("world_number") == 0) {
 								objProp->QueryIntAttribute("value", &worldNumber);
-								DebugOut(L"6\n");
+								//DebugOut(L"6\n");
 							}
 							if (propName.compare("Start") == 0) {
 								objProp->QueryBoolAttribute("value", &isStartPos);
-								DebugOut(L"7\n");
+								//DebugOut(L"7\n");
 							}
 
-							DebugOut(L"8\n");
+							//DebugOut(L"8\n");
 						}
 						CGame::GetInstance()->GetCurrentScene()->LoadMapEntries(xPos, yPos, nodeID, sceneID, checkedSprite, uncheckedSprite, adjList, adjWeight, worldNumber, isStartPos);
 
