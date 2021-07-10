@@ -208,7 +208,9 @@
     <ClCompile Include="Venus.cpp">
       <Filter>Game\Enemies\Plants\Venus</Filter>
     </ClCompile>
-    <ClCompile Include="VenusFireBall.cpp" />
+    <ClCompile Include="VenusFireBall.cpp">
+      <Filter>Game\Enemies\Plants\Venus\FireBalls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -403,7 +405,9 @@
     <ClInclude Include="Venus.h">
       <Filter>Game\Enemies\Plants\Venus</Filter>
     </ClInclude>
-    <ClInclude Include="VenusFireBall.h" />
+    <ClInclude Include="VenusFireBall.h">
+      <Filter>Game\Enemies\Plants\Venus\FireBalls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -669,6 +673,9 @@
     </Filter>
     <Filter Include="Game\Enemies\Plants\Venus">
       <UniqueIdentifier>{db65c0d1-4c75-4710-a1ca-ebac4028b97e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Plants\Venus\FireBalls">
+      <UniqueIdentifier>{2dd9a7a2-0108-4da9-a4b4-459671c74dcc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

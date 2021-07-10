@@ -132,7 +132,6 @@ void Venus::Update(DWORD dt)
 		nx = 1;
 	}
 
-	DebugOut(L"shoot head down %d\n", shootHeadDown);
 }
 
 void Venus::Render()

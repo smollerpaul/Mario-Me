@@ -230,10 +230,9 @@ void FireMario::AttackUpdate(DWORD dt)
 void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
 	PlayerData* pd = PlayerData::GetInstance();
-
 	if (master->untouchable != 1) {
-		SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
-
+	SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
+	
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];

@@ -300,7 +300,6 @@ void SmallMario::JumpUpdate(DWORD dt)
 
 }
 
-
 void SmallMario::AttackUpdate(DWORD dt)
 {
 }
@@ -341,10 +340,9 @@ void SmallMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vect
 void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
 	PlayerData* pd = PlayerData::GetInstance();
-
 	if (master->untouchable != 1) {
-		PostCollisionUpdate(dt, coEventsResult, coEvents);
-
+	PostCollisionUpdate(dt, coEventsResult, coEvents);
+	
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];

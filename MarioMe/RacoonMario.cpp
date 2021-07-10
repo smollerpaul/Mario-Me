@@ -322,8 +322,8 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 {
 	PlayerData* pd = PlayerData::GetInstance();
 	if (master->untouchable != 1) {
-		SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
-
+	SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
+	
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];

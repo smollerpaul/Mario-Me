@@ -616,7 +616,7 @@
     <property name="Grid" value="[{&quot;x&quot;:3,&quot;y&quot;:3}]"/>
    </properties>
   </object>
-  <object id="47" type="GhostBlock" x="720" y="1104" width="141" height="48">
+  <object id="47" type="GhostBlock" x="720" y="1104.38" width="141" height="47.625">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:2,&quot;y&quot;:3},{&quot;x&quot;:3,&quot;y&quot;:3}]"/>
    </properties>
