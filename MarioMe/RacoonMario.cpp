@@ -321,9 +321,9 @@ void RacoonMario::AttackUpdate(DWORD dt)
 void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
 	PlayerData* pd = PlayerData::GetInstance();
-	if (master->untouchable != 1) {
-	SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
 	
+	SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
+	if (master->untouchable != 1) {
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
@@ -488,24 +488,6 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 			}
 			break;
 
-			case FireBall::ObjectType:
-			{
-				FireBall* fb = dynamic_cast<FireBall*>(e->obj);
-
-				if (e->ny < 0) {
-					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
-				}
-
-				if (e->nx != 0) {
-					if (master->untouchable == 0) {
-						master->StartUntouchable();
-						master->visible = 0;
-					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
-				}
-			}
-			break;
-
 			case Void::ObjectType:
 			{
 				Void* p = dynamic_cast<Void*>(e->obj);
@@ -516,7 +498,8 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 			}
 			break;
 
-			case PSwitch::ObjectType: {
+			case PSwitch::ObjectType:
+			{
 
 				PSwitch* p = dynamic_cast<PSwitch*>(e->obj);
 				if (e->ny < 0) {
@@ -525,6 +508,15 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 					if (pp != 1)
 						CGame::GetInstance()->GetCurrentScene()->pSwitchActivated=1;
 				}
+			}
+			break;
+
+			case CBrick::ObjectType:
+			{
+				CBrick* p = dynamic_cast<CBrick*>(e->obj);
+				if (e->ny > 0)
+					p->SetAlive(0);
+				//EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
 			}
 			break;
 			}

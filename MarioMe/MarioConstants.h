@@ -79,6 +79,6 @@
 #define FIREBALL_BOUNCE_PUSH        0.4f
 
 #define FIREBALL_SIZE               24
-#define TAIL_SIZE					30
+#define TAIL_SIZE					15
 
 #define FIREBALL_START_Y            35

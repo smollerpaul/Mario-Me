@@ -50,7 +50,7 @@ void EndCard::Render()
 	GetBoundingBox(l, t, r, b);
 
 	ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + (b - t) / 2, flip);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void EndCard::Update(DWORD dt)

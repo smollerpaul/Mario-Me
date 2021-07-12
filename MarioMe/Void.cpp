@@ -15,6 +15,13 @@ void Void::Update(DWORD dt)
 	
 }
 
+bool Void::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy)
+{
+	if (gameObjToCollide->GetObjectType() != CMario::ObjectType)
+		return true;
+	else return false;
+}
+
 void Void::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	coEvents.clear();

@@ -177,9 +177,7 @@ void Venus::Render()
 
 bool Venus::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 {
-	if (obj->GetObjectType() == CMario::ObjectType)
-		return true;
-	else return false;
+	return false;
 }
 
 void Venus::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

@@ -7,14 +7,14 @@
 */
 LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 {
-	float sl, st, sr, sb;		// obj B
-	float ml, mt, mr, mb;		// obj chủ
+	float sl, st, sr, sb;		
+	float ml, mt, mr, mb;		
 	float t, nx, ny, tl;
 
-	coO->GetBoundingBox(sl, st, sr, sb); //get bbox of object B
+	coO->GetBoundingBox(sl, st, sr, sb); 
 
 	float svx, svy;
-	coO->GetSpeed(svx, svy); //GET SPEED OF obj B
+	coO->GetSpeed(svx, svy); 
 
 	float sdx = svx * dt; 
 	float sdy = svy * dt;
@@ -51,6 +51,7 @@ void CGameObject::CalcPotentialCollisions(
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
+
 		if (e->t >= 0 && e->t <= 1.0f && e->tl > 0)
 			temp.push_back(e);
 		else delete e;
@@ -62,7 +63,6 @@ void CGameObject::CalcPotentialCollisions(
 	{
 		for each (LPCOLLISIONEVENT result in coEvents) {	
 			if (result->obj->CanGetThrough(this, result->nx, result->ny) == true) {
-				//DebugOut(L" calc Potential Bỏ qua nè: ny: %f\n", result->ny);
 				continue;
 			}
 
@@ -81,6 +81,7 @@ void CGameObject::CalcPotentialCollisions(
 			float rdx = this->dx - sdx;  
 			float rdy = this->dy - sdy;
 
+			//calc relative dx from previous calc
 			if (coll->nx != 0) {
 				rdy = rdy * result->t;
 			}
@@ -97,8 +98,7 @@ void CGameObject::CalcPotentialCollisions(
 				t, nx, ny, tl
 			);
 
-			// trả ra t, nx,ny ( time, phương react khi va chạm)
-			CCollisionEvent* e = new CCollisionEvent(t, tl, nx, ny, rdx, rdy, coll->obj);  //involve stats  và object B
+			CCollisionEvent* e = new CCollisionEvent(t, tl, nx, ny, rdx, rdy, coll->obj);  
 
 			//no collision
 			if (e->t < 0 || e->t > 1.0f || e->tl == 0) {
@@ -107,29 +107,45 @@ void CGameObject::CalcPotentialCollisions(
 			delete e;
 		}
 
-		//push into temp after sweptAABBEx
-		if (coll->t >= 0 && coll->t <= 1.0f && coll->tl > 0) {
-
-			if (coll->obj->CanGetThrough(this, coll->nx, coll->ny) == true) {
-				//DebugOut(L" calc Potential Bỏ qua nè: ny: %f\n", result->ny);
+		if (coll->t >= 0 && coll->t <= 1.0f && coll->tl > 0)
+		{
+			/*if (coll->obj->CanGetThrough(this, coll->nx, coll->ny) == true) {
 				continue;
-			}
+			}*/
 
 			coEvents.push_back(coll);
+			
+			if (this->GetObjectType() == 22 && coll->obj->GetObjectType() == 987) {
+				DebugOut(L"1 BLOCK-> MARIO   %f  %f %f \n", coll->nx, coll->ny, coll->tl);
 
-			if (this->GetObjectType() == 987 && coll->obj->GetObjectType() == 12) {
-				//DebugOut(L"MARIO cham GHOST %f  %f\n", coll->t, coll->tl);
+				float sl, st, sr, sb;		
+				float ml, mt, mr, mb;
+				coll->obj->GetBoundingBox(sl, st, sr, sb); 
+				this->GetBoundingBox(ml, mt, mr, mb);
 
-				//DebugOut(L"CALC đáng nhẽ k hiện ra if NY=1 !\n");
-				//float sl, st, sr, sb;		// obj B
-				//float ml, mt, mr, mb;
-				//coll->obj->GetBoundingBox(sl, st, sr, sb); 
-				//this->GetBoundingBox(ml, mt, mr, mb);
+				DebugOut(L"POS MARIO: %f %f %f %f\n", sl, st, sr, sb);
+				DebugOut(L"POS QB: %f %f %f %f\n", ml, mt, mr, mb);
 
-				//DebugOut(L" nx: %f, ny: %f \n", coll->nx, coll->ny);
-				/*DebugOut(L"POS GHOST: %f %f %f %f\n", sl, st, sr, sb);
-				DebugOut(L"POS MARIO: %f %f %f %f\n", ml, mt, mr, mb);*/
+				DebugOut(L"----------------------\n");
+
 			}
+				
+
+			if (this->GetObjectType() == 987 && coll->obj->GetObjectType() == 22) {
+				DebugOut(L"1 MARIO->BLOCK   %f  %f  %f \n", coll->nx, coll->ny, coll->tl);
+
+				float sl, st, sr, sb;
+				float ml, mt, mr, mb;
+				coll->obj->GetBoundingBox(sl, st, sr, sb);
+				this->GetBoundingBox(ml, mt, mr, mb);
+
+				DebugOut(L"POS QB: %f %f %f %f\n", sl, st, sr, sb);
+				DebugOut(L"POS MARIO: %f %f %f %f\n", ml, mt, mr, mb);
+
+				DebugOut(L"----------------------\n");
+			}
+	
+
 		}
 		else
 			delete coll;
@@ -146,47 +162,57 @@ void CGameObject::FilterCollision(vector<LPCOLLISIONEVENT>& coEvents, vector<LPC
 	min_tx = 1.0f;
 	min_ty = 1.0f;
 
-	/*int min_ix = -1;
-	int min_iy = -1;*/
-
 	nx = 0.0f;
 	ny = 0.0f;
 
 	//DebugOut(L"coEvents = %d\n", coEvents.size());
-	//DebugOut(L"coEventsResult = %d\n", coEventsResult.size());
+	
 
 	coEventsResult.clear();
 	
 	for (UINT i = 0; i < coEvents.size(); i++)
 	{
 		LPCOLLISIONEVENT c = coEvents[i];
-		coEventsResult.push_back(c);
+
 		if (c->obj->CanGetThrough(this, c->nx, c->ny) == true) {
-		//	DebugOut(L"filter collision BỎ QUA NÈ:  ny:  %f \n", c->ny);
 			continue;
 		}
+	
+		if (this->GetObjectType() == 987 && c->obj->GetObjectType() == 22) {
+			///DebugOut(L"2 MARIO BLOCK_ nX:  %f    NY: %F \n", c->nx, c->ny);
+		}
 
-		if (this->GetObjectType() == 987 && c->obj->GetObjectType() == 12) {
-		//	DebugOut(L"filter collision:  ny:  %f \n", c->ny);
+		if (this->GetObjectType() == 22 && c->obj->GetObjectType() == 987) {
+			//DebugOut(L"2 BLOCK MARIO_ nX:  %f    NY: %F \n", c->nx, c->ny);
+		}
+
+		if (this->GetObjectType() == 2002 && c->obj->GetObjectType() == 22) {
+			DebugOut(L"filter collision:   TAIL BLOCK_ nX:  %f    NY: %F \n",c->nx, c->ny);
+		}
+
+		if (this->GetObjectType() == 4002 && c->obj->GetObjectType() == 987) {
+			DebugOut(L"filter collision:   LEAF MARIO_ nX:  %f    NY: %F \n", c->nx, c->ny);
+		}
+
+		if (this->GetObjectType() == 987 && c->obj->GetObjectType() == 4002) {
+			DebugOut(L"filter collision:   MARIO LEAF_ nX:  %f    NY: %F \n", c->nx, c->ny);
 		}
 	
 		if (c->t < min_tx && c->nx != 0) { 
 			min_tx = c->t;
 			nx = c->nx; 
 			rdx = c->dx;
-			//min_ix = i; //smallest on x
 		}
 
 		if (c->t < min_ty && c->ny != 0) {
 			min_ty = c->t; 
 			ny = c->ny; 
 			rdy = c->dy;
-			//min_iy = i; //smallest on y
 		}
+
+		coEventsResult.push_back(c);
+
 	}
-
-
-	//result is only 1 only, either x or y // cần get cái phương va chạm để define cái nào get through được
 	/*if (min_ix >= 0) 
 		coEventsResult.push_back(coEvents[min_ix]);
 

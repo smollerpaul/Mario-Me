@@ -1,4 +1,4 @@
-#include "WingedKoopas.h"
+﻿#include "WingedKoopas.h"
 #include "Koopas.h"
 #include "NormalKoopas.h"
 #include "EnemiesConstants.h"
@@ -88,9 +88,14 @@ void WingedKoopas::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT> &coEve
 		if (nx != 0) {
 			master->nx = -master->nx;
 		}
-		if (ny != 0) {
+		if (ny < 0) {
 			master->vy = 0;
 		}
+		else if (ny > 0) {
+			//DebugOut(L"kooopas té đi\n");
+			master->vy += master->gravity*dt;
+		}
+
 		isOnGround = 1;
 	}
 }

@@ -13,7 +13,7 @@ public:
 	virtual void Update(DWORD dt) override;
 	void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void BehaviorUpdate(DWORD dt);
-
+	virtual bool CanGetThrough(CGameObject* gameObjToCollide, float coEventX, float coEventY) override;
 	virtual int GetObjectType() override;
 	static const int ObjectType = 10;
 };

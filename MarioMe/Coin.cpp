@@ -43,7 +43,10 @@ void Coin::Update(DWORD dt)
 
 bool Coin::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy)
 {
-	return true;
+	if (gameObjToCollide->GetObjectType() == CMario::ObjectType) {
+		return true;
+	}
+	return false;
 }
 
 void Coin::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

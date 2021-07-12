@@ -18,6 +18,7 @@ public:
 	NormalKoopas(CKoopas* master);
 	virtual void Render();
 	virtual void Update(DWORD dt);
+	virtual void CanGetThrough(CGameObject* gameObjToCollide, float coEventX, float coEventY);
 	virtual void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT> coEvents);
 	virtual void PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT> &coEventsResult, vector<LPCOLLISIONEVENT> &coEvents);

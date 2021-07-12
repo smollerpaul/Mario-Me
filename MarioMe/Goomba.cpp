@@ -73,10 +73,9 @@ void CGoomba::Render()
 
 bool CGoomba::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 {
-	if(obj->GetObjectType()==RedGoomba::ObjectType)
+	if (obj->GetObjectType() == RedGoomba::ObjectType)
 		return true;
-	if (obj->GetObjectType() == CMario::ObjectType)
-		return true;
+	else return false;
 }
 
 void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -100,8 +99,8 @@ void CGoomba::BehaviorUpdate(DWORD dt)
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		x += min_tx * dx + nx * 0.2f;
-		y += min_ty * dy + ny * 0.2f;
+		x += min_tx * dx;
+		y += min_ty * dy;
 
 		//DebugOut(L"gooomba coevents=1\n");
 
@@ -134,6 +133,7 @@ void CGoomba::BehaviorUpdate(DWORD dt)
 			{
 				if (state != GOOMBA_STATE_DIE) {
 					SetState(GOOMBA_STATE_DIE);
+					DebugOut(L"yessssssssssssssssssssss\n");
 				}
 			}
 		}
@@ -147,6 +147,7 @@ void CGoomba::BehaviorUpdate(DWORD dt)
 				if (state != GOOMBA_STATE_DIE) {
 					SetState(GOOMBA_STATE_DIE);
 					SetAlive(0);
+					
 				}
 			}
 		}

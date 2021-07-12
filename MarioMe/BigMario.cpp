@@ -219,9 +219,9 @@ void BigMario::AttackUpdate(DWORD dt)
 void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
 	PlayerData* pd = PlayerData::GetInstance();
-	if (master->untouchable != 1) {
+	
 	SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
-
+	if (master->untouchable != 1) {
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
@@ -237,6 +237,15 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 					if (pp != 1)
 						CGame::GetInstance()->GetCurrentScene()->pSwitchActivated = 1;
 				}
+			}
+			break;
+
+			case CBrick::ObjectType:
+			{
+				CBrick* p = dynamic_cast<CBrick*>(e->obj);
+				if (e->ny > 0)
+					p->SetAlive(0);
+				//EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
 			}
 			break;
 
@@ -386,24 +395,6 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 					}
 					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
 				}*/
-			}
-			break;
-
-			case FireBall::ObjectType:
-			{
-				FireBall* fb = dynamic_cast<FireBall*>(e->obj);
-
-				if (e->ny < 0) {
-					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
-				}
-
-				if (e->nx != 0) {
-					if (master->untouchable == 0) {
-						master->StartUntouchable();
-						master->visible = 0;
-					}
-					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
-				}
 			}
 			break;
 

@@ -60,6 +60,7 @@ void CBrick::BehaviorUpdate(DWORD dt)
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 	}
+
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEventsResult[i];
@@ -69,7 +70,7 @@ void CBrick::BehaviorUpdate(DWORD dt)
 		case CMario::ObjectType:
 		{
 			CMario* mario = dynamic_cast<CMario*>(e->obj);
-			if (e->ny < 0)
+			if (e->ny > 0)
 			{
 				SetAlive(0);
 				//effects
@@ -103,6 +104,11 @@ void CBrick::BehaviorUpdate(DWORD dt)
 		break;
 		}
 	}
+}
+
+bool CBrick::CanGetThrough(CGameObject* gameObjToCollide, float coEventX, float coEventY)
+{
+	return false;
 }
 
 int CBrick::GetObjectType()

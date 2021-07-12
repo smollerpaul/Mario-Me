@@ -19,7 +19,7 @@ CMario::CMario() : CGameObject()
 	flip = 1;
 	SetState(MARIO_STATE_IDLE);
 	gravity = MARIO_GRAVITY;
-	renderOrder = 101;
+	renderOrder = 100;
 }
 
 void CMario::SetObjectState(SmallMario* objectState)
@@ -114,9 +114,13 @@ void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (coEvents.size() == 0)
 	{
-		CGameObject::UpdatePosition(); 
+		if (untouchable != 1) {
+			CGameObject::UpdatePosition();
+		}
 		//including DIE
 	}
+
+	x = max(0, x);
 }
 
 void CMario::BehaviorUpdate(DWORD dt)
@@ -129,8 +133,9 @@ void CMario::Render()
 {
 	
 	SmallMario* currentState = objState;
-	currentState->Render();
-
+	if (untouchable != 1) {
+		currentState->Render();
+	}
 	//RenderBoundingBox();
 }
 

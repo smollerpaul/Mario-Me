@@ -74,7 +74,6 @@ void CPlayScene::Update(DWORD dt)
 
 	pd->UpdateGameTime(dt);
 
-
 	//DebugOut(L"[SCORE]: %d  [COINS]: %d  [Time left]: %f \n ", pd->GetScore(), pd->GetCoins(), pd->GetGameTime());
 }
 

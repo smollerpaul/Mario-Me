@@ -5,7 +5,7 @@
       <Filter>Framework\Graphics\Animations</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
-      <Filter>Game\Objects\Brick</Filter>
+      <Filter>Game\Mario\Objects\Brick</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Framework\Camera</Filter>
@@ -29,7 +29,7 @@
       <Filter>Game\Mario</Filter>
     </ClCompile>
     <ClCompile Include="Portal.cpp">
-      <Filter>Game\Objects\Portal</Filter>
+      <Filter>Game\Mario\Objects\Portal</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Framework\Graphics\Textures</Filter>
@@ -77,10 +77,10 @@
       <Filter>Framework\Map\MapLayer</Filter>
     </ClCompile>
     <ClCompile Include="SolidBlock.cpp">
-      <Filter>Game\Objects\SolidBlock</Filter>
+      <Filter>Game\Mario\Objects\SolidBlock</Filter>
     </ClCompile>
     <ClCompile Include="GhostBlock.cpp">
-      <Filter>Game\Objects\GhostBlock</Filter>
+      <Filter>Game\Mario\Objects\GhostBlock</Filter>
     </ClCompile>
     <ClCompile Include="PlayerData.cpp">
       <Filter>Game\PlayerData</Filter>
@@ -100,14 +100,11 @@
     <ClCompile Include="SmallMario.cpp">
       <Filter>Game\Mario\MSmall</Filter>
     </ClCompile>
-    <ClCompile Include="MarioLevels.cpp">
-      <Filter>Game\Mario\Levels</Filter>
-    </ClCompile>
     <ClCompile Include="BigMario.cpp">
       <Filter>Game\Mario\MBig</Filter>
     </ClCompile>
     <ClCompile Include="QuestionBlock.cpp">
-      <Filter>Game\Objects\QuestionBlock</Filter>
+      <Filter>Game\Mario\Objects\QuestionBlock</Filter>
     </ClCompile>
     <ClCompile Include="RedGoomba.cpp">
       <Filter>Game\Enemies\RedGoomba</Filter>
@@ -179,7 +176,7 @@
       <Filter>Game\Effects\Effects\Rewards\EndCard</Filter>
     </ClCompile>
     <ClCompile Include="Void.cpp">
-      <Filter>Game\Objects\Void</Filter>
+      <Filter>Game\Mario\Objects\Void</Filter>
     </ClCompile>
     <ClCompile Include="MapEntry.cpp">
       <Filter>Game\Overworld Objects\MapEntry</Filter>
@@ -211,13 +208,14 @@
     <ClCompile Include="VenusFireBall.cpp">
       <Filter>Game\Enemies\Plants\Venus\FireBalls</Filter>
     </ClCompile>
+    <ClCompile Include="QBlockBounce.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
       <Filter>Framework\Graphics\Animations</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
-      <Filter>Game\Objects\Brick</Filter>
+      <Filter>Game\Mario\Objects\Brick</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Framework\Camera</Filter>
@@ -241,7 +239,7 @@
       <Filter>Game\Mario</Filter>
     </ClInclude>
     <ClInclude Include="Portal.h">
-      <Filter>Game\Objects\Portal</Filter>
+      <Filter>Game\Mario\Objects\Portal</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
       <Filter>Framework\Graphics\Textures</Filter>
@@ -271,10 +269,10 @@
       <Filter>Framework\Map\MapLayer</Filter>
     </ClInclude>
     <ClInclude Include="SolidBlock.h">
-      <Filter>Game\Objects\SolidBlock</Filter>
+      <Filter>Game\Mario\Objects\SolidBlock</Filter>
     </ClInclude>
     <ClInclude Include="GhostBlock.h">
-      <Filter>Game\Objects\GhostBlock</Filter>
+      <Filter>Game\Mario\Objects\GhostBlock</Filter>
     </ClInclude>
     <ClInclude Include="PlayerData.h">
       <Filter>Game\PlayerData</Filter>
@@ -294,9 +292,6 @@
     <ClInclude Include="RacoonTail.h">
       <Filter>Game\Mario\MRacoon\Tail</Filter>
     </ClInclude>
-    <ClInclude Include="MarioLevels.h">
-      <Filter>Game\Mario\Levels</Filter>
-    </ClInclude>
     <ClInclude Include="SmallMario.h">
       <Filter>Game\Mario\MSmall</Filter>
     </ClInclude>
@@ -304,7 +299,7 @@
       <Filter>Game\Mario\MBig</Filter>
     </ClInclude>
     <ClInclude Include="QuestionBlock.h">
-      <Filter>Game\Objects\QuestionBlock</Filter>
+      <Filter>Game\Mario\Objects\QuestionBlock</Filter>
     </ClInclude>
     <ClInclude Include="RedGoomba.h">
       <Filter>Game\Enemies\RedGoomba</Filter>
@@ -376,7 +371,7 @@
       <Filter>Game\Effects\Effects\Rewards\EndCard</Filter>
     </ClInclude>
     <ClInclude Include="Void.h">
-      <Filter>Game\Objects\Void</Filter>
+      <Filter>Game\Mario\Objects\Void</Filter>
     </ClInclude>
     <ClInclude Include="MapEntry.h">
       <Filter>Game\Overworld Objects\MapEntry</Filter>
@@ -408,6 +403,7 @@
     <ClInclude Include="VenusFireBall.h">
       <Filter>Game\Enemies\Plants\Venus\FireBalls</Filter>
     </ClInclude>
+    <ClInclude Include="QBlockBounce.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -499,9 +495,6 @@
     </Filter>
     <Filter Include="Game\PlayerData">
       <UniqueIdentifier>{d0e10311-25d3-4c2b-b752-eb62ac9440e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Mario\Levels">
-      <UniqueIdentifier>{4bd9834b-4060-4996-ab31-979869959d1b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Mario\MSmall">
       <UniqueIdentifier>{67d48f77-c965-4d9e-877c-7f0d64764b69}</UniqueIdentifier>
@@ -626,27 +619,6 @@
     <Filter Include="Game\Effects\Effects\OverworldTrees">
       <UniqueIdentifier>{f5049493-f0ce-458e-9f00-07ccdadb9df3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Objects">
-      <UniqueIdentifier>{60029a8e-a7fc-4440-b0c0-d02a669d24aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Objects\SolidBlock">
-      <UniqueIdentifier>{7ac20bbf-ca32-4a23-b070-eb63f55ab485}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Objects\GhostBlock">
-      <UniqueIdentifier>{8aed6746-8870-4ca0-8ed4-297094b9a2d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Objects\Brick">
-      <UniqueIdentifier>{17f5de1e-9c70-4a0f-bd4b-fc3f3a4d733d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Objects\Portal">
-      <UniqueIdentifier>{2eecf0ac-7cc2-448a-8f38-269b503ee2c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Objects\QuestionBlock">
-      <UniqueIdentifier>{563f2876-0b4d-4f20-b379-a5dc764819d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Objects\Void">
-      <UniqueIdentifier>{f876b03a-6867-4be2-889f-b4f3242f365b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Overworld Objects">
       <UniqueIdentifier>{25dd92cb-fe6c-45e6-8eef-cf01c29c787f}</UniqueIdentifier>
     </Filter>
@@ -676,6 +648,27 @@
     </Filter>
     <Filter Include="Game\Enemies\Plants\Venus\FireBalls">
       <UniqueIdentifier>{2dd9a7a2-0108-4da9-a4b4-459671c74dcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\Objects">
+      <UniqueIdentifier>{60029a8e-a7fc-4440-b0c0-d02a669d24aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\Objects\SolidBlock">
+      <UniqueIdentifier>{7ac20bbf-ca32-4a23-b070-eb63f55ab485}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\Objects\GhostBlock">
+      <UniqueIdentifier>{8aed6746-8870-4ca0-8ed4-297094b9a2d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\Objects\Brick">
+      <UniqueIdentifier>{17f5de1e-9c70-4a0f-bd4b-fc3f3a4d733d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\Objects\Portal">
+      <UniqueIdentifier>{2eecf0ac-7cc2-448a-8f38-269b503ee2c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\Objects\QuestionBlock">
+      <UniqueIdentifier>{563f2876-0b4d-4f20-b379-a5dc764819d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\Objects\Void">
+      <UniqueIdentifier>{f876b03a-6867-4be2-889f-b4f3242f365b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

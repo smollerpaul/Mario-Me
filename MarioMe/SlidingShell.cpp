@@ -96,20 +96,6 @@ void SlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 					master->SetState(KOOPAS_STATE_DIE);
 				}
 				master->SetAlive(0);
-				DebugOut(L"koopas killed by fireball \n");
-			}
-		}
-		break;
-
-		case QuestionBlock::ObjectType:
-		{
-			QuestionBlock* qb = dynamic_cast<QuestionBlock*>(e->obj);
-			if (e->ny != 0 || e->nx != 0)
-			{
-				/*if (master->state != KOOPAS_STATE_DIE)
-					master->SetState(KOOPAS_STATE_DIE);*/
-
-				DebugOut(L"shell is about to despawn\n");
 			}
 		}
 		break;

@@ -94,7 +94,8 @@ void SmallMario::Update(DWORD dt)
 
 bool SmallMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 {
-	return master->untouchable =1;
+	//return master->untouchable =1;
+	return false;
 }
 
 void SmallMario::MovementUpdate(DWORD dt)
@@ -206,7 +207,7 @@ void SmallMario::MovementUpdate(DWORD dt)
 		}
 #pragma endregion
 
-}
+	}
 }
 
 void SmallMario::JumpUpdate(DWORD dt)
@@ -317,32 +318,41 @@ void SmallMario::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT>& coEvent
 		float rdy = 0;
 
 		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-		/*master->x += min_tx * master->dx + nx * 0.2f;
-		master->y += min_ty * master->dy + ny * 0.1f;*/
-
-		master->x += min_tx * master->dx;
-		master->y += min_ty * master->dy;
+		if (master->untouchable != 1) {
+			master->x += min_tx * master->dx;
+			master->y += min_ty * master->dy;
+		 }
 
 		if (nx != 0) master->vx = 0;
-		if (ny != 0) master->vy = 0;
+		if (ny != 0) { 
+			master->vy = 0; 
+			if (ny < 0) {
+				master->SetIsOnGround(true);
+			}
+			else if (ny > 0) {
+				master->vy += master->gravity;
 
-		master->SetIsOnGround(true);
+				DebugOut(L"mario lam sao de rot\n");
+			}
+		}
 	}
 }
 
 void SmallMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents)
 {
-	if (master->untouchable != 1) 
-		master->CollisionUpdate(dt, coObjects);
+	coEvents.clear();
+	master->CollisionUpdate(dt, coObjects);
 }
 
 void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
 	PlayerData* pd = PlayerData::GetInstance();
-	if (master->untouchable != 1) {
-	PostCollisionUpdate(dt, coEventsResult, coEvents);
 	
+	PostCollisionUpdate(dt, coEventsResult, coEvents); 
+
+	//DebugOut(L"coEventsResult = %d\n", coEventsResult.size());
+
+	if (master->untouchable != 1) {
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
@@ -495,7 +505,10 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 					master->StartUntouchable();
 					master->visible = 0;
 					powerUpLeaf = 1;
+
+					leaf->SetAlive(0);
 					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+					DebugOut(L"mario dung leave\n");
 				}
 			}
 			break;
@@ -539,6 +552,16 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				master->SetAlive(0);
 			}
 			break;
+
+			case CBrick::ObjectType:
+			{
+				CBrick* p = dynamic_cast<CBrick*>(e->obj);
+				if(e->ny >0)
+					p->SetAlive(0);
+				//EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+			}
+			break;
+
 			}
 		}
 	}
@@ -633,7 +656,6 @@ void SmallMario::Render()
 
 	ani->SetPlayScale(1.5f);
 	ani->Render(master->x - camera->GetX() + (r - l) / 2, master->y - camera->GetY() + (b - t) / 2, flip, alpha);
-
 }
 
 void SmallMario::OnKeyUp(int keyCode)

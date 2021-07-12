@@ -9,8 +9,8 @@ CKoopas::CKoopas()
 {
 	width = height = KOOPAS_WIDTH;
 	nx = -1;
-	objState = new WingedKoopas(this);
 	gravity = MARIO_GRAVITY;
+	objState = new WingedKoopas(this);
 }
 
 CKoopas::CKoopas(NormalKoopas* objectState)

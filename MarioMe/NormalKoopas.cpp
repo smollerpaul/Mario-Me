@@ -31,6 +31,11 @@ void NormalKoopas::Update(DWORD dt)
 	master->x += master->vx * dt;
 }
 
+void NormalKoopas::CanGetThrough(CGameObject* gameObjToCollide, float coEventX, float coEventY)
+{
+	master->CanGetThrough(gameObjToCollide, coEventX, coEventY);
+}
+
 void NormalKoopas::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents)
 {
 	master->coEvents.clear();
@@ -134,8 +139,8 @@ void NormalKoopas::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT> &coEve
 
 		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		master->x += min_tx * master->dx + nx * 0.2f;
-		master->y += min_ty * master->dy + ny * 0.2f;
+		master->x += min_tx * master->dx;
+		master->y += min_ty * master->dy;
 
 		if (nx != 0) {
 			master->nx = -master->nx;

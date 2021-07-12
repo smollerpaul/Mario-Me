@@ -79,7 +79,7 @@ void Leaf::Update(DWORD dt)
 
 bool Leaf::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy)
 {
-    return true;
+    return false;
 }
 
 void Leaf::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -97,8 +97,8 @@ void Leaf::BehaviorUpdate(DWORD dt)
 
     FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-    x += min_tx * dx + nx * 0.2f;
-    y += min_ty * dy + ny * 0.2f;
+    x += min_tx * dx ;
+    y += min_ty * dy ;
 
     if (nx != 0) vx = -vx;
     if (ny != 0) vy = 0;
@@ -113,7 +113,9 @@ void Leaf::BehaviorUpdate(DWORD dt)
         {
             CMario* mario = dynamic_cast<CMario*>(e->obj);
             if (e->ny != 0 || e->nx != 0) {
+
                 SetAlive(0);
+                DebugOut(L"leaf dung mario\n");
             }
         }
         break;

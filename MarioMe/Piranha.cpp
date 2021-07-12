@@ -81,7 +81,7 @@ void Piranha::Render()
 
 bool Piranha::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 {
-	return true;
+	return false;
 }
 
 void Piranha::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

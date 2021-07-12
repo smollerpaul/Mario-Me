@@ -17,8 +17,10 @@
 
 void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width, float height)
 {
-	//mario spawn point
-	
+	if (objectType.compare("SpawnPoint") == 0) {
+		player->SetPosition(x, y);
+	}
+
 	if (objectType.compare("Venus") == 0) {
 		Venus* kp = new Venus(this);
 		kp->SetPosition(x, y);
@@ -72,30 +74,33 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 	}
 
 	if (objectType.compare("PSwitch") == 0) {
-		QuestionBlock* qb = new QuestionBlock(PSWITCH_PRIZE);
+		QuestionBlock* qb = new QuestionBlock();
+		qb->SetReward(PSWITCH_PRIZE);
+		qb->SetAsBrick(1);
 		qb->SetPosition(x, y);
 		AddObject(qb);
 	}
 
 	if (objectType.compare("QuestionBlock") == 0) {
 		QuestionBlock* qb = new QuestionBlock();
+		qb->SetReward(COIN_PRIZE);
 		qb->SetPosition(x, y);
 		AddObject(qb);
 	}
 
 	if (objectType.compare("RaccoonLeaf") == 0) {
-		QuestionBlock* qb = new QuestionBlock(LEAF_PRIZE);
+		QuestionBlock* qb = new QuestionBlock();
+		qb->SetReward(LEAF_PRIZE);
 		qb->SetPosition(x, y);
 		AddObject(qb);
 	}
 
 	if (objectType.compare("GreenMushroom") == 0) {
-		QuestionBlock* qb = new QuestionBlock(GMUSH_PRIZE);
+		QuestionBlock* qb = new QuestionBlock();
+		qb->SetReward(GMUSH_PRIZE);
 		qb->SetPosition(x, y);
 		AddObject(qb);
 	}
-
-	
 	
 	if (objectType.compare("RedGoomba") == 0) {
 		RedGoomba* rg = new RedGoomba();
@@ -108,11 +113,19 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		kp->SetPosition(x, y);
 		AddObject(kp);
 	}
+
+	if (objectType.compare("Koopas") == 0) {
+		CKoopas* kp = new CKoopas(new NormalKoopas);
+		kp->SetPosition(x, y);
+		AddObject(kp);
+	}
+
 	if (objectType.compare("KoopasJumping") == 0) {
 		CKoopas* kp = new CKoopas();
 		kp->SetPosition(x, y);
 		AddObject(kp);
 	}
+
 	if (objectType.compare("Coin") == 0) {
 		Coin* kp = new Coin();
 		kp->SetPosition(x, y);
@@ -123,10 +136,6 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		EndCard* kp = new EndCard();
 		kp->SetPosition(x, y);
 		AddObject(kp);
-	}
-
-	if (objectType.compare("SpawnPoint") == 0) {
-		player->SetPosition(x, y);
 	}
 
 }

@@ -154,11 +154,11 @@
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Piranha.cpp" />
     <ClCompile Include="PSwitch.cpp" />
+    <ClCompile Include="QBlockBounce.cpp" />
     <ClCompile Include="Venus.cpp" />
     <ClCompile Include="VenusFireBall.cpp" />
     <ClCompile Include="WorldScene.cpp" />
     <ClCompile Include="MarioDieFx.cpp" />
-    <ClCompile Include="MarioLevels.cpp" />
     <ClCompile Include="MarioTransform.cpp" />
     <ClCompile Include="MoneyFx.cpp" />
     <ClCompile Include="NormalKoopas.cpp" />
@@ -225,12 +225,12 @@
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Piranha.h" />
     <ClInclude Include="PSwitch.h" />
+    <ClInclude Include="QBlockBounce.h" />
     <ClInclude Include="Venus.h" />
     <ClInclude Include="VenusFireBall.h" />
     <ClInclude Include="WorldScene.h" />
     <ClInclude Include="MarioConstants.h" />
     <ClInclude Include="MarioDieFx.h" />
-    <ClInclude Include="MarioLevels.h" />
     <ClInclude Include="MarioTransform.h" />
     <ClInclude Include="MoneyFx.h" />
     <ClInclude Include="NormalKoopas.h" />
