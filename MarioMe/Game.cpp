@@ -137,7 +137,7 @@ void CGame::SetViewport(RECT* viewportRect)
 	spriteHandler->End();
 	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-	d3ddv->GetScissorRect(viewportRect);
+	d3ddv->SetScissorRect(viewportRect);
 }
 
 int CGame:: GetScreenWidth() { return screen_width; }

@@ -4,7 +4,7 @@
 #define QB_STATE_ACTIVE		100
 #define QB_STATE_BOUNCE		300
 #define QB_STATE_FROZEN		200
-#define QB_SIZE				45
+#define QB_SIZE				48
 #define QB_BOUNCE_HEIGHT	30
 #define QB_GRAVITY			0.02
 #define QB_BOUNCE_SPEED		0.68f
@@ -16,7 +16,7 @@
 #define PSWITCH_PRIZE		15
 
 class Camera;
-
+class CPlayScene;
 class QuestionBlock :
     public CGameObject
 {
@@ -32,7 +32,9 @@ public:
 	int visible = 1;
 	float timeBounce = 0;
 
-	QuestionBlock();
+	CPlayScene* scene = nullptr;
+
+	QuestionBlock(CPlayScene* ss);
 	virtual void InitAnimations() override;
 	virtual void SetPosition(float x, float y) override;
 	virtual void Render() override;

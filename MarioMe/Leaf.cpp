@@ -1,13 +1,14 @@
 #include "Leaf.h"
 #include "Mario.h"
+#include "PlayScene.h"
 
-Leaf::Leaf()
+Leaf::Leaf(CPlayScene* ss)
 {
     width = MUSHROOM_WIDTH;
     height = MUSHROOM_HEIGHT;
     gravity = LEAF_GRAVITY;
     nx = 1;
-
+    this->scene = ss;
 }
 
 void Leaf::SetPosition(float x, float y)
@@ -96,7 +97,12 @@ bool Leaf::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float c
 void Leaf::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
     coEvents.clear();
-    CalcPotentialCollisions(coObjects, coEvents);
+
+    vector<LPGAMEOBJECT> coEventObjects;
+    CMario* player = scene->GetPlayer();
+    coEventObjects.push_back(player);
+
+    CalcPotentialCollisions(&coEventObjects, coEvents);
     
 }
 

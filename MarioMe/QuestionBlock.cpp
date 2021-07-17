@@ -8,14 +8,16 @@
 #include "EffectVault.h"
 #include "PSwitch.h"
 #include "QBlockBounce.h"
+#include "PlayScene.h"
 
-QuestionBlock::QuestionBlock()
+QuestionBlock::QuestionBlock(CPlayScene* ss)
 {
 	vx = vy = 0;
 	dx = dy = 0;
 	gravity = 0;
 	width = height = QB_SIZE;
 	SetState(QB_STATE_ACTIVE);
+	this->scene = ss;
 }
 
 void QuestionBlock::InitAnimations()
@@ -132,7 +134,7 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 							}
 
 							if (reward == LEAF_PRIZE) {
-								Leaf* leaf = new Leaf();
+								Leaf* leaf = new Leaf(scene);
 								leaf->SetPosition(x, y - 48);
 								CGame::GetInstance()->GetCurrentScene()->AddObject(leaf);
 							}
@@ -180,7 +182,7 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 							}
 
 							if (reward == LEAF_PRIZE) {
-								Leaf* leaf = new Leaf();
+								Leaf* leaf = new Leaf(scene);
 								leaf->SetPosition(x, y);
 								CGame::GetInstance()->GetCurrentScene()->AddObject(leaf);
 							}

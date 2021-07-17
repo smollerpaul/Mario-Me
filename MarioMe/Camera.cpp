@@ -68,7 +68,6 @@ void Camera::ReleasePlayer()
 		this->player = NULL;
 }
 
-
 void Camera::Render()
 {
 }
@@ -100,8 +99,8 @@ void Camera::Update()
 	if (this->x + width > currentRegBoundary.right)
 		this->x = currentRegBoundary.right -width;
 
-	//if(this->y + height> currentRegBoundary.bottom)
-	//	this->y = currentRegBoundary.bottom - game->GetScreenHeight();
+	/*if(this->y + height> currentRegBoundary.bottom)
+		this->y = currentRegBoundary.bottom - game->GetScreenHeight();*/
 
 	//DebugOut(L"reg bound right : %ld %ld %ld %ld %d \n", currentRegBoundary.left, currentRegBoundary.top, currentRegBoundary.bottom, currentRegBoundary.right, currentRegion);
 	
@@ -129,12 +128,10 @@ void Camera::SetCurrentRegion(int regionId)
 	this->currentRegion = regionId;
 }
 
-
-
 void Camera::SetViewPort(float l, float t, float w, float h)
 {
 	rect->left = l;
 	rect->top = t;
 	rect->right = l+w;
-	rect->top = t+h;
+	rect->bottom = t+h;
 }

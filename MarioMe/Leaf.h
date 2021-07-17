@@ -8,7 +8,7 @@ const float LEAF_REVEAL_DISTANCE = 72; // px
 const float LEAF_REVEAL_FORCE = 0.005f;
 const float LEAF_FALLING_VEL = 0.05f;
 const float LEAF_GROWUP_SPEED = 0.012f;
-
+class CPlayScene;
 class Leaf :
     public CGameObject
 {
@@ -19,7 +19,9 @@ public:
 	float xBegin = 0;
 	float deadTimer = 0;
 
-	Leaf();
+	CPlayScene* scene = nullptr;
+
+	Leaf(CPlayScene* ss);
 	virtual void SetPosition(float x, float y) override;
 	virtual void InitAnimations() override;
 	virtual void Render() override;

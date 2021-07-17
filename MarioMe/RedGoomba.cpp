@@ -10,7 +10,7 @@ RedGoomba::RedGoomba()
 	width = height = RG_BBOX_SIZE;
 	nx = -1;
 	objState = new WingedRG(this);
-	gravity = MARIO_GRAVITY;
+	gravity = ENEMIES_GRAVITY;
 }
 
 void RedGoomba::SetObjectState(NormalRG* objectState)

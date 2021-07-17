@@ -74,7 +74,7 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 	}
 
 	if (objectType.compare("PSwitch") == 0) {
-		QuestionBlock* qb = new QuestionBlock();
+		QuestionBlock* qb = new QuestionBlock(this);
 		qb->SetReward(PSWITCH_PRIZE);
 		qb->SetAsBrick(1);
 		qb->SetPosition(x, y);
@@ -82,21 +82,21 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 	}
 
 	if (objectType.compare("QuestionBlock") == 0) {
-		QuestionBlock* qb = new QuestionBlock();
+		QuestionBlock* qb = new QuestionBlock(this);
 		qb->SetReward(COIN_PRIZE);
 		qb->SetPosition(x, y);
 		AddObject(qb);
 	}
 
 	if (objectType.compare("RaccoonLeaf") == 0) {
-		QuestionBlock* qb = new QuestionBlock();
+		QuestionBlock* qb = new QuestionBlock(this);
 		qb->SetReward(LEAF_PRIZE);
 		qb->SetPosition(x, y);
 		AddObject(qb);
 	}
 
 	if (objectType.compare("GreenMushroom") == 0) {
-		QuestionBlock* qb = new QuestionBlock();
+		QuestionBlock* qb = new QuestionBlock(this);
 		qb->SetReward(GMUSH_PRIZE);
 		qb->SetPosition(x, y);
 		AddObject(qb);

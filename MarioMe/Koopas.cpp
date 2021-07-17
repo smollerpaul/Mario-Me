@@ -9,7 +9,7 @@ CKoopas::CKoopas()
 {
 	width = height = KOOPAS_WIDTH;
 	nx = -1;
-	gravity = MARIO_GRAVITY;
+	gravity = ENEMIES_GRAVITY;
 	objState = new WingedKoopas(this);
 }
 
