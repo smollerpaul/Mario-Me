@@ -46,6 +46,7 @@ void RedGoomba::Update(DWORD dt)
 	dx = vx * dt;
 	dy = vy * dt;
 
+	//DebugOut(L"Current RG: %d\n", this->GetObjectType());
 }
 
 void RedGoomba::Render()

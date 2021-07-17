@@ -41,21 +41,28 @@ void RacoonTail::Update(DWORD dt)
 	if (aliveTimer >= TAIL_ALIVE_TIME) {
 		aliveTimer = 0;
 		SetAlive(0);
+		CGame::GetInstance()->GetCurrentScene()->RemoveObject(this);
+		DebugOut(L"tail gone!\n");
+
+		return;
 	}
 	CGameObject::Update(dt);
-	CGameObject:UpdatePosition();
+	
 	//DebugOut(L"vx tail: %f\n", vx);
 }
 
 void RacoonTail::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	coEvents.clear();
-	if (this)
-		CalcPotentialCollisions(coObjects, coEvents);
+	CalcPotentialCollisions(coObjects, coEvents);
 }
 
 void RacoonTail::BehaviorUpdate(DWORD dt)
 {
+	if (coEvents.size() == 0) {
+		CGameObject:UpdatePosition();
+	}
+
 	if (coEvents.size() != 0) {
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0;
@@ -63,12 +70,14 @@ void RacoonTail::BehaviorUpdate(DWORD dt)
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		/*x += min_tx * dx + nx * 0.1f;
-		y += min_ty * dy + ny * 0.1f;*/
+	/*	x += min_tx * dx ;
+		y += min_ty * dy ;*/
 
 		if (nx != 0) {
-			SetAlive(0);
+			//SetAlive(0);
 		}
+
+		DebugOut(L"Tail : %d\n", coEventsResult[0]->obj->GetObjectType());
 	}
 
 	for (UINT i = 0; i < coEventsResult.size(); i++)
@@ -84,9 +93,28 @@ void RacoonTail::BehaviorUpdate(DWORD dt)
 			if (e->ny != 0 || e->nx != 0)
 			{
 				EffectVault::GetInstance()->AddEffect(new StarWhipTail(x, y-10));
-				qb->SetState(QB_STATE_FROZEN);
+				//qb->SetState(QB_STATE_FROZEN);
+
+				/*if (qb->state == QB_STATE_ACTIVE) {
+
+					if (qb->state != QB_STATE_FROZEN)
+						qb->SetState(QB_STATE_FROZEN);
+
+					if (qb->reward == PSWITCH_PRIZE) {
+						PSwitch* ps = new PSwitch();
+						ps->SetPosition(this->x, this->y);
+						CGame::GetInstance()->GetCurrentScene()->AddObject(ps);
+					}
+
+					if (qb->reward == LEAF_PRIZE) {
+						Leaf* leaf = new Leaf();
+						leaf->SetPosition(x, y);
+						CGame::GetInstance()->GetCurrentScene()->AddObject(leaf);
+					}*/
+
+				}
 			}
-		}
+		
 		break;
 
 		case CGoomba::ObjectType:

@@ -44,7 +44,15 @@ void Leaf::Render()
 
 void Leaf::Update(DWORD dt)
 {
-  
+    if (visible == 0) {
+        deadTimer += dt;
+        if (deadTimer >= 250) {
+            deadTimer = 0;
+            SetAlive(0);
+            DebugOut(L"Leaf dead!!\n");
+            return;
+        }
+    }
     switch (scriptStep)
     {
         case 0: {
@@ -67,14 +75,17 @@ void Leaf::Update(DWORD dt)
             vx = LEAF_REVEAL_FORCE * dt * nx;
 
             break;
+
         default:
             break;
     }
 
    vy = min(vy + gravity * dt, LEAF_FALLING_VEL);
 
+   
+
     CGameObject::Update(dt);
-    //DebugOut(L"leaf : x: %f, y: %f, vy: %f . step: %d\n", x,y, vy, scriptStep);
+    DebugOut(L"leaf : x: %f, y: %f, vy: %f . step: %d\n", x,y, vy, scriptStep);
 }
 
 bool Leaf::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy)
@@ -84,24 +95,29 @@ bool Leaf::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float c
 
 void Leaf::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+    coEvents.clear();
     CalcPotentialCollisions(coObjects, coEvents);
-    if (coEvents.size() == 0)
-        CGameObject::UpdatePosition();
+    
 }
 
 void Leaf::BehaviorUpdate(DWORD dt)
 {
-    float min_tx, min_ty, nx = 0, ny;
-    float rdx = 0;
-    float rdy = 0;
+    if (coEvents.size() == 0)
+        CGameObject::UpdatePosition();
 
-    FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+    if (coEvents.size() != 0) {
+        float min_tx, min_ty, nx = 0, ny;
+        float rdx = 0;
+        float rdy = 0;
 
-    x += min_tx * dx ;
-    y += min_ty * dy ;
+        FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-    if (nx != 0) vx = -vx;
-    if (ny != 0) vy = 0;
+        x += min_tx * dx;
+        y += min_ty * dy;
+
+        if (nx != 0) vx = -vx;
+        if (ny != 0) vy = 0;
+    }
 
     for (UINT i = 0; i < coEventsResult.size(); i++)
     {
@@ -113,9 +129,11 @@ void Leaf::BehaviorUpdate(DWORD dt)
         {
             CMario* mario = dynamic_cast<CMario*>(e->obj);
             if (e->ny != 0 || e->nx != 0) {
-
-                SetAlive(0);
-                DebugOut(L"leaf dung mario\n");
+        
+                //leaf empty but touches qblock -> null
+               // SetAlive(0);
+                visible = 0;
+               // DebugOut(L"leaf dung mario\n");
             }
         }
         break;

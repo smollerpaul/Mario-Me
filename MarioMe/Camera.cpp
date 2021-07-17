@@ -8,6 +8,7 @@ Camera::Camera()
 	width = height = 0;
 	player = NULL;
 
+	rect = new RECT();
 }
 
 Camera::Camera(float xCam, float yCam, float w, float h)
@@ -17,12 +18,14 @@ Camera::Camera(float xCam, float yCam, float w, float h)
 	width = w;
 	height = h;
 	player = NULL;
+
+	rect = new RECT{0,0,0,0};
 }
 
 void Camera::SetPosition(float x, float y)
 {
 	this->x = x;
-	this->y = y;
+	this->y = y;	
 }
 
 void Camera::SetSize(float w, float h)
@@ -116,7 +119,22 @@ RECT Camera::GetCurrentRegion(int regionId)
 	return this->regions[regionId];
 }
 
+RECT* Camera::GetViewPort()
+{
+	return rect;
+}
+
 void Camera::SetCurrentRegion(int regionId)
 {
 	this->currentRegion = regionId;
+}
+
+
+
+void Camera::SetViewPort(float l, float t, float w, float h)
+{
+	rect->left = l;
+	rect->top = t;
+	rect->right = l+w;
+	rect->top = t+h;
 }

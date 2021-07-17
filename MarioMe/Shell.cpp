@@ -119,3 +119,8 @@ void ShelledKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRe
 		}
 	}
 }
+
+int ShelledKoopas::GetObjectType()
+{
+	return ObjectType;
+}

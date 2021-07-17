@@ -29,10 +29,11 @@ public:
 	float floatTimer = 0;
 	float attackTimer = 0;
 	float aliveTimer = 0;
-	float effectTimer = 0;
+	
+	float stayPmMaxTimer = 0;
+	int stayPmMax = 0;
 
 	int isAttacking = 0;
-	int transforming = 0;
 	int visible = 1;
 
 	int keepIsAttackingAlive = 0;

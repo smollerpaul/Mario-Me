@@ -35,9 +35,6 @@ void SlidingShell::InitAnimations()
 void SlidingShell::Update(DWORD dt)
 {
 	master->vx = -master->nx * KOOPAS_SHELL_SPEED;
-	// lam cái đụng 1 cái độ nào đó r quay lại
-	master->x += master->vx * dt;
-	
 
 	if (master->state == KOOPAS_STATE_DIE) {
 		deathTime += dt;
@@ -63,8 +60,6 @@ void SlidingShell::Render()
 		flip *= -1;
 	}
 
-	//DebugOut(L"flup: %d\n", flip);
-
 	float l, t, b, r;
 	master->GetBoundingBox(l, t, r, b);
 
@@ -73,6 +68,9 @@ void SlidingShell::Render()
 
 	ani->Render(mx - camera->GetX() + (r - l) / 2, my - camera->GetY() + (b - t) / 2, flip);
 	lastFlip = flip;
+
+
+	//master->RenderBoundingBox();
 	
 }
 
@@ -85,8 +83,6 @@ void SlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 		LPCOLLISIONEVENT e = coEventsResult[i];
 
 		switch (e->obj->GetObjectType()) {
-		
-			
 		case FireBall::ObjectType:
 		{
 			FireBall* fireball = dynamic_cast<FireBall*>(e->obj);
@@ -107,7 +103,6 @@ void SlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 			{
 				qb->SetAlive(0);
 				//effect brick break
-				//DebugOut(L"BRICK BROKE\n");
 			}
 		}
 		break;
@@ -125,6 +120,33 @@ void SlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 			}
 		}
 		break;
+
+		case CGoomba::ObjectType:
+		{
+			CGoomba* gb = dynamic_cast<CGoomba*>(e->obj);
+			if (e->nx != 0)
+			{
+				master->vx = -master->vx;
+			}
+		}
+		break;
+
+		case RedGoomba::ObjectType:
+		{
+			RedGoomba* gb = dynamic_cast<RedGoomba*>(e->obj);
+			if (e->nx != 0)
+			{
+				master->vx = -master->vx;
+				//EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y + 20));
+			}
+		}
+		break;
+
 		}
 	}
+}
+
+int SlidingShell::GetObjectType()
+{
+	return ObjectType;
 }

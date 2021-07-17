@@ -74,14 +74,14 @@ void GreenMushroom::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
     coEvents.clear();
     if(this)
-        CalcPotentialCollisions(coObjects, coEvents);
-   
-    if(coEvents.size()==0)
-        CGameObject::UpdatePosition();
+        CalcPotentialCollisions(coObjects, coEvents);    
 }
 
 void GreenMushroom::BehaviorUpdate(DWORD dt)
 {
+    if (coEvents.size() == 0)
+        CGameObject::UpdatePosition();
+
     if (coEvents.size() != 0) {
         float min_tx, min_ty, nx = 0, ny;
         float rdx = 0;

@@ -12,9 +12,9 @@ void QBlockBounce::Update(DWORD dt)
 {
 	if (bounced == 0) {
 		//DebugOut(L"chua ok \n");
-		y -= 0.64 * dt;
-		dyBounce += abs(0.68 * dt);
-		if (dyBounce >= 30) {
+		y -= 0.78 * dt;
+		dyBounce += abs(0.78 * dt);
+		if (dyBounce >= 50) {
 			bounced = 1;
 			
 		}

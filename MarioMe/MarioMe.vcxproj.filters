@@ -5,7 +5,7 @@
       <Filter>Framework\Graphics\Animations</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
-      <Filter>Game\Mario\Objects\Brick</Filter>
+      <Filter>Game\Objects\Brick</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Framework\Camera</Filter>
@@ -29,7 +29,7 @@
       <Filter>Game\Mario</Filter>
     </ClCompile>
     <ClCompile Include="Portal.cpp">
-      <Filter>Game\Mario\Objects\Portal</Filter>
+      <Filter>Game\Objects\Portal</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Framework\Graphics\Textures</Filter>
@@ -77,10 +77,10 @@
       <Filter>Framework\Map\MapLayer</Filter>
     </ClCompile>
     <ClCompile Include="SolidBlock.cpp">
-      <Filter>Game\Mario\Objects\SolidBlock</Filter>
+      <Filter>Game\Objects\SolidBlock</Filter>
     </ClCompile>
     <ClCompile Include="GhostBlock.cpp">
-      <Filter>Game\Mario\Objects\GhostBlock</Filter>
+      <Filter>Game\Objects\GhostBlock</Filter>
     </ClCompile>
     <ClCompile Include="PlayerData.cpp">
       <Filter>Game\PlayerData</Filter>
@@ -104,7 +104,7 @@
       <Filter>Game\Mario\MBig</Filter>
     </ClCompile>
     <ClCompile Include="QuestionBlock.cpp">
-      <Filter>Game\Mario\Objects\QuestionBlock</Filter>
+      <Filter>Game\Objects\QuestionBlock</Filter>
     </ClCompile>
     <ClCompile Include="RedGoomba.cpp">
       <Filter>Game\Enemies\RedGoomba</Filter>
@@ -176,7 +176,7 @@
       <Filter>Game\Effects\Effects\Rewards\EndCard</Filter>
     </ClCompile>
     <ClCompile Include="Void.cpp">
-      <Filter>Game\Mario\Objects\Void</Filter>
+      <Filter>Game\Objects\Void</Filter>
     </ClCompile>
     <ClCompile Include="MapEntry.cpp">
       <Filter>Game\Overworld Objects\MapEntry</Filter>
@@ -208,14 +208,16 @@
     <ClCompile Include="VenusFireBall.cpp">
       <Filter>Game\Enemies\Plants\Venus\FireBalls</Filter>
     </ClCompile>
-    <ClCompile Include="QBlockBounce.cpp" />
+    <ClCompile Include="QBlockBounce.cpp">
+      <Filter>Game\Effects\Effects\Rewards\QBounce</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
       <Filter>Framework\Graphics\Animations</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
-      <Filter>Game\Mario\Objects\Brick</Filter>
+      <Filter>Game\Objects\Brick</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Framework\Camera</Filter>
@@ -239,7 +241,7 @@
       <Filter>Game\Mario</Filter>
     </ClInclude>
     <ClInclude Include="Portal.h">
-      <Filter>Game\Mario\Objects\Portal</Filter>
+      <Filter>Game\Objects\Portal</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
       <Filter>Framework\Graphics\Textures</Filter>
@@ -269,10 +271,10 @@
       <Filter>Framework\Map\MapLayer</Filter>
     </ClInclude>
     <ClInclude Include="SolidBlock.h">
-      <Filter>Game\Mario\Objects\SolidBlock</Filter>
+      <Filter>Game\Objects\SolidBlock</Filter>
     </ClInclude>
     <ClInclude Include="GhostBlock.h">
-      <Filter>Game\Mario\Objects\GhostBlock</Filter>
+      <Filter>Game\Objects\GhostBlock</Filter>
     </ClInclude>
     <ClInclude Include="PlayerData.h">
       <Filter>Game\PlayerData</Filter>
@@ -299,7 +301,7 @@
       <Filter>Game\Mario\MBig</Filter>
     </ClInclude>
     <ClInclude Include="QuestionBlock.h">
-      <Filter>Game\Mario\Objects\QuestionBlock</Filter>
+      <Filter>Game\Objects\QuestionBlock</Filter>
     </ClInclude>
     <ClInclude Include="RedGoomba.h">
       <Filter>Game\Enemies\RedGoomba</Filter>
@@ -371,7 +373,7 @@
       <Filter>Game\Effects\Effects\Rewards\EndCard</Filter>
     </ClInclude>
     <ClInclude Include="Void.h">
-      <Filter>Game\Mario\Objects\Void</Filter>
+      <Filter>Game\Objects\Void</Filter>
     </ClInclude>
     <ClInclude Include="MapEntry.h">
       <Filter>Game\Overworld Objects\MapEntry</Filter>
@@ -403,7 +405,9 @@
     <ClInclude Include="VenusFireBall.h">
       <Filter>Game\Enemies\Plants\Venus\FireBalls</Filter>
     </ClInclude>
-    <ClInclude Include="QBlockBounce.h" />
+    <ClInclude Include="QBlockBounce.h">
+      <Filter>Game\Effects\Effects\Rewards\QBounce</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -649,26 +653,32 @@
     <Filter Include="Game\Enemies\Plants\Venus\FireBalls">
       <UniqueIdentifier>{2dd9a7a2-0108-4da9-a4b4-459671c74dcc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Mario\Objects">
+    <Filter Include="Game\Objects">
       <UniqueIdentifier>{60029a8e-a7fc-4440-b0c0-d02a669d24aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Mario\Objects\SolidBlock">
+    <Filter Include="Game\Objects\SolidBlock">
       <UniqueIdentifier>{7ac20bbf-ca32-4a23-b070-eb63f55ab485}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Mario\Objects\GhostBlock">
+    <Filter Include="Game\Objects\GhostBlock">
       <UniqueIdentifier>{8aed6746-8870-4ca0-8ed4-297094b9a2d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Mario\Objects\Brick">
+    <Filter Include="Game\Objects\Brick">
       <UniqueIdentifier>{17f5de1e-9c70-4a0f-bd4b-fc3f3a4d733d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Mario\Objects\Portal">
+    <Filter Include="Game\Objects\Portal">
       <UniqueIdentifier>{2eecf0ac-7cc2-448a-8f38-269b503ee2c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Mario\Objects\QuestionBlock">
+    <Filter Include="Game\Objects\QuestionBlock">
       <UniqueIdentifier>{563f2876-0b4d-4f20-b379-a5dc764819d2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Mario\Objects\Void">
+    <Filter Include="Game\Objects\Void">
       <UniqueIdentifier>{f876b03a-6867-4be2-889f-b4f3242f365b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects\Rewards\QBounce">
+      <UniqueIdentifier>{c4d3ce90-7f59-4a89-af37-1d6e4f952e66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Maps\World1-3">
+      <UniqueIdentifier>{54f13d4f-58bc-4307-a0ae-aef5f0f6c313}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -726,7 +736,7 @@
     <Xml Include="Resource\Scenes\World1-1.xml">
       <Filter>Resources\Scenes</Filter>
     </Xml>
-    <Xml Include="Resource\Scenes\World1-4.xml">
+    <Xml Include="Resource\Scenes\World1-3.xml">
       <Filter>Resources\Scenes</Filter>
     </Xml>
     <Xml Include="Resource\Scenes\demo.xml">
@@ -816,6 +826,9 @@
     </None>
     <None Include="Resource\Map\Overworld\overworld-1-map.tmx">
       <Filter>Resources\Maps\WorldScene</Filter>
+    </None>
+    <None Include="Resource\Map\World1-1\world-1-3-map.tmx">
+      <Filter>Resources\Maps\World1-3</Filter>
     </None>
   </ItemGroup>
 </Project>

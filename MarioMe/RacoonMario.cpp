@@ -238,10 +238,14 @@ void RacoonMario::JumpUpdate(DWORD dt)
 				master->SetState(MARIO_STATE_FLOAT);
 				master->vy = -MARIO_FLY_PUSH / 2;
 			}
-			else master->vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * dt;
+			else
+				if (keyboard->IsKeyDown(DIK_S)) {
+					master->vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * dt;
+				}
 		}
 
-		// float down
+
+		 //float down
 		if (master->state == MARIO_STATE_FLOAT) {
 			// if float over 500ms -> cannot press S to fly anymore
 			master->floatTimer += dt;
@@ -261,6 +265,15 @@ void RacoonMario::JumpUpdate(DWORD dt)
 				}
 			}
 		}
+
+		/*if (master->state == MARIO_STATE_FLOAT) {
+			if (master->powerMeter == PM_MAX) {
+				if(height< MARIO_FLY_MAX_POINT)
+					master->SetState(MARIO_STATE_FLY);
+				else
+					master->vy = MARIO_FLY_PUSH / 2;
+			}
+		}*/
 
 #pragma region JUMP & HIGH_JUMP & FALL
 		if (master->state != MARIO_STATE_JUMP_FALL && master->state != MARIO_STATE_FLY && master->state != MARIO_STATE_FLOAT) {
@@ -323,6 +336,7 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 	PlayerData* pd = PlayerData::GetInstance();
 	
 	SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
+
 	if (master->untouchable != 1) {
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
@@ -541,11 +555,18 @@ void RacoonMario::OnKeyUp(int keyCode)
 	}
 
 	if (keyCode == DIK_S) {
+		//once S released, PM drops
+		/*if (master->stayPmMax == 1) {
+			master->stayPmMax = 0;
+			master->stayPmMaxTimer = 0;
+		}*/
+
 		// from fly to float when release S
 		if (master->state == MARIO_STATE_FLY) {
 			master->SetState(MARIO_STATE_FLOAT);
 			DebugOut(L" float when keyup S\n");
 		}
+
 		// fall even when high jumping
 		else  if (master->isOnGround == true) {
 			master->SetState(MARIO_STATE_IDLE);
@@ -556,6 +577,7 @@ void RacoonMario::OnKeyUp(int keyCode)
 			master->SetState(MARIO_STATE_JUMP_FALL);
 		}
 	}
+
 }
 
 void RacoonMario::OnKeyDown(int keyCode)
@@ -584,29 +606,50 @@ void RacoonMario::OnKeyDown(int keyCode)
 				  break;
 
 		case DIK_S: {
+			if (master->powerMeter >= PM_MAX) {
+				//master->stayPmMax = 1;
+				master->SetState(MARIO_STATE_FLY);
+				master->vy = -MARIO_FLY_PUSH * 3 - MARIO_GRAVITY * master->dt;
+			}
 			if (master->isOnGround == true) {
-				if (master->powerMeter >= PM_MAX) {
-					master->SetState(MARIO_STATE_FLY);
-					master->vy = -MARIO_FLY_PUSH * 3 - MARIO_GRAVITY * master->dt;
-				} //always go here
-				else {
-					master->SetState(MARIO_STATE_JUMP);
-					master->vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * master->dt;
-				}
-				master->SetIsOnGround(false);
-				master->GetPosY(master->jumpStartPosition);
+				master->SetState(MARIO_STATE_JUMP);
+				master->vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * master->dt;
 			}
-			else {
-				if (master->state == MARIO_STATE_FLOAT) {
-					master->vy -= MARIO_JUMP_PUSH / 2;
-				}
-
-				if (master->state == MARIO_STATE_FLY) {
-					master->vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * master->dt;
-					//DebugOut(L" fly up when press S \n");
-				}
-			}
+			master->SetIsOnGround(false);
+			master->GetPosY(master->jumpStartPosition);
 		}
+				  //else {
+					  //if (master->powerMeter >= PM_MAX) {
+					  //	
+					  //	if(master->state!=MARIO_STATE_FLY)
+					  //		master->SetState(MARIO_STATE_FLY);
+
+					  //	//master->vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * master->dt;
+					  //	//fly as long as pmeter is max
+					  //}
+
+					  //if (master->state == MARIO_STATE_FLOAT) {
+					  //	master->vy -= MARIO_JUMP_PUSH / 2;
+					  //	//fly up a bit from float
+					  //}
+
+					  //if (master->state == MARIO_STATE_JUMP_FALL) {
+					  //	//master->SetState(MARIO_STATE_FLOAT);
+					  //	master->vy -= 0.01;
+					  //	
+					  //	//can float when falling
+					  //}
+
+					  /*if (master->state == MARIO_STATE_FLOAT) {
+						  master->vy -= MARIO_JUMP_PUSH / 2;
+					  }
+
+					  if (master->state == MARIO_STATE_FLY) {
+						  master->vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * master->dt;
+						  DebugOut(L" fly up when press S \n");
+					  }
+				}*/
+		//}
 				  break;
 
 		case DIK_A: {

@@ -55,7 +55,7 @@ void WingedRG::Update(DWORD dt)
 		}
 	}
 
-	master->x += master->dx;
+	//DebugOut(L"isOnGround: %d\n", isOnGround);
 }
 
 void WingedRG::Render()
@@ -73,13 +73,21 @@ void WingedRG::Render()
 
 	float mx, my;
 	master->GetPosition(mx, my);
+
 	if (master->state == RG_STATE_JUMP)
 		ani = this->animations["Fly"];
+
 	ani->Render(mx - camera->GetX() + (r - l) / 2, my - camera->GetY() + (b - t) / 2, flip);
+
+
+	master->RenderBoundingBox();
 }
 
 void WingedRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
+	if (coEvents.size() == 0) {
+		master->UpdatePosition();
+	}
 	if (coEvents.size() != 0) {
 		float min_tx, min_ty, nx = 0, ny = 0;
 		float rdx = 0;
@@ -92,9 +100,13 @@ void WingedRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 		if (nx != 0) {
 			master->nx = -master->nx;
 		}
-		if (ny != 0) master->vy = 0;
-
-		isOnGround = 1;
+		if (ny < 0) {
+			master->vy = 0;
+			isOnGround = 1;
+		}
+		else if (ny > 0)
+			master->vy += MARIO_GRAVITY;
+		
 	}
 	
 	for (UINT i = 0; i < coEventsResult.size(); i++)

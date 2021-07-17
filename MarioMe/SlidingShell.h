@@ -15,7 +15,7 @@ public:
 	virtual void Update(DWORD dt) override;
 	virtual void Render();
 	virtual void BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents) override;
-	
+	virtual int GetObjectType();
 	static const int ObjectType = 32;
 };
 

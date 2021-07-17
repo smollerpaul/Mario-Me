@@ -70,6 +70,8 @@ void Render()
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
+		//game->SetViewport(game->GetInstance()->GetCurrentScene()->GetCamera()->GetViewPort());
+		
 		CGame::GetInstance()->GetCurrentScene()->Render();
 
 		spriteHandler->End();

@@ -16,6 +16,7 @@ CGame * CGame::__instance = NULL;
 	- hInst: Application instance handle
 	- hWnd: Application window handle
 */
+
 Keyboard* CGame::GetKeyboard()
 {
 	if (keyboard == nullptr) {
@@ -69,6 +70,8 @@ void CGame::Init(HWND hWnd)
 	// Initialize sprite helper from Direct3DX helper library
 	D3DXCreateSprite(d3ddv, &spriteHandler);
 
+	d3ddv->SetRenderState(D3DRS_SCISSORTESTENABLE, TRUE);
+
 	OutputDebugString(L"[INFO] InitGame done;\n");
 }
 
@@ -79,6 +82,12 @@ void CGame::Draw(float x, float y, D3DXVECTOR3 pivot, LPDIRECT3DTEXTURE9 texture
 	r.top = top;
 	r.right = right;
 	r.bottom = bottom;
+
+	RECT viewport;
+	this->d3ddv->GetScissorRect(&viewport);
+
+	x += viewport.left;
+	y += viewport.top;
 
 	x = ceil(x);
 	y = ceil(y);
@@ -121,6 +130,14 @@ CGame *CGame::GetInstance()
 {
 	if (__instance == NULL) __instance = new CGame();
 	return __instance;
+}
+
+void CGame::SetViewport(RECT* viewportRect)
+{
+	spriteHandler->End();
+	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+
+	d3ddv->GetScissorRect(viewportRect);
 }
 
 int CGame:: GetScreenWidth() { return screen_width; }

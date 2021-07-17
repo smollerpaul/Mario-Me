@@ -21,9 +21,9 @@ class QuestionBlock :
     public CGameObject
 {
 protected:
-	int reward = 0;
+
 public:
-	
+	int reward = 0;
 	int hasHiddenItem = 0;
 	float yStill = 0;
 	float dyBounce = 0;

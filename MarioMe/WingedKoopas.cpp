@@ -31,9 +31,8 @@ void WingedKoopas::Update(DWORD dt)
 			walkTime += dt;
 
 			if (walkTime >= KOOPAS_WALK_TIME) {
-				if (master->GetState() != KOOPAS_STATE_JUMP) {
+				if (master->state != KOOPAS_STATE_JUMP)
 					master->SetState(KOOPAS_STATE_JUMP);
-				}
 				walkTime = 0;
 				yGround = master->y;
 			}
@@ -52,7 +51,7 @@ void WingedKoopas::Update(DWORD dt)
 		}
 	}
 
-	master->x += master->dx;
+	//master->x += master->dx;
 }
 
 void WingedKoopas::Render()
@@ -76,27 +75,28 @@ void WingedKoopas::Render()
 
 void WingedKoopas::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT> &coEventsResult, vector<LPCOLLISIONEVENT> &coEvents)
 {
+	if (coEvents.size() == 0) {
+		master->UpdatePosition();
+	}
 	if (coEvents.size() != 0) {
 		float min_tx, min_ty, nx = 0, ny = 0;
 		float rdx = 0;
 		float rdy = 0;
 		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		master->x += min_tx * master->dx + nx * 0.2f;
-		master->y += min_ty * master->dy + ny * 0.2f;
+		master->x += min_tx * master->dx;
+		master->y += min_ty * master->dy;
 
 		if (nx != 0) {
 			master->nx = -master->nx;
 		}
 		if (ny < 0) {
 			master->vy = 0;
+			isOnGround = 1;
 		}
 		else if (ny > 0) {
-			//DebugOut(L"kooopas té đi\n");
-			master->vy += master->gravity*dt;
+			master->vy += master->gravity;
 		}
-
-		isOnGround = 1;
 	}
 }
 
@@ -150,5 +150,10 @@ void WingedKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 	}
 
 	//DebugOut(L" WING KOOPS vy: %f, isOnGround : %d, STATE: %d \n", master->vy, isOnGround, master->state);
+}
+
+int WingedKoopas::GetObjectType()
+{
+	return ObjectType;
 }
 

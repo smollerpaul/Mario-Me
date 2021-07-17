@@ -60,16 +60,6 @@ void SmallMario::Update(DWORD dt)
 		master->visible = 0;
 	}
 
-	//grow to BIG MARIO
-	if (master->state == MARIO_STATE_GROW) {
-		master->effectTimer += dt;
-
-		if (master->effectTimer >= 2000) {
-			master->SetObjectState(new BigMario(master));
-			master->effectTimer = 0;
-		}
-	}
-
 	//powerUp
 	if (master->untouchable == 1) {
 		master->untouchableTimer += dt;
@@ -311,6 +301,10 @@ void SmallMario::RunPowerMeter(DWORD dt)
 
 void SmallMario::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT>& coEventsResult, vector<LPCOLLISIONEVENT>& coEvents)
 {
+	if (coEvents.size() == 0) {
+		if(master->untouchable!=1)
+			master->UpdatePosition();
+	}
 	if (coEvents.size() != 0) {
 		float min_tx, min_ty, nx = 0, ny = 0;
 
@@ -331,8 +325,7 @@ void SmallMario::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT>& coEvent
 			}
 			else if (ny > 0) {
 				master->vy += master->gravity;
-
-				DebugOut(L"mario lam sao de rot\n");
+				master->SetState(MARIO_STATE_JUMP_FALL);
 			}
 		}
 	}
@@ -505,8 +498,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 					master->StartUntouchable();
 					master->visible = 0;
 					powerUpLeaf = 1;
-
-					leaf->SetAlive(0);
+					leaf->visible = 0;
 					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
 					DebugOut(L"mario dung leave\n");
 				}

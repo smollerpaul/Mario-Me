@@ -7,6 +7,7 @@
 */
 LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 {
+
 	float sl, st, sr, sb;		
 	float ml, mt, mr, mb;		
 	float t, nx, ny, tl;
@@ -50,11 +51,14 @@ void CGameObject::CalcPotentialCollisions(
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
+		//if (coObjects->at(i)!= nullptr) {
+			//DebugOut(L"ello pre-calc: %d \n", coObjects->at(i)->GetObjectType());
+			LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
-		if (e->t >= 0 && e->t <= 1.0f && e->tl > 0)
-			temp.push_back(e);
-		else delete e;
+			if (e->t >= 0 && e->t <= 1.0f && e->tl > 0)
+				temp.push_back(e);
+			else delete e;
+		//}
 	}
 
 	std::sort(temp.begin(), temp.end(), CCollisionEvent::compare);
@@ -115,7 +119,7 @@ void CGameObject::CalcPotentialCollisions(
 
 			coEvents.push_back(coll);
 			
-			if (this->GetObjectType() == 22 && coll->obj->GetObjectType() == 987) {
+			/*if (this->GetObjectType() == 22 && coll->obj->GetObjectType() == 987) {
 				DebugOut(L"1 BLOCK-> MARIO   %f  %f %f \n", coll->nx, coll->ny, coll->tl);
 
 				float sl, st, sr, sb;		
@@ -129,9 +133,9 @@ void CGameObject::CalcPotentialCollisions(
 				DebugOut(L"----------------------\n");
 
 			}
-				
+				*/
 
-			if (this->GetObjectType() == 987 && coll->obj->GetObjectType() == 22) {
+			/*if (this->GetObjectType() == 987 && coll->obj->GetObjectType() == 22) {
 				DebugOut(L"1 MARIO->BLOCK   %f  %f  %f \n", coll->nx, coll->ny, coll->tl);
 
 				float sl, st, sr, sb;
@@ -143,7 +147,7 @@ void CGameObject::CalcPotentialCollisions(
 				DebugOut(L"POS MARIO: %f %f %f %f\n", ml, mt, mr, mb);
 
 				DebugOut(L"----------------------\n");
-			}
+			}*/
 	
 
 		}
@@ -177,6 +181,20 @@ void CGameObject::FilterCollision(vector<LPCOLLISIONEVENT>& coEvents, vector<LPC
 		if (c->obj->CanGetThrough(this, c->nx, c->ny) == true) {
 			continue;
 		}
+
+		if (this->GetObjectType() == 5) {
+			//DebugOut(L"this: goomba C obj: %d \n", c->obj->GetObjectType());
+		}
+
+		if (this->GetObjectType() ==22) {
+			//if(c->obj->GetObjectType()== 4002)
+				//DebugOut(L" TAIL TOUCHES : %d  nx: %f  ny: %f \n", c->obj->GetObjectType(),c->nx, c->ny );
+
+		}
+
+		if (this->GetObjectType() == 4002) {
+			//DebugOut(L"C obj: %d \n", c->obj->GetObjectType());
+		}
 	
 		if (this->GetObjectType() == 987 && c->obj->GetObjectType() == 22) {
 			///DebugOut(L"2 MARIO BLOCK_ nX:  %f    NY: %F \n", c->nx, c->ny);
@@ -187,15 +205,21 @@ void CGameObject::FilterCollision(vector<LPCOLLISIONEVENT>& coEvents, vector<LPC
 		}
 
 		if (this->GetObjectType() == 2002 && c->obj->GetObjectType() == 22) {
-			DebugOut(L"filter collision:   TAIL BLOCK_ nX:  %f    NY: %F \n",c->nx, c->ny);
+
+			//DebugOut(L"  TAIL BLOCK_ nX:  %f    NY: %F  TL: %f \n",c->nx, c->ny, c->tl);
+		}
+
+		if (this->GetObjectType() == 22 && c->obj->GetObjectType() == 2002) {
+
+			//DebugOut(L"  BLOCK TAIL  nX:  %f    NY: %F  TL: %f \n", c->nx, c->ny, c->tl);
 		}
 
 		if (this->GetObjectType() == 4002 && c->obj->GetObjectType() == 987) {
-			DebugOut(L"filter collision:   LEAF MARIO_ nX:  %f    NY: %F \n", c->nx, c->ny);
+			//DebugOut(L"filter collision:   LEAF MARIO_ nX:  %f    NY: %F \n", c->nx, c->ny);
 		}
 
 		if (this->GetObjectType() == 987 && c->obj->GetObjectType() == 4002) {
-			DebugOut(L"filter collision:   MARIO LEAF_ nX:  %f    NY: %F \n", c->nx, c->ny);
+			//DebugOut(L"filter collision:   MARIO LEAF_ nX:  %f    NY: %F \n", c->nx, c->ny);
 		}
 	
 		if (c->t < min_tx && c->nx != 0) { 
@@ -210,7 +234,8 @@ void CGameObject::FilterCollision(vector<LPCOLLISIONEVENT>& coEvents, vector<LPC
 			rdy = c->dy;
 		}
 
-		coEventsResult.push_back(c);
+		if(c->obj->GetObjectType())
+			coEventsResult.push_back(c);
 
 	}
 	/*if (min_ix >= 0) 

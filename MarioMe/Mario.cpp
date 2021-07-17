@@ -42,14 +42,14 @@ void CMario::Update(DWORD dt)
 	SmallMario* currentState = objState;
 	currentState->Update(dt);
 
-	if (state != MARIO_STATE_DIE && state != MARIO_STATE_REALLY_DIE && transforming != 1) {
+	if (state != MARIO_STATE_DIE) {
 		MovementUpdate(dt);
 		RunPowerMeter(dt);
 		JumpUpdate(dt);
 		AttackUpdate(dt);
 	}
-	//goi rieng
 
+	//DebugOut(L"state Mario Vy: %d\n", state);
 	//call update ->collision -> behavior outside in playscene
 	/*CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
 	BehaviorUpdate(dt, coEventsResult);*/
@@ -68,7 +68,15 @@ bool CMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 		return coEventNx != 0 || coEventNy < 0;
 		break;
 
-	case CKoopas::ObjectType:
+	case NormalKoopas::ObjectType:
+		return coEventNx != 0 || coEventNy < 0;
+		break;
+
+	case SlidingShell::ObjectType:
+		return coEventNx != 0 || coEventNy < 0;
+		break;
+
+	case WingedKoopas::ObjectType:
 		return coEventNx != 0 || coEventNy < 0;
 		break;
 	}
@@ -96,29 +104,38 @@ void CMario::AttackUpdate(DWORD dt)
 void CMario::RunPowerMeter(DWORD dt)
 {
 	//power meter increase as long as onground , mario is at maxspeed
-	if (isOnGround == true && isAtMaxRunSpeed == 1 ) {
+	if (stayPmMax == 0) {
+		if (isOnGround == true && isAtMaxRunSpeed == 1) {
 			powerMeter = min(powerMeter + PM_INCREASE * dt, PM_MAX);
+		}
+		else {
+			//powerMeter can't be <0
+			powerMeter = max(powerMeter - PM_DECREASE * dt, 0.0f);
+		}
 	}
-	else { 
-		//powerMeter can't be <0
-		powerMeter = max(powerMeter - PM_DECREASE * dt, 0.0f);
+	
+	//if S is pressed while PM max -> stay that way for 4s
+
+	/*if (stayPmMax == 1) {
+		powerMeter == PM_MAX;
+
+		stayPmMaxTimer += dt;
+
+		if (stayPmMaxTimer >= 4000) {
+			stayPmMax = 0;
+			stayPmMaxTimer = 0;
+		}
 	}
+	DebugOut(L"pm is : %f \n", powerMeter);*/
+	DebugOut(L"pm is : %f \n", powerMeter);
 }
 
 void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	coEvents.clear();
 
-	if (state != MARIO_STATE_DIE) 
+	if (state != MARIO_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
-
-	if (coEvents.size() == 0)
-	{
-		if (untouchable != 1) {
-			CGameObject::UpdatePosition();
-		}
-		//including DIE
-	}
 
 	x = max(0, x);
 }

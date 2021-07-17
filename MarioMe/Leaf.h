@@ -17,6 +17,7 @@ public:
 	int scriptStep = 0;
 	float yBegin = 0;
 	float xBegin = 0;
+	float deadTimer = 0;
 
 	Leaf();
 	virtual void SetPosition(float x, float y) override;
@@ -28,7 +29,7 @@ public:
 	void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void BehaviorUpdate(DWORD dt);
 
-	virtual int GetObjectType() override;
+	virtual int GetObjectType();
 	static const int ObjectType = 4002;
 
 };

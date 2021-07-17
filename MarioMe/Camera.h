@@ -7,6 +7,8 @@ class CGameObject;
 class Camera
 {
 protected:
+
+	RECT* rect;
 	unordered_map<int, RECT> regions;
 	float x;
 	float y;
@@ -38,7 +40,10 @@ public:
 	CGameObject* GetPlayer();
 
 	void AddRegion(RECT rect, int regionId);
+	
+	RECT* GetViewPort();
 
+	void SetViewPort(float l, float t, float r, float b);
 	void SetCurrentRegion(int regionId);
 	RECT GetCurrentRegion(int regionId);
 };

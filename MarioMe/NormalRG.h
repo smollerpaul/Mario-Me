@@ -18,7 +18,7 @@ protected:
 	unordered_map<string, LPANIMATION> animations;
 	
 public:
-	int isOnGround = 0;
+	int isOnGround = 1;
 
 	NormalRG();
 	NormalRG(RedGoomba* master);

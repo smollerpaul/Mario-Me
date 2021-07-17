@@ -51,7 +51,7 @@ void FireBall::Update(DWORD dt)
 
 	CGameObject::Update(dt);
 
-	CGameObject::UpdatePosition();
+	
 }
 
 void FireBall::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -64,6 +64,10 @@ void FireBall::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void FireBall::BehaviorUpdate(DWORD dt)
 {
+	if (coEvents.size() == 0) {
+		CGameObject::UpdatePosition();
+	}
+
 	if (coEvents.size() != 0) {
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0;
@@ -71,11 +75,8 @@ void FireBall::BehaviorUpdate(DWORD dt)
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		x += min_tx * dx + nx * 0.1f;
-		y += min_ty * dy + ny * 0.1f;
-
-		/*x += min_tx * dx ;
-		y += min_ty * dy ;*/
+		x += min_tx * dx;
+		y += min_ty * dy;
 
 		if (nx != 0) {
 			SetAlive(0);

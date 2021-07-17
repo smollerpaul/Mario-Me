@@ -84,14 +84,15 @@ void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state != GOOMBA_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
-	if (coEvents.size() == 0)
-	{
-		CGameObject::UpdatePosition();
-	}
+	
 }
 
 void CGoomba::BehaviorUpdate(DWORD dt)
 {
+	if (coEvents.size() == 0)
+	{
+		CGameObject::UpdatePosition();
+	}
 	if (coEvents.size()!= 0) {
 		float min_tx, min_ty, nx = 0, ny = 0;
 		float rdx = 0;
@@ -133,7 +134,8 @@ void CGoomba::BehaviorUpdate(DWORD dt)
 			{
 				if (state != GOOMBA_STATE_DIE) {
 					SetState(GOOMBA_STATE_DIE);
-					DebugOut(L"yessssssssssssssssssssss\n");
+					//DebugOut(L"yessssssssssssssssssssss\n");
+					EffectVault::GetInstance()->AddEffect(new StarWhipTail(this->x, this->y));
 				}
 			}
 		}

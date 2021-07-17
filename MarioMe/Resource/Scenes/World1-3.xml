@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<SceneContent>
+	<TmxMap path="Resource\Map\World1-1\world-1-3-map.tmx"/>
+    <Camera start="0">
+      <Region id="0" left="0" top="717" right="7776" bottom="1296">
+        <CameraMode mode="Tracking"/>
+      </Region>
+    </Camera> 
+</SceneContent>

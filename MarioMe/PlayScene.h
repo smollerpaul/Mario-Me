@@ -6,7 +6,7 @@
 #include "Mario.h"
 
 #define CAM_WIDTH_SIZE	769
-#define CAM_HEIGHT_SIZE	579
+#define CAM_HEIGHT_SIZE	400
 //579
 
 

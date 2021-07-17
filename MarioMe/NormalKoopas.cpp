@@ -27,8 +27,7 @@ void NormalKoopas::InitAnimations()
 void NormalKoopas::Update(DWORD dt)
 {
 	master->vx = master->nx * KOOPAS_WALK_SPEED;
-
-	master->x += master->vx * dt;
+	//master->x += master->vx * dt;
 }
 
 void NormalKoopas::CanGetThrough(CGameObject* gameObjToCollide, float coEventX, float coEventY)
@@ -42,10 +41,6 @@ void NormalKoopas::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, ve
 
 	if (master->GetState() != KOOPAS_STATE_DIE)
 		master->CalcPotentialCollisions(coObjects, master->coEvents);
-
-	if (master->coEvents.size() == 0) {
-		master->UpdatePosition();
-	}
 }
 
 void NormalKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
@@ -126,11 +121,15 @@ void NormalKoopas::Render()
 
 int NormalKoopas::GetObjectType()
 {
-	return this->ObjectType;
+	return ObjectType;
 }
 
 void NormalKoopas::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT> &coEventsResult, vector<LPCOLLISIONEVENT> &coEvents)
 {
+	if (master->coEvents.size() == 0) {
+		master->UpdatePosition();
+	}
+
 	if (coEvents.size() != 0) {
 
 		float min_tx, min_ty, nx = 0, ny = 0;

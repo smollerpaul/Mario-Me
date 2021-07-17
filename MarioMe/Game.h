@@ -84,6 +84,8 @@ public:
 
 	static CGame * GetInstance();
 
+	void SetViewport(RECT* viewportRect);
+
 	~CGame();
 };
 

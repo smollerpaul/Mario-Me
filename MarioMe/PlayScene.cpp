@@ -16,7 +16,6 @@ CPlayScene::CPlayScene(string id, string filePath):
 
 void CPlayScene::Update(DWORD dt)
 {
-
 	PlayerData* pd = PlayerData::GetInstance();
 
 	if (EffectVault::GetInstance()->GetMarioIsDead() == 1) {
@@ -46,6 +45,14 @@ void CPlayScene::Update(DWORD dt)
 	{
 		objects[i]->Update(dt);
 	}
+
+	for (size_t i = 0; i < coObjects.size(); i++)
+	{
+		if (coObjects[i]->GetAlive() != 1)
+			coObjects.erase(coObjects.begin() + i);
+	}
+
+	CheckAlive();
 
 	player->CollisionUpdate(dt, &coObjects);
 
@@ -79,6 +86,7 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
+	CGame::GetInstance()->SetViewport(camera->GetViewPort());
 	this->map->Render();
 	vector<LPGAMEOBJECT> renderObjects;
 	
@@ -180,6 +188,7 @@ void CPlayScene::Load()
 	camera->SetCurrentRegion(0);
 	//RECT currentReg= camera->GetCurrentRegion(1);
 	camera->SetSize(CAM_WIDTH_SIZE, CAM_HEIGHT_SIZE);
+	camera->SetViewPort(camera->GetX(), camera->GetY(), CAM_WIDTH_SIZE, CAM_HEIGHT_SIZE);
 	//camera->SetPosition(currentReg.left, currentReg.top);
 	SetCamera(camera);
 	DebugOut(L"Camera ok\n");

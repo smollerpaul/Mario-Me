@@ -278,7 +278,7 @@
     <Xml Include="Resource\Scenes\Intro.xml" />
     <Xml Include="Resource\Scenes\Overworld.xml" />
     <Xml Include="Resource\Scenes\World1-1.xml" />
-    <Xml Include="Resource\Scenes\World1-4.xml" />
+    <Xml Include="Resource\Scenes\World1-3.xml" />
     <Xml Include="Resource\Sprites\EffectDB.xml" />
     <Xml Include="Resource\Sprites\EnemyDB.xml" />
     <Xml Include="Resource\Sprites\IntroDB.xml" />
@@ -316,6 +316,7 @@
     <None Include="Resource\Map\Demo\demo.tmx" />
     <None Include="Resource\Map\Overworld\overworld-1-map.tmx" />
     <None Include="Resource\Map\World1-1\world-1-1-map-obj.tmx" />
+    <None Include="Resource\Map\World1-1\world-1-3-map.tmx" />
     <None Include="Resource\Textures\intro.psd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

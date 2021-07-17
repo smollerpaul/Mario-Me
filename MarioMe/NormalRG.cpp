@@ -50,9 +50,6 @@ void NormalRG::Update(DWORD dt)
 			master->SetAlive(0);
 		master->vy = 0;
 	}
-
-	//DebugOut(L"RED GOOMBA  vx: %f, x: %f, dx: %f \n", master->vx, master->x, master->dx);
-
 }
 
 void NormalRG::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT> coEvents)
@@ -60,16 +57,16 @@ void NormalRG::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector
 	master->coEvents.clear();
 
 	if (master->GetState() != RG_STATE_DIE)
-		master->CalcPotentialCollisions(coObjects, master->coEvents);
-
-	if (master->coEvents.size() == 0) {
-		master->UpdatePosition();
-	}
+		master->CalcPotentialCollisions(coObjects,master->coEvents);
 }
 
 void NormalRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
-	if (coEvents.size() != 0) {
+	if (master->coEvents.size() == 0) {
+		master->UpdatePosition();
+	}
+
+	if (master->coEvents.size() != 0) {
 		float min_tx, min_ty, nx = 0, ny = 0;
 		float rdx = 0;
 		float rdy = 0;
@@ -81,9 +78,13 @@ void NormalRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 		if (nx != 0) {
 			master->nx = -master->nx;
 		}
-		if (ny != 0) master->vy = 0;
-
-		isOnGround = 1;
+		if (ny < 0) {
+			master->vy = 0;
+			isOnGround = 1;
+		}
+		else if (ny >= 0) {
+			master->vy += MARIO_GRAVITY;
+		}
 	}
 
 	for (UINT i = 0; i < coEventsResult.size(); i++)
