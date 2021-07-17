@@ -14,6 +14,13 @@
 #include "Brick.h"
 #include "PSwitch.h"
 #include "Piranha.h"
+#include "KoopasBound.h"
+#include "BoomBound.h"
+#include "RedNormalKoopas.h"
+#include "StrawCube.h"
+#include "MarioConstants.h"
+#include "MusicNote.h"
+#include "CoinBrick.h"
 
 void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width, float height)
 {
@@ -54,6 +61,20 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		AddObject(ghostObject);
 	}
 
+	if (objectType.compare("KoopasBound") == 0) {
+		KoopasBound* kpB = new KoopasBound();
+		kpB->SetPosition(x, y);
+		kpB->SetSize(width, height);
+		AddObject(kpB);
+	}
+
+	if (objectType.compare("BoomBound") == 0) {
+		BoomBound* bbb = new BoomBound();
+		bbb->SetPosition(x, y);
+		bbb->SetSize(width, height);
+		AddObject(bbb);
+	}
+
 	if (objectType.compare("Brick") == 0) {
 		CBrick* bb = new CBrick();
 		bb->SetPosition(x, y);
@@ -77,6 +98,25 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		QuestionBlock* qb = new QuestionBlock(this);
 		qb->SetReward(PSWITCH_PRIZE);
 		qb->SetAsBrick(1);
+		qb->SetPosition(x, y);
+		AddObject(qb);
+	}
+
+	if (objectType.compare("MusicNote") == 0) {
+		MusicNote* qb = new MusicNote();
+		qb->SetPosition(x, y);
+		AddObject(qb);
+	}
+
+	if (objectType.compare("CoinBrick") == 0) {
+		CoinBrick* qb = new CoinBrick();
+		qb->SetPosition(x, y);
+		AddObject(qb);
+	}
+
+	if (objectType.compare("StrawCube") == 0) {
+		StrawCube* qb = new StrawCube(this);
+		qb->SetReward(LEAF_PRIZE);
 		qb->SetPosition(x, y);
 		AddObject(qb);
 	}
@@ -109,7 +149,8 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 	}
 
 	if (objectType.compare("RedKoopas") == 0) {
-		CKoopas* kp = new CKoopas(new NormalKoopas);
+		CKoopas* kp = new CKoopas(new NormalKoopas());
+		kp->SetObjectState(new RedNormalKoopas(kp));
 		kp->SetPosition(x, y);
 		AddObject(kp);
 	}
@@ -137,6 +178,8 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		kp->SetPosition(x, y);
 		AddObject(kp);
 	}
+
+	//boombro
 
 }
 

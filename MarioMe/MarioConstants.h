@@ -82,3 +82,9 @@
 #define TAIL_SIZE					15
 
 #define FIREBALL_START_Y            35
+
+#define COIN_PRIZE			11
+#define GMUSH_PRIZE			12
+#define RMUSH_PRIZE			13
+#define LEAF_PRIZE			14
+#define PSWITCH_PRIZE		15

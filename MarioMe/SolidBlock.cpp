@@ -30,6 +30,7 @@ bool SolidBlock::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, f
 
 void SolidBlock::Render()
 {
+	//RenderBoundingBox();
 }
 
 int SolidBlock::GetObjectType()

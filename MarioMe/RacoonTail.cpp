@@ -41,7 +41,6 @@ void RacoonTail::Update(DWORD dt)
 	if (aliveTimer >= TAIL_ALIVE_TIME) {
 		aliveTimer = 0;
 		SetAlive(0);
-		CGame::GetInstance()->GetCurrentScene()->RemoveObject(this);
 		DebugOut(L"tail gone!\n");
 
 		return;

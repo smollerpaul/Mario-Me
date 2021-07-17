@@ -45,9 +45,8 @@ void NormalKoopas::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, ve
 
 void NormalKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
+	PlayerData* pd = PlayerData::GetInstance();
 	PostCollisionUpdate(dt, coEventsResult, coEvents);
-
-	//DebugOut(L" coEventsResult NK: %d\n", coEventsResult.size());
 
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
@@ -61,7 +60,9 @@ void NormalKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 			if (e->ny > 0)
 			{
 				master->SetObjectState(new ShelledKoopas(master));
-				DebugOut(L"[KOOPAS CROUCH TO SHELL]\n");
+				//DebugOut(L"[KOOPAS CROUCH TO SHELL]\n");
+
+				pd->SetScore(pd->GetScore() + 100);
 			}
 		}
 		break;
@@ -88,15 +89,13 @@ void NormalKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 					master->SetState(KOOPAS_STATE_DIE);
 				}
 				master->SetAlive(0);
-				EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y+20));
+				//EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y+20));
 			}
 		}
 		break;
 
 		}
 	}
-
-	//DebugOut(L"NK: vx: %f, vy %f, x %f, y %f\n", master->vx, master->vy, master->x, master->y);
 }
 
 void NormalKoopas::Render()
@@ -117,6 +116,8 @@ void NormalKoopas::Render()
 	//DebugOut(L"NK: Render: mx: %f, my: %f \n", mx, my);
 
 	ani->Render(mx - camera->GetX() + (r - l)/2 , my - camera->GetY() + (b - t)/2, flip);
+
+	master->RenderBoundingBox();
 }
 
 int NormalKoopas::GetObjectType()
@@ -145,5 +146,6 @@ void NormalKoopas::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT> &coEve
 			master->nx = -master->nx;
 		}
 		if (ny !=0) master->vy = 0;
+		if (ny < 0) isOnGround = 1;
 	}
 }

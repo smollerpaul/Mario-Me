@@ -1,4 +1,4 @@
-﻿#include "SlidingShell.h"
+#include "RedSlidingShell.h"
 #include "NormalKoopas.h"
 #include "Shell.h"
 #include "Koopas.h"
@@ -13,28 +13,28 @@
 #include "QuestionBlock.h"
 #include "Brick.h"
 
-SlidingShell::SlidingShell()
+RedSlidingShell::RedSlidingShell()
 {
 }
 
-SlidingShell::SlidingShell(CKoopas* master)
+RedSlidingShell::RedSlidingShell(CKoopas* master)
 {
 	this->master = master;
-	master->vx = -master->nx * KOOPAS_SHELL_SPEED;
+	master->vx = master->nx * KOOPAS_SHELL_SPEED;
 	master->width = master->height = KOOPAS_SHELL_SIZE;
 }
 
-void SlidingShell::InitAnimations()
+void RedSlidingShell::InitAnimations()
 {
 	if (this->animations.size() < 1) {
-		this->animations["Crouch"] = CAnimations::GetInstance()->Get("ani-green-koopa-troopa-shell-run")->Clone();
+		this->animations["Move"] = CAnimations::GetInstance()->Get("ani-red-koopa-troopa-shell-run")->Clone();
 		this->animations["Respawn"] = CAnimations::GetInstance()->Get("ani-green-koopa-troopa-respawning")->Clone();
 	}
 }
 
-void SlidingShell::Update(DWORD dt)
+void RedSlidingShell::Update(DWORD dt)
 {
-	master->vx = -master->nx * KOOPAS_SHELL_SPEED;
+	master->vx = master->nx * KOOPAS_SHELL_SPEED;
 
 	if (master->state == KOOPAS_STATE_DIE) {
 		deathTime += dt;
@@ -45,18 +45,18 @@ void SlidingShell::Update(DWORD dt)
 	}
 }
 
-void SlidingShell::Render()
+void RedSlidingShell::Render()
 {
 	InitAnimations();
-	LPANIMATION ani = this->animations["Crouch"];
+	LPANIMATION ani = this->animations["Move"];
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
 	master->SetFlipOnNormalEnemy(master->nx);
 
 	int flip = master->flip;
-	
-	if (flip == lastFlip && lastFlip!=0) {
+
+	if (flip == lastFlip && lastFlip != 0) {
 		flip *= -1;
 	}
 
@@ -69,12 +69,9 @@ void SlidingShell::Render()
 	ani->Render(mx - camera->GetX() + (r - l) / 2, my - camera->GetY() + (b - t) / 2, flip);
 	lastFlip = flip;
 
-
-	//master->RenderBoundingBox();
-	
 }
 
-void SlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
+void RedSlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
 	NormalKoopas::PostCollisionUpdate(dt, coEventsResult, coEvents);
 
@@ -83,6 +80,7 @@ void SlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 		LPCOLLISIONEVENT e = coEventsResult[i];
 
 		switch (e->obj->GetObjectType()) {
+
 		case FireBall::ObjectType:
 		{
 			FireBall* fireball = dynamic_cast<FireBall*>(e->obj);
@@ -120,11 +118,14 @@ void SlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 			}
 		}
 		break;
+
 		}
 	}
 }
 
-int SlidingShell::GetObjectType()
+int RedSlidingShell::GetObjectType()
 {
 	return ObjectType;
 }
+
+

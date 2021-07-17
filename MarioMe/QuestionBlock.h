@@ -9,11 +9,7 @@
 #define QB_GRAVITY			0.02
 #define QB_BOUNCE_SPEED		0.68f
 
-#define COIN_PRIZE			11
-#define GMUSH_PRIZE			12
-#define RMUSH_PRIZE			13
-#define LEAF_PRIZE			14
-#define PSWITCH_PRIZE		15
+
 
 class Camera;
 class CPlayScene;

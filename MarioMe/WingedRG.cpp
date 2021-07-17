@@ -79,8 +79,6 @@ void WingedRG::Render()
 
 	ani->Render(mx - camera->GetX() + (r - l) / 2, my - camera->GetY() + (b - t) / 2, flip);
 
-
-	master->RenderBoundingBox();
 }
 
 void WingedRG::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)

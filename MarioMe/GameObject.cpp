@@ -103,10 +103,12 @@ CGameObject::~CGameObject()
 
 void CGameObject::ClearCollision()
 {
-	/*for (UINT i = 0; i < coEvents.size(); i++)
-		 delete coEvents[i];*/
+	for (UINT i = 0; i < coEvents.size(); i++)
+		 delete coEvents[i];
 
 	coEvents.clear();
+
+	coEventsResult.clear();
 }
 
 void CGameObject::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

@@ -18,7 +18,7 @@
 #define RG_WALK_TIME			500
 #define RG_JUMP_PUSH			0.332f
 
-#define KOOPAS_WALK_SPEED		0.03f
+#define KOOPAS_WALK_SPEED		0.15f
 #define KOOPAS_SHELL_SPEED		0.67f
 
 #define KOOPAS_SIZE				48

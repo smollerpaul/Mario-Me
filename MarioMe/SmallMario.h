@@ -14,6 +14,7 @@
 #include "RedMushroom.h"
 #include "Leaf.h"
 #include "SlidingShell.h"
+#include "RedSlidingShell.h"
 #include "Shell.h"
 #include "WingedKoopas.h"
 #include "EndCard.h"
@@ -23,6 +24,8 @@
 #include "Piranha.h"
 #include "VenusFireBall.h"
 #include "Brick.h"
+#include "RedNormalKoopas.h"
+#include "RedShelledKoopas.h"
 
 #include "FlyingCard.h"
 #include "MarioDieFx.h"
@@ -43,6 +46,9 @@ public:
 
 	int powerUpLeaf = 0;
 	int powerUpMushroom = 0;
+	int kick = 0;
+	float kickTimer = 0;
+
 
 	SmallMario();
 	SmallMario(CMario* masterObj);

@@ -9,6 +9,7 @@
 #include "PSwitch.h"
 #include "QBlockBounce.h"
 #include "PlayScene.h"
+#include "MarioConstants.h"
 
 QuestionBlock::QuestionBlock(CPlayScene* ss)
 {
@@ -57,12 +58,12 @@ void QuestionBlock::Render()
 	} 
 	ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + (b - t) / 2, flip);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void QuestionBlock::Update(DWORD dt)
 {
-	if (state == QB_STATE_BOUNCE) {
+	if (vy!=0) {
 		dyBounce += abs(dy);
 		
 		if (dyBounce >= QB_BOUNCE_HEIGHT) {
@@ -108,13 +109,13 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		DebugOut(L"QBlock touches: %d\n", coEventsResult[0]->obj->GetObjectType());
+		//DebugOut(L"QBlock touches: %d\n", coEventsResult[0]->obj->GetObjectType());
 	}
 	
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			//error touch leaf -> leaf disappeared but collided with block so now id is empty
+			
 				switch (e->obj->GetObjectType()) {
 
 				case CMario::ObjectType:

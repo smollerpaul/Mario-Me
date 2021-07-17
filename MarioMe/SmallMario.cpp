@@ -53,6 +53,15 @@ void SmallMario::Update(DWORD dt)
 	//	}*/
 	//	
 	//}
+	
+	//kick ani
+	if (kick != 0) {
+		kickTimer += dt;
+		if (kickTimer >= MARIO_ATTACK_TIME) {
+			kick = 0;
+			kickTimer = 0;
+		}
+	}
 
 	//death
 	if (master->state == MARIO_STATE_DIE) {
@@ -343,8 +352,6 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 	
 	PostCollisionUpdate(dt, coEventsResult, coEvents); 
 
-	//DebugOut(L"coEventsResult = %d\n", coEventsResult.size());
-
 	if (master->untouchable != 1) {
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
@@ -354,7 +361,6 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 
 			case PSwitch::ObjectType: 
 			{
-
 				PSwitch* p = dynamic_cast<PSwitch*>(e->obj);
 				if (e->ny < 0) {
 					p->activated = 1;
@@ -448,9 +454,40 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 			}
 			break;
 
+			case RedNormalKoopas::ObjectType:
+			{
+				RedNormalKoopas* rg = dynamic_cast<RedNormalKoopas*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					pd->SetScore(pd->GetScore() + 100);
+				}
+				else if (e->nx != 0 || e->ny > 0) {
+					if (master->state != MARIO_STATE_DIE)
+						master->SetState(MARIO_STATE_DIE);
+					EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+				}
+			}
+			break;
+
 			case SlidingShell::ObjectType:
 			{
 				SlidingShell* rg = dynamic_cast<SlidingShell*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				else if (e->nx != 0 || e->ny > 0) {
+					if (master->state != MARIO_STATE_DIE)
+						master->SetState(MARIO_STATE_DIE);
+					EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+				}
+			}
+			break;
+
+			case RedSlidingShell::ObjectType:
+			{
+				RedSlidingShell* rg = dynamic_cast<RedSlidingShell*>(e->obj);
 
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
@@ -486,6 +523,22 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 				}
+				if (e->nx != 0) {
+					kick = 1;
+				}
+			}
+			break;
+
+			case RedShelledKoopas::ObjectType:
+			{
+				RedShelledKoopas* rg = dynamic_cast<RedShelledKoopas*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				if (e->nx != 0) {
+					kick = 1;
+				}
 			}
 			break;
 
@@ -494,13 +547,13 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				Leaf* leaf = dynamic_cast<Leaf*>(e->obj);
 
 				if (e->nx != 0 || e->ny != 0) {
-					pd->SetScore(pd->GetScore() + 100);
 					master->StartUntouchable();
 					master->visible = 0;
 					powerUpLeaf = 1;
-					leaf->visible = 0;
+					leaf->SetAlive(0);
+
 					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
-					DebugOut(L"mario dung leave\n");
+					pd->SetScore(pd->GetScore() + 100);
 				}
 			}
 			break;
@@ -629,6 +682,10 @@ void SmallMario::Render()
 	case MARIO_STATE_FLOAT:
 		ani = this->animations["Float"];
 		break;
+	}
+
+	if (kick == 1) {
+		ani = this->animations["Kick"];
 	}
 
 	int alpha = 255;

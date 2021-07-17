@@ -51,7 +51,7 @@ void CScene::AddObject(CGameObject* obj)
 	objects.push_back(obj);
 }
 
-void CScene::RemoveObject(CGameObject* obj)
+void CScene::RemoveObject()
 {
 	objects.erase(remove_if(objects.begin(), objects.end(), []( CGameObject*& obj) {
 		if (obj->GetAlive()!=0) {

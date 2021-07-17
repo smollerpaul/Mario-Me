@@ -1,4 +1,4 @@
-#include "Shell.h"
+#include "RedShelledKoopas.h"
 #include "Koopas.h"
 #include "EnemiesConstants.h"
 #include "Game.h"
@@ -6,43 +6,44 @@
 #include "FireBall.h"
 #include "Mario.h"
 #include "Utils.h"
-#include "SlidingShell.h"
+#include "RedNormalKoopas.h"
+#include "RedSlidingShell.h"
 
-ShelledKoopas::ShelledKoopas()
+RedShelledKoopas::RedShelledKoopas()
 {
 }
 
-ShelledKoopas::ShelledKoopas(CKoopas* master)
+RedShelledKoopas::RedShelledKoopas(CKoopas* master)
 {
 	this->master = master;
 	master->vx = 0;
 	master->width = master->height = KOOPAS_SHELL_SIZE;
 }
 
-void ShelledKoopas::InitAnimations()
+void RedShelledKoopas::InitAnimations()
 {
-	if (this->animations.size() < 1 ) {
-		this->animations["Crouch"] = CAnimations::GetInstance()->Get("ani-green-koopa-troopa-crouch")->Clone();
-		this->animations["Respawn"] = CAnimations::GetInstance()->Get("ani-green-koopa-troopa-respawning")->Clone();
+	if (this->animations.size() < 1) {
+		this->animations["Crouch"] = CAnimations::GetInstance()->Get("ani-red-koopa-troopa-crouch")->Clone();
+		this->animations["Respawn"] = CAnimations::GetInstance()->Get("ani-red-koopa-troopa-respawning")->Clone();
 	}
 }
 
-void ShelledKoopas::Update(DWORD dt)
+void RedShelledKoopas::Update(DWORD dt)
 {
 	crouchTime += dt;
 	if (crouchTime >= KOOPAS_CROUCH_TIME) {
 		flicker = 1;
 	}
-	
+
 	if (flicker == 1) {
 		flickerTime += dt;
 
 		if (flickerTime >= KOOPAS_RESPAWN_TIME)
-			master->SetObjectState(new NormalKoopas(master));
+			master->SetObjectState(new RedNormalKoopas(master));
 	}
 }
 
-void ShelledKoopas::Render()
+void RedShelledKoopas::Render()
 {
 	InitAnimations();
 	LPANIMATION ani = this->animations["Crouch"];
@@ -63,11 +64,9 @@ void ShelledKoopas::Render()
 	}
 
 	ani->Render(mx - camera->GetX() + (r - l) / 2, my - camera->GetY() + (b - t) / 2, flip);
-	
-
 }
 
-void ShelledKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
+void RedShelledKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
 	NormalKoopas::PostCollisionUpdate(dt, coEventsResult, coEvents);
 
@@ -83,16 +82,17 @@ void ShelledKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRe
 
 			if (e->ny > 0)
 			{
-				master->SetObjectState(new SlidingShell(master));
+				master->SetObjectState(new RedSlidingShell(master));
 			}
 			if (e->nx != 0) {
 				//touch left
-				master->SetObjectState(new SlidingShell(master));
+					master->SetObjectState(new RedSlidingShell(master));
 				//touch right
-				if (e->nx > 0)
-					master->nx = -1;
+					if (e->nx > 0)
+						master->nx = -1;
 			}
 
+			//if dung ngang -> hold
 		}
 		break;
 
@@ -118,7 +118,6 @@ void ShelledKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRe
 					master->SetState(KOOPAS_STATE_DIE);
 				}
 				master->SetAlive(0);
-				EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y + 20));
 			}
 		}
 		break;
@@ -127,7 +126,7 @@ void ShelledKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRe
 	}
 }
 
-int ShelledKoopas::GetObjectType()
+int RedShelledKoopas::GetObjectType()
 {
-	return ObjectType;
+    return ObjectType;
 }

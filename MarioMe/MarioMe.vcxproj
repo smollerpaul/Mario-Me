@@ -80,11 +80,17 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4005;4244
+;4018;
+4305;
+4101;
+4715;
+4067;
+26495;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -129,9 +135,12 @@
   <ItemGroup>
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="BigMario.cpp" />
+    <ClCompile Include="BoomBound.cpp" />
+    <ClCompile Include="BoomBro.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="CoinBrick.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Effects.cpp" />
     <ClCompile Include="EffectVault.cpp" />
@@ -145,16 +154,22 @@
     <ClCompile Include="GreenMushroom.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Koopas.cpp" />
+    <ClCompile Include="KoopasBound.cpp" />
     <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapEntry.cpp" />
     <ClCompile Include="MapLayer.cpp" />
     <ClCompile Include="MapMario.cpp" />
+    <ClCompile Include="MusicNote.cpp" />
     <ClCompile Include="OverworldTrees.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Piranha.cpp" />
     <ClCompile Include="PSwitch.cpp" />
     <ClCompile Include="QBlockBounce.cpp" />
+    <ClCompile Include="RedNormalKoopas.cpp" />
+    <ClCompile Include="RedShelledKoopas.cpp" />
+    <ClCompile Include="RedSlidingShell.cpp" />
+    <ClCompile Include="StrawCube.cpp" />
     <ClCompile Include="Venus.cpp" />
     <ClCompile Include="VenusFireBall.cpp" />
     <ClCompile Include="WorldScene.cpp" />
@@ -201,9 +216,12 @@
   <ItemGroup>
     <ClInclude Include="Animations.h" />
     <ClInclude Include="BigMario.h" />
+    <ClInclude Include="BoomBound.h" />
+    <ClInclude Include="BoomBro.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Coin.h" />
+    <ClInclude Include="CoinBrick.h" />
     <ClInclude Include="Effects.h" />
     <ClInclude Include="EffectVault.h" />
     <ClInclude Include="EndCard.h" />
@@ -216,16 +234,22 @@
     <ClInclude Include="GreenMushroom.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Koopas.h" />
+    <ClInclude Include="KoopasBound.h" />
     <ClInclude Include="Leaf.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapEntry.h" />
     <ClInclude Include="MapLayer.h" />
     <ClInclude Include="MapMario.h" />
+    <ClInclude Include="MusicNote.h" />
     <ClInclude Include="OverworldTrees.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Piranha.h" />
     <ClInclude Include="PSwitch.h" />
     <ClInclude Include="QBlockBounce.h" />
+    <ClInclude Include="RedNormalKoopas.h" />
+    <ClInclude Include="RedShelledKoopas.h" />
+    <ClInclude Include="RedSlidingShell.h" />
+    <ClInclude Include="StrawCube.h" />
     <ClInclude Include="Venus.h" />
     <ClInclude Include="VenusFireBall.h" />
     <ClInclude Include="WorldScene.h" />

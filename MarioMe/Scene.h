@@ -40,7 +40,7 @@ public:
 
 	void SetCamera(Camera* camera);
 	void AddObject(CGameObject* obj);
-	void RemoveObject(CGameObject* obj);
+	void RemoveObject();
 
 
 	virtual int GetSceneType()=0;

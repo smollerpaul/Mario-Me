@@ -5,7 +5,7 @@
       <Filter>Framework\Graphics\Animations</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
-      <Filter>Game\Objects\Brick</Filter>
+      <Filter>Game\Objects\BrickTypes</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Framework\Camera</Filter>
@@ -211,13 +211,40 @@
     <ClCompile Include="QBlockBounce.cpp">
       <Filter>Game\Effects\Effects\Rewards\QBounce</Filter>
     </ClCompile>
+    <ClCompile Include="KoopasBound.cpp">
+      <Filter>Game\Enemies\Bounds</Filter>
+    </ClCompile>
+    <ClCompile Include="RedNormalKoopas.cpp">
+      <Filter>Game\Enemies\Koopas\RedKoopas\Normal</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomBound.cpp">
+      <Filter>Game\Enemies\Bounds</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomBro.cpp">
+      <Filter>Game\Enemies\BoomBro</Filter>
+    </ClCompile>
+    <ClCompile Include="RedShelledKoopas.cpp">
+      <Filter>Game\Enemies\Koopas\RedKoopas\Shelled</Filter>
+    </ClCompile>
+    <ClCompile Include="RedSlidingShell.cpp">
+      <Filter>Game\Enemies\Koopas\RedKoopas\SlidingShell</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicNote.cpp">
+      <Filter>Game\Objects\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="StrawCube.cpp">
+      <Filter>Game\Objects\StrawCube</Filter>
+    </ClCompile>
+    <ClCompile Include="CoinBrick.cpp">
+      <Filter>Game\Objects\BrickTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
       <Filter>Framework\Graphics\Animations</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
-      <Filter>Game\Objects\Brick</Filter>
+      <Filter>Game\Objects\BrickTypes</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Framework\Camera</Filter>
@@ -407,6 +434,33 @@
     </ClInclude>
     <ClInclude Include="QBlockBounce.h">
       <Filter>Game\Effects\Effects\Rewards\QBounce</Filter>
+    </ClInclude>
+    <ClInclude Include="KoopasBound.h">
+      <Filter>Game\Enemies\Bounds</Filter>
+    </ClInclude>
+    <ClInclude Include="RedNormalKoopas.h">
+      <Filter>Game\Enemies\Koopas\RedKoopas\Normal</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomBound.h">
+      <Filter>Game\Enemies\Bounds</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomBro.h">
+      <Filter>Game\Enemies\BoomBro</Filter>
+    </ClInclude>
+    <ClInclude Include="RedShelledKoopas.h">
+      <Filter>Game\Enemies\Koopas\RedKoopas\Shelled</Filter>
+    </ClInclude>
+    <ClInclude Include="RedSlidingShell.h">
+      <Filter>Game\Enemies\Koopas\RedKoopas\SlidingShell</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicNote.h">
+      <Filter>Game\Objects\Music</Filter>
+    </ClInclude>
+    <ClInclude Include="StrawCube.h">
+      <Filter>Game\Objects\StrawCube</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinBrick.h">
+      <Filter>Game\Objects\BrickTypes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -662,9 +716,6 @@
     <Filter Include="Game\Objects\GhostBlock">
       <UniqueIdentifier>{8aed6746-8870-4ca0-8ed4-297094b9a2d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Objects\Brick">
-      <UniqueIdentifier>{17f5de1e-9c70-4a0f-bd4b-fc3f3a4d733d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Objects\Portal">
       <UniqueIdentifier>{2eecf0ac-7cc2-448a-8f38-269b503ee2c7}</UniqueIdentifier>
     </Filter>
@@ -679,6 +730,33 @@
     </Filter>
     <Filter Include="Resources\Maps\World1-3">
       <UniqueIdentifier>{54f13d4f-58bc-4307-a0ae-aef5f0f6c313}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\RedKoopas">
+      <UniqueIdentifier>{7ca5c96e-8859-444f-a961-d1b5ef11e640}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\RedKoopas\Normal">
+      <UniqueIdentifier>{5c19f46e-b3a2-4083-91f9-dce97cf9bede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\RedKoopas\Shelled">
+      <UniqueIdentifier>{e8beadea-93d1-4e5b-b504-816bd5fb68a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\BoomBro">
+      <UniqueIdentifier>{d4ce81bb-02e5-4b1d-9260-9a0fc7b5799c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\RedKoopas\SlidingShell">
+      <UniqueIdentifier>{5ebdf351-d659-4a1a-96e6-bd3a2f15dc5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Bounds">
+      <UniqueIdentifier>{c22da003-d5f3-414a-b196-b66b0b84f6a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects\Music">
+      <UniqueIdentifier>{f952a62f-2cd9-4141-8b9a-458f95514e8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects\StrawCube">
+      <UniqueIdentifier>{b425ecda-de47-4f5b-a5a5-98ad59e02d5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects\BrickTypes">
+      <UniqueIdentifier>{17f5de1e-9c70-4a0f-bd4b-fc3f3a4d733d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

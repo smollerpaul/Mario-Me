@@ -45,6 +45,15 @@ void BigMario::InitAnimations()
 
 void BigMario::Update(DWORD dt)
 {
+	//kick ani
+	if (kick != 0) {
+		kickTimer += dt;
+		if (kickTimer >= MARIO_ATTACK_TIME) {
+			kick = 0;
+			kickTimer = 0;
+		}
+	}
+
 	if (master->state == MARIO_STATE_DIE) {
 		master->SetAlive(0);
 		master->visible = 0;
@@ -346,6 +355,24 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 			}
 			break;
 
+			case RedNormalKoopas::ObjectType:
+			{
+				RedNormalKoopas* rg = dynamic_cast<RedNormalKoopas*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					pd->SetScore(pd->GetScore() + 100);
+				}
+				else if (e->nx != 0 || e->ny > 0) {
+					if (master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
 			case SlidingShell::ObjectType:
 			{
 				SlidingShell* rg = dynamic_cast<SlidingShell*>(e->obj);
@@ -355,6 +382,23 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 				}
 				else if (e->nx != 0 || e->ny > 0) {
 					if(master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
+			case RedSlidingShell::ObjectType:
+			{
+				RedSlidingShell* rg = dynamic_cast<RedSlidingShell*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				else if (e->nx != 0 || e->ny > 0) {
+					if (master->untouchable == 0) {
 						master->StartUntouchable();
 						master->visible = 0;
 					}
@@ -388,13 +432,22 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 				}
-				/*else if (e->nx != 0 || e->ny > 0) {
-					if (master->untouchable == 0) {
-						master->StartUntouchable();
-						master->visible = 0;
-					}
-					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
-				}*/
+				if (e->nx != 0) {
+					kick = 1;
+				}
+			}
+			break;
+
+			case RedShelledKoopas::ObjectType:
+			{
+				RedShelledKoopas* rg = dynamic_cast<RedShelledKoopas*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				if (e->nx != 0) {
+					kick = 1;
+				}
 			}
 			break;
 
@@ -618,6 +671,10 @@ void BigMario::Render()
 	case MARIO_STATE_SHRINK:
 		ani = this->animations["Shrink"];
 		break;
+	}
+
+	if (kick == 1) {
+		ani = this->animations["Kick"];
 	}
 
 	int alpha = 255;

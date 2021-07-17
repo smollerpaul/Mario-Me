@@ -202,6 +202,17 @@ void CMario::OnKeyDown(int keyCode)
 	case DIK_P:
 		SetPosition(6240, 985);
 		break;
+	case DIK_I: {
+		CKoopas* kp = new CKoopas(new NormalKoopas());
+		kp->SetObjectState(new RedNormalKoopas(kp));
+		kp->SetPosition(this->x, this->y);
+		CGame::GetInstance()->GetCurrentScene()->AddObject(kp);
+	}
+		break;
+
+	case DIK_O:
+		SetPosition(2112, 985);
+		break;
 	}
 }
 

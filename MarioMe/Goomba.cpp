@@ -103,8 +103,6 @@ void CGoomba::BehaviorUpdate(DWORD dt)
 		x += min_tx * dx;
 		y += min_ty * dy;
 
-		//DebugOut(L"gooomba coevents=1\n");
-
 		if (nx != 0) vx = -vx;
 		if (ny != 0) vy = 0;
 	}
@@ -134,7 +132,19 @@ void CGoomba::BehaviorUpdate(DWORD dt)
 			{
 				if (state != GOOMBA_STATE_DIE) {
 					SetState(GOOMBA_STATE_DIE);
-					//DebugOut(L"yessssssssssssssssssssss\n");
+					EffectVault::GetInstance()->AddEffect(new StarWhipTail(this->x, this->y));
+				}
+			}
+		}
+		break;
+
+		case RedSlidingShell::ObjectType:
+		{
+			RedSlidingShell* ss = dynamic_cast<RedSlidingShell*>(e->obj);
+			if (e->nx != 0)
+			{
+				if (state != GOOMBA_STATE_DIE) {
+					SetState(GOOMBA_STATE_DIE);
 					EffectVault::GetInstance()->AddEffect(new StarWhipTail(this->x, this->y));
 				}
 			}

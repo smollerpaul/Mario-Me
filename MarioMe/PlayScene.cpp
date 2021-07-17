@@ -46,7 +46,6 @@ void CPlayScene::Update(DWORD dt)
 		objects[i]->Update(dt);
 	}
 
-	
 
 	player->CollisionUpdate(dt, &coObjects);
 
@@ -71,12 +70,8 @@ void CPlayScene::Update(DWORD dt)
 
 	camera->Update();
 	EffectVault::GetInstance()->Update(dt);
-	for (size_t i = 0; i < coObjects.size(); i++)
-	{
-		if (coObjects[i]->GetAlive() != 1)
-			coObjects.erase(coObjects.begin() + i);
-	}
-	CheckAlive();
+	
+	RemoveObject();
 
 	pd->UpdateGameTime(dt);
 
@@ -193,16 +188,6 @@ void CPlayScene::Load()
 	SetCamera(camera);
 	DebugOut(L"Camera ok\n");
 
-}
-
-void CPlayScene::CheckAlive()
-{
-	// check for terminated objects & remove them
-	for (size_t i = 0; i < objects.size(); i++)
-	{
-		if (objects[i]->GetAlive()!=1)
-			RemoveObject(objects[i]);
-	}
 }
 
 int CPlayScene::GetSceneType()

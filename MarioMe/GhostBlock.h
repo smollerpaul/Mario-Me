@@ -6,7 +6,6 @@ class GhostBlock: public CGameObject
 {
 public:
 	GhostBlock();
-	GhostBlock(float width, float height);
 
 	virtual void Render() override;
 	virtual bool CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy) override;

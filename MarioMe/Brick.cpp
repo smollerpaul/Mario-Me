@@ -17,12 +17,13 @@ void CBrick::Render()
 {
 	if (alive == 0)
 		return;
+
 	InitAnimations();
 	LPANIMATION ani = this->animations["Default"];
 	
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 	ani->Render(x- camera->GetX()+ width / 2, y-camera->GetY() + height/2, flip);
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CBrick::InitAnimations()
@@ -53,6 +54,9 @@ void CBrick::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CBrick::BehaviorUpdate(DWORD dt)
 {
+	if (coEvents.size() == 0) {
+		CGameObject::UpdatePosition();
+	}
 	if (coEvents.size() != 0) {
 		float min_tx, min_ty, nx = 0, ny = 0;
 		float rdx = 0;

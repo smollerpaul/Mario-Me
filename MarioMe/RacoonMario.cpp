@@ -46,6 +46,15 @@ void RacoonMario::InitAnimations()
 
 void RacoonMario::Update(DWORD dt)
 {
+	//kick ani
+	if (kick != 0) {
+		kickTimer += dt;
+		if (kickTimer >= MARIO_ATTACK_TIME) {
+			kick = 0;
+			kickTimer = 0;
+		}
+	}
+
 	if (master->state == MARIO_STATE_DIE) {
 		master->SetAlive(0);
 		master->visible = 0;
@@ -458,6 +467,41 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 			}
 			break;
 
+			case RedNormalKoopas::ObjectType:
+			{
+				RedNormalKoopas* rg = dynamic_cast<RedNormalKoopas*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					pd->SetScore(pd->GetScore() + 100);
+				}
+				else if (e->nx != 0 || e->ny > 0) {
+					if (master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
+			case RedSlidingShell::ObjectType:
+			{
+				RedSlidingShell* rg = dynamic_cast<RedSlidingShell*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				else if (e->nx != 0 || e->ny > 0) {
+					if (master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
 			case WingedKoopas::ObjectType:
 			{
 				WingedKoopas* rg = dynamic_cast<WingedKoopas*>(e->obj);
@@ -483,13 +527,22 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 				}
-				/*else if (e->nx != 0 || e->ny > 0) {
-					if (master->untouchable == 0) {
-						master->StartUntouchable();
-						master->visible = 0;
-					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
-				}*/
+				if (e->nx != 0) {
+					kick = 1;
+				}
+			}
+			break;
+
+			case RedShelledKoopas::ObjectType:
+			{
+				RedShelledKoopas* rg = dynamic_cast<RedShelledKoopas*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				if (e->nx != 0) {
+					kick = 1;
+				}
 			}
 			break;
 
@@ -752,6 +805,10 @@ void RacoonMario::Render()
 	case MARIO_STATE_ATTACK:
 		ani = this->animations["Spin"];
 		break;
+	}
+
+	if (kick == 1) {
+		ani = this->animations["Kick"];
 	}
 
 	int alpha = 255;

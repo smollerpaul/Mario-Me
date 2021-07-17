@@ -6,11 +6,7 @@ GhostBlock::GhostBlock()
 	this->dy = 0;
 }
 
-GhostBlock::GhostBlock(float width, float height)
-{
-	this->x = x;
-	this->y = y;
-}
+
 
 void GhostBlock::Render()
 {

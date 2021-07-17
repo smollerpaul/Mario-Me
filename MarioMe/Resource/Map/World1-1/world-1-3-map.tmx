@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="26" nextobjectid="487">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="26" nextobjectid="511">
  <editorsettings>
   <chunksize width="8" height="8"/>
   <export target="world-1-1-map.xml" format="tmx"/>
@@ -39,7 +39,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,91,92,92,93,0,0,0,0,0,0,38,96,39,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,38,96,39,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,38,96,39,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,3,0,0,0,0,0,0,0,0,0,146,147,147,148,0,120,121,121,122,0,0,0,0,0,0,0,38,96,39,0,0,0,0,94,95,95,95,95,95,95,36,37,95,95,95,95,183,184,95,95,95,95,95,95,95,95,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,149,150,150,151,0,0,0,0,0,9,67,96,39,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,67,96,310,310,310,310,0,0,0,310,0,0,0,0,0,0,0,0,0,0,124,124,0,0,0,310,0,0,0,0,0,0,0,310,0,0,0,0,0,0,0,0,0,9,67,96,39,0,0,0,0,0,0,0,0,0,0,0,0,0,59,60,60,61,0,0,0,4,5,5,5,6,0,0,0,0,0,0,120,121,121,122,0,0,0,0,0,0,9,67,96,39,0,0,0,0,94,95,95,95,95,95,95,36,7,8,95,95,95,95,95,95,95,95,95,95,95,95,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,67,96,96,39,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,67,96,96,39,0,0,0,0,0,0,310,0,0,9,10,124,0,0,0,0,0,0,124,0,0,0,310,0,0,0,0,0,0,0,310,0,0,0,0,0,0,0,0,9,67,96,96,39,0,0,0,0,0,0,0,88,89,89,89,90,0,0,0,0,0,0,0,0,62,63,63,63,64,0,0,0,0,0,0,120,121,121,122,0,0,0,0,9,10,38,96,96,39,0,0,0,0,94,95,95,95,95,95,95,36,95,37,95,95,95,95,95,95,95,95,95,7,8,95,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,88,89,89,90,0,0,0,0,0,0,0,38,96,96,96,68,10,0,0,0,0,0,335,0,0,0,0,0,0,0,38,96,96,96,68,10,0,0,0,0,0,310,0,0,38,68,10,0,0,310,0,0,0,0,0,0,0,310,0,0,0,0,0,0,0,310,0,0,0,0,0,0,0,0,38,96,96,96,68,10,0,0,0,0,0,0,146,147,147,147,148,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,120,121,121,122,0,0,0,0,38,96,96,96,96,68,10,0,0,0,94,95,95,95,95,95,95,36,95,7,8,95,95,95,95,95,95,95,95,36,37,95,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,88,89,89,90,0,0,0,0,0,0,0,38,96,96,96,68,10,0,0,0,0,0,0,0,0,0,0,0,0,0,38,96,96,96,68,10,0,0,0,0,0,310,0,0,38,68,10,0,0,310,0,0,0,0,0,0,0,310,0,0,0,0,0,0,0,310,0,0,0,0,0,0,0,0,38,96,96,96,68,10,0,0,0,0,0,0,146,147,147,147,148,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,120,121,121,122,0,0,0,0,38,96,96,96,96,68,10,0,0,0,94,95,95,95,95,95,95,36,95,7,8,95,95,95,95,95,95,95,95,36,37,95,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,362,362,362,362,0,0,0,146,147,147,148,0,0,0,0,0,0,0,38,96,96,96,96,39,0,0,0,0,0,0,0,0,0,0,0,0,0,38,96,96,96,96,39,0,0,0,0,0,310,0,9,67,96,39,362,0,310,0,0,0,362,362,362,0,310,0,0,0,0,0,0,0,310,0,0,0,0,0,0,0,0,38,96,96,96,96,39,0,0,0,0,0,0,0,0,0,0,0,0,362,362,362,362,362,362,0,0,0,0,0,0,0,362,362,0,0,0,149,150,150,151,0,0,0,9,67,96,96,96,96,96,39,0,0,0,94,95,95,95,95,95,7,8,95,95,37,95,95,95,95,95,95,95,7,8,37,95,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,393,0,391,392,392,392,392,392,392,392,392,392,393,0,391,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,0,95,95,95,95,95,95,95,95,95,95,95,95,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -117,13 +117,6 @@
   </object>
  </objectgroup>
  <objectgroup id="20" name="Object Layer">
-  <object id="30" type="QuestionBlock" x="1083.33" y="593">
-   <properties>
-    <property name="Grid" value="[{&quot;x&quot;:7,&quot;y&quot;:3},{&quot;x&quot;:7,&quot;y&quot;:4}]"/>
-    <property name="HiddenItem" value="RaccoonLeaf"/>
-   </properties>
-   <point/>
-  </object>
   <object id="297" type="Brick" x="1488" y="1200">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:22,&quot;y&quot;:4}]"/>
@@ -145,12 +138,6 @@
   <object id="302" type="Brick" x="1680" y="1104">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:23,&quot;y&quot;:4}]"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="303" type="Brick" x="1208.67" y="598">
-   <properties>
-    <property name="Grid" value="[{&quot;x&quot;:22,&quot;y&quot;:3},{&quot;x&quot;:22,&quot;y&quot;:4}]"/>
    </properties>
    <point/>
   </object>
@@ -190,21 +177,6 @@
    </properties>
    <point/>
   </object>
-  <object id="311" type="QuestionBlock" x="1164" y="596.667">
-   <properties>
-    <property name="AsBrick" type="bool" value="true"/>
-    <property name="Grid" value="[{&quot;x&quot;:23,&quot;y&quot;:3}]"/>
-    <property name="HiddenItem" value="PSwitch"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="384" type="QuestionBlock" x="1031.33" y="590.667">
-   <properties>
-    <property name="Grid" value="[{&quot;x&quot;:2,&quot;y&quot;:3}]"/>
-    <property name="HiddenItem" value="RaccoonLeaf"/>
-   </properties>
-   <point/>
-  </object>
   <object id="388" type="EndmapReward" x="7271" y="983.5">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:30,&quot;y&quot;:3},{&quot;x&quot;:31,&quot;y&quot;:3}]"/>
@@ -214,12 +186,6 @@
   <object id="393" type="Brick" x="1728" y="1008">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:23,&quot;y&quot;:3},{&quot;x&quot;:23,&quot;y&quot;:4}]"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="401" type="QuestionBlock" x="1257.33" y="601.33">
-   <properties>
-    <property name="Grid" value="[{&quot;x&quot;:1,&quot;y&quot;:3},{&quot;x&quot;:2,&quot;y&quot;:3}]"/>
    </properties>
    <point/>
   </object>
@@ -268,14 +234,6 @@
   <object id="423" type="Brick" x="1680" y="1152">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:23,&quot;y&quot;:4}]"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="424" type="QuestionBlock" x="1728" y="1152">
-   <properties>
-    <property name="AsBrick" type="bool" value="true"/>
-    <property name="Grid" value="[{&quot;x&quot;:23,&quot;y&quot;:3}]"/>
-    <property name="HiddenItem" value="RaccoonLeaf"/>
    </properties>
    <point/>
   </object>
@@ -333,11 +291,11 @@
    </properties>
    <point/>
   </object>
-  <object id="434" type="QuestionBlock" x="1775.67" y="1008">
+  <object id="434" type="CoinBrick" x="1776" y="1008">
    <properties>
-    <property name="AsBrick" type="bool" value="true"/>
+    <property name="AsBrick" type="bool" value="false"/>
     <property name="Grid" value="[{&quot;x&quot;:23,&quot;y&quot;:3}]"/>
-    <property name="HiddenItem" value="Coin"/>
+    <property name="HiddenItem" value=""/>
    </properties>
    <point/>
   </object>
@@ -355,9 +313,9 @@
    </properties>
    <point/>
   </object>
-  <object id="438" type="QuestionBlock" x="2832.17" y="1103.92">
+  <object id="438" type="StrawCube" x="2832.17" y="1103.92">
    <properties>
-    <property name="AsBrick" type="bool" value="true"/>
+    <property name="AsBrick" type="bool" value="false"/>
     <property name="Grid" value="[{&quot;x&quot;:23,&quot;y&quot;:3}]"/>
     <property name="HiddenItem" value="RaccoonLeaf"/>
    </properties>
@@ -390,6 +348,59 @@
   <object id="445" type="Coin" x="5234" y="816">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:15,&quot;y&quot;:0}]"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="488" type="Spawner" x="5006.67" y="939.667">
+   <properties>
+    <property name="AutoSpawn" type="bool" value="false"/>
+    <property name="EntityType" value="RedKoopas"/>
+    <property name="Grid" value="[{&quot;x&quot;:6,&quot;y&quot;:3},{&quot;x&quot;:6,&quot;y&quot;:4}]"/>
+    <property name="RespawnLimit" type="int" value="999"/>
+    <property name="SpawnDelay" type="int" value="3000"/>
+    <property name="SpawnLimit" type="int" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="503" type="Brick" x="1584" y="1200">
+   <properties>
+    <property name="Grid" value="[{&quot;x&quot;:22,&quot;y&quot;:4},{&quot;x&quot;:23,&quot;y&quot;:4}]"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="504" type="Brick" x="1584" y="1104">
+   <properties>
+    <property name="Grid" value="[{&quot;x&quot;:22,&quot;y&quot;:4},{&quot;x&quot;:23,&quot;y&quot;:4}]"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="505" type="Brick" x="1728" y="1152">
+   <properties>
+    <property name="Grid" value="[{&quot;x&quot;:23,&quot;y&quot;:3},{&quot;x&quot;:23,&quot;y&quot;:4}]"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="506" type="Brick" x="913.333" y="1152.67">
+   <properties>
+    <property name="Grid" value="[{&quot;x&quot;:22,&quot;y&quot;:4},{&quot;x&quot;:23,&quot;y&quot;:4}]"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="508" type="Brick" x="864" y="1200">
+   <properties>
+    <property name="Grid" value="[{&quot;x&quot;:22,&quot;y&quot;:4}]"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="509" type="Brick" x="864" y="1152">
+   <properties>
+    <property name="Grid" value="[{&quot;x&quot;:22,&quot;y&quot;:4}]"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="510" type="Brick" x="864" y="1104">
+   <properties>
+    <property name="Grid" value="[{&quot;x&quot;:22,&quot;y&quot;:3},{&quot;x&quot;:22,&quot;y&quot;:4}]"/>
    </properties>
    <point/>
   </object>
@@ -428,11 +439,6 @@
   <object id="334" type="Void" x="3712.33" y="1308.17" width="190.333" height="37">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:18,&quot;y&quot;:4},{&quot;x&quot;:19,&quot;y&quot;:4}]"/>
-   </properties>
-  </object>
-  <object id="50" type="MusicBlock" x="1584" y="1104" width="48" height="48">
-   <properties>
-    <property name="Grid" value="[{&quot;x&quot;:5,&quot;y&quot;:3},{&quot;x&quot;:6,&quot;y&quot;:3}]"/>
    </properties>
   </object>
   <object id="52" type="SolidBlock" x="2112" y="1056" width="192" height="48">
@@ -507,17 +513,6 @@
     <property name="Grid" value="[{&quot;x&quot;:26,&quot;y&quot;:3},{&quot;x&quot;:26,&quot;y&quot;:4}]"/>
    </properties>
   </object>
-  <object id="351" type="Spawner" x="2742.5" y="1185">
-   <properties>
-    <property name="AutoSpawn" type="bool" value="false"/>
-    <property name="EntityType" value="Goomba"/>
-    <property name="Grid" value="[{&quot;x&quot;:10,&quot;y&quot;:4}]"/>
-    <property name="RespawnLimit" type="int" value="3"/>
-    <property name="SpawnDelay" type="int" value="15000"/>
-    <property name="SpawnLimit" type="int" value="1"/>
-   </properties>
-   <point/>
-  </object>
   <object id="352" type="Spawner" x="3516" y="1182.5">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
@@ -540,7 +535,7 @@
    </properties>
    <point/>
   </object>
-  <object id="381" type="Spawner" x="1775.67" y="898.667">
+  <object id="381" type="Spawner" x="1853" y="880.667">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="RedKoopas"/>
@@ -567,17 +562,17 @@
     <property name="Grid" value="[{&quot;x&quot;:5,&quot;y&quot;:3},{&quot;x&quot;:5,&quot;y&quot;:4},{&quot;x&quot;:6,&quot;y&quot;:3},{&quot;x&quot;:6,&quot;y&quot;:4},{&quot;x&quot;:7,&quot;y&quot;:3},{&quot;x&quot;:7,&quot;y&quot;:4}]"/>
    </properties>
   </object>
-  <object id="405" type="SolidBlock" x="2447.67" y="1056" width="48" height="192">
+  <object id="405" type="SolidBlock" x="2446" y="1054" width="50.75" height="194.167">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:5,&quot;y&quot;:3},{&quot;x&quot;:5,&quot;y&quot;:4},{&quot;x&quot;:6,&quot;y&quot;:3},{&quot;x&quot;:6,&quot;y&quot;:4},{&quot;x&quot;:7,&quot;y&quot;:3},{&quot;x&quot;:7,&quot;y&quot;:4}]"/>
    </properties>
   </object>
-  <object id="406" type="SolidBlock" x="3599.67" y="1056" width="48" height="191.818">
+  <object id="406" type="SolidBlock" x="3600" y="1053" width="48" height="194.485">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:5,&quot;y&quot;:3},{&quot;x&quot;:5,&quot;y&quot;:4},{&quot;x&quot;:6,&quot;y&quot;:3},{&quot;x&quot;:6,&quot;y&quot;:4},{&quot;x&quot;:7,&quot;y&quot;:3},{&quot;x&quot;:7,&quot;y&quot;:4}]"/>
    </properties>
   </object>
-  <object id="407" type="SolidBlock" x="3215.67" y="1056" width="48" height="192">
+  <object id="407" type="SolidBlock" x="3216" y="1053" width="48" height="194.667">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:5,&quot;y&quot;:3},{&quot;x&quot;:5,&quot;y&quot;:4},{&quot;x&quot;:6,&quot;y&quot;:3},{&quot;x&quot;:6,&quot;y&quot;:4},{&quot;x&quot;:7,&quot;y&quot;:3},{&quot;x&quot;:7,&quot;y&quot;:4}]"/>
    </properties>
@@ -617,16 +612,6 @@
     <property name="SpawnLimit" type="int" value="1"/>
    </properties>
    <point/>
-  </object>
-  <object id="414" type="MusicBlock" x="1392" y="1104" width="48" height="48">
-   <properties>
-    <property name="Grid" value="[{&quot;x&quot;:5,&quot;y&quot;:3},{&quot;x&quot;:6,&quot;y&quot;:3}]"/>
-   </properties>
-  </object>
-  <object id="415" type="MusicBlock" x="1488.33" y="1007.67" width="48" height="48">
-   <properties>
-    <property name="Grid" value="[{&quot;x&quot;:5,&quot;y&quot;:3},{&quot;x&quot;:6,&quot;y&quot;:3}]"/>
-   </properties>
   </object>
   <object id="437" type="Spawner" x="2340" y="1157.33">
    <properties>
@@ -670,6 +655,20 @@
     <property name="SpawnDelay" type="int" value="15000"/>
     <property name="SpawnLimit" type="int" value="1"/>
    </properties>
+   <point/>
+  </object>
+  <object id="489" type="KoopasBound" x="4883.33" y="960" width="12" height="48"/>
+  <object id="490" type="KoopasBound" x="5088" y="960" width="15" height="48"/>
+  <object id="491" type="BoomBound" x="4024" y="1152" width="14" height="96"/>
+  <object id="492" type="BoomBound" x="4312" y="1155" width="15" height="96"/>
+  <object id="495" type="BoomBound" x="1006.67" y="1153" width="6" height="94.6667"/>
+  <object id="496" type="BoomBound" x="1286" y="1153" width="6" height="92.6667"/>
+  <object id="497" type="KoopasBound" x="1718" y="864" width="9" height="95.6667"/>
+  <object id="498" type="KoopasBound" x="1920" y="859.167" width="6" height="100.167"/>
+  <object id="499" type="MusicNote" x="1488" y="1008">
+   <point/>
+  </object>
+  <object id="500" type="MusicNote" x="1392" y="1104">
    <point/>
   </object>
  </objectgroup>
