@@ -46,7 +46,6 @@ void RacoonMario::InitAnimations()
 
 void RacoonMario::Update(DWORD dt)
 {
-	//kick ani
 	if (kick != 0) {
 		kickTimer += dt;
 		if (kickTimer >= MARIO_ATTACK_TIME) {
@@ -221,16 +220,16 @@ void RacoonMario::JumpUpdate(DWORD dt)
 
 		float height = 0;
 
-		// stop float , cannot fly anymore when drops to the ground
-		if (master->isOnGround == 1) {
-			master->ResetFloatTimer();
-		}
-
+		
 		// if falls to ground -> set state idle
 		if (master->state == MARIO_STATE_JUMP_FALL) {
+			if (floatDown==1) {
+				master->vy = MARIO_FLY_PUSH / 2;
+			}
 			if (master->isOnGround == true) {
 				master->SetState(MARIO_STATE_IDLE);
 				master->vy = MARIO_GRAVITY * dt;
+				floatDown = 0;
 			}
 		}
 
@@ -241,38 +240,28 @@ void RacoonMario::JumpUpdate(DWORD dt)
 
 		//bam S once n activate fly
 
-		// fly for a time -> float
 		if (master->state == MARIO_STATE_FLY) {
+			if (keyUpFly == 1) {
+				keyUpFlyTimer += dt;
+
+				if (keyUpFlyTimer >= 500 && !keyboard->IsKeyDown(DIK_S)) {
+					master->SetState(MARIO_STATE_FLOAT);
+					keyUpFlyTimer = 0;
+				}
+			}
+
 			if (height >= MARIO_FLY_MAX_POINT) {
 				master->SetState(MARIO_STATE_FLOAT);
-				master->vy = -MARIO_FLY_PUSH / 2;
 			}
 			else
-				if (keyboard->IsKeyDown(DIK_S)) {
+				if (keyboard->IsKeyDown(DIK_S) && master->powerMeter >=PM_MAX) {
 					master->vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * dt;
 				}
 		}
 
-
 		 //float down
 		if (master->state == MARIO_STATE_FLOAT) {
-			// if float over 500ms -> cannot press S to fly anymore
-			master->floatTimer += dt;
 			master->vy = MARIO_FLY_PUSH / 2;
-
-			if (master->floatTimer < MARIO_FLOAT_TIME) {
-				if (keyboard->IsKeyDown(DIK_S)) {
-					master->ResetFloatTimer();
-
-					if (height >= MARIO_FLY_MAX_POINT) {
-						DebugOut(L" you cannot press S anymoreeee! \n");
-						master->floatTimer = MARIO_FLOAT_TIME; // SO i cannot press s anymore
-					}
-					else {
-						master->SetState(MARIO_STATE_FLY);
-					}
-				}
-			}
 		}
 
 		/*if (master->state == MARIO_STATE_FLOAT) {
@@ -616,8 +605,9 @@ void RacoonMario::OnKeyUp(int keyCode)
 
 		// from fly to float when release S
 		if (master->state == MARIO_STATE_FLY) {
-			master->SetState(MARIO_STATE_FLOAT);
-			DebugOut(L" float when keyup S\n");
+		//	master->SetState(MARIO_STATE_FLOAT);
+
+			keyUpFly = 1;
 		}
 
 		// fall even when high jumping
@@ -659,50 +649,25 @@ void RacoonMario::OnKeyDown(int keyCode)
 				  break;
 
 		case DIK_S: {
-			if (master->powerMeter >= PM_MAX) {
-				//master->stayPmMax = 1;
-				master->SetState(MARIO_STATE_FLY);
-				master->vy = -MARIO_FLY_PUSH * 3 - MARIO_GRAVITY * master->dt;
-			}
 			if (master->isOnGround == true) {
 				master->SetState(MARIO_STATE_JUMP);
 				master->vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * master->dt;
 			}
+			
+			if (master->state == MARIO_STATE_JUMP_FALL && master->isOnGround == false) {
+				floatDown = 1;
+				master->vy = MARIO_FLY_PUSH / 2;
+			}
+
+			if (master->powerMeter >= PM_MAX) {
+				master->stayPmMax = 1;
+				master->SetState(MARIO_STATE_FLY);
+				master->vy = -MARIO_FLY_PUSH * 3 - MARIO_GRAVITY * master->dt;
+			}
+
 			master->SetIsOnGround(false);
 			master->GetPosY(master->jumpStartPosition);
 		}
-				  //else {
-					  //if (master->powerMeter >= PM_MAX) {
-					  //	
-					  //	if(master->state!=MARIO_STATE_FLY)
-					  //		master->SetState(MARIO_STATE_FLY);
-
-					  //	//master->vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * master->dt;
-					  //	//fly as long as pmeter is max
-					  //}
-
-					  //if (master->state == MARIO_STATE_FLOAT) {
-					  //	master->vy -= MARIO_JUMP_PUSH / 2;
-					  //	//fly up a bit from float
-					  //}
-
-					  //if (master->state == MARIO_STATE_JUMP_FALL) {
-					  //	//master->SetState(MARIO_STATE_FLOAT);
-					  //	master->vy -= 0.01;
-					  //	
-					  //	//can float when falling
-					  //}
-
-					  /*if (master->state == MARIO_STATE_FLOAT) {
-						  master->vy -= MARIO_JUMP_PUSH / 2;
-					  }
-
-					  if (master->state == MARIO_STATE_FLY) {
-						  master->vy = -MARIO_FLY_PUSH - MARIO_GRAVITY * master->dt;
-						  DebugOut(L" fly up when press S \n");
-					  }
-				}*/
-		//}
 				  break;
 
 		case DIK_A: {
@@ -792,6 +757,9 @@ void RacoonMario::Render()
 
 	case MARIO_STATE_JUMP_FALL:
 		ani = this->animations["Fall"];
+		if (floatDown==1) {
+			ani = this->animations["Float"];
+		}
 		break;
 
 	case MARIO_STATE_FLY:

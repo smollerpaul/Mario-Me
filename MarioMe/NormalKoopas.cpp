@@ -27,7 +27,6 @@ void NormalKoopas::InitAnimations()
 void NormalKoopas::Update(DWORD dt)
 {
 	master->vx = master->nx * KOOPAS_WALK_SPEED;
-	//master->x += master->vx * dt;
 }
 
 void NormalKoopas::CanGetThrough(CGameObject* gameObjToCollide, float coEventX, float coEventY)
@@ -116,8 +115,6 @@ void NormalKoopas::Render()
 	//DebugOut(L"NK: Render: mx: %f, my: %f \n", mx, my);
 
 	ani->Render(mx - camera->GetX() + (r - l)/2 , my - camera->GetY() + (b - t)/2, flip);
-
-	master->RenderBoundingBox();
 }
 
 int NormalKoopas::GetObjectType()

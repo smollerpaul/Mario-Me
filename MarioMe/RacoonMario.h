@@ -7,6 +7,11 @@ class RacoonMario :
     public SmallMario
 {
 public:
+	int floatDown = 0;
+	int keyUpFly = 0;
+
+	float keyUpFlyTimer = 0;
+
 	RacoonMario();
 	RacoonMario(CMario* masterObj);
 	virtual void InitAnimations() override;

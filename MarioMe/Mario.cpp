@@ -49,11 +49,8 @@ void CMario::Update(DWORD dt)
 		AttackUpdate(dt);
 	}
 
-	//DebugOut(L"state Mario Vy: %d\n", state);
+	DebugOut(L"state Mario Vy: %d\n", state);
 	//call update ->collision -> behavior outside in playscene
-	/*CollisionUpdate(dt, coObjects, coEvents, coEventsResult);
-	BehaviorUpdate(dt, coEventsResult);*/
-
 }
 
 bool CMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
@@ -115,8 +112,7 @@ void CMario::RunPowerMeter(DWORD dt)
 	}
 	
 	//if S is pressed while PM max -> stay that way for 4s
-
-	/*if (stayPmMax == 1) {
+	if (stayPmMax == 1) {
 		powerMeter == PM_MAX;
 
 		stayPmMaxTimer += dt;
@@ -126,7 +122,6 @@ void CMario::RunPowerMeter(DWORD dt)
 			stayPmMaxTimer = 0;
 		}
 	}
-	DebugOut(L"pm is : %f \n", powerMeter);*/
 	DebugOut(L"pm is : %f \n", powerMeter);
 }
 
@@ -137,13 +132,18 @@ void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state != MARIO_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
-	x = max(0, x);
 }
 
 void CMario::BehaviorUpdate(DWORD dt)
 {
 	SmallMario* currentState = objState;
 	currentState->BehaviorUpdate(dt,coEventsResult,coEvents);
+
+	x = max(0, x);
+	float l, t, r, b;
+	GetBoundingBox(l,t,r,b);
+
+//limit bottom?
 }
 
 void CMario::Render()

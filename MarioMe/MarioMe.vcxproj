@@ -137,6 +137,7 @@
     <ClCompile Include="BigMario.cpp" />
     <ClCompile Include="BoomBound.cpp" />
     <ClCompile Include="BoomBro.cpp" />
+    <ClCompile Include="Boomerang.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Coin.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="BigMario.h" />
     <ClInclude Include="BoomBound.h" />
     <ClInclude Include="BoomBro.h" />
+    <ClInclude Include="Boomerang.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Coin.h" />

@@ -21,6 +21,7 @@
 #include "MarioConstants.h"
 #include "MusicNote.h"
 #include "CoinBrick.h"
+#include "BoomBro.h"
 
 void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width, float height)
 {
@@ -72,6 +73,12 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		BoomBound* bbb = new BoomBound();
 		bbb->SetPosition(x, y);
 		bbb->SetSize(width, height);
+		AddObject(bbb);
+	}
+
+	if (objectType.compare("BoomBro") == 0) {
+		BoomBro* bbb = new BoomBro();
+		bbb->SetPosition(x, y);
 		AddObject(bbb);
 	}
 

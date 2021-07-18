@@ -220,9 +220,6 @@
     <ClCompile Include="BoomBound.cpp">
       <Filter>Game\Enemies\Bounds</Filter>
     </ClCompile>
-    <ClCompile Include="BoomBro.cpp">
-      <Filter>Game\Enemies\BoomBro</Filter>
-    </ClCompile>
     <ClCompile Include="RedShelledKoopas.cpp">
       <Filter>Game\Enemies\Koopas\RedKoopas\Shelled</Filter>
     </ClCompile>
@@ -237,6 +234,10 @@
     </ClCompile>
     <ClCompile Include="CoinBrick.cpp">
       <Filter>Game\Objects\BrickTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Boomerang.cpp" />
+    <ClCompile Include="BoomBro.cpp">
+      <Filter>Game\Enemies\BoomBro</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -444,9 +445,6 @@
     <ClInclude Include="BoomBound.h">
       <Filter>Game\Enemies\Bounds</Filter>
     </ClInclude>
-    <ClInclude Include="BoomBro.h">
-      <Filter>Game\Enemies\BoomBro</Filter>
-    </ClInclude>
     <ClInclude Include="RedShelledKoopas.h">
       <Filter>Game\Enemies\Koopas\RedKoopas\Shelled</Filter>
     </ClInclude>
@@ -461,6 +459,10 @@
     </ClInclude>
     <ClInclude Include="CoinBrick.h">
       <Filter>Game\Objects\BrickTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Boomerang.h" />
+    <ClInclude Include="BoomBro.h">
+      <Filter>Game\Enemies\BoomBro</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -757,6 +759,9 @@
     </Filter>
     <Filter Include="Game\Objects\BrickTypes">
       <UniqueIdentifier>{17f5de1e-9c70-4a0f-bd4b-fc3f3a4d733d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\BoomBro\Boomerangs">
+      <UniqueIdentifier>{e07b4248-2d89-4bf6-83a5-e10d4f65f845}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
