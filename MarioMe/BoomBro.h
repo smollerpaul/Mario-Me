@@ -7,12 +7,17 @@
 
 #define BOOM_WIDTH             49
 #define BOOM_HEIGHT            66
-
+class CPlayScene;
 class BoomBro :
     public CGameObject
 {
 public:
-    BoomBro();
+    float walkTime = 0;
+    float attackTime = 0;
+    float dieTimer = 0;
+   
+    CPlayScene* scene = nullptr;
+    BoomBro(CPlayScene* ss);
     virtual void InitAnimations() override;
     virtual void Update(DWORD dt) override;
     virtual void Render()override;

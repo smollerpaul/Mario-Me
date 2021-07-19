@@ -34,7 +34,9 @@ public:
 		string adjList, string adjWeight,int worldNumber, bool isStartPos);
 
 	virtual void LoadBackground(float xPos, float yPos);
-	virtual void LoadSpecialObject(float xPos, float yPos, float width, float height, int length=0, int type=0, int direction=0);
+	virtual void LoadSpecialObject(string objectType, float xPos, float yPos, float width, float height, int length = 0, int type = 0, int direction = 0,
+		float desX = 0, float desY = 0, int moveDir = 0, int targetReg = 0);
+
 	Camera* GetCamera();
 	GameMap* GetMap();
 

@@ -30,17 +30,57 @@ void RedShelledKoopas::InitAnimations()
 
 void RedShelledKoopas::Update(DWORD dt)
 {
-	crouchTime += dt;
-	if (crouchTime >= KOOPAS_CROUCH_TIME) {
-		flicker = 1;
+	Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
+
+	//update being held
+	if (master->holder != nullptr) {
+		if (keyboard->IsKeyDown(DIK_A)) {
+
+			//when mario damange -> release
+			if (master->holder->untouchable != 0) {
+				master->holder->ReleaseRedShell(this);
+				master->ReleaseFromHolder(master->holder);
+			}
+			else {
+				float holderX, holderY, hl, ht, hr, hb;
+				int holderNx = master->holder->GetNormalX();
+
+				master->holder->GetPosition(holderX, holderY);
+				master->holder->GetBoundingBox(hl, ht, hr, hb);
+
+				//set pos
+				master->y = ht + 20;
+				if (holderNx > 0)
+					master->x = hr - 10;
+				else master->x = hl - KOOPAS_SHELL_SIZE + 10;
+
+				//set vx vy
+				master->gravity = 0;
+				master->vy = 0;
+				master->vy = master->holder->vx;
+			}
+		}
+		else { 
+			//release when no longer pressed A
+			master->holder->ReleaseRedShell(this);
+			master->ReleaseFromHolder(master->holder);
+		}
 	}
 
-	if (flicker == 1) {
-		flickerTime += dt;
+	else {
+		crouchTime += dt;
+		if (crouchTime >= KOOPAS_CROUCH_TIME) {
+			flicker = 1;
+		}
 
-		if (flickerTime >= KOOPAS_RESPAWN_TIME)
-			master->SetObjectState(new RedNormalKoopas(master));
+		if (flicker == 1) {
+			flickerTime += dt;
+
+			if (flickerTime >= KOOPAS_RESPAWN_TIME)
+				master->SetObjectState(new RedNormalKoopas(master));
+		}
 	}
+	
 }
 
 void RedShelledKoopas::Render()
@@ -69,6 +109,7 @@ void RedShelledKoopas::Render()
 void RedShelledKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
 	NormalKoopas::PostCollisionUpdate(dt, coEventsResult, coEvents);
+	Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
 
 	for (UINT i = 0; i < coEventsResult.size(); i++)
 	{
@@ -85,14 +126,17 @@ void RedShelledKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEvent
 				master->SetObjectState(new RedSlidingShell(master));
 			}
 			if (e->nx != 0) {
-				//touch left
+				if (keyboard->IsKeyDown(DIK_A)) {
+					master->holder = mario;
+				}
+				else {
+					//touch left ->kick
 					master->SetObjectState(new RedSlidingShell(master));
-				//touch right
+					//touch right
 					if (e->nx > 0)
 						master->nx = -1;
+				}
 			}
-
-			//if dung ngang -> hold
 		}
 		break;
 

@@ -3,11 +3,12 @@
 #include "NormalKoopas.h"
 
 class Camera;
-
+class CMario;
 class CKoopas : public CGameObject
 {
 public:
 	NormalKoopas* objState = nullptr;
+	CMario* holder = nullptr;
 
 	CKoopas();
 	CKoopas(NormalKoopas* objectState);
@@ -24,4 +25,6 @@ public:
 	virtual int GetObjectType() override;
 	static const int ObjectType = 2;
 
+	void SetHolder(CMario* player);
+	void ReleaseFromHolder( CMario* player);
 };

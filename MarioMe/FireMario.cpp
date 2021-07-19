@@ -44,7 +44,26 @@ void FireMario::InitAnimations()
 
 void FireMario::Update(DWORD dt)
 {
-	//kick ani
+	if (teleporting == 1) {
+		teleportHold += dt;
+		master->vx = 0;
+
+		// move direction
+		if (teleDirection == 1)
+			master->y += 0.5;
+		else
+			master->y -= 0.5;
+
+		if (teleportHold >= 1000) {
+			teleporting = 0;
+			teleportHold = 0;
+			master->renderOrder = 100;
+
+			CGame::GetInstance()->GetCurrentScene()->GetCamera()->SetCurrentRegion(targetRegBound);
+			master->SetPosition(desX, desY);
+		}
+	}
+	
 	if (kick != 0) {
 		kickTimer += dt;
 		if (kickTimer >= MARIO_ATTACK_TIME) {
@@ -238,7 +257,10 @@ void FireMario::AttackUpdate(DWORD dt)
 void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
 	PlayerData* pd = PlayerData::GetInstance();
-	
+
+	if (teleporting == 1)
+		return;
+
 	SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
 	if (master->untouchable != 1) {
 		for (UINT i = 0; i < coEventsResult.size(); i++)
@@ -253,6 +275,16 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 				if (e->ny > 0)
 					p->SetAlive(0);
 				//EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+			}
+			break;
+
+			case MusicNote::ObjectType:
+			{
+				MusicNote* rg = dynamic_cast<MusicNote*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
 			}
 			break;
 
@@ -279,6 +311,39 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 				}
 
 				if (e->nx != 0) {
+					if (master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
+			case BoomBro::ObjectType:
+			{
+				BoomBro* goomba = dynamic_cast<BoomBro*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					pd->SetScore(pd->GetScore() + 100);
+				}
+
+				if (e->nx != 0) {
+					if (master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
+			case Boomerang::ObjectType:
+			{
+				Boomerang* goomba = dynamic_cast<Boomerang*>(e->obj);
+
+				if (e->ny!=0 || e->nx!=0) {
 					if (master->untouchable == 0) {
 						master->StartUntouchable();
 						master->visible = 0;
@@ -485,6 +550,25 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 			}
 			break;
 
+			case BeginPortal::ObjectType:
+			{
+				BeginPortal* p = dynamic_cast<BeginPortal*>(e->obj);
+				if (e->ny != 0) {
+					teleporting = 1;
+					desX = p->desX;
+					desY = p->desY;
+					targetRegBound = p->targetReg;
+
+					master->renderOrder = 90;
+					//determine vy of teleportation
+					if (e->ny < 0) { //go down
+						teleDirection = 1;
+					}
+					else teleDirection = -1; //go up
+				}
+			}
+			break;
+
 			case Void::ObjectType:
 			{
 				Void* p = dynamic_cast<Void*>(e->obj);
@@ -578,6 +662,10 @@ void FireMario::Render()
 
 	if (kick == 1) {
 		ani = this->animations["Kick"];
+	}
+
+	if (teleporting == 1) {
+		ani = this->animations["TeleVer"];
 	}
 
 	int alpha = 255;

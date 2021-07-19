@@ -1,6 +1,6 @@
 #pragma once
 
-#define PM_MAX							1
+#define PM_MAX							8
 #define PM_INCREASE						0.008f
 #define PM_DECREASE						0.0016f
 

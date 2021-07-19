@@ -102,9 +102,8 @@ GameMap* GameMap::Load(string path)
 								if (propName.compare("Direction") == 0)
 									objProp->QueryIntAttribute("value", &direction);
 							}
-							CGame::GetInstance()->GetCurrentScene()->LoadSpecialObject(x, y, objWidth, objHeight, length, type, direction);
+							CGame::GetInstance()->GetCurrentScene()->LoadSpecialObject(objType,x, y, objWidth, objHeight, length, type, direction);
 						}
-
 
 						if (objType.compare("Spawner") == 0) {
 							TiXmlElement* props = obj->FirstChildElement("properties");
@@ -117,6 +116,47 @@ GameMap* GameMap::Load(string path)
 									CGame::GetInstance()->GetCurrentScene()->LoadMapObjects(propValue, x, y, objWidth, objHeight);
 								}
 							}
+						}
+
+						if (objType.compare("EndPortal") == 0) {
+							TiXmlElement* props = obj->FirstChildElement("properties");
+							int direct = 0;
+							for (TiXmlElement* objProp = props->FirstChildElement("property"); objProp != nullptr; objProp = objProp->NextSiblingElement("property")) {
+								string propName = objProp->Attribute("name");
+
+								if (propName.compare("Direction") == 0) {
+									objProp->QueryIntAttribute("value", &direct);
+									//DebugOut(L"end dir %d \n", direct);
+								}
+							}
+							CGame::GetInstance()->GetCurrentScene()->LoadSpecialObject(objType,x, y, objWidth, objHeight, 0, 0, 0, 0, 0, direct, 0);
+						}
+
+						if (objType.compare("BeginPortal") == 0) {
+							TiXmlElement* props = obj->FirstChildElement("properties");
+
+							float desX = 0, desY = 0;
+							int dir =0 , targetReg=-1;
+							for (TiXmlElement* objProp = props->FirstChildElement("property"); objProp != nullptr; objProp = objProp->NextSiblingElement("property")) {
+								string propName = objProp->Attribute("name");
+
+								if (propName.compare("DestinationX") == 0) {
+									objProp->QueryFloatAttribute("value",&desX);
+								}
+
+								if (propName.compare("DestinationY") == 0) {
+									objProp->QueryFloatAttribute("value", &desY);
+								}
+
+								if (propName.compare("Direction") == 0) {
+									objProp->QueryIntAttribute("value", &dir);
+								}
+
+								if (propName.compare("CameraRegion") == 0) {
+									objProp->QueryIntAttribute("value", &targetReg);
+								}
+							}
+							CGame::GetInstance()->GetCurrentScene()->LoadSpecialObject(objType, x, y, objWidth, objHeight, 0, 0, 0, desX, desY, dir, targetReg);
 						}
 
 						// read next

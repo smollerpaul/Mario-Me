@@ -46,6 +46,25 @@ void RacoonMario::InitAnimations()
 
 void RacoonMario::Update(DWORD dt)
 {
+	if (teleporting == 1) {
+		teleportHold += dt;
+		master->vx = 0;
+
+		if (teleDirection == 1)
+			master->y += 0.5;
+		else
+			master->y -= 0.5;
+
+		if (teleportHold >= 1000) {
+			teleporting = 0;
+			teleportHold = 0;
+			master->renderOrder = 100;
+
+			CGame::GetInstance()->GetCurrentScene()->GetCamera()->SetCurrentRegion(targetRegBound);
+			master->SetPosition(desX, desY);
+		}
+	}
+
 	if (kick != 0) {
 		kickTimer += dt;
 		if (kickTimer >= MARIO_ATTACK_TIME) {
@@ -332,7 +351,9 @@ void RacoonMario::AttackUpdate(DWORD dt)
 void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
 	PlayerData* pd = PlayerData::GetInstance();
-	
+	if (teleporting == 1)
+		return;
+
 	SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
 
 	if (master->untouchable != 1) {
@@ -361,6 +382,16 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 			}
 			break;
 
+			case MusicNote::ObjectType:
+			{
+				MusicNote* rg = dynamic_cast<MusicNote*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+			}
+
+			break;
 			case VenusFireBall::ObjectType:
 			{
 				VenusFireBall* vn = dynamic_cast<VenusFireBall*>(e->obj);
@@ -412,6 +443,38 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 					pd->SetScore(pd->GetScore() + 100);
 				}
 				else if (e->nx != 0) {
+					if (master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
+			case BoomBro::ObjectType:
+			{
+				BoomBro* rg = dynamic_cast<BoomBro*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					pd->SetScore(pd->GetScore() + 100);
+				}
+				else if (e->nx != 0) {
+					if (master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
+			case Boomerang::ObjectType:
+			{
+				Boomerang* rg = dynamic_cast<Boomerang*>(e->obj);
+
+				if (e->ny !=0 || e->nx!=0) {
 					if (master->untouchable == 0) {
 						master->StartUntouchable();
 						master->visible = 0;
@@ -531,6 +594,25 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 				}
 				if (e->nx != 0) {
 					kick = 1;
+				}
+			}
+			break;
+
+			case BeginPortal::ObjectType:
+			{
+				BeginPortal* p = dynamic_cast<BeginPortal*>(e->obj);
+				if (e->ny != 0) {
+					teleporting = 1;
+					desX = p->desX;
+					desY = p->desY;
+					targetRegBound = p->targetReg;
+
+					master->renderOrder = 90;
+					//determine vy of teleportation
+					if (e->ny < 0) { //go down
+						teleDirection = 1;
+					}
+					else teleDirection = -1; //go up
 				}
 			}
 			break;
@@ -777,6 +859,10 @@ void RacoonMario::Render()
 
 	if (kick == 1) {
 		ani = this->animations["Kick"];
+	}
+
+	if (teleporting == 1) {
+		ani = this->animations["TeleVer"];
 	}
 
 	int alpha = 255;

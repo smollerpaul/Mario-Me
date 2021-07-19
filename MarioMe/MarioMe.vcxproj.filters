@@ -5,7 +5,7 @@
       <Filter>Framework\Graphics\Animations</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
-      <Filter>Game\Objects\BrickTypes</Filter>
+      <Filter>Game\Blocks\BrickTypes</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Framework\Camera</Filter>
@@ -29,7 +29,7 @@
       <Filter>Game\Mario</Filter>
     </ClCompile>
     <ClCompile Include="Portal.cpp">
-      <Filter>Game\Objects\Portal</Filter>
+      <Filter>Game\Portals\Portal</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Framework\Graphics\Textures</Filter>
@@ -71,16 +71,16 @@
       <Filter>Framework\Libs\tinyXML</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
-      <Filter>Framework\Map\Map</Filter>
+      <Filter>Game\Map\Map</Filter>
     </ClCompile>
     <ClCompile Include="MapLayer.cpp">
-      <Filter>Framework\Map\MapLayer</Filter>
+      <Filter>Game\Map\MapLayer</Filter>
     </ClCompile>
     <ClCompile Include="SolidBlock.cpp">
-      <Filter>Game\Objects\SolidBlock</Filter>
+      <Filter>Game\Blocks\SolidBlock</Filter>
     </ClCompile>
     <ClCompile Include="GhostBlock.cpp">
-      <Filter>Game\Objects\GhostBlock</Filter>
+      <Filter>Game\Blocks\GhostBlock</Filter>
     </ClCompile>
     <ClCompile Include="PlayerData.cpp">
       <Filter>Game\PlayerData</Filter>
@@ -104,7 +104,7 @@
       <Filter>Game\Mario\MBig</Filter>
     </ClCompile>
     <ClCompile Include="QuestionBlock.cpp">
-      <Filter>Game\Objects\QuestionBlock</Filter>
+      <Filter>Game\Blocks\QuestionBlock</Filter>
     </ClCompile>
     <ClCompile Include="RedGoomba.cpp">
       <Filter>Game\Enemies\RedGoomba</Filter>
@@ -176,7 +176,7 @@
       <Filter>Game\Effects\Effects\Rewards\EndCard</Filter>
     </ClCompile>
     <ClCompile Include="Void.cpp">
-      <Filter>Game\Objects\Void</Filter>
+      <Filter>Game\Blocks\Void</Filter>
     </ClCompile>
     <ClCompile Include="MapEntry.cpp">
       <Filter>Game\Overworld Objects\MapEntry</Filter>
@@ -227,17 +227,25 @@
       <Filter>Game\Enemies\Koopas\RedKoopas\SlidingShell</Filter>
     </ClCompile>
     <ClCompile Include="MusicNote.cpp">
-      <Filter>Game\Objects\Music</Filter>
+      <Filter>Game\Blocks\Music</Filter>
     </ClCompile>
     <ClCompile Include="StrawCube.cpp">
-      <Filter>Game\Objects\StrawCube</Filter>
+      <Filter>Game\Blocks\StrawCube</Filter>
     </ClCompile>
     <ClCompile Include="CoinBrick.cpp">
-      <Filter>Game\Objects\BrickTypes</Filter>
+      <Filter>Game\Blocks\BrickTypes</Filter>
     </ClCompile>
-    <ClCompile Include="Boomerang.cpp" />
     <ClCompile Include="BoomBro.cpp">
       <Filter>Game\Enemies\BoomBro</Filter>
+    </ClCompile>
+    <ClCompile Include="Boomerang.cpp">
+      <Filter>Game\Enemies\BoomBro\Boomerangs</Filter>
+    </ClCompile>
+    <ClCompile Include="BeginPortal.cpp">
+      <Filter>Game\Portals\BeginPortal</Filter>
+    </ClCompile>
+    <ClCompile Include="EndPortal.cpp">
+      <Filter>Game\Portals\EndPortal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -245,7 +253,7 @@
       <Filter>Framework\Graphics\Animations</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
-      <Filter>Game\Objects\BrickTypes</Filter>
+      <Filter>Game\Blocks\BrickTypes</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Framework\Camera</Filter>
@@ -269,7 +277,7 @@
       <Filter>Game\Mario</Filter>
     </ClInclude>
     <ClInclude Include="Portal.h">
-      <Filter>Game\Objects\Portal</Filter>
+      <Filter>Game\Portals\Portal</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
       <Filter>Framework\Graphics\Textures</Filter>
@@ -293,16 +301,16 @@
       <Filter>Framework\Libs\tinyXML</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>Framework\Map\Map</Filter>
+      <Filter>Game\Map\Map</Filter>
     </ClInclude>
     <ClInclude Include="MapLayer.h">
-      <Filter>Framework\Map\MapLayer</Filter>
+      <Filter>Game\Map\MapLayer</Filter>
     </ClInclude>
     <ClInclude Include="SolidBlock.h">
-      <Filter>Game\Objects\SolidBlock</Filter>
+      <Filter>Game\Blocks\SolidBlock</Filter>
     </ClInclude>
     <ClInclude Include="GhostBlock.h">
-      <Filter>Game\Objects\GhostBlock</Filter>
+      <Filter>Game\Blocks\GhostBlock</Filter>
     </ClInclude>
     <ClInclude Include="PlayerData.h">
       <Filter>Game\PlayerData</Filter>
@@ -329,7 +337,7 @@
       <Filter>Game\Mario\MBig</Filter>
     </ClInclude>
     <ClInclude Include="QuestionBlock.h">
-      <Filter>Game\Objects\QuestionBlock</Filter>
+      <Filter>Game\Blocks\QuestionBlock</Filter>
     </ClInclude>
     <ClInclude Include="RedGoomba.h">
       <Filter>Game\Enemies\RedGoomba</Filter>
@@ -401,7 +409,7 @@
       <Filter>Game\Effects\Effects\Rewards\EndCard</Filter>
     </ClInclude>
     <ClInclude Include="Void.h">
-      <Filter>Game\Objects\Void</Filter>
+      <Filter>Game\Blocks\Void</Filter>
     </ClInclude>
     <ClInclude Include="MapEntry.h">
       <Filter>Game\Overworld Objects\MapEntry</Filter>
@@ -452,17 +460,25 @@
       <Filter>Game\Enemies\Koopas\RedKoopas\SlidingShell</Filter>
     </ClInclude>
     <ClInclude Include="MusicNote.h">
-      <Filter>Game\Objects\Music</Filter>
+      <Filter>Game\Blocks\Music</Filter>
     </ClInclude>
     <ClInclude Include="StrawCube.h">
-      <Filter>Game\Objects\StrawCube</Filter>
+      <Filter>Game\Blocks\StrawCube</Filter>
     </ClInclude>
     <ClInclude Include="CoinBrick.h">
-      <Filter>Game\Objects\BrickTypes</Filter>
+      <Filter>Game\Blocks\BrickTypes</Filter>
     </ClInclude>
-    <ClInclude Include="Boomerang.h" />
     <ClInclude Include="BoomBro.h">
       <Filter>Game\Enemies\BoomBro</Filter>
+    </ClInclude>
+    <ClInclude Include="Boomerang.h">
+      <Filter>Game\Enemies\BoomBro\Boomerangs</Filter>
+    </ClInclude>
+    <ClInclude Include="BeginPortal.h">
+      <Filter>Game\Portals\BeginPortal</Filter>
+    </ClInclude>
+    <ClInclude Include="EndPortal.h">
+      <Filter>Game\Portals\EndPortal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -529,17 +545,8 @@
     <Filter Include="Resources\Maps">
       <UniqueIdentifier>{957b04ec-e5fd-4543-bcde-a6cf07af3bb0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Map">
-      <UniqueIdentifier>{02ff73a2-5581-4f90-a492-a4c0af709dab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources\Maps\Demo">
       <UniqueIdentifier>{196f24d4-b229-491d-9606-0cc3f6a3f974}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Map\MapLayer">
-      <UniqueIdentifier>{81d8d168-a9ad-4d97-80d8-c0af613c7c56}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Map\Map">
-      <UniqueIdentifier>{6fbd36e3-6eac-43a8-b7bf-e87198590598}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Scenes">
       <UniqueIdentifier>{4ff93566-5170-48f7-be71-25e2e7a3caca}</UniqueIdentifier>
@@ -709,24 +716,6 @@
     <Filter Include="Game\Enemies\Plants\Venus\FireBalls">
       <UniqueIdentifier>{2dd9a7a2-0108-4da9-a4b4-459671c74dcc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Objects">
-      <UniqueIdentifier>{60029a8e-a7fc-4440-b0c0-d02a669d24aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Objects\SolidBlock">
-      <UniqueIdentifier>{7ac20bbf-ca32-4a23-b070-eb63f55ab485}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Objects\GhostBlock">
-      <UniqueIdentifier>{8aed6746-8870-4ca0-8ed4-297094b9a2d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Objects\Portal">
-      <UniqueIdentifier>{2eecf0ac-7cc2-448a-8f38-269b503ee2c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Objects\QuestionBlock">
-      <UniqueIdentifier>{563f2876-0b4d-4f20-b379-a5dc764819d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Objects\Void">
-      <UniqueIdentifier>{f876b03a-6867-4be2-889f-b4f3242f365b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Effects\Effects\Rewards\QBounce">
       <UniqueIdentifier>{c4d3ce90-7f59-4a89-af37-1d6e4f952e66}</UniqueIdentifier>
     </Filter>
@@ -751,17 +740,56 @@
     <Filter Include="Game\Enemies\Bounds">
       <UniqueIdentifier>{c22da003-d5f3-414a-b196-b66b0b84f6a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Objects\Music">
-      <UniqueIdentifier>{f952a62f-2cd9-4141-8b9a-458f95514e8f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Objects\StrawCube">
-      <UniqueIdentifier>{b425ecda-de47-4f5b-a5a5-98ad59e02d5e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Objects\BrickTypes">
-      <UniqueIdentifier>{17f5de1e-9c70-4a0f-bd4b-fc3f3a4d733d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Enemies\BoomBro\Boomerangs">
       <UniqueIdentifier>{e07b4248-2d89-4bf6-83a5-e10d4f65f845}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Map">
+      <UniqueIdentifier>{02ff73a2-5581-4f90-a492-a4c0af709dab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Map\MapLayer">
+      <UniqueIdentifier>{81d8d168-a9ad-4d97-80d8-c0af613c7c56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Map\Map">
+      <UniqueIdentifier>{6fbd36e3-6eac-43a8-b7bf-e87198590598}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Portals">
+      <UniqueIdentifier>{76969ef4-3118-4a37-8fbe-4ff842291530}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Portals\Portal">
+      <UniqueIdentifier>{2eecf0ac-7cc2-448a-8f38-269b503ee2c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Portals\BeginPortal">
+      <UniqueIdentifier>{9661b06a-04b9-4c29-857b-ed01e2736297}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Portals\EndPortal">
+      <UniqueIdentifier>{1f183280-ceef-42ce-8cf5-99018894c0bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks">
+      <UniqueIdentifier>{60029a8e-a7fc-4440-b0c0-d02a669d24aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\SolidBlock">
+      <UniqueIdentifier>{7ac20bbf-ca32-4a23-b070-eb63f55ab485}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\GhostBlock">
+      <UniqueIdentifier>{8aed6746-8870-4ca0-8ed4-297094b9a2d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\QuestionBlock">
+      <UniqueIdentifier>{563f2876-0b4d-4f20-b379-a5dc764819d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\Void">
+      <UniqueIdentifier>{f876b03a-6867-4be2-889f-b4f3242f365b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\Music">
+      <UniqueIdentifier>{f952a62f-2cd9-4141-8b9a-458f95514e8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\StrawCube">
+      <UniqueIdentifier>{b425ecda-de47-4f5b-a5a5-98ad59e02d5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\BrickTypes">
+      <UniqueIdentifier>{17f5de1e-9c70-4a0f-bd4b-fc3f3a4d733d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Text">
+      <UniqueIdentifier>{26c174eb-3e6b-44d9-b8ae-57a08daf9658}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

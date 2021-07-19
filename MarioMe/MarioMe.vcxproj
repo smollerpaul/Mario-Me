@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="BeginPortal.cpp" />
     <ClCompile Include="BigMario.cpp" />
     <ClCompile Include="BoomBound.cpp" />
     <ClCompile Include="BoomBro.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="Effects.cpp" />
     <ClCompile Include="EffectVault.cpp" />
     <ClCompile Include="EndCard.cpp" />
+    <ClCompile Include="EndPortal.cpp" />
     <ClCompile Include="Entries.cpp" />
     <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="FireMario.cpp" />
@@ -216,6 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h" />
+    <ClInclude Include="BeginPortal.h" />
     <ClInclude Include="BigMario.h" />
     <ClInclude Include="BoomBound.h" />
     <ClInclude Include="BoomBro.h" />
@@ -227,6 +230,7 @@
     <ClInclude Include="Effects.h" />
     <ClInclude Include="EffectVault.h" />
     <ClInclude Include="EndCard.h" />
+    <ClInclude Include="EndPortal.h" />
     <ClInclude Include="EnemiesConstants.h" />
     <ClInclude Include="Entries.h" />
     <ClInclude Include="FireBall.h" />

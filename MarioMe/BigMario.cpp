@@ -7,13 +7,12 @@ BigMario::BigMario()
 BigMario::BigMario(CMario* masterObj)
 {
 	this->master = masterObj;
+
 	if (master->height != 81) {
 		master->SetPosition(master->x, master->y - 40);
-		//DebugOut(L"x: %f, y:%f, height: %f\n", master->x, master->y, master->height);
 	}
 
 	master->SetSize(MARIO_WIDTH, MARIO_HEIGHT);
-
 }
 
 void BigMario::InitAnimations()
@@ -45,7 +44,26 @@ void BigMario::InitAnimations()
 
 void BigMario::Update(DWORD dt)
 {
-	//kick ani
+	if (teleporting == 1) {
+		teleportHold += dt;
+		master->vx = 0;
+
+		// move direction
+		if (teleDirection == 1)
+			master->y += 0.5;
+		else
+			master->y -= 0.5;
+
+		if (teleportHold >= 1000) {
+			teleporting = 0;
+			teleportHold = 0;
+			master->renderOrder = 100;
+
+			CGame::GetInstance()->GetCurrentScene()->GetCamera()->SetCurrentRegion(targetRegBound);
+			master->SetPosition(desX, desY);
+		}
+	}
+	
 	if (kick != 0) {
 		kickTimer += dt;
 		if (kickTimer >= MARIO_ATTACK_TIME) {
@@ -228,7 +246,11 @@ void BigMario::AttackUpdate(DWORD dt)
 void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
 	PlayerData* pd = PlayerData::GetInstance();
-	
+	Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
+
+	if (teleporting == 1)
+		return;
+
 	SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
 	if (master->untouchable != 1) {
 		for (UINT i = 0; i < coEventsResult.size(); i++)
@@ -237,7 +259,39 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 
 			switch (e->obj->GetObjectType()) {
 
-			case PSwitch::ObjectType: {
+			case ShelledKoopas::ObjectType:
+			{
+				ShelledKoopas* rg = dynamic_cast<ShelledKoopas*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				if (e->nx != 0) {
+					kick = 1;
+				}
+			}
+			break;
+
+			case RedShelledKoopas::ObjectType:
+			{
+				RedShelledKoopas* rg = dynamic_cast<RedShelledKoopas*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+				if (e->nx != 0) {
+					if (keyboard->IsKeyDown(DIK_A)) {
+						master->SetHoldingRedShell(rg);
+					}
+					else {
+						kick = 1;
+					}
+				}
+			}
+			break;
+
+			case PSwitch::ObjectType: 
+			{
 
 				PSwitch* p = dynamic_cast<PSwitch*>(e->obj);
 				if (e->ny < 0) {
@@ -268,6 +322,50 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 				}
 
 				if (e->nx != 0) {
+					if (master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
+			case BoomBro::ObjectType:
+			{
+				BoomBro* goomba = dynamic_cast<BoomBro*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					pd->SetScore(pd->GetScore() + 100);
+				}
+
+				if (e->nx != 0) {
+					if (master->untouchable == 0) {
+						master->StartUntouchable();
+						master->visible = 0;
+					}
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
+			case MusicNote::ObjectType:
+			{
+				MusicNote* rg = dynamic_cast<MusicNote*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+				}
+			}
+			break;
+
+			case Boomerang::ObjectType:
+			{
+				BoomBro* goomba = dynamic_cast<BoomBro*>(e->obj);
+
+				if (e->ny != 0 || e->nx!=0) {
+				
 					if (master->untouchable == 0) {
 						master->StartUntouchable();
 						master->visible = 0;
@@ -425,32 +523,6 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 			}
 			break;
 
-			case ShelledKoopas::ObjectType:
-			{
-				ShelledKoopas* rg = dynamic_cast<ShelledKoopas*>(e->obj);
-
-				if (e->ny < 0) {
-					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
-				}
-				if (e->nx != 0) {
-					kick = 1;
-				}
-			}
-			break;
-
-			case RedShelledKoopas::ObjectType:
-			{
-				RedShelledKoopas* rg = dynamic_cast<RedShelledKoopas*>(e->obj);
-
-				if (e->ny < 0) {
-					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
-				}
-				if (e->nx != 0) {
-					kick = 1;
-				}
-			}
-			break;
-
 			case Leaf::ObjectType:
 			{
 				Leaf* leaf = dynamic_cast<Leaf*>(e->obj);
@@ -474,6 +546,25 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 			}
 			break;
 
+			case BeginPortal::ObjectType:
+			{
+				BeginPortal* p = dynamic_cast<BeginPortal*>(e->obj);
+				if (e->ny != 0) {
+					teleporting = 1;
+					desX = p->desX;
+					desY = p->desY;
+					targetRegBound = p->targetReg;
+
+					master->renderOrder = 90;
+					//determine vy of teleportation
+					if (e->ny < 0) { //go down
+						teleDirection = 1;
+					}
+					else teleDirection = -1; //go up
+				}
+			}
+			break;
+
 			case Void::ObjectType:
 			{
 				Void* p = dynamic_cast<Void*>(e->obj);
@@ -484,6 +575,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 			}
 			break;
 			}
+			
 		}
 	}
 }
@@ -675,6 +767,18 @@ void BigMario::Render()
 
 	if (kick == 1) {
 		ani = this->animations["Kick"];
+	}
+
+	if (teleporting == 1) {
+		ani = this->animations["TeleVer"];
+	}
+
+	if (master->holdingRedShell != nullptr) {
+		ani = this->animations["Hold"];
+
+		if (master->vx != 0) {
+			ani = this->animations["HoldFall"];
+		}
 	}
 
 	int alpha = 255;

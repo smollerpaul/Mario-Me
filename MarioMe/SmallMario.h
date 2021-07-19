@@ -26,6 +26,11 @@
 #include "Brick.h"
 #include "RedNormalKoopas.h"
 #include "RedShelledKoopas.h"
+#include "Boomerang.h"
+#include "BoomBro.h"
+#include "MusicNote.h"
+#include "BeginPortal.h"
+#include "EndPortal.h"
 
 #include "FlyingCard.h"
 #include "MarioDieFx.h"
@@ -48,7 +53,17 @@ public:
 	int powerUpMushroom = 0;
 	int kick = 0;
 	float kickTimer = 0;
+	
+	int teleporting = 0;
+	float teleportHold = 0;
 
+	float desX = 0;
+	float desY = 0;
+
+	int teleDirection = 0;
+	int targetRegBound = 0;
+
+	
 
 	SmallMario();
 	SmallMario(CMario* masterObj);

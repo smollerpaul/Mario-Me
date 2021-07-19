@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #define TAIL_SPEED 0.55
 
-#define TAIL_ALIVE_TIME 250
+#define TAIL_ALIVE_TIME 100
 class Camera;
 
 class RacoonTail :

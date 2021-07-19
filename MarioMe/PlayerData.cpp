@@ -23,6 +23,11 @@ float PlayerData::GetGameTime()
 	return this->gameTime;
 }
 
+void PlayerData::ResetGameTime()
+{
+	this->gameTime = 300000;
+}
+
 int PlayerData::GetMarioType()
 {
 	return marioType;

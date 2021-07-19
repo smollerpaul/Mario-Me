@@ -83,27 +83,19 @@ void Camera::Update()
 	player->GetPosition(cx, cy);
 
 	x = cx - game->GetScreenWidth() / 2;
-	//if (cy - 45 <= 0) {
-		y = cy - game->GetScreenHeight() / 2;
-	//}
+	y = cy - game->GetScreenHeight() / 2;
 
-	RECT currentRegBoundary = GetCurrentRegion(currentRegion);
+	RECT currentRegBound = GetCurrentRegion(currentRegion);
 
 	// set limits of the camera position to allowed region
-	if (this->x < currentRegBoundary.left) 
-		this->x = currentRegBoundary.left;
-	
-	/*if (this->y < currentRegBoundary.top) 
-		this->y = currentRegBoundary.top;*/
+	if (currentRegion == 1) {
+		y = max(y, currentRegBound.top);
+	}
+	y = min(y, currentRegBound.bottom - this->height);
 
-	if (this->x + width > currentRegBoundary.right)
-		this->x = currentRegBoundary.right -width;
+	x = max(x, currentRegBound.left);
+	x = min(x, currentRegBound.right - this->width);
 
-	/*if(this->y + height> currentRegBoundary.bottom)
-		this->y = currentRegBoundary.bottom - game->GetScreenHeight();*/
-
-	//DebugOut(L"reg bound right : %ld %ld %ld %ld %d \n", currentRegBoundary.left, currentRegBoundary.top, currentRegBoundary.bottom, currentRegBoundary.right, currentRegion);
-	
 }
 
 void Camera::AddRegion(RECT rect, int regionId)

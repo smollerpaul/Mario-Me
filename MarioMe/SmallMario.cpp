@@ -43,18 +43,28 @@ void SmallMario::InitAnimations()
 
 void SmallMario::Update(DWORD dt)
 {
-	////respawn
-	//if (master->state == MARIO_STATE_REALLY_DIE) {
-	//	/*master->aliveTimer += dt;
-	//	if (master->aliveTimer >= 2000) {
-	//		DebugOut(L"[RESPAWN] bitch\n");
-	//		master->aliveTimer = 0;
-	//		master->Reset();
-	//	}*/
-	//	
-	//}
-	
-	//kick ani
+	//tele
+	if (teleporting == 1) {
+		teleportHold += dt;
+		master->vx = 0;
+
+		// move direction
+		if (teleDirection == 1)
+			master->y += 0.5;
+		else
+			master->y -= 0.5;
+
+		if (teleportHold >= 1000) {
+			teleporting = 0;
+			teleportHold = 0;
+			master->renderOrder = 100;
+
+			CGame::GetInstance()->GetCurrentScene()->GetCamera()->SetCurrentRegion(targetRegBound);
+			master->SetPosition(desX, desY);
+		}
+	}
+
+	//kick
 	if (kick != 0) {
 		kickTimer += dt;
 		if (kickTimer >= MARIO_ATTACK_TIME) {
@@ -93,7 +103,6 @@ void SmallMario::Update(DWORD dt)
 
 bool SmallMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 {
-	//return master->untouchable =1;
 	return false;
 }
 
@@ -314,6 +323,7 @@ void SmallMario::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT>& coEvent
 		if(master->untouchable!=1)
 			master->UpdatePosition();
 	}
+
 	if (coEvents.size() != 0) {
 		float min_tx, min_ty, nx = 0, ny = 0;
 
@@ -321,14 +331,14 @@ void SmallMario::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT>& coEvent
 		float rdy = 0;
 
 		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-		if (master->untouchable != 1) {
+		if (master->untouchable !=1) {
 			master->x += min_tx * master->dx;
 			master->y += min_ty * master->dy;
 		 }
 
 		if (nx != 0) master->vx = 0;
 		if (ny != 0) { 
-			master->vy = 0; 
+			master->vy = 0;
 			if (ny < 0) {
 				master->SetIsOnGround(true);
 			}
@@ -336,6 +346,7 @@ void SmallMario::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT>& coEvent
 				master->vy += master->gravity;
 				master->SetState(MARIO_STATE_JUMP_FALL);
 			}
+			
 		}
 	}
 }
@@ -349,7 +360,10 @@ void SmallMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vect
 void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult, vector<LPCOLLISIONEVENT> coEvents)
 {
 	PlayerData* pd = PlayerData::GetInstance();
-	
+
+	if (teleporting == 1)
+		return;
+
 	PostCollisionUpdate(dt, coEventsResult, coEvents); 
 
 	if (master->untouchable != 1) {
@@ -434,6 +448,44 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 					if (master->state != MARIO_STATE_DIE)
 						master->SetState(MARIO_STATE_DIE);
 					EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+				}
+			}
+			break;
+
+			case BoomBro::ObjectType:
+			{
+				BoomBro* rg = dynamic_cast<BoomBro*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					pd->SetScore(pd->GetScore() + 100);
+				}
+				else if (e->nx != 0) {
+					if (master->state != MARIO_STATE_DIE)
+						master->SetState(MARIO_STATE_DIE);
+					EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+				}
+			}
+			break;
+
+			case Boomerang::ObjectType:
+			{
+				Boomerang* rg = dynamic_cast<Boomerang*>(e->obj);
+
+				if (e->ny !=0 || e->nx!=0) {
+					if (master->state != MARIO_STATE_DIE)
+						master->SetState(MARIO_STATE_DIE);
+					EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+				}
+			}
+			break;
+
+			case MusicNote::ObjectType:
+			{
+				MusicNote* rg = dynamic_cast<MusicNote*>(e->obj);
+
+				if (e->ny < 0) {
+					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 				}
 			}
 			break;
@@ -579,11 +631,41 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 			}
 			break;
 
+			case BeginPortal::ObjectType:
+			{
+				BeginPortal* p = dynamic_cast<BeginPortal*>(e->obj);
+				if (e->ny !=0) {
+					teleporting= 1;
+					desX = p->desX;
+					desY = p->desY;
+					targetRegBound = p->targetReg;
+
+					master->renderOrder = 90;
+					//determine vy of teleportation
+					if (e->ny < 0) { //go down
+						teleDirection = 1;
+					}
+					else teleDirection = -1; //go up
+				}
+			}
+			break;
+
+			case EndPortal::ObjectType:
+			{
+				EndPortal* pp = dynamic_cast<EndPortal*>(e->obj);
+				if (e->ny != 0 || e->nx!=0) {
+					if (pp->direction == 1 ) {
+						DebugOut(L"endport\n");
+						teleporting = 1;
+					}
+				}
+			}
+			break;
+
 			case EndCard::ObjectType:
 			{
 				EndCard* p = dynamic_cast<EndCard*>(e->obj);
 				EffectVault::GetInstance()->AddEffect(new FlyingCard(8038, 973));
-
 				p->SetAlive(0);
 			}
 			break;
@@ -688,6 +770,10 @@ void SmallMario::Render()
 		ani = this->animations["Kick"];
 	}
 
+	if (teleporting == 1) {
+		ani = this->animations["TeleVer"];
+	}
+
 	int alpha = 255;
 	if (master->untouchable)
 		alpha = 128;
@@ -731,7 +817,7 @@ void SmallMario::OnKeyUp(int keyCode)
 
 void SmallMario::OnKeyDown(int keyCode)
 {
-	if (master->untouchable != 1) {
+	if (master->untouchable != 1 && teleporting!=1) {
 		switch (keyCode)
 		{
 		case DIK_X: {

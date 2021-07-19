@@ -22,6 +22,8 @@
 #include "MusicNote.h"
 #include "CoinBrick.h"
 #include "BoomBro.h"
+#include "BeginPortal.h"
+#include "EndPortal.h"
 
 void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width, float height)
 {
@@ -77,7 +79,7 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 	}
 
 	if (objectType.compare("BoomBro") == 0) {
-		BoomBro* bbb = new BoomBro();
+		BoomBro* bbb = new BoomBro(this);
 		bbb->SetPosition(x, y);
 		AddObject(bbb);
 	}
@@ -186,13 +188,31 @@ void CPlayScene::LoadMapObjects(string objectType, float x, float y, float width
 		AddObject(kp);
 	}
 
-	//boombro
-
 }
 
-void CPlayScene::LoadSpecialObject(float xPos, float yPos, float width, float height, int length, int type, int direction)
+void CPlayScene::LoadSpecialObject(string objectType,float xPos, float yPos, float width, float height, int length, int type, int direction,
+	float desX, float desY, int moveDir, int targetReg)
 {
-	Pipe* pipe = new Pipe(length, type, width, height, direction);
-	pipe->SetPosition(xPos, yPos);
-	AddObject(pipe);
+	if (objectType.compare("Pipe") == 0) {
+		Pipe* pipe = new Pipe(length, type, width, height, direction);
+		pipe->SetPosition(xPos, yPos);
+		AddObject(pipe);
+	}
+	
+	if(objectType.compare("BeginPortal") == 0){
+		BeginPortal* port = new BeginPortal(desX, desY, targetReg, moveDir);
+		port->SetPosition(xPos, yPos);
+		port->SetSize(width, height);
+		AddObject(port);
+		return;
+	}
+
+	if (objectType.compare("EndPortal") == 0) {
+		EndPortal* pp = new EndPortal(moveDir);
+		pp->SetPosition(xPos, yPos);
+		pp->SetSize(width, height);
+		AddObject(pp);
+		return;
+	}
+	
 }

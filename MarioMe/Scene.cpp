@@ -27,7 +27,7 @@ Camera* CScene::GetCamera()
 }
 
 
-void CScene::LoadSpecialObject(float xPos, float yPos, float width, float height,int length, int type, int direction)
+void CScene::LoadSpecialObject(string objectType, float xPos, float yPos, float width, float height,int length, int type, int direction, float desX, float desY , int moveDir, int targetReg)
 {
 }
 

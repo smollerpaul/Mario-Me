@@ -6,9 +6,6 @@
 #include "Camera.h"
 #include "PlayerData.h"
 
-//enemy mario chạm right side enemy bị pushed -> not gone through
-//chinh mario crouch -> small mario doesnt crouch
-
 using namespace std;
 
 CMario::CMario() : CGameObject()
@@ -49,7 +46,7 @@ void CMario::Update(DWORD dt)
 		AttackUpdate(dt);
 	}
 
-	DebugOut(L"state Mario Vy: %d\n", state);
+	DebugOut(L"Mario Vy: %f\n", vy);
 	//call update ->collision -> behavior outside in playscene
 }
 
@@ -122,7 +119,7 @@ void CMario::RunPowerMeter(DWORD dt)
 			stayPmMaxTimer = 0;
 		}
 	}
-	DebugOut(L"pm is : %f \n", powerMeter);
+	//DebugOut(L"pm is : %f \n", powerMeter);
 }
 
 void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -202,7 +199,8 @@ void CMario::OnKeyDown(int keyCode)
 	case DIK_P:
 		SetPosition(6240, 985);
 		break;
-	case DIK_I: {
+	case DIK_I: 
+	{
 		CKoopas* kp = new CKoopas(new NormalKoopas());
 		kp->SetObjectState(new RedNormalKoopas(kp));
 		kp->SetPosition(this->x, this->y);
@@ -212,6 +210,11 @@ void CMario::OnKeyDown(int keyCode)
 
 	case DIK_O:
 		SetPosition(2112, 985);
+		break;
+
+	case DIK_L:
+		SetPosition(6720, 290);
+		CGame::GetInstance()->GetCurrentScene()->GetCamera()->SetCurrentRegion(0);
 		break;
 	}
 }
@@ -266,3 +269,9 @@ void CMario::SetFriction(float friction)
 	this->friction_x = friction;
 }
 
+void CMario::SetHoldingRedShell(RedShelledKoopas* koop) {
+	this->holdingRedShell = koop;
+}
+void CMario::ReleaseRedShell(RedShelledKoopas* koop) {
+	this->holdingRedShell = nullptr;
+}

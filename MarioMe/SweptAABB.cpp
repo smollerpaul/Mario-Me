@@ -51,14 +51,11 @@ void CGameObject::CalcPotentialCollisions(
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		//if (coObjects->at(i)!= nullptr) {
-			//DebugOut(L"ello pre-calc: %d \n", coObjects->at(i)->GetObjectType());
-			LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
+		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
-			if (e->t >= 0 && e->t <= 1.0f && e->tl > 0)
-				temp.push_back(e);
-			else delete e;
-		//}
+		if (e->t >= 0 && e->t <= 1.0f && e->tl > 0)
+			temp.push_back(e);
+		else delete e;
 	}
 
 	std::sort(temp.begin(), temp.end(), CCollisionEvent::compare);

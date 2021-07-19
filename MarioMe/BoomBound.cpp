@@ -7,7 +7,7 @@ BoomBound::BoomBound()
 
 void BoomBound::Render()
 {
-    RenderBoundingBox();
+  //  RenderBoundingBox();
 }
 
 bool BoomBound::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy)

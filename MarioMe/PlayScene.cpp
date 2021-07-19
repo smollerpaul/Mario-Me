@@ -84,6 +84,7 @@ void CPlayScene::Render()
 
 	this->map->Render();
 	vector<LPGAMEOBJECT> renderObjects;
+	renderObjects.push_back(player);
 	
 	for (size_t i = 0; i < objects.size(); i++)
 	{
@@ -98,8 +99,6 @@ void CPlayScene::Render()
 	{
 		renderObjects[i]->Render();
 	}
-
-	player->Render();
 
 	EffectVault::GetInstance()->Render();
 
@@ -181,13 +180,11 @@ void CPlayScene::Load()
 	}
 	
 	camera->SetCurrentRegion(0);
-	//RECT currentReg= camera->GetCurrentRegion(1);
 	camera->SetSize(CAM_WIDTH_SIZE, CAM_HEIGHT_SIZE);
-	//camera->SetPosition(0, 717);
 	camera->SetViewPort(0, 0, CAM_WIDTH_SIZE, CAM_HEIGHT_SIZE);
 	SetCamera(camera);
-	DebugOut(L"Camera ok\n");
 
+	PlayerData::GetInstance()->ResetGameTime();
 }
 
 int CPlayScene::GetSceneType()

@@ -4,14 +4,18 @@
 #include "Mario.h"
 #include "FireBall.h"
 #include "EnemiesConstants.h"
+#include "PlayScene.h"
+#include "Boomerang.h"
 
-BoomBro::BoomBro()
+BoomBro::BoomBro(CPlayScene* ss)
 {
 	SetState(BOOM_STATE_WALK);
+	nx = -1;
 	vx = KOOPAS_WALK_SPEED;
 	gravity = ENEMIES_GRAVITY;
 	width = BOOM_WIDTH;
 	height = BOOM_HEIGHT;
+	this->scene = ss;
 }
 
 void BoomBro::InitAnimations()
@@ -19,12 +23,48 @@ void BoomBro::InitAnimations()
 	if (animations.size() < 1) {
 		this->animations["Walk"] = CAnimations::GetInstance()->Get("ani-boomerang-brother-move")->Clone();
 		this->animations["Attack"] = CAnimations::GetInstance()->Get("ani-boomerang-brother-attack")->Clone();
+		this->animations["Die"] = CAnimations::GetInstance()->Get("ani-boomerang-brother-death")->Clone();
 	}
 }
 
 void BoomBro::Update(DWORD dt)
 {
+	if (state == BOOM_STATE_DIE) {
+		dieTimer += dt;
+		if (dieTimer >= 1000) {
+			SetAlive(0);
+			return;
+		}
+			
+	}
+
 	vy += dt * gravity;
+	CMario* player= scene->GetPlayer();
+
+	if (state == BOOM_STATE_WALK) {
+		walkTime += dt;
+		
+		if (walkTime >= 2000) {
+			walkTime = 0;
+			vx = 0;
+			SetState(BOOM_STATE_SHOOT);
+		}
+	}
+
+	if (state == BOOM_STATE_SHOOT) {
+			Boomerang* bb = new Boomerang(this);
+			CGame::GetInstance()->GetCurrentScene()->AddObject(bb);
+			SetState(BOOM_STATE_WALK);
+			vx = KOOPAS_WALK_SPEED;
+	}
+
+	if (player->x < this->x) {
+		nx = -1;
+	}
+	else if (player->x >= this->x) {
+		nx = 1;
+	}
+	
 	CGameObject::Update(dt);
 }
 
@@ -33,12 +73,18 @@ void BoomBro::Render()
 	InitAnimations();
 	CAnimation* ani = this->animations["Walk"];
 
+	if(state==BOOM_STATE_DIE)
+		ani = this->animations["Die"];
+
+	if (state == BOOM_STATE_SHOOT)
+		ani = this->animations["Attack"];
+
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 	float l, t, b, r;
 	GetBoundingBox(l, t, r, b);
 
-	CGameObject::SetFlipOnNormal(nx);
-	
+	SetFlipOnNormalEnemy(nx);
+
 	ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + (b - t) / 2, flip);
 
 	//RenderBoundingBox();
@@ -109,8 +155,8 @@ void BoomBro::BehaviorUpdate(DWORD dt)
 			FireBall* fireball = dynamic_cast<FireBall*>(e->obj);
 			if (e->ny != 0 || e->nx != 0)
 			{
-				if (state != GOOMBA_STATE_DIE) {
-					SetState(GOOMBA_STATE_DIE);
+				if (state != BOOM_STATE_DIE) {
+					SetState(BOOM_STATE_DIE);
 					SetAlive(0);
 
 				}
@@ -123,8 +169,8 @@ void BoomBro::BehaviorUpdate(DWORD dt)
 			RacoonTail* tail = dynamic_cast<RacoonTail*>(e->obj);
 			if (e->ny != 0 || e->nx != 0)
 			{
-				if (state != GOOMBA_STATE_DIE) {
-					SetState(GOOMBA_STATE_DIE);
+				if (state != BOOM_STATE_DIE) {
+					SetState(BOOM_STATE_DIE);
 					SetAlive(0);
 				}
 			}

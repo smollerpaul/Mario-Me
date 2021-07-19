@@ -10,7 +10,9 @@ class Camera;
 
 class CMario : public CGameObject
 {
-public: 
+public:
+	RedShelledKoopas* holdingRedShell = nullptr;
+
 	int untouchable = 0;
 	float untouchableTimer = 0;
 
@@ -72,6 +74,9 @@ public:
 
 	void ResetAttackTimer();
 	void ResetFloatTimer();
+
+	void SetHoldingRedShell(RedShelledKoopas* koop);
+	void ReleaseRedShell(RedShelledKoopas* koop);
 
 	void OnKeyUp(int keyCode);
 	void OnKeyDown(int keyCode);

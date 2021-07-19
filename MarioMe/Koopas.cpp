@@ -17,7 +17,7 @@ CKoopas::CKoopas(NormalKoopas* objectState)
 {
 	width = height = KOOPAS_WIDTH;
 	nx = -1;
-	gravity = MARIO_GRAVITY;
+	gravity = ENEMIES_GRAVITY;
 	objState = new NormalKoopas(this);
 }
 
@@ -74,6 +74,22 @@ int CKoopas::GetObjectType()
 {
 	NormalKoopas* currentState = objState;
 	return currentState->GetObjectType();
+}
+
+void CKoopas::SetHolder(CMario* player)
+{
+	this->holder = player;
+}
+
+void CKoopas::ReleaseFromHolder(CMario* player)
+{
+	this->holder = nullptr;
+	SetObjectState(new RedSlidingShell(this)); //left
+	
+	if (player->nx > 0) //right
+		this->nx = 1;
+
+	this->gravity = ENEMIES_GRAVITY;
 }
 
 void CKoopas::Render()
