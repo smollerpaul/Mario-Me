@@ -119,6 +119,16 @@ void RedSlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEvents
 		}
 		break;
 
+		case QuestionBlock::ObjectType:
+		{
+			QuestionBlock* qb = dynamic_cast<QuestionBlock*>(e->obj);
+
+			if (e->nx != 0 || e->ny != 0) {
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y));
+			}
+		}
+		break;
+
 		}
 	}
 }

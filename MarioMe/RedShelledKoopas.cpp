@@ -8,6 +8,7 @@
 #include "Utils.h"
 #include "RedNormalKoopas.h"
 #include "RedSlidingShell.h"
+#include "QuestionBlock.h"
 
 RedShelledKoopas::RedShelledKoopas()
 {
@@ -134,7 +135,7 @@ void RedShelledKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEvent
 					master->SetObjectState(new RedSlidingShell(master));
 					//touch right
 					if (e->nx > 0)
-						master->nx = -1;
+						master->nx = 1;
 				}
 			}
 		}
@@ -166,6 +167,15 @@ void RedShelledKoopas::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEvent
 		}
 		break;
 
+		case QuestionBlock::ObjectType:
+		{
+			QuestionBlock* qb = dynamic_cast<QuestionBlock*>(e->obj);
+
+			if (e->nx != 0 || e->ny != 0) {
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y));
+			}
+		}
+		break;
 		}
 	}
 }

@@ -86,8 +86,8 @@ void CKoopas::ReleaseFromHolder(CMario* player)
 	this->holder = nullptr;
 	SetObjectState(new RedSlidingShell(this)); //left
 	
-	if (player->nx > 0) //right
-		this->nx = 1;
+	if (player->nx < 0) //right
+		this->nx = -1;
 
 	this->gravity = ENEMIES_GRAVITY;
 }

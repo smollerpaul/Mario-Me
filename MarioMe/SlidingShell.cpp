@@ -20,7 +20,7 @@ SlidingShell::SlidingShell()
 SlidingShell::SlidingShell(CKoopas* master)
 {
 	this->master = master;
-	master->vx = -master->nx * KOOPAS_SHELL_SPEED;
+	master->vx = master->nx * KOOPAS_SHELL_SPEED;
 	master->width = master->height = KOOPAS_SHELL_SIZE;
 }
 
@@ -120,6 +120,17 @@ void SlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 			}
 		}
 		break;
+
+		case QuestionBlock::ObjectType:
+		{
+			QuestionBlock* qb = dynamic_cast<QuestionBlock*>(e->obj);
+
+			if (e->nx != 0 || e->ny != 0) {
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y));
+			}
+		}
+		break;
+
 		}
 	}
 }

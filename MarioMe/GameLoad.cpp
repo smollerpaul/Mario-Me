@@ -7,6 +7,7 @@
 #include "PlayScene.h"
 #include "tinyxml/tinyxml.h"
 #include "WorldScene.h"
+#include "Font.h"
 
 #define MAX_GAME_LINE 1024
 
@@ -27,6 +28,9 @@ void CGame::Load(string gameFile)
 		DebugOut(L"\n");
 
 		LoadAnimations(gameResources);
+		DebugOut(L"\n");
+
+		LoadFontSet();
 		DebugOut(L"\n");
 
 		LoadScenes(gameContent);
@@ -180,5 +184,22 @@ void CGame::SwitchScene(string scene_id)
 	s->Load();
 }
 
+void CGame::LoadFontSet() {
 
+	this->fontSet = new FontSet();
 
+	vector<FontSprite> charList;
+	std::string prefix = "spr-font-";
+
+	for (char c = '0'; c <= '9'; ++c)
+		charList.push_back(FontSprite{ c, prefix + c });
+
+	for (char c = 'A'; c <= 'Z'; ++c)
+		charList.push_back(FontSprite{ c, prefix + c });
+
+	charList.push_back(FontSprite{ '!', "spr-font-exclamation-point" });
+
+	fontSet->InitFontSet(charList);
+
+	DebugOut(L"[LOADED] Font Set loaded!\n");
+}

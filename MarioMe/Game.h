@@ -17,6 +17,7 @@ using namespace std;
 
 #define KEYBOARD_BUFFER_SIZE	1024
 
+class FontSet;
 class Keyboard;
 class CGame
 {
@@ -36,13 +37,11 @@ class CGame
 	unordered_map<string, LPSCENE> scenes;
 	string current_scene; 
 
-	/*void _ParseSection_SETTINGS(string line);
-	void _ParseSection_SCENES(string line);*/
-
+	FontSet* fontSet = nullptr;
 public:
 
 	Keyboard* GetKeyboard();
-
+	FontSet* GetFontSet();
 	void Init(HWND hWnd);
 	void Draw(float x, float y, D3DXVECTOR3 pivot, LPDIRECT3DTEXTURE9 texture,
 		float left, float top, float right, float bottom, int alpha = 255, int flip = 1);
@@ -51,6 +50,7 @@ public:
 	void LoadTextures(TiXmlElement* gameResources);
 	void LoadSprites(TiXmlElement* gameResources);
 	void LoadAnimations(TiXmlElement* gameResources);
+	void LoadFontSet();
 
 	void LoadGameHud(TiXmlElement* gameContent);
 	void LoadScenes(TiXmlElement* gameContent);

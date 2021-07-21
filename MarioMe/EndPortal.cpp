@@ -8,7 +8,7 @@ EndPortal::EndPortal(int dir)
 
 void EndPortal::Render()
 {
-    RenderBoundingBox();
+    //RenderBoundingBox();
 }
 
 int EndPortal::GetObjectType()

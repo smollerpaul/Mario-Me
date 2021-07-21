@@ -152,6 +152,7 @@
     <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="FireMario.cpp" />
     <ClCompile Include="FlyingCard.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="GameLoad.cpp" />
     <ClCompile Include="GhostBlock.cpp" />
     <ClCompile Include="GreenMushroom.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="RedShelledKoopas.cpp" />
     <ClCompile Include="RedSlidingShell.cpp" />
     <ClCompile Include="StrawCube.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="Venus.cpp" />
     <ClCompile Include="VenusFireBall.cpp" />
     <ClCompile Include="WorldScene.cpp" />
@@ -236,6 +238,7 @@
     <ClInclude Include="FireBall.h" />
     <ClInclude Include="FireMario.h" />
     <ClInclude Include="FlyingCard.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="GhostBlock.h" />
     <ClInclude Include="GreenMushroom.h" />
     <ClInclude Include="Keyboard.h" />
@@ -256,6 +259,7 @@
     <ClInclude Include="RedShelledKoopas.h" />
     <ClInclude Include="RedSlidingShell.h" />
     <ClInclude Include="StrawCube.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="Venus.h" />
     <ClInclude Include="VenusFireBall.h" />
     <ClInclude Include="WorldScene.h" />

@@ -12,6 +12,7 @@ class CMario : public CGameObject
 {
 public:
 	RedShelledKoopas* holdingRedShell = nullptr;
+	ShelledKoopas* holdingGreenShell = nullptr;
 
 	int untouchable = 0;
 	float untouchableTimer = 0;
@@ -77,6 +78,9 @@ public:
 
 	void SetHoldingRedShell(RedShelledKoopas* koop);
 	void ReleaseRedShell(RedShelledKoopas* koop);
+
+	void SetHoldingGreenShell(ShelledKoopas* koop);
+	void ReleaseGreenShell(ShelledKoopas* koop);
 
 	void OnKeyUp(int keyCode);
 	void OnKeyDown(int keyCode);

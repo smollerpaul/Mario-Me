@@ -7,6 +7,7 @@
 #include "PlayScene.h"
 #include "Keyboard.h"
 #include "Camera.h"
+#include "Font.h"
 
 CGame * CGame::__instance = NULL;
 
@@ -25,6 +26,11 @@ Keyboard* CGame::GetKeyboard()
 	}
 		
 	return keyboard;
+}
+
+FontSet* CGame::GetFontSet()
+{
+	return this->fontSet;
 }
 
 void CGame::Init(HWND hWnd)

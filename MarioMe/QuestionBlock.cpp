@@ -113,91 +113,115 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 	}
 	
 	for (UINT i = 0; i < coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
+	{
+	LPCOLLISIONEVENT e = coEventsResult[i];
 			
-				switch (e->obj->GetObjectType()) {
+		switch (e->obj->GetObjectType()) {
 
-				case CMario::ObjectType:
-				{
-					CMario* mario = dynamic_cast<CMario*>(e->obj);
-					if (e->ny < 0)
-					{
-						if (state == QB_STATE_ACTIVE) {
-							vy = -QB_BOUNCE_SPEED;
-							SetState(QB_STATE_BOUNCE);
+		case CMario::ObjectType:
+		{
+			CMario* mario = dynamic_cast<CMario*>(e->obj);
+			if (e->ny < 0)
+			{
+				if (state == QB_STATE_ACTIVE) {
+					vy = -QB_BOUNCE_SPEED;
+					SetState(QB_STATE_BOUNCE);
 
-							//visible = 0;
-							//EffectVault::GetInstance()->AddEffect(new QBlockBounce(this->x, this->y,800));
+					//visible = 0;
+					//EffectVault::GetInstance()->AddEffect(new QBlockBounce(this->x, this->y,800));
 
-							if (reward == COIN_PRIZE) {
-								EffectVault::GetInstance()->AddEffect(new MoneyFx(this->x, this->y));
-							}
-
-							if (reward == LEAF_PRIZE) {
-								Leaf* leaf = new Leaf(scene);
-								leaf->SetPosition(x, y - 48);
-								CGame::GetInstance()->GetCurrentScene()->AddObject(leaf);
-							}
-
-							if (reward == GMUSH_PRIZE) {
-								GreenMushroom* gm = new GreenMushroom();
-								gm->SetPosition(x, y - 45);
-								CGame::GetInstance()->GetCurrentScene()->AddObject(gm);
-							}
-							pd->SetScore(pd->GetScore() + 100);
-							pd->SetCoins(pd->GetCoins() + 1);
-						}
+					if (reward == COIN_PRIZE) {
+						EffectVault::GetInstance()->AddEffect(new MoneyFx(this->x, this->y));
 					}
-				}
-				break;
 
-				case SlidingShell::ObjectType:
-				{
-					SlidingShell* ss = dynamic_cast<SlidingShell*>(e->obj);
-					if (e->nx != 0)
-					{
-						if (state == QB_STATE_ACTIVE) {
-							if (state != QB_STATE_FROZEN)
-								SetState(QB_STATE_FROZEN);
-							pd->SetScore(pd->GetScore() + 100);
-						}
+					if (reward == LEAF_PRIZE) {
+						Leaf* leaf = new Leaf(scene);
+						leaf->SetPosition(x, y - 48);
+						CGame::GetInstance()->GetCurrentScene()->AddObject(leaf);
 					}
-				}
-				break;
 
-				case RacoonTail::ObjectType:
-				{
-					RacoonTail* tail = dynamic_cast<RacoonTail*>(e->obj);
-					if (e->nx != 0)
-					{
-						if (state == QB_STATE_ACTIVE) {
-
-							if (state != QB_STATE_FROZEN)
-								SetState(QB_STATE_FROZEN);
-
-							if (reward == PSWITCH_PRIZE) {
-								PSwitch* ps = new PSwitch();
-								ps->SetPosition(this->x, this->y);
-								CGame::GetInstance()->GetCurrentScene()->AddObject(ps);
-							}
-
-							if (reward == LEAF_PRIZE) {
-								Leaf* leaf = new Leaf(scene);
-								leaf->SetPosition(x, y);
-								CGame::GetInstance()->GetCurrentScene()->AddObject(leaf);
-							}
-
-							pd->SetScore(pd->GetScore() + 100);
-						}
+					if (reward == GMUSH_PRIZE) {
+						GreenMushroom* gm = new GreenMushroom();
+						gm->SetPosition(x, y - 45);
+						CGame::GetInstance()->GetCurrentScene()->AddObject(gm);
 					}
-				}
-				break;
-
-				default: break;
-
+					pd->SetScore(pd->GetScore() + 100);
+					pd->SetCoins(pd->GetCoins() + 1);
 				}
 			}
+		}
+		break;
+
+		case SlidingShell::ObjectType:
+		{
+			SlidingShell* ss = dynamic_cast<SlidingShell*>(e->obj);
+			if (e->nx != 0 || e->ny != 0)
+			{
+				if (state == QB_STATE_ACTIVE) {
+					if (state != QB_STATE_FROZEN)
+						SetState(QB_STATE_FROZEN);
+					pd->SetScore(pd->GetScore() + 100);
+				}
+
+				if (reward == LEAF_PRIZE) {
+					Leaf* leaf = new Leaf(scene);
+					leaf->SetPosition(x, y - 48);
+					CGame::GetInstance()->GetCurrentScene()->AddObject(leaf);
+				}
+			}
+		}
+		break;
+
+		case RedSlidingShell::ObjectType:
+		{
+			RedSlidingShell* ss = dynamic_cast<RedSlidingShell*>(e->obj);
+			if (e->nx != 0 || e->ny!=0)
+			{
+				if (state == QB_STATE_ACTIVE) {
+					if (state != QB_STATE_FROZEN)
+						SetState(QB_STATE_FROZEN);
+					pd->SetScore(pd->GetScore() + 100);
+				}
+
+				if (reward == LEAF_PRIZE) {
+					Leaf* leaf = new Leaf(scene);
+					leaf->SetPosition(x, y - 48);
+					CGame::GetInstance()->GetCurrentScene()->AddObject(leaf);
+				}
+			}
+		}
+		break;
+
+		case RacoonTail::ObjectType:
+		{
+			RacoonTail* tail = dynamic_cast<RacoonTail*>(e->obj);
+			if (e->nx != 0)
+			{
+				if (state == QB_STATE_ACTIVE) {
+
+					if (state != QB_STATE_FROZEN)
+						SetState(QB_STATE_FROZEN);
+
+					if (reward == PSWITCH_PRIZE) {
+						PSwitch* ps = new PSwitch();
+						ps->SetPosition(this->x, this->y);
+						CGame::GetInstance()->GetCurrentScene()->AddObject(ps);
+					}
+
+					if (reward == LEAF_PRIZE) {
+						Leaf* leaf = new Leaf(scene);
+						leaf->SetPosition(x, y);
+						CGame::GetInstance()->GetCurrentScene()->AddObject(leaf);
+					}
+
+					pd->SetScore(pd->GetScore() + 100);
+				}
+			}
+		}
+		break;
+
+		}
+	}
 }
 
 void QuestionBlock::SetReward(int blockReward)

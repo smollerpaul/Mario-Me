@@ -275,3 +275,10 @@ void CMario::SetHoldingRedShell(RedShelledKoopas* koop) {
 void CMario::ReleaseRedShell(RedShelledKoopas* koop) {
 	this->holdingRedShell = nullptr;
 }
+
+void CMario::SetHoldingGreenShell(ShelledKoopas* koop) {
+	this->holdingGreenShell = koop;
+}
+void CMario::ReleaseGreenShell(ShelledKoopas* koop) {
+	this->holdingGreenShell = nullptr;
+}

@@ -7,17 +7,18 @@ using namespace std;
 
 class CSprite
 {
-	string id="";				// Sprite ID in the sprite database
+public: 
+	string id = "";				// Sprite ID in the sprite database
 
-	int left = 0; 
+	int left = 0;
 	int top = 0;
 	int width = 0;
 	int height = 0;
 
 	D3DXVECTOR3 pivot;
 
-	LPDIRECT3DTEXTURE9 texture= nullptr;
-public: 
+	LPDIRECT3DTEXTURE9 texture = nullptr;
+
 	CSprite(string id, int left, int top, int right, int bottom, int xPivot, int yPivot, LPDIRECT3DTEXTURE9 tex);
 	void Draw(float x, float y, int flip, int alpha = 255);
 };

@@ -9,7 +9,7 @@
 #define CAM_HEIGHT_SIZE	579
 
 
-
+class Text;
 class GameMap;
 
 class CPlayScene: public CScene
@@ -20,6 +20,7 @@ protected:
 	
 public:
 	
+	Text* startText = nullptr;
 	CPlayScene(string id, string filePath);
 
 	virtual void Load() override;

@@ -5,6 +5,8 @@
 #include "Camera.h"
 #include "Map.h"
 #include "EffectVault.h"
+#include "Text.h"
+#include "Game.h"
 
 using namespace std;
 
@@ -85,6 +87,7 @@ void CPlayScene::Render()
 	this->map->Render();
 	vector<LPGAMEOBJECT> renderObjects;
 	renderObjects.push_back(player);
+	renderObjects.push_back(startText);
 	
 	for (size_t i = 0; i < objects.size(); i++)
 	{
@@ -102,6 +105,7 @@ void CPlayScene::Render()
 
 	EffectVault::GetInstance()->Render();
 
+	//startText->Render();
 	/*for (int i = 0; i < coObjects.size(); i++) {
 		coObjects[i]->RenderBoundingBox();
 	}*/
@@ -185,6 +189,12 @@ void CPlayScene::Load()
 	SetCamera(camera);
 
 	PlayerData::GetInstance()->ResetGameTime();
+
+	startText = new Text();
+	startText->SetFont(CGame::GetInstance()->GetFontSet());
+	startText->SetContent("COURSE CLEAR THANKYOU! ");
+	startText->SetPosition(145, 1056);
+	
 }
 
 int CPlayScene::GetSceneType()

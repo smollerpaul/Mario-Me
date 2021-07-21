@@ -267,7 +267,12 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 				}
 				if (e->nx != 0) {
-					kick = 1;
+					if (keyboard->IsKeyDown(DIK_A)) {
+						master->SetHoldingGreenShell(rg);
+					}
+					else {
+						kick = 1;
+					}
 				}
 			}
 			break;
@@ -773,7 +778,7 @@ void BigMario::Render()
 		ani = this->animations["TeleVer"];
 	}
 
-	if (master->holdingRedShell != nullptr) {
+	if (master->holdingRedShell != nullptr || master->holdingGreenShell!=nullptr) {
 		ani = this->animations["Hold"];
 
 		if (master->vx != 0) {

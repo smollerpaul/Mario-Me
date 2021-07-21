@@ -353,7 +353,7 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 	PlayerData* pd = PlayerData::GetInstance();
 	if (teleporting == 1)
 		return;
-
+	Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
 	SmallMario::PostCollisionUpdate(dt, coEventsResult, coEvents);
 
 	if (master->untouchable != 1) {
@@ -580,7 +580,12 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 				}
 				if (e->nx != 0) {
-					kick = 1;
+					if (keyboard->IsKeyDown(DIK_A)) {
+						master->SetHoldingGreenShell(rg);
+					}
+					else {
+						kick = 1;
+					}
 				}
 			}
 			break;
@@ -863,6 +868,14 @@ void RacoonMario::Render()
 
 	if (teleporting == 1) {
 		ani = this->animations["TeleVer"];
+	}
+
+	if (master->holdingRedShell != nullptr || master->holdingGreenShell != nullptr) {
+		ani = this->animations["Hold"];
+
+		if (master->vx != 0) {
+			ani = this->animations["HoldFall"];
+		}
 	}
 
 	int alpha = 255;

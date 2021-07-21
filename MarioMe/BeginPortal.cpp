@@ -11,7 +11,7 @@ BeginPortal::BeginPortal(float destinationX, float destinationY, int targetRegio
 
 void BeginPortal::Render()
 {
-    RenderBoundingBox();
+    //RenderBoundingBox();
 }
 
 int BeginPortal::GetObjectType()
