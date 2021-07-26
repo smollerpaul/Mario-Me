@@ -387,7 +387,13 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 				MusicNote* rg = dynamic_cast<MusicNote*>(e->obj);
 
 				if (e->ny < 0) {
-					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+					if (rg->GetSpecialPortal() == 1) {
+						master->vy = -MARIO_ULTRA_JUMP_DEFLECT;
+						CGame::GetInstance()->GetCurrentScene()->GetCamera()->ReleasePlayer();
+					}
+
+					else
+						master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 				}
 			}
 
@@ -607,17 +613,25 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 			{
 				BeginPortal* p = dynamic_cast<BeginPortal*>(e->obj);
 				if (e->ny != 0) {
-					teleporting = 1;
 					desX = p->desX;
 					desY = p->desY;
 					targetRegBound = p->targetReg;
 
-					master->renderOrder = 90;
-					//determine vy of teleportation
-					if (e->ny < 0) { //go down
-						teleDirection = 1;
+					if (p->GetCloudPortal() == 1) {
+						CGame::GetInstance()->GetCurrentScene()->GetCamera()->SetCurrentRegion(targetRegBound);
+						CGame::GetInstance()->GetCurrentScene()->GetCamera()->SetFocusOnPlayer(master);
+						master->SetPosition(desX, desY);
 					}
-					else teleDirection = -1; //go up
+					else {
+						teleporting = 1;
+
+						master->renderOrder = 90;
+						//determine vy of teleportation
+						if (e->ny < 0) { //go down
+							teleDirection = 1;
+						}
+						else teleDirection = -1; //go up
+					}
 				}
 			}
 			break;

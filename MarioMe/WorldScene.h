@@ -20,7 +20,7 @@ public:
 	virtual void Update(DWORD dt) override;
 	virtual void Render() override;
 	virtual void Unload() override;
-	virtual void LoadMapObjects(string objectType, float x, float y, float width, float height) override;
+	virtual void LoadMapObjects(string objectType, vector< D3DXVECTOR2> cells,float x, float y, float width, float height) override;
 	virtual void LoadMapEntries(float xPos, float yPos, int nodeID, string sceneID,
 		string checkedSprite, string uncheckedSprite,
 		string adjList, string adjWeight, int worldNumber, bool isStartPos) override;

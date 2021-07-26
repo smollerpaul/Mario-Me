@@ -253,6 +253,12 @@
     <ClCompile Include="Text.cpp">
       <Filter>Framework\Font\Text</Filter>
     </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Framework\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="Cell.cpp">
+      <Filter>Framework\Grid\Cell</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -492,6 +498,69 @@
     <ClInclude Include="Text.h">
       <Filter>Framework\Font\Text</Filter>
     </ClInclude>
+    <ClInclude Include="rapidjson\allocators.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\document.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\encodedstream.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\encodings.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\filereadstream.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\filewritestream.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\fwd.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\istreamwrapper.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\memorybuffer.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\memorystream.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\ostreamwrapper.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\pointer.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\prettywriter.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\rapidjson.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\reader.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\schema.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\stream.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\stringbuffer.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidjson\writer.h">
+      <Filter>Framework\Libs\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Framework\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="Cell.h">
+      <Filter>Framework\Grid\Cell</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -556,9 +625,6 @@
     </Filter>
     <Filter Include="Resources\Maps">
       <UniqueIdentifier>{957b04ec-e5fd-4543-bcde-a6cf07af3bb0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Maps\Demo">
-      <UniqueIdentifier>{196f24d4-b229-491d-9606-0cc3f6a3f974}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Scenes">
       <UniqueIdentifier>{4ff93566-5170-48f7-be71-25e2e7a3caca}</UniqueIdentifier>
@@ -731,9 +797,6 @@
     <Filter Include="Game\Effects\Effects\Rewards\QBounce">
       <UniqueIdentifier>{c4d3ce90-7f59-4a89-af37-1d6e4f952e66}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\Maps\World1-3">
-      <UniqueIdentifier>{54f13d4f-58bc-4307-a0ae-aef5f0f6c313}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Enemies\Koopas\RedKoopas">
       <UniqueIdentifier>{7ca5c96e-8859-444f-a961-d1b5ef11e640}</UniqueIdentifier>
     </Filter>
@@ -757,9 +820,6 @@
     </Filter>
     <Filter Include="Game\Map">
       <UniqueIdentifier>{02ff73a2-5581-4f90-a492-a4c0af709dab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Map\MapLayer">
-      <UniqueIdentifier>{81d8d168-a9ad-4d97-80d8-c0af613c7c56}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Map\Map">
       <UniqueIdentifier>{6fbd36e3-6eac-43a8-b7bf-e87198590598}</UniqueIdentifier>
@@ -808,6 +868,21 @@
     </Filter>
     <Filter Include="Framework\Font\Text">
       <UniqueIdentifier>{5845d546-dae8-48ec-96fe-2ab0fbe8b461}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Map\MapLayer">
+      <UniqueIdentifier>{81d8d168-a9ad-4d97-80d8-c0af613c7c56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Libs\rapidjson">
+      <UniqueIdentifier>{463caee1-2639-4a14-89bd-664a109fe067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Maps\World 1-3">
+      <UniqueIdentifier>{54f13d4f-58bc-4307-a0ae-aef5f0f6c313}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Grid">
+      <UniqueIdentifier>{54070891-378c-45cc-a375-cd72804f09e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Grid\Cell">
+      <UniqueIdentifier>{492783c1-ef63-4be7-bd29-91691e7f9b3e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -947,9 +1022,6 @@
     <None Include="Resource\Textures\intro.psd">
       <Filter>Resources\Textures</Filter>
     </None>
-    <None Include="Resource\Map\Demo\demo.tmx">
-      <Filter>Resources\Maps\Demo</Filter>
-    </None>
     <None Include="Resource\Map\World1-1\world-1-1-map-obj.tmx">
       <Filter>Resources\Maps\World 1-1</Filter>
     </None>
@@ -957,7 +1029,7 @@
       <Filter>Resources\Maps\WorldScene</Filter>
     </None>
     <None Include="Resource\Map\World1-1\world-1-3-map.tmx">
-      <Filter>Resources\Maps\World1-3</Filter>
+      <Filter>Resources\Maps\World 1-3</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -7,6 +7,7 @@
 #include "EffectVault.h"
 #include "Text.h"
 #include "Game.h"
+#include "Grid.h"
 
 using namespace std;
 
@@ -87,7 +88,7 @@ void CPlayScene::Render()
 	this->map->Render();
 	vector<LPGAMEOBJECT> renderObjects;
 	renderObjects.push_back(player);
-	renderObjects.push_back(startText);
+	//renderObjects.push_back(startText);
 	
 	for (size_t i = 0; i < objects.size(); i++)
 	{
@@ -189,11 +190,11 @@ void CPlayScene::Load()
 	SetCamera(camera);
 
 	PlayerData::GetInstance()->ResetGameTime();
-
-	startText = new Text();
+	
+	/*startText = new Text();
 	startText->SetFont(CGame::GetInstance()->GetFontSet());
 	startText->SetContent("COURSE CLEAR THANKYOU! ");
-	startText->SetPosition(145, 1056);
+	startText->SetPosition(145, 1056);*/
 	
 }
 

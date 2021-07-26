@@ -5,7 +5,7 @@
         <Region id="0" left="0" top="717" right="8448" bottom="1296">
         	<CameraMode mode="Tracking"/>
         </Region>
-        <Region id="1" left="5856" top="1389" right="7392" bottom="1968">
+      <Region id="1" left="5856" top="1389" right="7392" bottom="1968">
         	<CameraMode mode="Tracking"/>
         </Region>
     </Camera> 

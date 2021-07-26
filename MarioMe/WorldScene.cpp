@@ -77,7 +77,7 @@ void WorldScene::Unload()
 	DebugOut(L"[INFO] Scene %s unloaded! \n", ToLPCWSTR(sceneFilePath));
 }
 
-void WorldScene::LoadMapObjects(string objectType, float x, float y, float width, float height)
+void WorldScene::LoadMapObjects(string objectType, vector< D3DXVECTOR2> cells, float x, float y, float width, float height)
 {
 }
 

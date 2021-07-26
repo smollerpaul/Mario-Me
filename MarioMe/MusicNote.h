@@ -9,6 +9,8 @@ public:
     float beginX = 0;
     float yLength = 0;
     float xLength = 0;
+
+    int specialPortal = 0;
     
     MusicNote();
 
@@ -19,7 +21,8 @@ public:
 
     void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
     void BehaviorUpdate(DWORD dt);
-
+    void SetSpecialPortal(int special);
+    int GetSpecialPortal();
     virtual int GetObjectType() override;
     static const int ObjectType = 96;
 };

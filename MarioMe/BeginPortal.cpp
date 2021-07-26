@@ -18,3 +18,13 @@ int BeginPortal::GetObjectType()
 {
     return ObjectType;
 }
+
+void BeginPortal::SetCloudPortal(int cloud)
+{
+    isCloud = 1;
+}
+
+int BeginPortal::GetCloudPortal()
+{
+    return isCloud;
+}

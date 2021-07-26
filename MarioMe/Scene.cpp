@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Camera.h"
+#include "Grid.h"
 
 
 CScene::CScene() {
@@ -13,7 +14,7 @@ CScene::CScene(string id, string filePath)
 	this->sceneFilePath = filePath;
 }
 
-void CScene::LoadMapObjects(string objectName, float x, float y, float width, float height)
+void CScene::LoadMapObjects(string objectName, vector< D3DXVECTOR2> cells,  float x, float y, float width, float height )
 {
 }
 
@@ -27,7 +28,8 @@ Camera* CScene::GetCamera()
 }
 
 
-void CScene::LoadSpecialObject(string objectType, float xPos, float yPos, float width, float height,int length, int type, int direction, float desX, float desY , int moveDir, int targetReg)
+void CScene::LoadSpecialObject(string objectType, vector< D3DXVECTOR2> cells, float xPos, float yPos, float width, float height,
+	int length, int type, int direction, float desX, float desY , int moveDir, int targetReg )
 {
 }
 
@@ -62,6 +64,16 @@ void CScene::RemoveObject()
 			return true;
 		}
 		}), objects.end());
+}
+
+void CScene::LoadGrid(int col, int row, int cellW, int cellH)
+{
+
+}
+
+Grid* CScene::GetGrid()
+{
+	return this->grid;
 }
 
 void CScene::Render()

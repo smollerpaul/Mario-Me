@@ -6,6 +6,9 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "MapEntry.h"
+#include "rapidjson/document.h"
+
+using namespace rapidjson;
 
 GameMap* GameMap::Load(string path)
 {
@@ -18,13 +21,6 @@ GameMap* GameMap::Load(string path)
 
 	if (doc.LoadFile()) {
 		TiXmlElement* root = doc.RootElement();
-
-		
-#pragma region Map
-		root->QueryIntAttribute("width", &result->width);
-		root->QueryIntAttribute("height", &result->height);
-		/*map tile size is same as tileset tile size*/
-#pragma endregion
 
 #pragma region TileSet
 		TiXmlElement* tileSet = root->FirstChildElement("tileset");
@@ -40,6 +36,43 @@ GameMap* GameMap::Load(string path)
 		string imgPath = (string)mapDir + tileSetImage->Attribute("source");
 		result->tileImage = CTextures::Load(ToLPCWSTR(imgPath), D3DCOLOR_ARGB(0, 0, 0, 0));
 
+
+#pragma endregion
+
+#pragma region Map
+		root->QueryIntAttribute("width", &result->width);
+		root->QueryIntAttribute("height", &result->height);
+
+#pragma endregion
+
+#pragma region Grid
+
+		int columns = 0, rows = 0, cellW = 0, cellH = 0;
+		TiXmlElement* mapProps = root->FirstChildElement("properties");
+
+		if (mapProps != NULL) {
+
+			for (TiXmlElement* node = mapProps->FirstChildElement("property"); node != nullptr; node = node->NextSiblingElement("property")) {
+				string propName = node->Attribute("name");
+
+				if (propName.compare("CellHeight") == 0) {
+					node->QueryIntAttribute("value", &cellH);
+				}
+				if (propName.compare("CellWidth") == 0) {
+					node->QueryIntAttribute("value", &cellW);
+				}
+				if (propName.compare("TotalColumn") == 0) {
+					node->QueryIntAttribute("value", &columns);
+				}
+				if (propName.compare("TotalRow") == 0) {
+					node->QueryIntAttribute("value", &rows);
+				}
+
+			}
+			CGame::GetInstance()->GetCurrentScene()->LoadGrid(columns, rows, cellW, cellH);
+		}
+		
+
 #pragma endregion
 
 #pragma region Layer
@@ -53,16 +86,18 @@ GameMap* GameMap::Load(string path)
 		for (TiXmlElement* objG = root->FirstChildElement("objectgroup"); objG != nullptr; objG = objG->NextSiblingElement("objectgroup")) {
 			for (TiXmlElement* obj = objG->FirstChildElement("object"); obj != nullptr; obj = obj->NextSiblingElement("object")) {
 				if (obj->Attribute("type") != NULL) {
-					string objName= objG->Attribute("name");
-				
-					if (objName.compare("MapObjects") == 0 || objName.compare("Spawners")==0|| 
-						objName.compare("Object Layer") == 0) {
+					string objName = objG->Attribute("name");
+
+					if (objName.compare("MapObjects") == 0 || objName.compare("Spawners") == 0 ||
+						objName.compare("Object Layer") == 0)
+					{
 						string objType = obj->Attribute("type");
 
-						float x = 0,  y = 0;
+						float x = 0, y = 0;
 						float objWidth = 0, objHeight = 0;
-						
-						if( obj->Attribute("x")!=NULL)
+						vector<D3DXVECTOR2> cells;
+
+						if (obj->Attribute("x") != NULL)
 							obj->QueryFloatAttribute("x", &x);
 
 						if (obj->Attribute("y") != NULL)
@@ -74,7 +109,30 @@ GameMap* GameMap::Load(string path)
 						if (obj->Attribute("height") != NULL)
 							obj->QueryFloatAttribute("height", &objHeight);
 
-						// Read spawners
+						//grid
+
+					/*	TiXmlElement* props = obj->FirstChildElement("properties");
+						
+						for (TiXmlElement* gridProp = props->FirstChildElement("property"); gridProp != nullptr; gridProp = gridProp->NextSiblingElement("property")) {
+							string propName = gridProp->Attribute("name");
+
+							if (propName.compare("Grid") == 0) {
+								Document doc;
+								doc.Parse(gridProp->Attribute("value"));
+
+								for (auto& v : doc.GetArray()) {
+									auto cr = v.GetObjectW();
+									int x = cr["x"].GetInt();
+									int y = cr["y"].GetInt();
+
+									D3DXVECTOR2 cell = D3DXVECTOR2(x, y);
+									cells.push_back(cell);
+								}
+								doc.Clear();
+							}
+						}*/
+
+						//Read special objs
 						if (objType.compare("QuestionBlock") == 0) {
 							TiXmlElement* props = obj->FirstChildElement("properties");
 
@@ -83,7 +141,7 @@ GameMap* GameMap::Load(string path)
 
 								if (propName.compare("HiddenItem") == 0) {
 									string propValue = objProp->Attribute("value");
-									CGame::GetInstance()->GetCurrentScene()->LoadMapObjects(propValue, x, y, objWidth, objHeight);
+									CGame::GetInstance()->GetCurrentScene()->LoadMapObjects(propValue, cells, x, y, objWidth, objHeight);
 								}
 							}
 						}
@@ -98,22 +156,22 @@ GameMap* GameMap::Load(string path)
 								if (propName.compare("Length") == 0)
 									objProp->QueryIntAttribute("value", &length);
 								if (propName.compare("Type") == 0)
-									objProp->QueryIntAttribute("value", &type);			
+									objProp->QueryIntAttribute("value", &type);
 								if (propName.compare("Direction") == 0)
 									objProp->QueryIntAttribute("value", &direction);
 							}
-							CGame::GetInstance()->GetCurrentScene()->LoadSpecialObject(objType,x, y, objWidth, objHeight, length, type, direction);
+							CGame::GetInstance()->GetCurrentScene()->LoadSpecialObject(objType, cells, x, y, objWidth, objHeight, length, type, direction);
 						}
 
 						if (objType.compare("Spawner") == 0) {
 							TiXmlElement* props = obj->FirstChildElement("properties");
 
 							for (TiXmlElement* objProp = props->FirstChildElement("property"); objProp != nullptr; objProp = objProp->NextSiblingElement("property")) {
-								string propName= objProp->Attribute("name");
+								string propName = objProp->Attribute("name");
 
 								if (propName.compare("EntityType") == 0) {
 									string propValue = objProp->Attribute("value");
-									CGame::GetInstance()->GetCurrentScene()->LoadMapObjects(propValue, x, y, objWidth, objHeight);
+									CGame::GetInstance()->GetCurrentScene()->LoadMapObjects(propValue, cells, x, y, objWidth, objHeight);
 								}
 							}
 						}
@@ -129,19 +187,19 @@ GameMap* GameMap::Load(string path)
 									//DebugOut(L"end dir %d \n", direct);
 								}
 							}
-							CGame::GetInstance()->GetCurrentScene()->LoadSpecialObject(objType,x, y, objWidth, objHeight, 0, 0, 0, 0, 0, direct, 0);
+							CGame::GetInstance()->GetCurrentScene()->LoadSpecialObject(objType, cells, x, y, objWidth, objHeight, 0, 0, 0, 0, 0, direct, 0);
 						}
 
 						if (objType.compare("BeginPortal") == 0) {
 							TiXmlElement* props = obj->FirstChildElement("properties");
 
 							float desX = 0, desY = 0;
-							int dir =0 , targetReg=-1;
+							int dir = 0, targetReg = -1;
 							for (TiXmlElement* objProp = props->FirstChildElement("property"); objProp != nullptr; objProp = objProp->NextSiblingElement("property")) {
 								string propName = objProp->Attribute("name");
 
 								if (propName.compare("DestinationX") == 0) {
-									objProp->QueryFloatAttribute("value",&desX);
+									objProp->QueryFloatAttribute("value", &desX);
 								}
 
 								if (propName.compare("DestinationY") == 0) {
@@ -156,21 +214,48 @@ GameMap* GameMap::Load(string path)
 									objProp->QueryIntAttribute("value", &targetReg);
 								}
 							}
-							CGame::GetInstance()->GetCurrentScene()->LoadSpecialObject(objType, x, y, objWidth, objHeight, 0, 0, 0, desX, desY, dir, targetReg);
+							CGame::GetInstance()->GetCurrentScene()->LoadSpecialObject(objType, cells, x, y, objWidth, objHeight, 0, 0, 0, desX, desY, dir, targetReg);
+						}
+
+						if (objType.compare("CloudPortal") == 0) {
+							TiXmlElement* props = obj->FirstChildElement("properties");
+
+							float desX = 0, desY = 0;
+							int dir = 0, targetReg = -1;
+							for (TiXmlElement* objProp = props->FirstChildElement("property"); objProp != nullptr; objProp = objProp->NextSiblingElement("property")) {
+								string propName = objProp->Attribute("name");
+
+								if (propName.compare("DestinationX") == 0) {
+									objProp->QueryFloatAttribute("value", &desX);
+								}
+
+								if (propName.compare("DestinationY") == 0) {
+									objProp->QueryFloatAttribute("value", &desY);
+								}
+
+								if (propName.compare("Direction") == 0) {
+									objProp->QueryIntAttribute("value", &dir);
+								}
+
+								if (propName.compare("CameraRegion") == 0) {
+									objProp->QueryIntAttribute("value", &targetReg);
+								}
+							}
+							CGame::GetInstance()->GetCurrentScene()->LoadSpecialObject(objType, cells, x, y, objWidth, objHeight, 0, 0, 0, desX, desY, dir, targetReg);
 						}
 
 						// read next
-						CGame::GetInstance()->GetCurrentScene()->LoadMapObjects(objType,x, y, objWidth, objHeight);
+						CGame::GetInstance()->GetCurrentScene()->LoadMapObjects(objType, cells, x, y, objWidth, objHeight);
 					}
 
 					if (objName.compare("WorldGraph") == 0) {
 
-						float xPos =0, yPos=0;
+						float xPos = 0, yPos = 0;
 						obj->QueryFloatAttribute("x", &xPos);
 						obj->QueryFloatAttribute("y", &yPos);
 
 						string adjList, adjWeight, uncheckedSprite, checkedSprite, sceneID;
-						int worldNumber = 0 , nodeID = 0;
+						int worldNumber = 0, nodeID = 0;
 						bool isStartPos = false;
 
 						TiXmlElement* props = obj->FirstChildElement("properties");
@@ -214,7 +299,7 @@ GameMap* GameMap::Load(string path)
 						}
 						CGame::GetInstance()->GetCurrentScene()->LoadMapEntries(xPos, yPos, nodeID, sceneID, checkedSprite, uncheckedSprite, adjList, adjWeight, worldNumber, isStartPos);
 
-			
+
 					}
 
 					if (objName.compare("AnimatedBG") == 0) {
@@ -224,13 +309,14 @@ GameMap* GameMap::Load(string path)
 
 						CGame::GetInstance()->GetCurrentScene()->LoadBackground(xPos, yPos);
 					}
+
 				}
 
 			}
+
 		}
 #pragma endregion
 
-		doc.Clear();
 	}
 	return result;
 }

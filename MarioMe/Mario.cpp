@@ -194,9 +194,16 @@ void CMario::OnKeyDown(int keyCode)
 		SetObjectState(new RacoonMario(this));
 		break;
 	case DIK_E:
+		// test end card
 		SetPosition(7600,985);
 		break;
-	case DIK_P:
+
+	case DIK_6:
+		SetPosition(912, 1583);
+		break;
+
+	case DIK_7:
+		//test pswitch
 		SetPosition(6240, 985);
 		break;
 	case DIK_I: 
@@ -207,12 +214,13 @@ void CMario::OnKeyDown(int keyCode)
 		CGame::GetInstance()->GetCurrentScene()->AddObject(kp);
 	}
 		break;
-
-	case DIK_O:
+	case DIK_8:
+		//test music note
 		SetPosition(2112, 985);
 		break;
 
-	case DIK_L:
+	case DIK_9:
+		//test portal
 		SetPosition(6720, 290);
 		CGame::GetInstance()->GetCurrentScene()->GetCamera()->SetCurrentRegion(0);
 		break;

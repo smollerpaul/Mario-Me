@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Mario.h"
+#include "Utils.h"
 
 #define CAM_WIDTH_SIZE	769
 #define CAM_HEIGHT_SIZE	579
@@ -32,10 +33,13 @@ public:
 
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
-	virtual void LoadMapObjects(string objectName, float x, float y, float width = 0, float height = 0) override;
-	virtual void LoadSpecialObject(string objectType,float xPos, float yPos, float width, float height, int length = 0, int type = 0, int direction=0,
+	
+	virtual void LoadMapObjects(string objectName, vector< D3DXVECTOR2> cells, float x, float y, float width = 0, float height = 0) override;
+	virtual void LoadSpecialObject(string objectType, vector< D3DXVECTOR2> cells, float xPos, float yPos, float width, float height, int length = 0, int type = 0, int direction = 0,
 		float desX = 0, float desY = 0, int moveDir = 0, int targetReg = -1) override;
 	
+	virtual void LoadGrid(int col, int row, int cellW, int cellH) override;
+
 	static const int SceneType = 776;
 	virtual int GetSceneType();
 };

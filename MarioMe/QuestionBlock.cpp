@@ -10,6 +10,7 @@
 #include "QBlockBounce.h"
 #include "PlayScene.h"
 #include "MarioConstants.h"
+#include "MusicNote.h"
 
 QuestionBlock::QuestionBlock(CPlayScene* ss)
 {
@@ -124,12 +125,18 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 			if (e->ny < 0)
 			{
 				if (state == QB_STATE_ACTIVE) {
+					//visible = 0;
+					//EffectVault::GetInstance()->AddEffect(new QBlockBounce(this->x, this->y,800));
 					vy = -QB_BOUNCE_SPEED;
 					SetState(QB_STATE_BOUNCE);
 
-					//visible = 0;
-					//EffectVault::GetInstance()->AddEffect(new QBlockBounce(this->x, this->y,800));
-
+					if (reward == SECRET_MUSIC_PRIZE) {
+						MusicNote* mn = new MusicNote();
+						mn->SetPosition(x + 48, y);
+						mn->SetSpecialPortal(1);
+						CGame::GetInstance()->GetCurrentScene()->AddObject(mn);
+					}
+			
 					if (reward == COIN_PRIZE) {
 						EffectVault::GetInstance()->AddEffect(new MoneyFx(this->x, this->y));
 					}
@@ -147,6 +154,19 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 					}
 					pd->SetScore(pd->GetScore() + 100);
 					pd->SetCoins(pd->GetCoins() + 1);
+				}
+			}
+
+			if (e->nx != 0) {
+				if (reward == SECRET_MUSIC_PRIZE) {
+					if (state == QB_STATE_ACTIVE)
+						SetState(QB_STATE_BOUNCE);
+					
+					MusicNote* mn = new MusicNote();
+					mn->SetPosition(x+ 48, y);
+					mn->SetSpecialPortal(1);
+					CGame::GetInstance()->GetCurrentScene()->AddObject(mn);
+
 				}
 			}
 		}

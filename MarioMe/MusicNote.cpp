@@ -129,6 +129,16 @@ void MusicNote::BehaviorUpdate(DWORD dt)
 	}
 }
 
+void MusicNote::SetSpecialPortal(int special)
+{
+	specialPortal = 1;
+}
+
+int MusicNote::GetSpecialPortal()
+{
+	return specialPortal;
+}
+
 int MusicNote::GetObjectType()
 {
 	return ObjectType;
