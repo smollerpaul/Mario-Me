@@ -11,7 +11,7 @@
 
 using namespace std;
 
-CPlayScene::CPlayScene(string id, string filePath):
+CPlayScene::CPlayScene(string id, string filePath) :
 	CScene(id, filePath)
 {
 
@@ -34,7 +34,9 @@ void CPlayScene::Update(DWORD dt)
 	}
 	vector<LPGAMEOBJECT> coObjects;
 
-	coObjects.push_back(player);
+	if (player->state != MARIO_STATE_DIE) {
+		coObjects.push_back(player);
+	}
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
@@ -73,7 +75,7 @@ void CPlayScene::Update(DWORD dt)
 
 	camera->Update();
 	EffectVault::GetInstance()->Update(dt);
-	
+
 	RemoveObject();
 
 	pd->UpdateGameTime(dt);
@@ -83,13 +85,13 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
-	CGame::GetInstance()->SetViewport(camera->GetViewPort());
+	CGame::GetInstance()->GetDirect3DDevice()->Clear(0, NULL, D3DCLEAR_TARGET, BACKGROUND_COLOR, 1.0f, 0);
 
 	this->map->Render();
 	vector<LPGAMEOBJECT> renderObjects;
 	renderObjects.push_back(player);
 	//renderObjects.push_back(startText);
-	
+
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		renderObjects.push_back(objects[i]);
@@ -162,9 +164,9 @@ void CPlayScene::Load()
 
 		TiXmlElement* cam = root->FirstChildElement("Camera");
 		for (TiXmlElement* region = cam->FirstChildElement("Region"); region != nullptr; region = region->NextSiblingElement("Region")) {
-			int regionId; 
+			int regionId;
 			region->QueryIntAttribute("id", &regionId);
-			
+
 			float l, t, r, b;
 			region->QueryFloatAttribute("left", &l);
 			region->QueryFloatAttribute("top", &t);
@@ -177,25 +179,25 @@ void CPlayScene::Load()
 			rect.top = t;
 			rect.right = r;
 			rect.bottom = b;
-			
+
 			camera->AddRegion(rect, regionId);
 		}
 
 		doc.Clear();
 	}
-	
+
 	camera->SetCurrentRegion(0);
 	camera->SetSize(CAM_WIDTH_SIZE, CAM_HEIGHT_SIZE);
 	camera->SetViewPort(0, 0, CAM_WIDTH_SIZE, CAM_HEIGHT_SIZE);
 	SetCamera(camera);
 
 	PlayerData::GetInstance()->ResetGameTime();
-	
+
 	/*startText = new Text();
 	startText->SetFont(CGame::GetInstance()->GetFontSet());
 	startText->SetContent("COURSE CLEAR THANKYOU! ");
 	startText->SetPosition(145, 1056);*/
-	
+
 }
 
 int CPlayScene::GetSceneType()

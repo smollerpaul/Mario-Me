@@ -18,9 +18,6 @@
 #define WINDOW_CLASS_NAME L"MARIO SUPER BROS KNOCK-OFF"
 #define MAIN_WINDOW_TITLE L"MARIO SUPER BROS KNOCK-OFF"
 
-#define BACKGROUND_COLOR	D3DCOLOR_XRGB(181, 235, 242)
-#define OVERWORLD_COLOR		D3DCOLOR_XRGB(248, 236, 160)
-
 #define SCREEN_WIDTH_MAP 769
 #define SCREEN_HEIGHT_MAP 721
 
@@ -29,7 +26,7 @@
 
 #define MAX_FRAME_RATE 120
 
-CGame *game;
+CGame* game;
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -60,23 +57,20 @@ void Render()
 	LPD3DXSPRITE spriteHandler = game->GetSpriteHandler();
 
 	d3ddv->BeginScene();
-		// Clear back buffer with a color
 
-	int currentSceneType = CGame::GetInstance()->GetCurrentScene()->GetSceneType();
-	if(currentSceneType == CPlayScene::SceneType)
-		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
-	else
-		d3ddv->ColorFill(bb, NULL, OVERWORLD_COLOR);
+	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+	game->SetViewport(game->GetCurrentScene()->GetCamera()->GetViewPort());
 
-		//game->SetViewport(game->GetInstance()->GetCurrentScene()->GetCamera()->GetViewPort());
-		
-		CGame::GetInstance()->GetCurrentScene()->Render();
+	CGame::GetInstance()->GetCurrentScene()->Render();
 
-		spriteHandler->End();
-		d3ddv->EndScene();
-	
+	game->SetViewport(new RECT{ 0, CAM_HEIGHT_SIZE, CAM_WIDTH_SIZE, SCREEN_HEIGHT_MAP });
+
+	d3ddv->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 185, 0), 1.0f, 0);
+
+	spriteHandler->End();
+	d3ddv->EndScene();
+
 
 	// Display back buffer content to the screen
 	d3ddv->Present(NULL, NULL, NULL, NULL);
@@ -116,7 +110,7 @@ HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int Sc
 			hInstance,
 			NULL);
 
-	if (!hWnd) 
+	if (!hWnd)
 	{
 		OutputDebugString(L"[ERROR] CreateWindow failed");
 		DWORD ErrCode = GetLastError();
@@ -157,12 +151,12 @@ int Run()
 			frameStart = now;
 
 			game->GetKeyboard()->Process();
-			
+
 			Update(dt);
 			Render();
 		}
 		else
-			Sleep(tickPerFrame - dt);	
+			Sleep(tickPerFrame - dt);
 	}
 
 	return 1;

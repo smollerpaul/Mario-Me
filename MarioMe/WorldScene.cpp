@@ -6,25 +6,25 @@
 #include "OverworldTrees.h"
 
 //switch scene faulty
-WorldScene::WorldScene(string id, string filePath):CScene(id, filePath)
+WorldScene::WorldScene(string id, string filePath) :CScene(id, filePath)
 {
-	
+
 }
 
 void WorldScene::Load()
 {
 	player = new MapMario();
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", ToLPCWSTR(sceneFilePath));
-	
+
 	TiXmlDocument doc(sceneFilePath.c_str());
-	
+
 	if (doc.LoadFile()) {
 		TiXmlElement* root = doc.RootElement();
 
 		TiXmlElement* tmxMap = root->FirstChildElement("TmxMap");
 		string mapPath = tmxMap->Attribute("path");
 		this->map = GameMap::Load(mapPath);
-	
+
 		TiXmlElement* cam = root->FirstChildElement("Camera");
 		TiXmlElement* region = cam->FirstChildElement("Region");
 
@@ -53,6 +53,8 @@ void WorldScene::Update(DWORD dt)
 
 void WorldScene::Render()
 {
+	CGame::GetInstance()->GetDirect3DDevice()->Clear(0, NULL, D3DCLEAR_TARGET, OVERWORLD_COLOR, 1.0f, 0);
+
 	this->map->Render();
 	for (size_t i = 0; i < objects.size(); i++)
 	{
@@ -83,8 +85,8 @@ void WorldScene::LoadMapObjects(string objectType, vector< D3DXVECTOR2> cells, f
 
 void WorldScene::LoadMapEntries(float xPos, float yPos, int nodeID, string sceneID, string checkedSprite, string uncheckedSprite, string adjList, string adjWeight, int worldNumber, bool isStartPos)
 {
-	MapEntry* mapE = new MapEntry(xPos, yPos, nodeID, sceneID, checkedSprite, uncheckedSprite, 
-		adjList, adjWeight, worldNumber,isStartPos);
+	MapEntry* mapE = new MapEntry(xPos, yPos, nodeID, sceneID, checkedSprite, uncheckedSprite,
+		adjList, adjWeight, worldNumber, isStartPos);
 
 	player->AddNode(mapE);
 	AddObject(mapE);
@@ -102,14 +104,14 @@ MapMario* WorldScene::GetPlayer()
 
 void WorldScene::OnKeyDown(int KeyCode)
 {
-	if (!player) 
+	if (!player)
 		return;
 	player->OnKeyDown(KeyCode);
 }
 
 void WorldScene::OnKeyUp(int KeyCode)
 {
-	if (!player) 
+	if (!player)
 		return;
 	player->OnKeyUp(KeyCode);
 }

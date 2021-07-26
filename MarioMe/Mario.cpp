@@ -34,6 +34,10 @@ void CMario::InitAnimations()
 
 void CMario::Update(DWORD dt)
 {
+	if (state == MARIO_STATE_DIE) {
+		return;
+	}
+
 	vy += gravity * dt;
 
 	SmallMario* currentState = objState;
@@ -74,23 +78,32 @@ bool CMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 		return coEventNx != 0 || coEventNy < 0;
 		break;
 	}
-	
+
 }
 
 void CMario::MovementUpdate(DWORD dt)
 {
+	if (state == MARIO_STATE_DIE) {
+		return;
+	}
 	SmallMario* currentState = objState;
 	currentState->MovementUpdate(dt);
 }
 
 void CMario::JumpUpdate(DWORD dt)
 {
+	if (state == MARIO_STATE_DIE) {
+		return;
+	}
 	SmallMario* currentState = objState;
 	currentState->JumpUpdate(dt);
 }
 
 void CMario::AttackUpdate(DWORD dt)
 {
+	if (state == MARIO_STATE_DIE) {
+		return;
+	}
 	SmallMario* currentState = objState;
 	currentState->AttackUpdate(dt);
 }
@@ -107,7 +120,7 @@ void CMario::RunPowerMeter(DWORD dt)
 			powerMeter = max(powerMeter - PM_DECREASE * dt, 0.0f);
 		}
 	}
-	
+
 	//if S is pressed while PM max -> stay that way for 4s
 	if (stayPmMax == 1) {
 		powerMeter == PM_MAX;
@@ -124,6 +137,9 @@ void CMario::RunPowerMeter(DWORD dt)
 
 void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (state == MARIO_STATE_DIE) {
+		return;
+	}
 	coEvents.clear();
 
 	if (state != MARIO_STATE_DIE)
@@ -133,19 +149,25 @@ void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CMario::BehaviorUpdate(DWORD dt)
 {
+	if (state == MARIO_STATE_DIE) {
+		return;
+	}
 	SmallMario* currentState = objState;
-	currentState->BehaviorUpdate(dt,coEventsResult,coEvents);
+	currentState->BehaviorUpdate(dt, coEventsResult, coEvents);
 
 	x = max(0, x);
 	float l, t, r, b;
-	GetBoundingBox(l,t,r,b);
+	GetBoundingBox(l, t, r, b);
 
-//limit bottom?
+	//limit bottom?
 }
 
 void CMario::Render()
 {
-	
+	if (state == MARIO_STATE_DIE) {
+		return;
+	}
+
 	SmallMario* currentState = objState;
 	if (untouchable != 1) {
 		currentState->Render();
@@ -171,12 +193,18 @@ int CMario::GetObjectType()
 
 void CMario::OnKeyUp(int keyCode)
 {
+	if (state == MARIO_STATE_DIE) {
+		return;
+	}
 	SmallMario* currentState = objState;
 	currentState->OnKeyUp(keyCode);
 }
 
 void CMario::OnKeyDown(int keyCode)
 {
+	if (state == MARIO_STATE_DIE) {
+		return;
+	}
 	SmallMario* currentState = objState;
 	currentState->OnKeyDown(keyCode);
 
@@ -195,7 +223,7 @@ void CMario::OnKeyDown(int keyCode)
 		break;
 	case DIK_E:
 		// test end card
-		SetPosition(7600,985);
+		SetPosition(7600, 985);
 		break;
 
 	case DIK_6:
@@ -206,14 +234,14 @@ void CMario::OnKeyDown(int keyCode)
 		//test pswitch
 		SetPosition(6240, 985);
 		break;
-	case DIK_I: 
+	case DIK_I:
 	{
 		CKoopas* kp = new CKoopas(new NormalKoopas());
 		kp->SetObjectState(new RedNormalKoopas(kp));
 		kp->SetPosition(this->x, this->y);
 		CGame::GetInstance()->GetCurrentScene()->AddObject(kp);
 	}
-		break;
+	break;
 	case DIK_8:
 		//test music note
 		SetPosition(2112, 985);

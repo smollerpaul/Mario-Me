@@ -2,9 +2,10 @@
 #include "Scene.h"
 #include "MapMario.h"
 
+#define OVERWORLD_COLOR		D3DCOLOR_XRGB(248, 236, 160)
 
 class WorldScene :
-    public CScene
+	public CScene
 {
 protected:
 	float camStartX = 0;
@@ -13,14 +14,14 @@ protected:
 	float camWidth = 0;
 	float camHeight = 0;
 public:
-	MapMario* player=nullptr;
+	MapMario* player = nullptr;
 
 	WorldScene(string id, string filePath);
 	virtual void Load() override;
 	virtual void Update(DWORD dt) override;
 	virtual void Render() override;
 	virtual void Unload() override;
-	virtual void LoadMapObjects(string objectType, vector< D3DXVECTOR2> cells,float x, float y, float width, float height) override;
+	virtual void LoadMapObjects(string objectType, vector< D3DXVECTOR2> cells, float x, float y, float width, float height) override;
 	virtual void LoadMapEntries(float xPos, float yPos, int nodeID, string sceneID,
 		string checkedSprite, string uncheckedSprite,
 		string adjList, string adjWeight, int worldNumber, bool isStartPos) override;
