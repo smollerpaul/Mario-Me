@@ -12,7 +12,7 @@ void KoopasBound::Render()
 
 bool KoopasBound::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy)
 {
-    if (gameObjToCollide->GetObjectType() == RedNormalKoopas::ObjectType)
+    if (gameObjToCollide->GetObjectType() == RedNormalKoopas::ObjectType || gameObjToCollide->GetObjectType() == NormalKoopas::ObjectType)
         return false;
     return true;
 }

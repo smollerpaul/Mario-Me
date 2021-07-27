@@ -1,95 +1,146 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="BigMario.cpp">
+      <Filter>Game\Mario\MBig</Filter>
+    </ClCompile>
     <ClCompile Include="Animations.cpp">
       <Filter>Framework\Graphics\Animations</Filter>
     </ClCompile>
+    <ClCompile Include="BeginPortal.cpp">
+      <Filter>Game\Portals\BeginPortals</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomBro.cpp">
+      <Filter>Game\Enemies\Boombro</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomBound.cpp">
+      <Filter>Game\Blocks\Stills\Bounds</Filter>
+    </ClCompile>
+    <ClCompile Include="Boomerang.cpp">
+      <Filter>Game\Enemies\Boombro</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickBreak.cpp">
+      <Filter>Game\Effects\FX\BrickBreak</Filter>
+    </ClCompile>
     <ClCompile Include="Brick.cpp">
-      <Filter>Game\Blocks\BrickTypes</Filter>
+      <Filter>Game\Blocks\Brick</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Framework\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Framework\Game</Filter>
+    <ClCompile Include="Cell.cpp">
+      <Filter>Framework\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects.cpp">
+      <Filter>Game\Effects\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectVault.cpp">
+      <Filter>Game\Effects\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="EndCard.cpp">
+      <Filter>Game\Rewards\EndCard</Filter>
+    </ClCompile>
+    <ClCompile Include="EndPortal.cpp">
+      <Filter>Game\Portals\EndPortals</Filter>
+    </ClCompile>
+    <ClCompile Include="EndSceneText.cpp">
+      <Filter>Game\Effects\FX\EndSceneTxt</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Game\Rewards\Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="CoinBrick.cpp">
+      <Filter>Game\Blocks\CoinBrick</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldScene.cpp">
+      <Filter>Game\Scenes\WorldScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Framework\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingCard.cpp">
+      <Filter>Game\Effects\FX\FlyingCard</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBall.cpp">
+      <Filter>Game\Mario\MFire</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Framework\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Keyboard.cpp">
-      <Filter>Framework\Keyboard</Filter>
-    </ClCompile>
-    <ClCompile Include="Koopas.cpp">
-      <Filter>Game\Enemies\Koopas</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Game\Enemies\Goombas</Filter>
-    </ClCompile>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Game\Mario</Filter>
-    </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>Game\Portals\Portal</Filter>
-    </ClCompile>
-    <ClCompile Include="Textures.cpp">
-      <Filter>Framework\Graphics\Textures</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprites.cpp">
-      <Filter>Framework\Graphics\Sprites</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Framework\Libs\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Framework\Game</Filter>
+      <Filter>Framework\GameObj</Filter>
     </ClCompile>
     <ClCompile Include="GameLoad.cpp">
       <Filter>Framework\Game</Filter>
     </ClCompile>
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>Game\Scenes\PlayScene</Filter>
+    <ClCompile Include="Game.cpp">
+      <Filter>Framework\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Framework\Scene</Filter>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Game\Enemies\Goombas</Filter>
     </ClCompile>
-    <ClCompile Include="SweptAABB.cpp">
-      <Filter>Framework\GameObject</Filter>
+    <ClCompile Include="FireMario.cpp">
+      <Filter>Game\Mario\MFire</Filter>
     </ClCompile>
-    <ClCompile Include="tinyXML\tinystr.cpp">
-      <Filter>Framework\Libs\tinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyXML\tinyxml.cpp">
-      <Filter>Framework\Libs\tinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyXML\tinyxmlerror.cpp">
-      <Filter>Framework\Libs\tinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyXML\tinyxmlparser.cpp">
-      <Filter>Framework\Libs\tinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Game\Map\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="MapLayer.cpp">
-      <Filter>Game\Map\MapLayer</Filter>
-    </ClCompile>
-    <ClCompile Include="SolidBlock.cpp">
-      <Filter>Game\Blocks\SolidBlock</Filter>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Framework\Game</Filter>
     </ClCompile>
     <ClCompile Include="GhostBlock.cpp">
-      <Filter>Game\Blocks\GhostBlock</Filter>
+      <Filter>Game\Blocks\Stills\Ghost</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenMushroom.cpp">
+      <Filter>Game\Rewards\GreenMush</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Framework\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>Framework\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>Game\Rewards\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="Koopas.cpp">
+      <Filter>Game\Enemies\Koopas</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Game\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="KoopasBound.cpp">
+      <Filter>Game\Blocks\Stills\Bounds</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioDieFx.cpp">
+      <Filter>Game\Effects\FX\DieFx</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Game\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTitle.cpp">
+      <Filter>Game\Effects\Intro</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicNote.cpp">
+      <Filter>Game\Blocks\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipe.cpp">
+      <Filter>Game\Blocks\Pipe</Filter>
     </ClCompile>
     <ClCompile Include="PlayerData.cpp">
       <Filter>Game\PlayerData</Filter>
     </ClCompile>
-    <ClCompile Include="FireBall.cpp">
-      <Filter>Game\Mario\MFire\FireBall</Filter>
+    <ClCompile Include="Piranha.cpp">
+      <Filter>Game\Enemies\Venus</Filter>
     </ClCompile>
-    <ClCompile Include="FireMario.cpp">
-      <Filter>Game\Mario\MFire</Filter>
+    <ClCompile Include="PlaySceneLoad.cpp">
+      <Filter>Game\Scenes\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Game\Scenes\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="PoofFx.cpp">
+      <Filter>Game\Effects\FX\TransFx\Poof</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioTransform.cpp">
+      <Filter>Game\Effects\FX\TransFx\Trans</Filter>
     </ClCompile>
     <ClCompile Include="RacoonMario.cpp">
       <Filter>Game\Mario\MRacoon</Filter>
@@ -97,257 +148,268 @@
     <ClCompile Include="RacoonTail.cpp">
       <Filter>Game\Mario\MRacoon\Tail</Filter>
     </ClCompile>
+    <ClCompile Include="RedGoomba.cpp">
+      <Filter>Game\Enemies\RedGoombas</Filter>
+    </ClCompile>
+    <ClCompile Include="RedNormalKoopas.cpp">
+      <Filter>Game\Enemies\Koopas\Red\Normal</Filter>
+    </ClCompile>
+    <ClCompile Include="RedShelledKoopas.cpp">
+      <Filter>Game\Enemies\Koopas\Red\Shell</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalRG.cpp">
+      <Filter>Game\Enemies\RedGoombas\States\Normal</Filter>
+    </ClCompile>
+    <ClCompile Include="RedSlidingShell.cpp">
+      <Filter>Game\Enemies\Koopas\Red\Sliding</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Framework\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="SmallMario.cpp">
       <Filter>Game\Mario\MSmall</Filter>
     </ClCompile>
-    <ClCompile Include="BigMario.cpp">
-      <Filter>Game\Mario\MBig</Filter>
+    <ClCompile Include="RedMushroom.cpp">
+      <Filter>Game\Rewards\GreenMush</Filter>
+    </ClCompile>
+    <ClCompile Include="Shell.cpp">
+      <Filter>Game\Enemies\Koopas\Green\Shell</Filter>
+    </ClCompile>
+    <ClCompile Include="SlidingShell.cpp">
+      <Filter>Game\Enemies\Koopas\Green\Sliding</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>Framework\Graphics\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="Venus.cpp">
+      <Filter>Game\Enemies\Venus</Filter>
+    </ClCompile>
+    <ClCompile Include="VenusFireBall.cpp">
+      <Filter>Game\Enemies\Venus</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprites.cpp">
+      <Filter>Framework\Graphics\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneyFx.cpp">
+      <Filter>Game\Effects\FX\RewardFx\Money</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreFx.cpp">
+      <Filter>Game\Effects\FX\RewardFx\Score</Filter>
+    </ClCompile>
+    <ClCompile Include="StarWhipTail.cpp">
+      <Filter>Game\Effects\FX\TransFx\StarWhipTail</Filter>
+    </ClCompile>
+    <ClCompile Include="ToBigMario.cpp">
+      <Filter>Game\Effects\FX\TransFx\ToBig</Filter>
+    </ClCompile>
+    <ClCompile Include="ToSmallMario.cpp">
+      <Filter>Game\Effects\FX\TransFx\ToSmall</Filter>
     </ClCompile>
     <ClCompile Include="QuestionBlock.cpp">
       <Filter>Game\Blocks\QuestionBlock</Filter>
     </ClCompile>
-    <ClCompile Include="RedGoomba.cpp">
-      <Filter>Game\Enemies\RedGoomba</Filter>
-    </ClCompile>
-    <ClCompile Include="WingedRG.cpp">
-      <Filter>Game\Enemies\RedGoomba\RGLevels\Winged Red Goomba</Filter>
-    </ClCompile>
-    <ClCompile Include="NormalRG.cpp">
-      <Filter>Game\Enemies\RedGoomba\RGLevels\Red Goomba</Filter>
-    </ClCompile>
-    <ClCompile Include="PlaySceneLoad.cpp">
-      <Filter>Game\Scenes\PlayScene</Filter>
-    </ClCompile>
-    <ClCompile Include="NormalKoopas.cpp">
-      <Filter>Game\Enemies\Koopas\Levels\Normal</Filter>
-    </ClCompile>
-    <ClCompile Include="Shell.cpp">
-      <Filter>Game\Enemies\Koopas\Levels\Shell</Filter>
-    </ClCompile>
-    <ClCompile Include="WingedKoopas.cpp">
-      <Filter>Game\Enemies\Koopas\Levels\Winged</Filter>
-    </ClCompile>
-    <ClCompile Include="SlidingShell.cpp">
-      <Filter>Game\Enemies\Koopas\Levels\SlidingShell</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Game\Rewards\Coin</Filter>
-    </ClCompile>
-    <ClCompile Include="GreenMushroom.cpp">
-      <Filter>Game\Rewards\GreenMushroom</Filter>
-    </ClCompile>
-    <ClCompile Include="Leaf.cpp">
-      <Filter>Game\Rewards\Leaf</Filter>
-    </ClCompile>
-    <ClCompile Include="RedMushroom.cpp">
-      <Filter>Game\Rewards\RedMushroom</Filter>
-    </ClCompile>
-    <ClCompile Include="Effects.cpp">
-      <Filter>Game\Effects\Base\Base Effects</Filter>
-    </ClCompile>
-    <ClCompile Include="EffectVault.cpp">
-      <Filter>Game\Effects\Base\Vault</Filter>
-    </ClCompile>
-    <ClCompile Include="MoneyFx.cpp">
-      <Filter>Game\Effects\Effects\Rewards\Money</Filter>
-    </ClCompile>
-    <ClCompile Include="PoofFx.cpp">
-      <Filter>Game\Effects\Effects\TransFX\Poof</Filter>
-    </ClCompile>
-    <ClCompile Include="MarioDieFx.cpp">
-      <Filter>Game\Effects\Effects\MarioDie</Filter>
-    </ClCompile>
-    <ClCompile Include="StarWhipTail.cpp">
-      <Filter>Game\Effects\Effects\TransFX\StarWhipTail</Filter>
-    </ClCompile>
-    <ClCompile Include="ToBigMario.cpp">
-      <Filter>Game\Effects\Effects\TransFX\ToBigMario</Filter>
-    </ClCompile>
-    <ClCompile Include="ToSmallMario.cpp">
-      <Filter>Game\Effects\Effects\TransFX\ToSmallMario</Filter>
-    </ClCompile>
-    <ClCompile Include="MarioTransform.cpp">
-      <Filter>Game\Effects\Effects\TransFX\Level Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="EndCard.cpp">
-      <Filter>Game\Rewards\Endmap Card</Filter>
-    </ClCompile>
-    <ClCompile Include="FlyingCard.cpp">
-      <Filter>Game\Effects\Effects\Rewards\EndCard</Filter>
-    </ClCompile>
-    <ClCompile Include="Void.cpp">
-      <Filter>Game\Blocks\Void</Filter>
-    </ClCompile>
-    <ClCompile Include="MapEntry.cpp">
-      <Filter>Game\Overworld Objects\MapEntry</Filter>
-    </ClCompile>
-    <ClCompile Include="MapMario.cpp">
-      <Filter>Game\Overworld Objects\MapMario</Filter>
-    </ClCompile>
-    <ClCompile Include="WorldScene.cpp">
-      <Filter>Game\Scenes\WorldScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Entries.cpp">
-      <Filter>Game\Overworld Objects\Entries</Filter>
-    </ClCompile>
-    <ClCompile Include="OverworldTrees.cpp">
-      <Filter>Game\Effects\Effects\OverworldTrees</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipe.cpp">
-      <Filter>Game\Enemies\Plants\Pipe</Filter>
-    </ClCompile>
-    <ClCompile Include="PSwitch.cpp">
-      <Filter>Game\Rewards\PSwitch</Filter>
-    </ClCompile>
-    <ClCompile Include="Piranha.cpp">
-      <Filter>Game\Enemies\Plants\Piranha</Filter>
-    </ClCompile>
-    <ClCompile Include="Venus.cpp">
-      <Filter>Game\Enemies\Plants\Venus</Filter>
-    </ClCompile>
-    <ClCompile Include="VenusFireBall.cpp">
-      <Filter>Game\Enemies\Plants\Venus\FireBalls</Filter>
-    </ClCompile>
-    <ClCompile Include="QBlockBounce.cpp">
-      <Filter>Game\Effects\Effects\Rewards\QBounce</Filter>
-    </ClCompile>
-    <ClCompile Include="KoopasBound.cpp">
-      <Filter>Game\Enemies\Bounds</Filter>
-    </ClCompile>
-    <ClCompile Include="RedNormalKoopas.cpp">
-      <Filter>Game\Enemies\Koopas\RedKoopas\Normal</Filter>
-    </ClCompile>
-    <ClCompile Include="BoomBound.cpp">
-      <Filter>Game\Enemies\Bounds</Filter>
-    </ClCompile>
-    <ClCompile Include="RedShelledKoopas.cpp">
-      <Filter>Game\Enemies\Koopas\RedKoopas\Shelled</Filter>
-    </ClCompile>
-    <ClCompile Include="RedSlidingShell.cpp">
-      <Filter>Game\Enemies\Koopas\RedKoopas\SlidingShell</Filter>
-    </ClCompile>
-    <ClCompile Include="MusicNote.cpp">
-      <Filter>Game\Blocks\Music</Filter>
+    <ClCompile Include="SolidBlock.cpp">
+      <Filter>Game\Blocks\Stills\Solid</Filter>
     </ClCompile>
     <ClCompile Include="StrawCube.cpp">
       <Filter>Game\Blocks\StrawCube</Filter>
     </ClCompile>
-    <ClCompile Include="CoinBrick.cpp">
-      <Filter>Game\Blocks\BrickTypes</Filter>
-    </ClCompile>
-    <ClCompile Include="BoomBro.cpp">
-      <Filter>Game\Enemies\BoomBro</Filter>
-    </ClCompile>
-    <ClCompile Include="Boomerang.cpp">
-      <Filter>Game\Enemies\BoomBro\Boomerangs</Filter>
-    </ClCompile>
-    <ClCompile Include="BeginPortal.cpp">
-      <Filter>Game\Portals\BeginPortal</Filter>
-    </ClCompile>
-    <ClCompile Include="EndPortal.cpp">
-      <Filter>Game\Portals\EndPortal</Filter>
-    </ClCompile>
-    <ClCompile Include="Font.cpp">
-      <Filter>Framework\Font</Filter>
+    <ClCompile Include="SweptAABB.cpp">
+      <Filter>Framework\GameObj</Filter>
     </ClCompile>
     <ClCompile Include="Text.cpp">
-      <Filter>Framework\Font\Text</Filter>
+      <Filter>Framework\Font</Filter>
     </ClCompile>
-    <ClCompile Include="Grid.cpp">
-      <Filter>Framework\Grid</Filter>
+    <ClCompile Include="WingedKoopas.cpp">
+      <Filter>Game\Enemies\Koopas\Green\Winged</Filter>
     </ClCompile>
-    <ClCompile Include="Cell.cpp">
-      <Filter>Framework\Grid\Cell</Filter>
+    <ClCompile Include="WingedRG.cpp">
+      <Filter>Game\Enemies\RedGoombas\States\Winged</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="ScoreFx.cpp">
-      <Filter>Game\Effects\Effects\ScoreFx</Filter>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Framework\Libs\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="BrickBreak.cpp" />
-    <ClCompile Include="GameTitle.cpp" />
-    <ClCompile Include="EndSceneText.cpp">
-      <Filter>Game\Effects\Effects\EndSceneText</Filter>
-=======
-    <ClCompile Include="HUD.cpp">
-      <Filter>Game\HUD</Filter>
->>>>>>> b47641481dfeb1b2361eaadcf5052b51ca707217
+    <ClCompile Include="Void.cpp">
+      <Filter>Game\Blocks\Stills\Void</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyXML\tinystr.cpp">
+      <Filter>Framework\Libs\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyXML\tinyxml.cpp">
+      <Filter>Framework\Libs\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyXML\tinyxmlerror.cpp">
+      <Filter>Framework\Libs\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyXML\tinyxmlparser.cpp">
+      <Filter>Framework\Libs\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="Entries.cpp">
+      <Filter>Game\Overworld\Entries</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEntry.cpp">
+      <Filter>Game\Overworld\MapEntry</Filter>
+    </ClCompile>
+    <ClCompile Include="MapMario.cpp">
+      <Filter>Game\Overworld\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Game\Map\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapLayer.cpp">
+      <Filter>Game\Map\MapLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="PSwitch.cpp">
+      <Filter>Game\Rewards\PSwitch</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Game\Portals\CPortal</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalKoopas.cpp">
+      <Filter>Game\Enemies\Koopas\Green\Normal</Filter>
+    </ClCompile>
+    <ClCompile Include="QBlockBounce.cpp">
+      <Filter>Game\Effects\FX\TreesFx\QBB</Filter>
+    </ClCompile>
+    <ClCompile Include="OverworldTrees.cpp">
+      <Filter>Game\Effects\FX\TreesFx\JigglyTrees</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BigMario.h">
+      <Filter>Game\Mario\MBig</Filter>
+    </ClInclude>
     <ClInclude Include="Animations.h">
       <Filter>Framework\Graphics\Animations</Filter>
     </ClInclude>
+    <ClInclude Include="BeginPortal.h">
+      <Filter>Game\Portals\BeginPortals</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomBro.h">
+      <Filter>Game\Enemies\Boombro</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomBound.h">
+      <Filter>Game\Blocks\Stills\Bounds</Filter>
+    </ClInclude>
+    <ClInclude Include="Boomerang.h">
+      <Filter>Game\Enemies\Boombro</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickBreak.h">
+      <Filter>Game\Effects\FX\BrickBreak</Filter>
+    </ClInclude>
     <ClInclude Include="Brick.h">
-      <Filter>Game\Blocks\BrickTypes</Filter>
+      <Filter>Game\Blocks\Brick</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Framework\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Cell.h">
+      <Filter>Framework\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects.h">
+      <Filter>Game\Effects\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectVault.h">
+      <Filter>Game\Effects\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="EndCard.h">
+      <Filter>Game\Rewards\EndCard</Filter>
+    </ClInclude>
+    <ClInclude Include="EndPortal.h">
+      <Filter>Game\Portals\EndPortals</Filter>
+    </ClInclude>
+    <ClInclude Include="EndSceneText.h">
+      <Filter>Game\Effects\FX\EndSceneTxt</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Game\Rewards\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinBrick.h">
+      <Filter>Game\Blocks\CoinBrick</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldScene.h">
+      <Filter>Game\Scenes\WorldScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Framework\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingCard.h">
+      <Filter>Game\Effects\FX\FlyingCard</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBall.h">
+      <Filter>Game\Mario\MFire</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Framework\Game</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Framework\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Keyboard.h">
-      <Filter>Framework\Keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="Koopas.h">
-      <Filter>Game\Enemies\Koopas</Filter>
+      <Filter>Framework\GameObj</Filter>
     </ClInclude>
     <ClInclude Include="Goomba.h">
       <Filter>Game\Enemies\Goombas</Filter>
     </ClInclude>
-    <ClInclude Include="Mario.h">
-      <Filter>Game\Mario</Filter>
-    </ClInclude>
-    <ClInclude Include="Portal.h">
-      <Filter>Game\Portals\Portal</Filter>
-    </ClInclude>
-    <ClInclude Include="Textures.h">
-      <Filter>Framework\Graphics\Textures</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprites.h">
-      <Filter>Framework\Graphics\Sprites</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Framework\Libs\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayScene.h">
-      <Filter>Game\Scenes\PlayScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Framework\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyXML\tinystr.h">
-      <Filter>Framework\Libs\tinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyXML\tinyxml.h">
-      <Filter>Framework\Libs\tinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Game\Map\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="MapLayer.h">
-      <Filter>Game\Map\MapLayer</Filter>
-    </ClInclude>
-    <ClInclude Include="SolidBlock.h">
-      <Filter>Game\Blocks\SolidBlock</Filter>
+    <ClInclude Include="FireMario.h">
+      <Filter>Game\Mario\MFire</Filter>
     </ClInclude>
     <ClInclude Include="GhostBlock.h">
-      <Filter>Game\Blocks\GhostBlock</Filter>
+      <Filter>Game\Blocks\Stills\Ghost</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerData.h">
-      <Filter>Game\PlayerData</Filter>
+    <ClInclude Include="GreenMushroom.h">
+      <Filter>Game\Rewards\GreenMush</Filter>
     </ClInclude>
-    <ClInclude Include="FireBall.h">
-      <Filter>Game\Mario\MFire\FireBall</Filter>
+    <ClInclude Include="Grid.h">
+      <Filter>Framework\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Framework\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>Game\Rewards\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="Koopas.h">
+      <Filter>Game\Enemies\Koopas</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Game\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="KoopasBound.h">
+      <Filter>Game\Blocks\Stills\Bounds</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioDieFx.h">
+      <Filter>Game\Effects\FX\DieFx</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Game\Mario</Filter>
     </ClInclude>
     <ClInclude Include="MarioConstants.h">
       <Filter>Game\Mario</Filter>
     </ClInclude>
-    <ClInclude Include="FireMario.h">
-      <Filter>Game\Mario\MFire</Filter>
+    <ClInclude Include="EnemiesConstants.h">
+      <Filter>Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTitle.h">
+      <Filter>Game\Effects\Intro</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicNote.h">
+      <Filter>Game\Blocks\Music</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipe.h">
+      <Filter>Game\Blocks\Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerData.h">
+      <Filter>Game\PlayerData</Filter>
+    </ClInclude>
+    <ClInclude Include="Piranha.h">
+      <Filter>Game\Enemies\Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Game\Scenes\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="PoofFx.h">
+      <Filter>Game\Effects\FX\TransFx\Poof</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioTransform.h">
+      <Filter>Game\Effects\FX\TransFx\Trans</Filter>
     </ClInclude>
     <ClInclude Include="RacoonMario.h">
       <Filter>Game\Mario\MRacoon</Filter>
@@ -355,161 +417,92 @@
     <ClInclude Include="RacoonTail.h">
       <Filter>Game\Mario\MRacoon\Tail</Filter>
     </ClInclude>
+    <ClInclude Include="RedGoomba.h">
+      <Filter>Game\Enemies\RedGoombas</Filter>
+    </ClInclude>
+    <ClInclude Include="RedNormalKoopas.h">
+      <Filter>Game\Enemies\Koopas\Red\Normal</Filter>
+    </ClInclude>
+    <ClInclude Include="RedShelledKoopas.h">
+      <Filter>Game\Enemies\Koopas\Red\Shell</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalRG.h">
+      <Filter>Game\Enemies\RedGoombas\States\Normal</Filter>
+    </ClInclude>
+    <ClInclude Include="RedSlidingShell.h">
+      <Filter>Game\Enemies\Koopas\Red\Sliding</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Framework\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="SmallMario.h">
       <Filter>Game\Mario\MSmall</Filter>
     </ClInclude>
-    <ClInclude Include="BigMario.h">
-      <Filter>Game\Mario\MBig</Filter>
+    <ClInclude Include="RedMushroom.h">
+      <Filter>Game\Rewards\GreenMush</Filter>
+    </ClInclude>
+    <ClInclude Include="Shell.h">
+      <Filter>Game\Enemies\Koopas\Green\Shell</Filter>
+    </ClInclude>
+    <ClInclude Include="SlidingShell.h">
+      <Filter>Game\Enemies\Koopas\Green\Sliding</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
+      <Filter>Framework\Graphics\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Venus.h">
+      <Filter>Game\Enemies\Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="VenusFireBall.h">
+      <Filter>Game\Enemies\Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprites.h">
+      <Filter>Framework\Graphics\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="MoneyFx.h">
+      <Filter>Game\Effects\FX\RewardFx\Money</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreFx.h">
+      <Filter>Game\Effects\FX\RewardFx\Score</Filter>
+    </ClInclude>
+    <ClInclude Include="StarWhipTail.h">
+      <Filter>Game\Effects\FX\TransFx\StarWhipTail</Filter>
+    </ClInclude>
+    <ClInclude Include="ToBigMario.h">
+      <Filter>Game\Effects\FX\TransFx\ToBig</Filter>
+    </ClInclude>
+    <ClInclude Include="ToSmallMario.h">
+      <Filter>Game\Effects\FX\TransFx\ToSmall</Filter>
     </ClInclude>
     <ClInclude Include="QuestionBlock.h">
       <Filter>Game\Blocks\QuestionBlock</Filter>
     </ClInclude>
-    <ClInclude Include="RedGoomba.h">
-      <Filter>Game\Enemies\RedGoomba</Filter>
-    </ClInclude>
-    <ClInclude Include="WingedRG.h">
-      <Filter>Game\Enemies\RedGoomba\RGLevels\Winged Red Goomba</Filter>
-    </ClInclude>
-    <ClInclude Include="NormalRG.h">
-      <Filter>Game\Enemies\RedGoomba\RGLevels\Red Goomba</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemiesConstants.h">
-      <Filter>Game\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="NormalKoopas.h">
-      <Filter>Game\Enemies\Koopas\Levels\Normal</Filter>
-    </ClInclude>
-    <ClInclude Include="Shell.h">
-      <Filter>Game\Enemies\Koopas\Levels\Shell</Filter>
-    </ClInclude>
-    <ClInclude Include="WingedKoopas.h">
-      <Filter>Game\Enemies\Koopas\Levels\Winged</Filter>
-    </ClInclude>
-    <ClInclude Include="SlidingShell.h">
-      <Filter>Game\Enemies\Koopas\Levels\SlidingShell</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Game\Rewards\Coin</Filter>
-    </ClInclude>
-    <ClInclude Include="GreenMushroom.h">
-      <Filter>Game\Rewards\GreenMushroom</Filter>
-    </ClInclude>
-    <ClInclude Include="Leaf.h">
-      <Filter>Game\Rewards\Leaf</Filter>
-    </ClInclude>
-    <ClInclude Include="RedMushroom.h">
-      <Filter>Game\Rewards\RedMushroom</Filter>
-    </ClInclude>
-    <ClInclude Include="Effects.h">
-      <Filter>Game\Effects\Base\Base Effects</Filter>
-    </ClInclude>
-    <ClInclude Include="EffectVault.h">
-      <Filter>Game\Effects\Base\Vault</Filter>
-    </ClInclude>
-    <ClInclude Include="MoneyFx.h">
-      <Filter>Game\Effects\Effects\Rewards\Money</Filter>
-    </ClInclude>
-    <ClInclude Include="PoofFx.h">
-      <Filter>Game\Effects\Effects\TransFX\Poof</Filter>
-    </ClInclude>
-    <ClInclude Include="MarioDieFx.h">
-      <Filter>Game\Effects\Effects\MarioDie</Filter>
-    </ClInclude>
-    <ClInclude Include="StarWhipTail.h">
-      <Filter>Game\Effects\Effects\TransFX\StarWhipTail</Filter>
-    </ClInclude>
-    <ClInclude Include="ToBigMario.h">
-      <Filter>Game\Effects\Effects\TransFX\ToBigMario</Filter>
-    </ClInclude>
-    <ClInclude Include="ToSmallMario.h">
-      <Filter>Game\Effects\Effects\TransFX\ToSmallMario</Filter>
-    </ClInclude>
-    <ClInclude Include="MarioTransform.h">
-      <Filter>Game\Effects\Effects\TransFX\Level Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="EndCard.h">
-      <Filter>Game\Rewards\Endmap Card</Filter>
-    </ClInclude>
-    <ClInclude Include="FlyingCard.h">
-      <Filter>Game\Effects\Effects\Rewards\EndCard</Filter>
-    </ClInclude>
-    <ClInclude Include="Void.h">
-      <Filter>Game\Blocks\Void</Filter>
-    </ClInclude>
-    <ClInclude Include="MapEntry.h">
-      <Filter>Game\Overworld Objects\MapEntry</Filter>
-    </ClInclude>
-    <ClInclude Include="MapMario.h">
-      <Filter>Game\Overworld Objects\MapMario</Filter>
-    </ClInclude>
-    <ClInclude Include="WorldScene.h">
-      <Filter>Game\Scenes\WorldScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Entries.h">
-      <Filter>Game\Overworld Objects\Entries</Filter>
-    </ClInclude>
-    <ClInclude Include="OverworldTrees.h">
-      <Filter>Game\Effects\Effects\OverworldTrees</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipe.h">
-      <Filter>Game\Enemies\Plants\Pipe</Filter>
-    </ClInclude>
-    <ClInclude Include="PSwitch.h">
-      <Filter>Game\Rewards\PSwitch</Filter>
-    </ClInclude>
-    <ClInclude Include="Piranha.h">
-      <Filter>Game\Enemies\Plants\Piranha</Filter>
-    </ClInclude>
-    <ClInclude Include="Venus.h">
-      <Filter>Game\Enemies\Plants\Venus</Filter>
-    </ClInclude>
-    <ClInclude Include="VenusFireBall.h">
-      <Filter>Game\Enemies\Plants\Venus\FireBalls</Filter>
-    </ClInclude>
-    <ClInclude Include="QBlockBounce.h">
-      <Filter>Game\Effects\Effects\Rewards\QBounce</Filter>
-    </ClInclude>
-    <ClInclude Include="KoopasBound.h">
-      <Filter>Game\Enemies\Bounds</Filter>
-    </ClInclude>
-    <ClInclude Include="RedNormalKoopas.h">
-      <Filter>Game\Enemies\Koopas\RedKoopas\Normal</Filter>
-    </ClInclude>
-    <ClInclude Include="BoomBound.h">
-      <Filter>Game\Enemies\Bounds</Filter>
-    </ClInclude>
-    <ClInclude Include="RedShelledKoopas.h">
-      <Filter>Game\Enemies\Koopas\RedKoopas\Shelled</Filter>
-    </ClInclude>
-    <ClInclude Include="RedSlidingShell.h">
-      <Filter>Game\Enemies\Koopas\RedKoopas\SlidingShell</Filter>
-    </ClInclude>
-    <ClInclude Include="MusicNote.h">
-      <Filter>Game\Blocks\Music</Filter>
+    <ClInclude Include="SolidBlock.h">
+      <Filter>Game\Blocks\Stills\Solid</Filter>
     </ClInclude>
     <ClInclude Include="StrawCube.h">
       <Filter>Game\Blocks\StrawCube</Filter>
     </ClInclude>
-    <ClInclude Include="CoinBrick.h">
-      <Filter>Game\Blocks\BrickTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="BoomBro.h">
-      <Filter>Game\Enemies\BoomBro</Filter>
-    </ClInclude>
-    <ClInclude Include="Boomerang.h">
-      <Filter>Game\Enemies\BoomBro\Boomerangs</Filter>
-    </ClInclude>
-    <ClInclude Include="BeginPortal.h">
-      <Filter>Game\Portals\BeginPortal</Filter>
-    </ClInclude>
-    <ClInclude Include="EndPortal.h">
-      <Filter>Game\Portals\EndPortal</Filter>
-    </ClInclude>
-    <ClInclude Include="Font.h">
+    <ClInclude Include="Text.h">
       <Filter>Framework\Font</Filter>
     </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>Framework\Font\Text</Filter>
+    <ClInclude Include="WingedKoopas.h">
+      <Filter>Game\Enemies\Koopas\Green\Winged</Filter>
+    </ClInclude>
+    <ClInclude Include="WingedRG.h">
+      <Filter>Game\Enemies\RedGoombas\States\Winged</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Framework\Libs\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Void.h">
+      <Filter>Game\Blocks\Stills\Void</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyXML\tinystr.h">
+      <Filter>Framework\Libs\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyXML\tinyxml.h">
+      <Filter>Framework\Libs\tinyxml</Filter>
     </ClInclude>
     <ClInclude Include="rapidjson\allocators.h">
       <Filter>Framework\Libs\rapidjson</Filter>
@@ -568,393 +561,55 @@
     <ClInclude Include="rapidjson\writer.h">
       <Filter>Framework\Libs\rapidjson</Filter>
     </ClInclude>
-    <ClInclude Include="Grid.h">
-      <Filter>Framework\Grid</Filter>
+    <ClInclude Include="Entries.h">
+      <Filter>Game\Overworld\Entries</Filter>
     </ClInclude>
-    <ClInclude Include="Cell.h">
-      <Filter>Framework\Grid\Cell</Filter>
+    <ClInclude Include="MapEntry.h">
+      <Filter>Game\Overworld\MapEntry</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="ScoreFx.h">
-      <Filter>Game\Effects\Effects\ScoreFx</Filter>
+    <ClInclude Include="MapMario.h">
+      <Filter>Game\Overworld\Mario</Filter>
     </ClInclude>
-    <ClInclude Include="BrickBreak.h" />
-    <ClInclude Include="GameTitle.h" />
-    <ClInclude Include="EndSceneText.h">
-      <Filter>Game\Effects\Effects\EndSceneText</Filter>
-=======
-    <ClInclude Include="HUD.h">
-      <Filter>Game\HUD</Filter>
->>>>>>> b47641481dfeb1b2361eaadcf5052b51ca707217
+    <ClInclude Include="Map.h">
+      <Filter>Game\Map\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapLayer.h">
+      <Filter>Game\Map\MapLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="PSwitch.h">
+      <Filter>Game\Rewards\PSwitch</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Game\Portals\CPortal</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalKoopas.h">
+      <Filter>Game\Enemies\Koopas\Green\Normal</Filter>
+    </ClInclude>
+    <ClInclude Include="QBlockBounce.h">
+      <Filter>Game\Effects\FX\TreesFx\QBB</Filter>
+    </ClInclude>
+    <ClInclude Include="OverworldTrees.h">
+      <Filter>Game\Effects\FX\TreesFx\JigglyTrees</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Framework">
-      <UniqueIdentifier>{d00aed8b-0e0b-4e20-b34c-5fa5f9b4c287}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game">
-      <UniqueIdentifier>{134446d0-05d4-4ccd-b3ab-53313875371a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Graphics">
-      <UniqueIdentifier>{895d85d7-f618-4409-bf9e-d6ac2660a85a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Keyboard">
-      <UniqueIdentifier>{e51403f7-f01e-407f-b6a5-92fe711970f9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Scene">
-      <UniqueIdentifier>{90d49a78-26ec-4109-9c09-92d33aced5d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Graphics\Animations">
-      <UniqueIdentifier>{ae75c605-c04f-40c5-8de2-4b43160d7ff0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Graphics\Textures">
-      <UniqueIdentifier>{e4fc3cec-2960-4b73-8ed8-5cddbe3f6059}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Graphics\Sprites">
-      <UniqueIdentifier>{40eeb4f0-5bc5-4ee7-9c5e-1eec568e4e25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game">
-      <UniqueIdentifier>{1bc03f9a-7276-4cc2-b709-b50257433885}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Camera">
-      <UniqueIdentifier>{612f9b69-1c84-4b12-becc-a17b364d5dba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Mario">
-      <UniqueIdentifier>{0d5c4007-cc9b-40cb-9414-60b02b11f15f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies">
-      <UniqueIdentifier>{ed55107d-6aef-428c-a14f-2e5dc2cbbc6b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Goombas">
-      <UniqueIdentifier>{ff31c1d7-4cbc-4aae-b627-ddc0213af472}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Libs">
-      <UniqueIdentifier>{0c1dd5a6-be24-4f95-95e6-39291c3fc08d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Libs\Utils">
-      <UniqueIdentifier>{9532320a-13ca-4d95-8835-688f0adab903}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Libs\tinyXML">
-      <UniqueIdentifier>{b0ce53df-2013-4da9-8a00-798b2b3db551}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources">
-      <UniqueIdentifier>{25af2078-3b13-4ce2-8e1b-cc18042eceec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Textures">
-      <UniqueIdentifier>{ee95638a-d986-458c-b220-d299fc7692e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Animations">
-      <UniqueIdentifier>{8da276b0-616f-47e0-b803-b3335c9a5328}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Sprites">
-      <UniqueIdentifier>{0b9b4c28-f92d-4076-aaf2-9c44486194be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Maps">
-      <UniqueIdentifier>{957b04ec-e5fd-4543-bcde-a6cf07af3bb0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scenes">
-      <UniqueIdentifier>{4ff93566-5170-48f7-be71-25e2e7a3caca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scenes\PlayScene">
-      <UniqueIdentifier>{4e2d8ce6-2038-4ca4-ad0b-2872c5ebeea9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Maps\World 1-1">
-      <UniqueIdentifier>{cffc1beb-c0ce-4d82-9cbe-70b6b0bbbcc5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\GameObject">
-      <UniqueIdentifier>{fd873f02-1627-4a91-9996-4b918f12cc1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\PlayerData">
-      <UniqueIdentifier>{d0e10311-25d3-4c2b-b752-eb62ac9440e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Mario\MSmall">
-      <UniqueIdentifier>{67d48f77-c965-4d9e-877c-7f0d64764b69}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Mario\MFire">
-      <UniqueIdentifier>{c3098a18-d49b-4331-b261-2804332c24bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Mario\MFire\FireBall">
-      <UniqueIdentifier>{7c1bbd6d-b9bb-4095-a2fb-ae4c450e0b9f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Mario\MRacoon">
-      <UniqueIdentifier>{2d8a7e1d-9364-4c0c-aa2a-7f7945247fe0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Mario\MRacoon\Tail">
-      <UniqueIdentifier>{56cbd28d-1ced-49f9-8cd3-b4eff505e524}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Mario\MBig">
-      <UniqueIdentifier>{48aec114-e683-46a8-9a71-af68538a76fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\RedGoomba">
-      <UniqueIdentifier>{3b8a4ab5-e095-4bfd-8dea-961a8ac3bcff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\RedGoomba\RGLevels">
-      <UniqueIdentifier>{13cd8a95-00d3-47be-9c95-88921484a4db}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\RedGoomba\RGLevels\Red Goomba">
-      <UniqueIdentifier>{e9536a18-595f-4e26-806f-8c9dba4b925f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\RedGoomba\RGLevels\Winged Red Goomba">
-      <UniqueIdentifier>{786f082d-7943-4a13-b708-215567fd031f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Koopas">
-      <UniqueIdentifier>{1a22a819-3f43-462f-95f4-a56fb241188b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Koopas\Levels">
-      <UniqueIdentifier>{3996cda0-898d-4bb5-a5c4-9c438422c6ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Koopas\Levels\Shell">
-      <UniqueIdentifier>{3892b4e9-0829-4013-b02b-0af9b64093d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Koopas\Levels\SlidingShell">
-      <UniqueIdentifier>{10137cfa-1cd7-42f9-b24c-3dd7fae0224d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Koopas\Levels\Normal">
-      <UniqueIdentifier>{f07ad093-9942-4943-9c20-5bebc1a0700d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Koopas\Levels\Winged">
-      <UniqueIdentifier>{8fa148a1-b385-4b12-9092-b67c5c177ce2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Rewards">
-      <UniqueIdentifier>{60affa4a-c6c6-4ab4-8c01-73ca55d7c2ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Rewards\Coin">
-      <UniqueIdentifier>{c3f6e71c-e72d-4f94-bc51-f7d048642e1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Rewards\GreenMushroom">
-      <UniqueIdentifier>{a323cf07-2902-48ba-92f2-95df21da7b9c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Rewards\Leaf">
-      <UniqueIdentifier>{69d1ebbb-5fa0-4d54-a14e-58b67af8445b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Rewards\RedMushroom">
-      <UniqueIdentifier>{470d6c08-dfa8-4ccb-86cf-343c8debdf25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects">
-      <UniqueIdentifier>{107aa3de-f5de-46d0-acb3-86eb374ea9a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Base">
-      <UniqueIdentifier>{6694fc36-6ed5-4b5c-b671-42f4efd1f4f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Base\Vault">
-      <UniqueIdentifier>{46ed1c3d-514b-494d-873c-5ac2592e4357}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Base\Base Effects">
-      <UniqueIdentifier>{0380d76a-bd96-4aba-a3ec-58bb1e5ef75d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Effects">
-      <UniqueIdentifier>{a0dc8eaf-6fa9-4867-97a1-2714e14ae1ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Effects\TransFX">
-      <UniqueIdentifier>{237abbf6-9a1a-4585-80e2-e02472cbab9d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Effects\TransFX\Level Transform">
-      <UniqueIdentifier>{da040499-ba18-45f0-8e8c-b46b8b1d57e8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Effects\TransFX\Poof">
-      <UniqueIdentifier>{28db18d0-fd9f-49e5-94ea-d9871f1dde8a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Effects\TransFX\StarWhipTail">
-      <UniqueIdentifier>{a8d5cf9b-bbc6-42fb-8274-becb3c3e098b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Effects\TransFX\ToBigMario">
-      <UniqueIdentifier>{52172d2c-27a3-4e73-8c14-2672e9670f94}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Effects\TransFX\ToSmallMario">
-      <UniqueIdentifier>{477317f7-61b8-4c38-b3e7-3086b2e074b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Effects\MarioDie">
-      <UniqueIdentifier>{c354d3f9-5f3e-4150-9262-ff4f29f10359}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Rewards\Endmap Card">
-      <UniqueIdentifier>{052eea7c-da26-4c4d-b682-e776ad8f5356}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Effects\Rewards">
-      <UniqueIdentifier>{c9523323-95f1-4f9a-8f48-11cc9897bde6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Effects\Rewards\Money">
-      <UniqueIdentifier>{31bcbebf-4f5a-4068-b03b-129fc1180d1d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Effects\Rewards\EndCard">
-      <UniqueIdentifier>{7074605d-c12e-4424-a732-f0c65278150f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Maps\WorldScene">
-      <UniqueIdentifier>{3c464261-e5c7-4433-a9a1-a6deb6a3a7cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scenes\WorldScene">
-      <UniqueIdentifier>{64ce7166-3266-43eb-b772-71657ae7acd7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Scenes">
-      <UniqueIdentifier>{77d614cf-c6dc-4963-bc0f-4a3ef737db20}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Effects\OverworldTrees">
-      <UniqueIdentifier>{f5049493-f0ce-458e-9f00-07ccdadb9df3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Overworld Objects">
-      <UniqueIdentifier>{25dd92cb-fe6c-45e6-8eef-cf01c29c787f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Overworld Objects\MapMario">
-      <UniqueIdentifier>{27a4c48a-dadc-4d34-9ddc-ed7f463c1d6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Overworld Objects\MapEntry">
-      <UniqueIdentifier>{21075e82-9c4d-4116-bded-7346a2f52fc1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Overworld Objects\Entries">
-      <UniqueIdentifier>{849dd4c3-16da-467e-8c2f-094054045d04}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Rewards\PSwitch">
-      <UniqueIdentifier>{42573f54-9ea1-4a64-9bf3-beed7f5af7b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Plants">
-      <UniqueIdentifier>{63341f1e-9830-44c8-afc7-ec297c2c1696}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Plants\Piranha">
-      <UniqueIdentifier>{d5814a15-baf1-400b-bfb1-14611c5d0862}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Plants\Pipe">
-      <UniqueIdentifier>{c5dc76e4-ee84-4d99-9aaf-9b8be40d2090}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Plants\Venus">
-      <UniqueIdentifier>{db65c0d1-4c75-4710-a1ca-ebac4028b97e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Plants\Venus\FireBalls">
-      <UniqueIdentifier>{2dd9a7a2-0108-4da9-a4b4-459671c74dcc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Effects\Rewards\QBounce">
-      <UniqueIdentifier>{c4d3ce90-7f59-4a89-af37-1d6e4f952e66}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Koopas\RedKoopas">
-      <UniqueIdentifier>{7ca5c96e-8859-444f-a961-d1b5ef11e640}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Koopas\RedKoopas\Normal">
-      <UniqueIdentifier>{5c19f46e-b3a2-4083-91f9-dce97cf9bede}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Koopas\RedKoopas\Shelled">
-      <UniqueIdentifier>{e8beadea-93d1-4e5b-b504-816bd5fb68a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\BoomBro">
-      <UniqueIdentifier>{d4ce81bb-02e5-4b1d-9260-9a0fc7b5799c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Koopas\RedKoopas\SlidingShell">
-      <UniqueIdentifier>{5ebdf351-d659-4a1a-96e6-bd3a2f15dc5b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\Bounds">
-      <UniqueIdentifier>{c22da003-d5f3-414a-b196-b66b0b84f6a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemies\BoomBro\Boomerangs">
-      <UniqueIdentifier>{e07b4248-2d89-4bf6-83a5-e10d4f65f845}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Map">
-      <UniqueIdentifier>{02ff73a2-5581-4f90-a492-a4c0af709dab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Map\Map">
-      <UniqueIdentifier>{6fbd36e3-6eac-43a8-b7bf-e87198590598}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Portals">
-      <UniqueIdentifier>{76969ef4-3118-4a37-8fbe-4ff842291530}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Portals\Portal">
-      <UniqueIdentifier>{2eecf0ac-7cc2-448a-8f38-269b503ee2c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Portals\BeginPortal">
-      <UniqueIdentifier>{9661b06a-04b9-4c29-857b-ed01e2736297}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Portals\EndPortal">
-      <UniqueIdentifier>{1f183280-ceef-42ce-8cf5-99018894c0bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Blocks">
-      <UniqueIdentifier>{60029a8e-a7fc-4440-b0c0-d02a669d24aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Blocks\SolidBlock">
-      <UniqueIdentifier>{7ac20bbf-ca32-4a23-b070-eb63f55ab485}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Blocks\GhostBlock">
-      <UniqueIdentifier>{8aed6746-8870-4ca0-8ed4-297094b9a2d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Blocks\QuestionBlock">
-      <UniqueIdentifier>{563f2876-0b4d-4f20-b379-a5dc764819d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Blocks\Void">
-      <UniqueIdentifier>{f876b03a-6867-4be2-889f-b4f3242f365b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Blocks\Music">
-      <UniqueIdentifier>{f952a62f-2cd9-4141-8b9a-458f95514e8f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Blocks\StrawCube">
-      <UniqueIdentifier>{b425ecda-de47-4f5b-a5a5-98ad59e02d5e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Blocks\BrickTypes">
-      <UniqueIdentifier>{17f5de1e-9c70-4a0f-bd4b-fc3f3a4d733d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Font">
-      <UniqueIdentifier>{05ed613f-725a-41fd-a8b3-40ea1785f8f7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Font\Text">
-      <UniqueIdentifier>{5845d546-dae8-48ec-96fe-2ab0fbe8b461}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Map\MapLayer">
-      <UniqueIdentifier>{81d8d168-a9ad-4d97-80d8-c0af613c7c56}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Libs\rapidjson">
-      <UniqueIdentifier>{463caee1-2639-4a14-89bd-664a109fe067}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Maps\World 1-3">
-      <UniqueIdentifier>{54f13d4f-58bc-4307-a0ae-aef5f0f6c313}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Grid">
-      <UniqueIdentifier>{54070891-378c-45cc-a375-cd72804f09e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Grid\Cell">
-      <UniqueIdentifier>{492783c1-ef63-4be7-bd29-91691e7f9b3e}</UniqueIdentifier>
-    </Filter>
-<<<<<<< HEAD
-    <Filter Include="Game\Effects\Effects\ScoreFx">
-      <UniqueIdentifier>{6de0c557-c148-43e8-804d-c14dd47ebc80}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scenes\Intro">
-      <UniqueIdentifier>{48f66cea-dd51-41c8-835e-1ed18058b4de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Effects\Effects\EndSceneText">
-      <UniqueIdentifier>{dec95c4f-7050-477e-ad68-c0f312ff16f0}</UniqueIdentifier>
-=======
-    <Filter Include="Game\HUD">
-      <UniqueIdentifier>{a7884730-2c0c-4d72-ac1d-f43c00c8da13}</UniqueIdentifier>
->>>>>>> b47641481dfeb1b2361eaadcf5052b51ca707217
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="Resource\Animations\MiscAnim.xml">
-      <Filter>Resources\Animations</Filter>
-    </Xml>
-    <Xml Include="Resource\Animations\MarioAnim.xml">
-      <Filter>Resources\Animations</Filter>
-    </Xml>
-    <Xml Include="Resource\Animations\EnemyAnim.xml">
-      <Filter>Resources\Animations</Filter>
-    </Xml>
     <Xml Include="Resource\GameData.xml">
       <Filter>Resources</Filter>
     </Xml>
     <Xml Include="Resource\Animations\EffectAnim.xml">
       <Filter>Resources\Animations</Filter>
     </Xml>
+    <Xml Include="Resource\Animations\EnemyAnim.xml">
+      <Filter>Resources\Animations</Filter>
+    </Xml>
     <Xml Include="Resource\Animations\IntroAnim.xml">
       <Filter>Resources\Animations</Filter>
     </Xml>
-    <Xml Include="Resource\Animations\OverworldMapAnim.xml">
+    <Xml Include="Resource\Animations\MarioAnim.xml">
       <Filter>Resources\Animations</Filter>
     </Xml>
-    <Xml Include="Resource\Animations\UiAnim.xml">
+    <Xml Include="Resource\Animations\MiscAnim.xml">
       <Filter>Resources\Animations</Filter>
-    </Xml>
-    <Xml Include="Resource\Sprites\EffectDB.xml">
-      <Filter>Resources\Sprites</Filter>
-    </Xml>
-    <Xml Include="Resource\Sprites\EnemyDB.xml">
-      <Filter>Resources\Sprites</Filter>
-    </Xml>
-    <Xml Include="Resource\Sprites\IntroDB.xml">
-      <Filter>Resources\Sprites</Filter>
     </Xml>
     <Xml Include="Resource\Sprites\MarioDB.xml">
       <Filter>Resources\Sprites</Filter>
@@ -962,25 +617,40 @@
     <Xml Include="Resource\Sprites\MiscDB.xml">
       <Filter>Resources\Sprites</Filter>
     </Xml>
-    <Xml Include="Resource\Sprites\OverworldMapDB.xml">
+    <Xml Include="Resource\Sprites\IntroDB.xml">
       <Filter>Resources\Sprites</Filter>
-    </Xml>
-    <Xml Include="Resource\Sprites\UiDB.xml">
-      <Filter>Resources\Sprites</Filter>
-    </Xml>
-    <Xml Include="Resource\Scenes\Intro.xml">
-      <Filter>Resources\Scenes</Filter>
     </Xml>
     <Xml Include="Resource\Scenes\Overworld.xml">
-      <Filter>Resources\Scenes</Filter>
-    </Xml>
-    <Xml Include="Resource\Scenes\World1-1.xml">
       <Filter>Resources\Scenes</Filter>
     </Xml>
     <Xml Include="Resource\Scenes\World1-3.xml">
       <Filter>Resources\Scenes</Filter>
     </Xml>
+    <Xml Include="Resource\Sprites\OverworldMapDB.xml">
+      <Filter>Resources\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resource\Animations\OverworldMapAnim.xml">
+      <Filter>Resources\Animations</Filter>
+    </Xml>
+    <Xml Include="Resource\Sprites\EffectDB.xml">
+      <Filter>Resources\Sprites</Filter>
+    </Xml>
     <Xml Include="Resource\Scenes\demo.xml">
+      <Filter>Resources\Scenes</Filter>
+    </Xml>
+    <Xml Include="Resource\Sprites\UiDB.xml">
+      <Filter>Resources\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resource\Animations\UiAnim.xml">
+      <Filter>Resources\Animations</Filter>
+    </Xml>
+    <Xml Include="Resource\Scenes\World1-1.xml">
+      <Filter>Resources\Scenes</Filter>
+    </Xml>
+    <Xml Include="Resource\Sprites\EnemyDB.xml">
+      <Filter>Resources\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resource\Scenes\Intro.xml">
       <Filter>Resources\Scenes</Filter>
     </Xml>
   </ItemGroup>
@@ -1003,10 +673,10 @@
     <Image Include="Resource\Textures\effect_white_254_x3.png">
       <Filter>Resources\Textures</Filter>
     </Image>
-    <Image Include="Resource\Textures\enemy.png">
+    <Image Include="Resource\Textures\enemy_white.png">
       <Filter>Resources\Textures</Filter>
     </Image>
-    <Image Include="Resource\Textures\enemy_white.png">
+    <Image Include="Resource\Textures\enemy.png">
       <Filter>Resources\Textures</Filter>
     </Image>
     <Image Include="Resource\Textures\fire-ball.png">
@@ -1030,9 +700,6 @@
     <Image Include="Resource\Textures\items.png">
       <Filter>Resources\Textures</Filter>
     </Image>
-    <Image Include="Resource\Textures\mario.png">
-      <Filter>Resources\Textures</Filter>
-    </Image>
     <Image Include="Resource\Textures\misc_x3.png">
       <Filter>Resources\Textures</Filter>
     </Image>
@@ -1048,6 +715,9 @@
     <Image Include="Resource\Textures\test-box.png">
       <Filter>Resources\Textures</Filter>
     </Image>
+    <Image Include="Resource\Textures\mario.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
     <Image Include="Resource\Textures\ui.png">
       <Filter>Resources\Textures</Filter>
     </Image>
@@ -1060,13 +730,318 @@
       <Filter>Resources\Textures</Filter>
     </None>
     <None Include="Resource\Map\World1-1\world-1-1-map-obj.tmx">
-      <Filter>Resources\Maps\World 1-1</Filter>
-    </None>
-    <None Include="Resource\Map\Overworld\overworld-1-map.tmx">
-      <Filter>Resources\Maps\WorldScene</Filter>
+      <Filter>Resources\Maps</Filter>
     </None>
     <None Include="Resource\Map\World1-1\world-1-3-map.tmx">
-      <Filter>Resources\Maps\World 1-3</Filter>
+      <Filter>Resources\Maps</Filter>
     </None>
+    <None Include="Resource\Map\Overworld\overworld-1-map.tmx">
+      <Filter>Resources\Maps</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Game">
+      <UniqueIdentifier>{b02e0adb-51cd-4d24-bbb1-e8d4b45c3fb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{13078d09-788b-41ed-b6ed-ff1573f3e6fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{cbf7cf4e-0759-4498-bd69-060f33644db2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Textures">
+      <UniqueIdentifier>{ef88e44e-ccfa-46e7-a2e4-08d87b819993}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Animations">
+      <UniqueIdentifier>{7de84229-ef93-44a9-90f4-5954dcfbe50b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Sprites">
+      <UniqueIdentifier>{f5bcb233-817e-4abf-97e7-aa361c68dce7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Scenes">
+      <UniqueIdentifier>{0c30a6ce-82cc-4370-9bd8-3fc2a20d511c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Maps">
+      <UniqueIdentifier>{9a9b917c-4849-4faf-8f47-31bd188be3f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario">
+      <UniqueIdentifier>{08d26b72-58fc-47f5-b297-491abab8354b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\MFire">
+      <UniqueIdentifier>{a72c9c72-b29c-4c5e-9de4-b077105dd289}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\MRacoon">
+      <UniqueIdentifier>{9701c207-c49d-4bea-8c40-c28da9e612b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\MBig">
+      <UniqueIdentifier>{f597a79d-eeaa-415f-8ad4-4d1a7da7f760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\MSmall">
+      <UniqueIdentifier>{1166db61-b19f-45f7-8fff-757cd00107d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics">
+      <UniqueIdentifier>{d4a13512-7857-4345-9d43-c7860be5879d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\Animations">
+      <UniqueIdentifier>{afbe29a6-97be-4a51-89d2-cb7a27cff8ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\Sprites">
+      <UniqueIdentifier>{b5ca700d-33fc-414c-9e26-4d5d0d6f3b38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\Textures">
+      <UniqueIdentifier>{43fd8e2d-7da0-45a6-b6e0-22152866e054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Portals">
+      <UniqueIdentifier>{c3e5037b-e8e1-4541-aad3-e9c93c694987}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Portals\BeginPortals">
+      <UniqueIdentifier>{28ed54ce-44bd-434d-9f50-82ec36e5f44d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies">
+      <UniqueIdentifier>{c24abd59-d3d2-48e7-95cb-1eb3c96b5e9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Boombro">
+      <UniqueIdentifier>{c74d19ae-00db-4140-8454-9e973cdbff15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks">
+      <UniqueIdentifier>{edf2ee60-6cb0-4517-aa2a-9b6b421459ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Goombas">
+      <UniqueIdentifier>{b0d743ea-8875-4eae-a852-6f7b9d185661}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas">
+      <UniqueIdentifier>{0cdad5c3-9938-4ca4-8187-b93175cba2e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\RedGoombas">
+      <UniqueIdentifier>{4d9f1f85-5618-4d86-bf99-f69e5758ba8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects">
+      <UniqueIdentifier>{3440097e-3046-440f-a5a4-a047da69f5b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\Brick">
+      <UniqueIdentifier>{2e3f08d1-6ba2-416d-a1c3-69585cd04cf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Camera">
+      <UniqueIdentifier>{075740d0-caac-4992-b5d1-2ee7d8c40640}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Grid">
+      <UniqueIdentifier>{ba6dd51b-048b-4679-aa55-a50335d3904f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Rewards">
+      <UniqueIdentifier>{40e259a9-5ca3-4b61-8c2b-5402f7ad9aee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Rewards\Coin">
+      <UniqueIdentifier>{4f701931-e3ab-4a55-96b4-c4e7022b6bff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Rewards\Leaf">
+      <UniqueIdentifier>{8173a868-eb49-431f-8666-f86651957821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Rewards\GreenMush">
+      <UniqueIdentifier>{d2e921fe-d720-45c7-8d9c-cc47dbae46f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Rewards\EndCard">
+      <UniqueIdentifier>{657f9925-a090-4d4a-8fd2-fcf7ed14e8f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Base">
+      <UniqueIdentifier>{f5abf247-586a-460b-9836-c9bef5e60934}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX">
+      <UniqueIdentifier>{8cbcfec7-e88b-4b96-aad4-79c9f84772a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Portals\EndPortals">
+      <UniqueIdentifier>{129880c8-464e-43ef-a4d1-de77e8ef3a42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\EndSceneTxt">
+      <UniqueIdentifier>{b7970468-a932-485f-b071-570bb8c54fe1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\CoinBrick">
+      <UniqueIdentifier>{5ef715d7-30d1-45d2-b51f-d5b3cc9f1e95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scenes">
+      <UniqueIdentifier>{9b425126-2a26-4379-aa7b-315ad69c2b70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scenes\PlayScene">
+      <UniqueIdentifier>{e130b228-8110-4b76-b5aa-e4f8748490da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scenes\WorldScene">
+      <UniqueIdentifier>{f23ab38f-ff69-4ae3-ba11-e412800a32a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameObj">
+      <UniqueIdentifier>{40d07c26-bf25-42bf-a3d0-ce697c8d873a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game">
+      <UniqueIdentifier>{494b6841-8560-427e-9653-a02fcf064c05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Libs">
+      <UniqueIdentifier>{bb74a139-833b-49c1-8137-89b53b34fe7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Libs\tinyxml">
+      <UniqueIdentifier>{d5e4ba01-50f8-4363-98a8-296d5924e3c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Libs\rapidjson">
+      <UniqueIdentifier>{6fac95d8-2d06-4cd9-aa56-d927f61af6a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Font">
+      <UniqueIdentifier>{3cf157ce-3da2-466c-afb5-34dc6cf6d4a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\FlyingCard">
+      <UniqueIdentifier>{200b72ca-23c9-4462-abb7-14609d2f7a17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Overworld">
+      <UniqueIdentifier>{9c3033fe-976d-4f09-92e3-15513159eede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Keyboard">
+      <UniqueIdentifier>{84767c5d-0726-4533-9688-7460dfae890c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\HUD">
+      <UniqueIdentifier>{6216bb4a-4c4c-436b-a580-b9ba674f18c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Map">
+      <UniqueIdentifier>{91cb4534-b733-47f9-9d03-7996c5c93d85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\DieFx">
+      <UniqueIdentifier>{cb183147-3def-44ba-b2a3-341dd6eac33f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\TransFx">
+      <UniqueIdentifier>{6db9aa3c-a56a-46a9-aeaa-44249a98e1fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\RewardFx">
+      <UniqueIdentifier>{e6137e67-d26d-4b63-a0d8-e1dade300584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\BrickBreak">
+      <UniqueIdentifier>{79d0aaa1-8a3f-47b9-a481-e262d307ec2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Intro">
+      <UniqueIdentifier>{c914add2-e869-4519-8415-a9bbb09699ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\Music">
+      <UniqueIdentifier>{2c274614-d93c-4cee-b271-eaf7c1d6643f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\Green">
+      <UniqueIdentifier>{c06a7a7c-6ed8-4b12-87cf-3eccbc0ec6f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\Red">
+      <UniqueIdentifier>{98f3733f-9fff-4d7d-8eb6-2ca777a782fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\RedGoombas\States">
+      <UniqueIdentifier>{e632764d-a127-4a3e-8533-560649942dc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\Pipe">
+      <UniqueIdentifier>{0d366167-ca35-40c3-a858-ef93b79a0336}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayerData">
+      <UniqueIdentifier>{55b5c709-7376-4efa-bbd6-6b61ab374854}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\TransFx\Poof">
+      <UniqueIdentifier>{5bf18e0e-52c9-41a5-b2a5-394b04d5a60c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\TransFx\Trans">
+      <UniqueIdentifier>{791010d2-1971-49b8-bb79-e08a216cfb8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Mario\MRacoon\Tail">
+      <UniqueIdentifier>{7aeff986-b735-4d2a-882e-f6894c95b257}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\Red\Normal">
+      <UniqueIdentifier>{1d134fdd-2658-4928-852e-5c12965b2276}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\Red\Shell">
+      <UniqueIdentifier>{bca369c3-452a-4227-9500-b75ef4a5cad8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\RedGoombas\States\Normal">
+      <UniqueIdentifier>{ce15eb95-1e9e-4750-82c3-57b53dd9a1ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\Red\Sliding">
+      <UniqueIdentifier>{da0b9709-3501-45bf-b8be-895651a89af0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Scene">
+      <UniqueIdentifier>{ef07135a-83aa-4b13-8743-f4bc6d9d5042}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\Green\Normal">
+      <UniqueIdentifier>{0a87b3af-8158-42fe-94f5-95a8ee6a1ff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\Green\Sliding">
+      <UniqueIdentifier>{4ffe66aa-45f2-43c2-95d7-0cd4a2fa71f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\Green\Winged">
+      <UniqueIdentifier>{c8ac3330-c88e-4eb5-bb8c-555a89ed3cc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Koopas\Green\Shell">
+      <UniqueIdentifier>{31f90435-027e-43b9-98fc-45a2b3ef33b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Venus">
+      <UniqueIdentifier>{a78647ee-4dbb-4338-8c20-71b224709d66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\TransFx\ToBig">
+      <UniqueIdentifier>{511cf852-45fa-41f3-947b-f491876edeaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\TransFx\ToSmall">
+      <UniqueIdentifier>{fa92e700-7bef-4228-9656-0da869daf51b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\TransFx\StarWhipTail">
+      <UniqueIdentifier>{f6b8ebfc-7b61-4fec-b5b7-cda5092bb858}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\RewardFx\Score">
+      <UniqueIdentifier>{35d88071-4f5a-455d-8013-852766088e20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\RewardFx\Money">
+      <UniqueIdentifier>{66eba7b7-bfee-4455-871d-78ac6a1815e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\StrawCube">
+      <UniqueIdentifier>{4958e93f-d710-49f0-8752-39cad336cc5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\QuestionBlock">
+      <UniqueIdentifier>{a1bc3c1c-83dd-41e9-ae13-518ae3b6bdb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\RedGoombas\States\Winged">
+      <UniqueIdentifier>{1c18bab3-d943-4f24-92ea-ba6e9ab9f380}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Libs\Utils">
+      <UniqueIdentifier>{4537f84b-c1ee-46cf-8425-c236dcf48635}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\Stills">
+      <UniqueIdentifier>{b03f0c87-fa6f-467d-a448-53afe8a26ec0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\Stills\Void">
+      <UniqueIdentifier>{e8749ae4-4ff4-436c-bb20-a0af4eea6a75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\Stills\Bounds">
+      <UniqueIdentifier>{10dc94f7-c703-4c10-a4c4-a12b090553dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\Stills\Ghost">
+      <UniqueIdentifier>{3d3d4b2b-3922-4e05-aeb4-04109772c69f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Blocks\Stills\Solid">
+      <UniqueIdentifier>{49388024-bf43-4220-9f7b-bfe0601f9fb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Overworld\Entries">
+      <UniqueIdentifier>{842c8a03-4baf-48ec-9de8-8ca7cb67dcfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Overworld\MapEntry">
+      <UniqueIdentifier>{6298a0c3-f08f-4a18-9ea1-d81ee9863d53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Overworld\Mario">
+      <UniqueIdentifier>{c81728c0-f061-4e6f-8590-33e58779889b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\TreesFx">
+      <UniqueIdentifier>{ff0ad8b1-df13-4f5f-83ac-1157e30c963c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Map\Map">
+      <UniqueIdentifier>{b041d78d-1f9a-432c-8226-333402b68faa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Map\MapLayers">
+      <UniqueIdentifier>{b00ca7ae-c510-4c92-a0df-6d1588a27bd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Rewards\PSwitch">
+      <UniqueIdentifier>{1b745cdc-d537-470c-bc5a-a75fcf7ca437}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Portals\CPortal">
+      <UniqueIdentifier>{4def0420-8b6f-483f-906f-d5ffb536ad3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\TreesFx\QBB">
+      <UniqueIdentifier>{1da06b02-f04c-4cfa-b7c1-ddaf19c84311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\TreesFx\JigglyTrees">
+      <UniqueIdentifier>{f8f18199-3c1e-45f5-97e9-629db63b7486}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

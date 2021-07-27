@@ -101,6 +101,7 @@ void CoinBrick::BehaviorUpdate(DWORD dt)
 
 					pd->SetScore(pd->GetScore() + 100);
 					pd->SetCoins(pd->GetCoins() + 1);
+					EffectVault::GetInstance()->AddEffect(new ScoreFx("100", x, y));
 				}
 			}
 		}

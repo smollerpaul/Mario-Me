@@ -232,7 +232,8 @@ void CMario::OnKeyDown(int keyCode)
 		break;
 
 	case DIK_6:
-		SetPosition(912, 1583);
+		//see flying koopas
+		SetPosition(3668, 1052);
 		break;
 
 	case DIK_7:
@@ -248,8 +249,8 @@ void CMario::OnKeyDown(int keyCode)
 	}
 	break;
 	case DIK_8:
-		//test music note
-		SetPosition(2112, 985);
+		//test music note / fly
+		SetPosition(2112, 956);
 		break;
 
 	case DIK_9:

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="25" nextobjectid="412">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="25" nextobjectid="419">
  <editorsettings>
   <chunksize width="8" height="8"/>
   <export target="world-1-1-map.xml" format="tmx"/>
@@ -512,7 +512,7 @@
    </properties>
    <point/>
   </object>
-  <object id="369" type="QuestionBlock" x="480.534" y="1056">
+  <object id="369" type="QuestionBlock" x="480" y="1056">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:1,&quot;y&quot;:3},{&quot;x&quot;:2,&quot;y&quot;:3}]"/>
    </properties>
@@ -890,7 +890,7 @@
    </properties>
    <point/>
   </object>
-  <object id="356" type="Spawner" x="4304" y="1194.33">
+  <object id="356" type="Spawner" x="5954" y="1037.33">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="Koopas"/>
@@ -901,7 +901,7 @@
    </properties>
    <point/>
   </object>
-  <object id="358" type="Spawner" x="525.33" y="1152.17">
+  <object id="358" type="Spawner" x="638.663" y="1150.17">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="Goomba"/>
@@ -980,5 +980,23 @@
   </object>
   <object id="403" type="KoopasBound" x="1530" y="1104" width="6" height="48"/>
   <object id="404" type="KoopasBound" x="1824.09" y="1104" width="6" height="48"/>
+  <object id="412" type="KoopasBound" x="5896.5" y="1055.5" width="6" height="48"/>
+  <object id="413" type="KoopasBound" x="6049" y="1054.5" width="6" height="48"/>
+  <object id="414" type="KoopasBound" x="5900.82" y="812.818" width="6" height="48"/>
+  <object id="415" type="KoopasBound" x="6045.5" y="814.333" width="6" height="48"/>
+  <object id="417" type="Spawner" x="5944" y="797.333">
+   <properties>
+    <property name="AutoSpawn" type="bool" value="false"/>
+    <property name="EntityType" value="Koopas"/>
+    <property name="Grid" value="[{&quot;x&quot;:16,&quot;y&quot;:4}]"/>
+    <property name="RespawnLimit" type="int" value="999"/>
+    <property name="SpawnDelay" type="int" value="2000"/>
+    <property name="SpawnLimit" type="int" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="418" x="3668" y="1052">
+   <point/>
+  </object>
  </objectgroup>
 </map>

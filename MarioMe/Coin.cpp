@@ -72,17 +72,11 @@ void Coin::BehaviorUpdate(DWORD dt)
 		if (nx != 0) {
 			SetAlive(0);
 			pd->SetCoins(pd->GetCoins() + 1);
-			pd->SetScore(pd->GetScore() + 100);
-			EffectVault::GetInstance()->AddEffect(new ScoreFx("100", x, y));
-
 		}
 			
 		if (ny != 0) {
 			SetAlive(0);
 			pd->SetCoins(pd->GetCoins() + 1);
-			pd->SetScore(pd->GetScore() + 100);
-			EffectVault::GetInstance()->AddEffect(new ScoreFx("100", x, y));
-
 		}
 	}
 	

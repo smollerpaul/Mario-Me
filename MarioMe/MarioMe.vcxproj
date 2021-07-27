@@ -182,6 +182,10 @@
     <ClCompile Include="ScoreFx.cpp" />
     <ClCompile Include="StrawCube.cpp" />
     <ClCompile Include="Text.cpp" />
+    <ClCompile Include="tinyXML\tinystr.cpp" />
+    <ClCompile Include="tinyXML\tinyxml.cpp" />
+    <ClCompile Include="tinyXML\tinyxmlerror.cpp" />
+    <ClCompile Include="tinyXML\tinyxmlparser.cpp" />
     <ClCompile Include="Venus.cpp" />
     <ClCompile Include="VenusFireBall.cpp" />
     <ClCompile Include="WorldScene.cpp" />
@@ -205,10 +209,6 @@
     <ClCompile Include="SolidBlock.cpp" />
     <ClCompile Include="StarWhipTail.cpp" />
     <ClCompile Include="SweptAABB.cpp" />
-    <ClCompile Include="tinyXML\tinystr.cpp" />
-    <ClCompile Include="tinyXML\tinyxml.cpp" />
-    <ClCompile Include="tinyXML\tinyxmlerror.cpp" />
-    <ClCompile Include="tinyXML\tinyxmlparser.cpp" />
     <ClCompile Include="ToBigMario.cpp" />
     <ClCompile Include="ToSmallMario.cpp" />
     <ClCompile Include="Utils.cpp" />
@@ -293,6 +293,8 @@
     <ClInclude Include="ScoreFx.h" />
     <ClInclude Include="StrawCube.h" />
     <ClInclude Include="Text.h" />
+    <ClInclude Include="tinyXML\tinystr.h" />
+    <ClInclude Include="tinyXML\tinyxml.h" />
     <ClInclude Include="Venus.h" />
     <ClInclude Include="VenusFireBall.h" />
     <ClInclude Include="WorldScene.h" />
@@ -315,8 +317,6 @@
     <ClInclude Include="SmallMario.h" />
     <ClInclude Include="SolidBlock.h" />
     <ClInclude Include="StarWhipTail.h" />
-    <ClInclude Include="tinyXML\tinystr.h" />
-    <ClInclude Include="tinyXML\tinyxml.h" />
     <ClInclude Include="ToBigMario.h" />
     <ClInclude Include="ToSmallMario.h" />
     <ClInclude Include="Utils.h" />
