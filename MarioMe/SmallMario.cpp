@@ -391,6 +391,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 					pd->SetScore(pd->GetScore() + 100);
+					EffectVault::GetInstance()->AddEffect(new ScoreFx("100", master->x, master->y));
 				}
 
 				if (e->nx != 0) {
@@ -442,7 +443,8 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
-					pd->SetScore(pd->GetScore() + 100);
+					pd->SetScore(pd->GetScore() + 200);
+					EffectVault::GetInstance()->AddEffect(new ScoreFx("200", master->x, master->y));
 				}
 				else if (e->nx != 0) {
 					if (master->state != MARIO_STATE_DIE)
@@ -459,6 +461,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 					pd->SetScore(pd->GetScore() + 100);
+					EffectVault::GetInstance()->AddEffect(new ScoreFx("100", master->x, master->y));
 				}
 				else if (e->nx != 0) {
 					if (master->state != MARIO_STATE_DIE)
@@ -503,6 +506,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 					pd->SetScore(pd->GetScore() + 100);
+					EffectVault::GetInstance()->AddEffect(new ScoreFx("100", master->x, master->y));
 				}
 				else if (e->nx != 0 || e->ny > 0) {
 					if (master->state != MARIO_STATE_DIE)
@@ -519,6 +523,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 					pd->SetScore(pd->GetScore() + 100);
+					EffectVault::GetInstance()->AddEffect(new ScoreFx("100", master->x, master->y));
 				}
 				else if (e->nx != 0 || e->ny > 0) {
 					if (master->state != MARIO_STATE_DIE)
@@ -564,7 +569,8 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 
 				if (e->ny < 0) {
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
-					pd->SetScore(pd->GetScore() + 100);
+					pd->SetScore(pd->GetScore() + 200);
+					EffectVault::GetInstance()->AddEffect(new ScoreFx("200", master->x, master->y));
 				}
 				else if (e->nx != 0 || e->ny > 0) {
 					if (master->state != MARIO_STATE_DIE)
@@ -612,6 +618,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 
 					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
 					pd->SetScore(pd->GetScore() + 100);
+					
 				}
 			}
 			break;
@@ -622,9 +629,11 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 
 				if (e->nx != 0 || e->ny != 0) {
 					pd->SetScore(pd->GetScore() + 100);
+					EffectVault::GetInstance()->AddEffect(new ScoreFx("100", master->x, master->y));
 					master->StartUntouchable();
 					master->visible = 0;
 					powerUpMushroom = 1;
+
 					EffectVault::GetInstance()->AddEffect(new ToBigMario(master->x, master->y -35, MARIO_UNTOUCHABLE_TIME));
 				}
 			}

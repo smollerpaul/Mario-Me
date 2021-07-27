@@ -259,6 +259,14 @@
     <ClCompile Include="Cell.cpp">
       <Filter>Framework\Grid\Cell</Filter>
     </ClCompile>
+    <ClCompile Include="ScoreFx.cpp">
+      <Filter>Game\Effects\Effects\ScoreFx</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickBreak.cpp" />
+    <ClCompile Include="GameTitle.cpp" />
+    <ClCompile Include="EndSceneText.cpp">
+      <Filter>Game\Effects\Effects\EndSceneText</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -561,6 +569,14 @@
     <ClInclude Include="Cell.h">
       <Filter>Framework\Grid\Cell</Filter>
     </ClInclude>
+    <ClInclude Include="ScoreFx.h">
+      <Filter>Game\Effects\Effects\ScoreFx</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickBreak.h" />
+    <ClInclude Include="GameTitle.h" />
+    <ClInclude Include="EndSceneText.h">
+      <Filter>Game\Effects\Effects\EndSceneText</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -860,9 +876,6 @@
     <Filter Include="Game\Blocks\BrickTypes">
       <UniqueIdentifier>{17f5de1e-9c70-4a0f-bd4b-fc3f3a4d733d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Text">
-      <UniqueIdentifier>{26c174eb-3e6b-44d9-b8ae-57a08daf9658}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\Font">
       <UniqueIdentifier>{05ed613f-725a-41fd-a8b3-40ea1785f8f7}</UniqueIdentifier>
     </Filter>
@@ -883,6 +896,15 @@
     </Filter>
     <Filter Include="Framework\Grid\Cell">
       <UniqueIdentifier>{492783c1-ef63-4be7-bd29-91691e7f9b3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects\ScoreFx">
+      <UniqueIdentifier>{6de0c557-c148-43e8-804d-c14dd47ebc80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scenes\Intro">
+      <UniqueIdentifier>{48f66cea-dd51-41c8-835e-1ed18058b4de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Effects\EndSceneText">
+      <UniqueIdentifier>{dec95c4f-7050-477e-ad68-c0f312ff16f0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

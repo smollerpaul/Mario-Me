@@ -11,8 +11,11 @@ void FlyingCard::Update(DWORD dt)
 	y -= flyUpSpeed * dt;
 
 	aliveTimerCount += dt;
-	if (aliveTimerCount >= aliveTime)
+	if (aliveTimerCount >= aliveTime) {
 		alive = 0;
+		CGame::GetInstance()->GetCurrentScene()->marioWalkStart=1;
+	}
+		
 }
 
 void FlyingCard::Render()

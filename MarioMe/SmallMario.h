@@ -31,6 +31,7 @@
 #include "MusicNote.h"
 #include "BeginPortal.h"
 #include "EndPortal.h"
+#include "ScoreFx.h"
 
 #include "FlyingCard.h"
 #include "MarioDieFx.h"

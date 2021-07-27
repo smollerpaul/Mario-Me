@@ -124,8 +124,11 @@ void Leaf::BehaviorUpdate(DWORD dt)
         {
             CMario* mario = dynamic_cast<CMario*>(e->obj);
             if (e->ny != 0 || e->nx != 0) {
-                if(alive!=0)
-                   SetAlive(0);
+                if (alive != 0) {
+                    SetAlive(0);
+                    PlayerData* pd = PlayerData::GetInstance();
+                    EffectVault::GetInstance()->AddEffect(new ScoreFx("1UP", x, y));
+                }  
             }
         }
         break;

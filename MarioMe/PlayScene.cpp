@@ -8,6 +8,7 @@
 #include "Text.h"
 #include "Game.h"
 #include "Grid.h"
+#include "EndSceneText.h"
 
 using namespace std;
 
@@ -21,20 +22,52 @@ void CPlayScene::Update(DWORD dt)
 {
 	PlayerData* pd = PlayerData::GetInstance();
 
+#pragma region EndSceneUpdate
+	//end scene text
+	if (showTextStart == 1 && textShown==0) {
+		EffectVault::GetInstance()->AddEffect(new EndSceneText(7857, 814));
+		showTextStart = 0;
+		return;
+	}
+
+	if (textShown == 1) {
+		CGame::GetInstance()->SwitchScene("overworld");
+		return;
+	}
+
+	//walk end mario
+	if (marioWalkStart == 1) {
+		player->SetState(MARIO_STATE_WALK);
+		walkOutTimer += dt;
+
+		if (walkOutTimer >= 2000) {
+			marioWalkStart = 0;
+			showTextStart = 1;
+		
+			return;
+
+		}
+	}
+
+	//die case
 	if (EffectVault::GetInstance()->GetMarioIsDead() == 1) {
 		int pl = pd->GetPlayerLives();
 		if (pl > 0)
 			pd->SetPlayerLives(pl - 1);
 		else pd->ResetAll();
 
-		CGame::GetInstance()->SwitchScene("overworld");
 		EffectVault::GetInstance()->SetMarioIsDead(0);
-
+		CGame::GetInstance()->SwitchScene("overworld");
 		return;
 	}
+
+#pragma endregion
+
+#pragma region EndSceneUpdate
+
 	vector<LPGAMEOBJECT> coObjects;
 
-	if (player->state != MARIO_STATE_DIE) {
+	if (player->state != MARIO_STATE_DIE && player) {
 		coObjects.push_back(player);
 	}
 
@@ -42,8 +75,7 @@ void CPlayScene::Update(DWORD dt)
 	{
 		coObjects.push_back(objects[i]);
 	}
-	//player update must be called separately
-	// movement update 
+	
 	player->Update(dt);
 
 	for (size_t i = 0; i < objects.size(); i++)
@@ -79,6 +111,7 @@ void CPlayScene::Update(DWORD dt)
 	RemoveObject();
 
 	pd->UpdateGameTime(dt);
+#pragma endregion
 
 	//DebugOut(L"[SCORE]: %d  [COINS]: %d  [Time left]: %f \n ", pd->GetScore(), pd->GetCoins(), pd->GetGameTime());
 }
@@ -90,8 +123,10 @@ void CPlayScene::Render()
 	this->map->Render();
 	vector<LPGAMEOBJECT> renderObjects;
 	renderObjects.push_back(player);
-	//renderObjects.push_back(startText);
-
+	if (startText != nullptr && endText != nullptr) {
+		renderObjects.push_back(startText);
+		renderObjects.push_back(endText);
+	}
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		renderObjects.push_back(objects[i]);
@@ -108,7 +143,6 @@ void CPlayScene::Render()
 
 	EffectVault::GetInstance()->Render();
 
-	//startText->Render();
 	/*for (int i = 0; i < coObjects.size(); i++) {
 		coObjects[i]->RenderBoundingBox();
 	}*/
@@ -193,11 +227,7 @@ void CPlayScene::Load()
 
 	PlayerData::GetInstance()->ResetGameTime();
 
-	/*startText = new Text();
-	startText->SetFont(CGame::GetInstance()->GetFontSet());
-	startText->SetContent("COURSE CLEAR THANKYOU! ");
-	startText->SetPosition(145, 1056);*/
-
+	
 }
 
 int CPlayScene::GetSceneType()
@@ -205,5 +235,20 @@ int CPlayScene::GetSceneType()
 	return SceneType;
 }
 
+void CPlayScene::PlaySceneEnd(DWORD dt)
+{
+	startText = new Text();
+	startText->SetFont(CGame::GetInstance()->GetFontSet());
+	startText->SetContent("COURSE CLEAR !");
+	startText->SetPosition(7857, 814);
+
+	endText = new Text();
+	endText->SetFont(CGame::GetInstance()->GetFontSet());
+	endText->SetContent("YOU GOT A CARD");
+	endText->SetPosition(7857, 902);
+
+	//release player control
+	//player walk out
+}
 
 

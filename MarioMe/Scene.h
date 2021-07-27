@@ -19,10 +19,15 @@ protected:
 	GameMap* map = NULL;
 	Grid* grid = nullptr;
 
-
 public: 
-
 	int pSwitchActivated = 0;
+
+	int showTextStart = 0;
+	int marioWalkStart = 0;
+	int textShown = 0;
+
+	int marioFinishLevel = 0;
+
 	CScene();
 	CScene(string id, string filePath);
 	virtual void LoadMapObjects(string objectName, vector< D3DXVECTOR2> cells, float x, float y, float width, float height);
@@ -34,7 +39,7 @@ public:
 	virtual void OnKeyUp(int KeyCode) = 0;
 	virtual void LoadMapEntries(float xPos, float yPos, int nodeID, string sceneID,
 		string checkedSprite, string uncheckedSprite,
-		string adjList, string adjWeight,int worldNumber, bool isStartPos);
+		string adjList, string adjWeight, int worldNumber, bool isStartPos);
 
 	virtual void LoadBackground(float xPos, float yPos);
 	virtual void LoadSpecialObject(string objectType, vector< D3DXVECTOR2> cells, float xPos, float yPos, float width, float height, int length = 0, int type = 0, int direction = 0,
@@ -46,11 +51,12 @@ public:
 	void SetCamera(Camera* camera);
 	void AddObject(CGameObject* obj);
 	void RemoveObject();
+	
 	virtual void LoadGrid(int col, int row, int cellW, int cellH);
 	Grid* GetGrid();
+	
 
-
-	virtual int GetSceneType()=0;
+	virtual int GetSceneType() = 0;
 };
 typedef CScene * LPSCENE;
 

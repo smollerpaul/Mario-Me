@@ -140,6 +140,7 @@
     <ClCompile Include="BoomBro.cpp" />
     <ClCompile Include="Boomerang.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="BrickBreak.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Coin.cpp" />
@@ -149,12 +150,14 @@
     <ClCompile Include="EffectVault.cpp" />
     <ClCompile Include="EndCard.cpp" />
     <ClCompile Include="EndPortal.cpp" />
+    <ClCompile Include="EndSceneText.cpp" />
     <ClCompile Include="Entries.cpp" />
     <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="FireMario.cpp" />
     <ClCompile Include="FlyingCard.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="GameLoad.cpp" />
+    <ClCompile Include="GameTitle.cpp" />
     <ClCompile Include="GhostBlock.cpp" />
     <ClCompile Include="GreenMushroom.cpp" />
     <ClCompile Include="Grid.cpp" />
@@ -175,6 +178,7 @@
     <ClCompile Include="RedNormalKoopas.cpp" />
     <ClCompile Include="RedShelledKoopas.cpp" />
     <ClCompile Include="RedSlidingShell.cpp" />
+    <ClCompile Include="ScoreFx.cpp" />
     <ClCompile Include="StrawCube.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Venus.cpp" />
@@ -228,6 +232,7 @@
     <ClInclude Include="BoomBro.h" />
     <ClInclude Include="Boomerang.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="BrickBreak.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Coin.h" />
@@ -236,12 +241,14 @@
     <ClInclude Include="EffectVault.h" />
     <ClInclude Include="EndCard.h" />
     <ClInclude Include="EndPortal.h" />
+    <ClInclude Include="EndSceneText.h" />
     <ClInclude Include="EnemiesConstants.h" />
     <ClInclude Include="Entries.h" />
     <ClInclude Include="FireBall.h" />
     <ClInclude Include="FireMario.h" />
     <ClInclude Include="FlyingCard.h" />
     <ClInclude Include="Font.h" />
+    <ClInclude Include="GameTitle.h" />
     <ClInclude Include="GhostBlock.h" />
     <ClInclude Include="GreenMushroom.h" />
     <ClInclude Include="Grid.h" />
@@ -281,6 +288,7 @@
     <ClInclude Include="RedNormalKoopas.h" />
     <ClInclude Include="RedShelledKoopas.h" />
     <ClInclude Include="RedSlidingShell.h" />
+    <ClInclude Include="ScoreFx.h" />
     <ClInclude Include="StrawCube.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Venus.h" />

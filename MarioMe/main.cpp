@@ -21,6 +21,8 @@
 #define SCREEN_WIDTH_MAP 769
 #define SCREEN_HEIGHT_MAP 721
 
+
+
 #define SCREEN_WIDTH 769
 #define SCREEN_HEIGHT 579
 
@@ -66,7 +68,7 @@ void Render()
 
 	game->SetViewport(new RECT{ 0, CAM_HEIGHT_SIZE, CAM_WIDTH_SIZE, SCREEN_HEIGHT_MAP });
 
-	d3ddv->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 185, 0), 1.0f, 0);
+	d3ddv->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
 	spriteHandler->End();
 	d3ddv->EndScene();

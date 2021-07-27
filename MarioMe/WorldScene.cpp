@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "MapEntry.h"
 #include "OverworldTrees.h"
+#include "PlayScene.h"
 
 //switch scene faulty
 WorldScene::WorldScene(string id, string filePath) :CScene(id, filePath)
@@ -15,7 +16,7 @@ void WorldScene::Load()
 {
 	player = new MapMario();
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", ToLPCWSTR(sceneFilePath));
-
+	Camera* camera = new Camera();
 	TiXmlDocument doc(sceneFilePath.c_str());
 
 	if (doc.LoadFile()) {
@@ -33,16 +34,13 @@ void WorldScene::Load()
 		region->QueryFloatAttribute("right", &camWidth);
 		region->QueryFloatAttribute("bottom", &camHeight);
 
-		//DebugOut(L"done cam load  %f  %f %f %f  \n", camStartX, camStartY, camWidth, camHeight);
-
 		doc.Clear();
 	}
 
-	Camera* camera = new Camera();
 	camera->SetSize(camWidth, camHeight);
-	camera->SetPosition(camStartX, camStartY);
+	camera->SetViewPort(0, 0, CAM_WIDTH_SIZE, CAM_HEIGHT_SIZE);
+	//camera->SetPosition(camStartX, camStartY);
 	SetCamera(camera);
-
 }
 
 void WorldScene::Update(DWORD dt)

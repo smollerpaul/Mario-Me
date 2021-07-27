@@ -67,7 +67,7 @@ void GreenMushroom::Update(DWORD dt)
 
 bool GreenMushroom::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, float coEventNy)
 {
-    return true;
+    return false;
 }
 
 void GreenMushroom::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -107,6 +107,8 @@ void GreenMushroom::BehaviorUpdate(DWORD dt)
             CMario* mario = dynamic_cast<CMario*>(e->obj);
             if (e->ny != 0 || e->nx != 0) {
                 SetAlive(0);
+                PlayerData* pd = PlayerData::GetInstance();
+                EffectVault::GetInstance()->AddEffect(new ScoreFx("1UP", x, y));
             }
         }
         break;

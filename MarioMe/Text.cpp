@@ -44,8 +44,8 @@ void Text::Render()
 		LPSPRITE letterSprite = font->GetLetter(letter);
 		
 		//not enough space to render
-		if (currentX + letterSprite->width >= lineWidth)
-			break;
+	/*	if (currentX + letterSprite->width >= lineWidth)
+			break;*/
 		//render
 
 		letterSprite->Draw(currentX - camera->GetX()+ letterSprite->width/2 , y - camera->GetY() + letterSprite->height / 2, 1);
@@ -55,8 +55,8 @@ void Text::Render()
 		
 	}
 
-	DebugOut(L"currentX: %f\n", currentX);
-	DebugOut(L"line width: %f \n", lineWidth);
+	/*DebugOut(L"currentX: %f\n", currentX);
+	DebugOut(L"line width: %f \n", lineWidth);*/
 }
 
 void Text::SetContent(string content)

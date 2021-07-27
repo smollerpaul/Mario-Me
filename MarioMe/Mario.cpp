@@ -50,7 +50,12 @@ void CMario::Update(DWORD dt)
 		AttackUpdate(dt);
 	}
 
-	DebugOut(L"Mario Vy: %f\n", vy);
+	if (CGame::GetInstance()->GetCurrentScene()->marioWalkStart == 1) {
+		vx = MARIO_WALK_SPEED;
+		nx = 1;
+	}
+
+	DebugOut(L"Mario Vx: %f  dx: %f \n", vx, dx);
 	//call update ->collision -> behavior outside in playscene
 }
 
@@ -202,7 +207,7 @@ void CMario::OnKeyUp(int keyCode)
 
 void CMario::OnKeyDown(int keyCode)
 {
-	if (state == MARIO_STATE_DIE) {
+	if (state == MARIO_STATE_DIE || CGame::GetInstance()->GetCurrentScene()->marioWalkStart==1) {
 		return;
 	}
 	SmallMario* currentState = objState;

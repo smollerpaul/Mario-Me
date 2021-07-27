@@ -76,6 +76,11 @@ Grid* CScene::GetGrid()
 	return this->grid;
 }
 
+int CScene::GetSceneType()
+{
+	return 0;
+}
+
 void CScene::Render()
 {
 }

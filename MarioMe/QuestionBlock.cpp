@@ -153,6 +153,7 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 						CGame::GetInstance()->GetCurrentScene()->AddObject(gm);
 					}
 					pd->SetScore(pd->GetScore() + 100);
+					EffectVault::GetInstance()->AddEffect(new ScoreFx("100", x, y));
 					pd->SetCoins(pd->GetCoins() + 1);
 				}
 			}
@@ -181,6 +182,7 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 					if (state != QB_STATE_FROZEN)
 						SetState(QB_STATE_FROZEN);
 					pd->SetScore(pd->GetScore() + 100);
+					EffectVault::GetInstance()->AddEffect(new ScoreFx("100",x, y));
 				}
 
 				if (reward == LEAF_PRIZE) {
@@ -201,6 +203,7 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 					if (state != QB_STATE_FROZEN)
 						SetState(QB_STATE_FROZEN);
 					pd->SetScore(pd->GetScore() + 100);
+					EffectVault::GetInstance()->AddEffect(new ScoreFx("100", x, y));
 				}
 
 				if (reward == LEAF_PRIZE) {
@@ -235,6 +238,7 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 					}
 
 					pd->SetScore(pd->GetScore() + 100);
+					EffectVault::GetInstance()->AddEffect(new ScoreFx("100", x,y));
 				}
 			}
 		}

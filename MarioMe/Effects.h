@@ -23,6 +23,7 @@ public:
 	int alive = 1;
 
 	unordered_map<string, LPANIMATION> animations;
+	unordered_map<string, LPSPRITE> scoreFx;
 
 	Effects();
 	void SetPosition(float xPos, float yPos, float aliveTime);

@@ -21,8 +21,9 @@ protected:
 	CMario* player = nullptr;
 
 public:
-
+	float walkOutTimer = 0;
 	Text* startText = nullptr;
+	Text* endText = nullptr;
 	CPlayScene(string id, string filePath);
 
 	virtual void Load() override;
@@ -40,7 +41,8 @@ public:
 		float desX = 0, float desY = 0, int moveDir = 0, int targetReg = -1) override;
 
 	virtual void LoadGrid(int col, int row, int cellW, int cellH) override;
-
+	void PlaySceneEnd(DWORD dt);
 	static const int SceneType = 776;
 	virtual int GetSceneType();
+	
 };
