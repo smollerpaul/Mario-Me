@@ -259,6 +259,9 @@
     <ClCompile Include="Cell.cpp">
       <Filter>Framework\Grid\Cell</Filter>
     </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Game\HUD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -560,6 +563,9 @@
     </ClInclude>
     <ClInclude Include="Cell.h">
       <Filter>Framework\Grid\Cell</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Game\HUD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -883,6 +889,9 @@
     </Filter>
     <Filter Include="Framework\Grid\Cell">
       <UniqueIdentifier>{492783c1-ef63-4be7-bd29-91691e7f9b3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\HUD">
+      <UniqueIdentifier>{a7884730-2c0c-4d72-ac1d-f43c00c8da13}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
