@@ -259,6 +259,7 @@
     <ClCompile Include="Cell.cpp">
       <Filter>Framework\Grid\Cell</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="ScoreFx.cpp">
       <Filter>Game\Effects\Effects\ScoreFx</Filter>
     </ClCompile>
@@ -266,6 +267,10 @@
     <ClCompile Include="GameTitle.cpp" />
     <ClCompile Include="EndSceneText.cpp">
       <Filter>Game\Effects\Effects\EndSceneText</Filter>
+=======
+    <ClCompile Include="HUD.cpp">
+      <Filter>Game\HUD</Filter>
+>>>>>>> b47641481dfeb1b2361eaadcf5052b51ca707217
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -569,6 +574,7 @@
     <ClInclude Include="Cell.h">
       <Filter>Framework\Grid\Cell</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="ScoreFx.h">
       <Filter>Game\Effects\Effects\ScoreFx</Filter>
     </ClInclude>
@@ -576,6 +582,10 @@
     <ClInclude Include="GameTitle.h" />
     <ClInclude Include="EndSceneText.h">
       <Filter>Game\Effects\Effects\EndSceneText</Filter>
+=======
+    <ClInclude Include="HUD.h">
+      <Filter>Game\HUD</Filter>
+>>>>>>> b47641481dfeb1b2361eaadcf5052b51ca707217
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -897,6 +907,7 @@
     <Filter Include="Framework\Grid\Cell">
       <UniqueIdentifier>{492783c1-ef63-4be7-bd29-91691e7f9b3e}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="Game\Effects\Effects\ScoreFx">
       <UniqueIdentifier>{6de0c557-c148-43e8-804d-c14dd47ebc80}</UniqueIdentifier>
     </Filter>
@@ -905,6 +916,10 @@
     </Filter>
     <Filter Include="Game\Effects\Effects\EndSceneText">
       <UniqueIdentifier>{dec95c4f-7050-477e-ad68-c0f312ff16f0}</UniqueIdentifier>
+=======
+    <Filter Include="Game\HUD">
+      <UniqueIdentifier>{a7884730-2c0c-4d72-ac1d-f43c00c8da13}</UniqueIdentifier>
+>>>>>>> b47641481dfeb1b2361eaadcf5052b51ca707217
     </Filter>
   </ItemGroup>
   <ItemGroup>

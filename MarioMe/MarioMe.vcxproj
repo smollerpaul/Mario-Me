@@ -161,6 +161,7 @@
     <ClCompile Include="GhostBlock.cpp" />
     <ClCompile Include="GreenMushroom.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="KoopasBound.cpp" />
@@ -252,6 +253,7 @@
     <ClInclude Include="GhostBlock.h" />
     <ClInclude Include="GreenMushroom.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="KoopasBound.h" />
