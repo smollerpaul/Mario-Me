@@ -19,6 +19,7 @@ using namespace std;
 
 class FontSet;
 class Keyboard;
+class HUD;
 class CGame
 {
 	static CGame * __instance;
@@ -36,6 +37,8 @@ class CGame
 
 	unordered_map<string, LPSCENE> scenes;
 	string current_scene; 
+
+	HUD* hud;
 
 	FontSet* fontSet = nullptr;
 public:
@@ -58,6 +61,8 @@ public:
 	
 	LPSCENE GetCurrentScene();
 	void SwitchScene(string scene_id);
+
+	HUD* GetHUD();
 
 	int GetScreenWidth();
 	int GetScreenHeight();
