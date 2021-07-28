@@ -208,12 +208,12 @@ void IntroScene::ScriptUpdate(DWORD dt)
 	
 	if (scriptStep == 2) {
 		m1->vy = MARIO_JUMP_PUSH / 2;
-		m1->vx = 0.345;
+		m1->vx = 0.48;
 
 		m2->vx = -0.2;
 
 		stepTimer += dt;
-		if (stepTimer >= 690) {
+		if (stepTimer >= 700) {
 			scriptStep = 3;
 			stepTimer = 0;
 		}

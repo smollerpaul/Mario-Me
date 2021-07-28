@@ -9,6 +9,7 @@
 #include "WorldScene.h"
 #include "Font.h"
 #include "IntroScene.h"
+#include "HUD.h"
 
 #define MAX_GAME_LINE 1024
 
@@ -38,6 +39,8 @@ void CGame::Load(string gameFile)
 
 		doc.Clear();
 	}
+
+	hud = new HUD();
 }
 
 void CGame::LoadTextures(TiXmlElement* gameResources) {

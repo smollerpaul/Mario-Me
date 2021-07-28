@@ -105,7 +105,8 @@ void RacoonMario::Update(DWORD dt)
 
 bool RacoonMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 {
-	return master->untouchable = 1;
+	//return master->untouchable = 1;
+	return false;
 }
 
 void RacoonMario::MovementUpdate(DWORD dt)
@@ -469,6 +470,9 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 				BoomBro* rg = dynamic_cast<BoomBro*>(e->obj);
 
 				if (e->ny < 0) {
+					if (rg->state != BOOM_STATE_DIE) {
+						rg->SetState(BOOM_STATE_DIE);
+					}
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 					pd->SetScore(pd->GetScore() + 100);
 					EffectVault::GetInstance()->AddEffect(new ScoreFx("100", master->x, master->y));
@@ -681,9 +685,10 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 			case CBrick::ObjectType:
 			{
 				CBrick* p = dynamic_cast<CBrick*>(e->obj);
-				if (e->ny > 0)
+				if (e->ny > 0) {
 					p->SetAlive(0);
-				//EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+					EffectVault::GetInstance()->AddEffect(new BrickBreak(p->x + 22, p->y + 22, 0.1 , 0.7));
+				}
 			}
 			break;
 
@@ -695,6 +700,7 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 					master->StartUntouchable();
 					master->visible = 0;
 					powerUpMushroom = 1;
+					gm->SetAlive(0);
 					EffectVault::GetInstance()->AddEffect(new PoofFx(master->x, master->y - 35, MARIO_UNTOUCHABLE_TIME));
 				}
 			}

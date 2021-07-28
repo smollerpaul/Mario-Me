@@ -102,7 +102,7 @@ void SlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 			if (e->ny != 0 || e->nx != 0)
 			{
 				qb->SetAlive(0);
-				//effect brick break
+				EffectVault::GetInstance()->AddEffect(new BrickBreak(master->x , master->y, 0.1, 0.7));
 			}
 		}
 		break;

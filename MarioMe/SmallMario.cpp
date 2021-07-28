@@ -326,6 +326,8 @@ void SmallMario::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT>& coEvent
 	if (coEvents.size() == 0) {
 		if(master->untouchable!=1)
 			master->UpdatePosition();
+
+		master->SetIsOnGround(false);
 	}
 
 	if (coEvents.size() != 0) {
@@ -463,6 +465,9 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				BoomBro* rg = dynamic_cast<BoomBro*>(e->obj);
 
 				if (e->ny < 0) {
+					if (rg->state != BOOM_STATE_DIE) {
+						rg->SetState(BOOM_STATE_DIE);
+					}
 					master->vy = -MARIO_JUMP_DEFLECT_SPEED;
 					pd->SetScore(pd->GetScore() + 100);
 					EffectVault::GetInstance()->AddEffect(new ScoreFx("100", master->x, master->y));
@@ -593,6 +598,9 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				}
 				if (e->nx != 0) {
 					kick = 1;
+					if (e->nx > 0)
+						rg->master->nx = 1;
+					else rg->master->nx = -1;
 				}
 			}
 			break;
@@ -606,6 +614,10 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 				}
 				if (e->nx != 0) {
 					kick = 1;
+
+					if (e->nx > 0)
+						rg->master->nx = 1;
+					else rg->master->nx = -1;
 				}
 			}
 			break;
@@ -637,6 +649,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 					master->StartUntouchable();
 					master->visible = 0;
 					powerUpMushroom = 1;
+					gm->SetAlive(0);
 
 					EffectVault::GetInstance()->AddEffect(new ToBigMario(master->x, master->y -35, MARIO_UNTOUCHABLE_TIME));
 				}
@@ -711,9 +724,10 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 			case CBrick::ObjectType:
 			{
 				CBrick* p = dynamic_cast<CBrick*>(e->obj);
-				if(e->ny >0)
+				if (e->ny > 0) {
 					p->SetAlive(0);
-				//EffectVault::GetInstance()->AddEffect(new MarioDieFx(master->x, master->y));
+					EffectVault::GetInstance()->AddEffect(new BrickBreak(p->x + 22, p->y + 22, 0.1, 0.7));
+				}
 			}
 			break;
 
@@ -850,10 +864,12 @@ void SmallMario::OnKeyDown(int keyCode)
 		{
 		case DIK_X: {
 			if (master->state != MARIO_STATE_JUMP && master->state != MARIO_STATE_JUMP_FALL) {
-				master->SetState(MARIO_STATE_JUMP);
-				master->SetIsOnGround(false);
-				master->GetPosY(master->jumpStartPosition);
-				master->vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * master->dt;
+				if (master->isOnGround == true) {
+					master->SetState(MARIO_STATE_JUMP);
+					master->SetIsOnGround(false);
+					master->GetPosY(master->jumpStartPosition);
+					master->vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * master->dt;
+				}
 			}
 		}
 				  break;
@@ -864,7 +880,7 @@ void SmallMario::OnKeyDown(int keyCode)
 					master->SetState(MARIO_STATE_FLY);
 					master->vy = -MARIO_FLY_PUSH * 2 - MARIO_GRAVITY * master->dt;
 				}
-				else {
+				else if(master->state!=MARIO_STATE_JUMP_FALL){
 					master->SetState(MARIO_STATE_JUMP);
 					master->vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * master->dt;
 				}

@@ -1,28 +1,33 @@
 #include "BrickBreak.h"
+#include "BrickSpecks.h"
+#include "Utils.h"
 
-BrickBreak::BrickBreak(float xPos, float yPos, float aliveTime)
+BrickBreak::BrickBreak(float xPos, float yPos, float vx, float vy, float aliveTime)
 {
 	Effects::SetPosition(xPos, yPos, aliveTime);
+
+	b1 = new BrickSpecks(x - 30, y - 30, -vx, -vy);
+	b2 = new BrickSpecks(x , y - 30, vx, -vy);
+	b3 = new BrickSpecks(x - 30, y + 50, -vx, -vy);
+	b4 = new BrickSpecks(x , y + 50, vx, -vy);
+	b5 = new BrickSpecks(x, y, 0, -vy);
 }
 
 void BrickBreak::Update(DWORD dt)
 {
-
+	b1->Update(dt);
+	b2->Update(dt);
+	b3->Update(dt);
+	b4->Update(dt);
+	b5->Update(dt);
 }
 
 void BrickBreak::Render()
 {
-	if (this->animations.size() != 1) {
-		this->animations["Default"] = CAnimations::GetInstance()->Get("ani-brick-debris")->Clone();
-	}
+	b1->Render();
+	b2->Render();
+	b3->Render();
+	b4->Render();
+	b5->Render();
 
-	LPANIMATION ani = this->animations["Default"];
-
-	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-	int flip = 1;
-
-	float l, t, r, b;
-	GetBoundingBox(l, t, r, b);
-
-	ani->Render(this->x - camera->GetX() + (r - l) / 2, this->y - camera->GetY() + (b - t) / 2, flip);
 }

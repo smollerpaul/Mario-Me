@@ -75,8 +75,6 @@ void RacoonTail::BehaviorUpdate(DWORD dt)
 		if (nx != 0) {
 			//SetAlive(0);
 		}
-
-		//DebugOut(L"Tail : %d\n", coEventsResult[0]->obj->GetObjectType());
 	}
 
 	for (UINT i = 0; i < coEventsResult.size(); i++)
@@ -90,8 +88,8 @@ void RacoonTail::BehaviorUpdate(DWORD dt)
 			CBrick* brick= dynamic_cast<CBrick*>(e->obj);
 
 			if (e->nx != 0) {
-				//brickbreak
 				brick->SetAlive(0);
+				EffectVault::GetInstance()->AddEffect(new BrickBreak(brick->x + 22, brick->y + 22, 0.1, 0.1));
 			}
 		}
 		break;

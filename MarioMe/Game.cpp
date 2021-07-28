@@ -18,6 +18,11 @@ CGame * CGame::__instance = NULL;
 	- hWnd: Application window handle
 */
 
+HUD* CGame::GetHUD()
+{
+	return this->hud;
+}
+
 Keyboard* CGame::GetKeyboard()
 {
 	if (keyboard == nullptr) {

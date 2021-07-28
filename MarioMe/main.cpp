@@ -15,6 +15,8 @@
 #include "PlayScene.h"
 #include "Keyboard.h"
 
+#include "HUD.h"
+
 #define WINDOW_CLASS_NAME L"MARIO SUPER BROS KNOCK-OFF"
 #define MAIN_WINDOW_TITLE L"MARIO SUPER BROS KNOCK-OFF"
 
@@ -50,6 +52,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 void Update(DWORD dt)
 {
 	CGame::GetInstance()->GetCurrentScene()->Update(dt);
+	CGame::GetInstance()->GetHUD()->Update(dt);
 }
 
 void Render()
@@ -68,7 +71,7 @@ void Render()
 
 	game->SetViewport(new RECT{ 0, CAM_HEIGHT_SIZE, CAM_WIDTH_SIZE, SCREEN_HEIGHT_MAP });
 
-	d3ddv->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+	CGame::GetInstance()->GetHUD()->Render();
 
 	spriteHandler->End();
 	d3ddv->EndScene();

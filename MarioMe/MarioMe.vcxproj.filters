@@ -286,6 +286,9 @@
     <ClCompile Include="ArrowPicker.cpp">
       <Filter>Game\Scenes\Intro\Arrow</Filter>
     </ClCompile>
+    <ClCompile Include="BrickSpecks.cpp">
+      <Filter>Game\Effects\FX\BrickBreak\BrickSpeck</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BigMario.h">
@@ -614,6 +617,9 @@
     </ClInclude>
     <ClInclude Include="ArrowPicker.h">
       <Filter>Game\Scenes\Intro\Arrow</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickSpecks.h">
+      <Filter>Game\Effects\FX\BrickBreak\BrickSpeck</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1084,6 +1090,9 @@
     </Filter>
     <Filter Include="Game\Scenes\Intro\Arrow">
       <UniqueIdentifier>{51c4c65f-c277-46f5-8d47-c1fc3186cff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\BrickBreak\BrickSpeck">
+      <UniqueIdentifier>{be7ac465-908d-4c60-8776-77758098be69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

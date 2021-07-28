@@ -31,7 +31,7 @@ void BoomBro::Update(DWORD dt)
 {
 	if (state == BOOM_STATE_DIE) {
 		dieTimer += dt;
-		if (dieTimer >= 1000) {
+		if (dieTimer >= 200) {
 			SetAlive(0);
 			return;
 		}
@@ -73,11 +73,12 @@ void BoomBro::Render()
 	InitAnimations();
 	CAnimation* ani = this->animations["Walk"];
 
+	if (state == BOOM_STATE_SHOOT)
+		ani = this->animations["Attack"];
+
 	if(state==BOOM_STATE_DIE)
 		ani = this->animations["Die"];
 
-	if (state == BOOM_STATE_SHOOT)
-		ani = this->animations["Attack"];
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 	float l, t, b, r;

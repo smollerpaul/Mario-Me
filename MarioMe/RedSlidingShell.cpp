@@ -100,7 +100,7 @@ void RedSlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEvents
 			if (e->ny != 0 || e->nx != 0)
 			{
 				qb->SetAlive(0);
-				//effect brick break
+				EffectVault::GetInstance()->AddEffect(new BrickBreak(master->x, master->y , 0.1, 0.7));
 			}
 		}
 		break;
@@ -125,6 +125,38 @@ void RedSlidingShell::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEvents
 
 			if (e->nx != 0 || e->ny != 0) {
 				EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y));
+			}
+		}
+		break;
+
+		case RedGoomba::ObjectType:
+		{
+			RedGoomba* qb = dynamic_cast<RedGoomba*>(e->obj);
+
+			if (e->nx != 0 || e->ny != 0) {
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y));
+				qb->SetAlive(0);
+			}
+		}
+		break;
+
+		case CKoopas::ObjectType:
+		{
+			CKoopas* qb = dynamic_cast<CKoopas*>(e->obj);
+
+			if (e->nx != 0 || e->ny != 0) {
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(master->x, master->y));
+				qb->SetAlive(0);
+			}
+		}
+		break;
+
+		case CGoomba::ObjectType:
+		{
+			CGoomba* qb = dynamic_cast<CGoomba*>(e->obj);
+
+			if (e->nx != 0 || e->ny != 0) {
+				qb->SetAlive(0);
 			}
 		}
 		break;

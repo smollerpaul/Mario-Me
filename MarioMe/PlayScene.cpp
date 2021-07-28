@@ -66,6 +66,7 @@ void CPlayScene::Update(DWORD dt)
 #pragma region Update
 
 	vector<LPGAMEOBJECT> coObjects;
+	vector<LPGAMEOBJECT> filteredObjects;
 
 	if (player->state != MARIO_STATE_DIE && player) {
 		coObjects.push_back(player);
@@ -76,6 +77,9 @@ void CPlayScene::Update(DWORD dt)
 		coObjects.push_back(objects[i]);
 	}
 	
+	//grid->FilterByCamera(camera, objects, filteredObjects);
+
+
 	player->Update(dt);
 
 	for (size_t i = 0; i < objects.size(); i++)
@@ -154,6 +158,7 @@ void CPlayScene::Unload()
 	EffectVault::GetInstance()->ClearEffects();
 	objects.clear();
 	player = NULL;
+	grid->Clear();
 
 	DebugOut(L"[INFO] Scene %s unloaded! \n", ToLPCWSTR(sceneFilePath));
 }
