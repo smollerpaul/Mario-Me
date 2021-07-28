@@ -22,5 +22,8 @@ public:
 	void OnKeyUp(int keyCode);
 	void OnKeyDown(int keyCode);
 	int IsKeyDown(int keyCode);
+
+	void PressKey(int keyCode);
+	void ReleaseKey(int keyCode);
 };
 

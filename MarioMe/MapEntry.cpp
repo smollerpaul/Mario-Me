@@ -64,6 +64,7 @@ void MapEntry::Render()
     if (sprites.size() == 2) {
         Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
         int flip = 1;
+
         if (finished==0) {
             this->sprites["Unchecked"]->Draw(x - camera->GetX() + width/ 2, y - camera->GetY() + height / 2, flip);
         }
@@ -88,6 +89,11 @@ unordered_map<string, int> MapEntry::GetAdjacentNodes()
 	return adjacentNodes;
 }
 
+void MapEntry::SetSceneFinished()
+{
+	finished = 1;
+}
+
 int MapEntry::GetNodeId()
 {
 	return nodeId;
@@ -96,7 +102,7 @@ int MapEntry::GetNodeId()
 void MapEntry::Enter()
 {
 	if (sceneId.empty()) return;
-	if (finished==1) return;
+	//if (finished==1) return;
 
 	CGame::GetInstance()->SwitchScene(sceneId);
 }

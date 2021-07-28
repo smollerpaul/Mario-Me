@@ -43,6 +43,8 @@ void SmallMario::InitAnimations()
 
 void SmallMario::Update(DWORD dt)
 {
+	PlayerData* pd = PlayerData::GetInstance();
+
 	//tele
 	if (teleporting == 1) {
 		teleportHold += dt;
@@ -89,10 +91,12 @@ void SmallMario::Update(DWORD dt)
 			//power up reward
 			if (powerUpLeaf == 1) {
 				master->SetObjectState(new RacoonMario(master));
+				pd->SetMariotype(RacoonMario::ObjectType);
 				powerUpLeaf = 0;
 			}
 			else if(powerUpMushroom == 1) {
 				master->SetObjectState(new BigMario(master));
+				pd->SetMariotype(BigMario::ObjectType);
 				powerUpMushroom = 0;
 			}
 
@@ -688,8 +692,9 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 			case EndCard::ObjectType:
 			{
 				EndCard* p = dynamic_cast<EndCard*>(e->obj);
-				EffectVault::GetInstance()->AddEffect(new FlyingCard(8038, 973));
+				EffectVault::GetInstance()->AddEffect(new FlyingCard(p->x, p->y));
 				p->SetAlive(0);
+				
 			}
 			break;
 

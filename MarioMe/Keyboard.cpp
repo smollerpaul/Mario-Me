@@ -129,3 +129,13 @@ int Keyboard::IsKeyDown(int keyCode)
 {
 	return (keyStates[keyCode] & 0x80) > 0;
 }
+
+void Keyboard::PressKey(int keyCode)
+{
+	keyStates[keyCode] = 1;
+}
+
+void Keyboard::ReleaseKey(int keyCode)
+{
+	keyStates[keyCode] = 0;
+}

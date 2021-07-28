@@ -25,7 +25,7 @@ void CPlayScene::Update(DWORD dt)
 #pragma region EndSceneUpdate
 	//end scene text
 	if (showTextStart == 1 && textShown==0) {
-		EffectVault::GetInstance()->AddEffect(new EndSceneText(7857, 814));
+		EffectVault::GetInstance()->AddEffect(new EndSceneText(this->id,7857, 814));
 		showTextStart = 0;
 		return;
 	}
@@ -63,7 +63,7 @@ void CPlayScene::Update(DWORD dt)
 
 #pragma endregion
 
-#pragma region EndSceneUpdate
+#pragma region Update
 
 	vector<LPGAMEOBJECT> coObjects;
 
@@ -121,12 +121,10 @@ void CPlayScene::Render()
 	CGame::GetInstance()->GetDirect3DDevice()->Clear(0, NULL, D3DCLEAR_TARGET, BACKGROUND_COLOR, 1.0f, 0);
 
 	this->map->Render();
+
 	vector<LPGAMEOBJECT> renderObjects;
 	renderObjects.push_back(player);
-	if (startText != nullptr && endText != nullptr) {
-		renderObjects.push_back(startText);
-		renderObjects.push_back(endText);
-	}
+
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		renderObjects.push_back(objects[i]);
@@ -235,20 +233,6 @@ int CPlayScene::GetSceneType()
 	return SceneType;
 }
 
-void CPlayScene::PlaySceneEnd(DWORD dt)
-{
-	startText = new Text();
-	startText->SetFont(CGame::GetInstance()->GetFontSet());
-	startText->SetContent("COURSE CLEAR !");
-	startText->SetPosition(7857, 814);
 
-	endText = new Text();
-	endText->SetFont(CGame::GetInstance()->GetFontSet());
-	endText->SetContent("YOU GOT A CARD");
-	endText->SetPosition(7857, 902);
-
-	//release player control
-	//player walk out
-}
 
 

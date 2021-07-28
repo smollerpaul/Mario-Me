@@ -1,19 +1,27 @@
 #include "EndSceneText.h"
 #include "Text.h"
 
-EndSceneText::EndSceneText(float x, float y, float aliveTime)
+
+EndSceneText::EndSceneText(string sceneId,  float x, float y, float aliveTime)
 {
 	Effects::SetPosition(x, y, aliveTime);
+	
 	sentence1 = new Text();
 	sentence1->SetFont(CGame::GetInstance()->GetFontSet());
 	sentence1->SetContent("COURSE CLEAR !");
-	sentence1->SetPosition(7857, 814);
 
 	sentence2 = new Text();
 	sentence2->SetFont(CGame::GetInstance()->GetFontSet());
 	sentence2->SetContent("YOU GOT A CARD");
-	sentence2->SetPosition(7828, 888);
-
+	
+	if (sceneId.compare("world-1-1") == 0) {
+		sentence1->SetPosition(7857, 814);
+		sentence2->SetPosition(7828, 888);
+	}
+	else if (sceneId.compare("world-1-3") == 0) {
+		sentence1->SetPosition(7112, 814);
+		sentence2->SetPosition(7083, 888);
+	}
 }
 
 void EndSceneText::Update(DWORD dt)
@@ -50,7 +58,8 @@ void EndSceneText::Render()
 		LPSPRITE cardSprite = CSprites::GetInstance()->Get("spr-star-man-card-0");
 		Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
-		cardSprite->Draw(8210 - camera->GetX() + cardSprite->width / 2, 856 - camera->GetY() + cardSprite->height / 2, 1);
+		cardSprite->Draw(sentence2-> x + 382 - camera->GetX() + cardSprite->width / 2, 
+			sentence2->y - 32 - camera->GetY() + cardSprite->height / 2, 1);
 	}
 		
 }

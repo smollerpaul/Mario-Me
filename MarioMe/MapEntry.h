@@ -28,6 +28,7 @@ public:
     virtual bool CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy) override;
     void Reset();
     unordered_map<string, int> GetAdjacentNodes();
+    void SetSceneFinished();
 
     int GetNodeId();
     void Enter();

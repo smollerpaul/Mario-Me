@@ -64,50 +64,6 @@ void CBrick::BehaviorUpdate(DWORD dt)
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 	}
-
-	for (UINT i = 0; i < coEventsResult.size(); i++)
-	{
-		LPCOLLISIONEVENT e = coEventsResult[i];
-
-		switch (e->obj->GetObjectType()) {
-
-		case CMario::ObjectType:
-		{
-			CMario* mario = dynamic_cast<CMario*>(e->obj);
-			if (e->ny > 0)
-			{
-				SetAlive(0);
-				//effects
-			}
-		}
-		break;
-
-		case RacoonTail::ObjectType:
-		{
-			RacoonTail* mario = dynamic_cast<RacoonTail*>(e->obj);
-			if (e->nx!=0)
-			{
-				SetAlive(0);
-				//effects
-			}
-		}
-		break;
-
-		case SlidingShell::ObjectType:
-		{
-			SlidingShell* ss = dynamic_cast<SlidingShell*>(e->obj);
-			if (e->nx != 0)
-			{
-				if (e->nx != 0)
-				{
-					SetAlive(0);
-					//effects
-				}
-			}
-		}
-		break;
-		}
-	}
 }
 
 bool CBrick::CanGetThrough(CGameObject* gameObjToCollide, float coEventX, float coEventY)

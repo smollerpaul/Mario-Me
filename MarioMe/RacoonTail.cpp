@@ -76,7 +76,7 @@ void RacoonTail::BehaviorUpdate(DWORD dt)
 			//SetAlive(0);
 		}
 
-		DebugOut(L"Tail : %d\n", coEventsResult[0]->obj->GetObjectType());
+		//DebugOut(L"Tail : %d\n", coEventsResult[0]->obj->GetObjectType());
 	}
 
 	for (UINT i = 0; i < coEventsResult.size(); i++)
@@ -85,6 +85,17 @@ void RacoonTail::BehaviorUpdate(DWORD dt)
 
 		switch (e->obj->GetObjectType()) {
 
+		case CBrick::ObjectType:
+		{
+			CBrick* brick= dynamic_cast<CBrick*>(e->obj);
+
+			if (e->nx != 0) {
+				//brickbreak
+				brick->SetAlive(0);
+			}
+		}
+		break;
+
 		case QuestionBlock::ObjectType:
 		{
 			QuestionBlock* qb = dynamic_cast<QuestionBlock*>(e->obj);
@@ -92,25 +103,6 @@ void RacoonTail::BehaviorUpdate(DWORD dt)
 			if (e->ny != 0 || e->nx != 0)
 			{
 				EffectVault::GetInstance()->AddEffect(new StarWhipTail(x, y-10));
-				//qb->SetState(QB_STATE_FROZEN);
-
-				/*if (qb->state == QB_STATE_ACTIVE) {
-
-					if (qb->state != QB_STATE_FROZEN)
-						qb->SetState(QB_STATE_FROZEN);
-
-					if (qb->reward == PSWITCH_PRIZE) {
-						PSwitch* ps = new PSwitch();
-						ps->SetPosition(this->x, this->y);
-						CGame::GetInstance()->GetCurrentScene()->AddObject(ps);
-					}
-
-					if (qb->reward == LEAF_PRIZE) {
-						Leaf* leaf = new Leaf();
-						leaf->SetPosition(x, y);
-						CGame::GetInstance()->GetCurrentScene()->AddObject(leaf);
-					}*/
-
 				}
 			}
 		

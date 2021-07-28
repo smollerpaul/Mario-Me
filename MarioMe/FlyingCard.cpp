@@ -1,6 +1,6 @@
 #include "FlyingCard.h"
 
-FlyingCard::FlyingCard(float x, float y, float aliveTime)
+FlyingCard::FlyingCard( float x, float y, float aliveTime)
 {
 	Effects::SetPosition(x, y, aliveTime);
 	width = height = 50;

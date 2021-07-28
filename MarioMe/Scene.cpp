@@ -66,6 +66,11 @@ void CScene::RemoveObject()
 		}), objects.end());
 }
 
+string CScene::GetSceneId()
+{
+	return id;
+}
+
 void CScene::LoadGrid(int col, int row, int cellW, int cellH)
 {
 

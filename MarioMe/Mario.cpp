@@ -4,7 +4,6 @@
 #include "Animations.h"
 #include "Keyboard.h"
 #include "Camera.h"
-#include "PlayerData.h"
 
 using namespace std;
 
@@ -55,7 +54,7 @@ void CMario::Update(DWORD dt)
 		nx = 1;
 	}
 
-	DebugOut(L"Mario Vx: %f  dx: %f \n", vx, dx);
+	//DebugOut(L"Mario Vx: %f  dx: %f \n", vx, dx);
 	//call update ->collision -> behavior outside in playscene
 }
 
@@ -207,24 +206,38 @@ void CMario::OnKeyUp(int keyCode)
 
 void CMario::OnKeyDown(int keyCode)
 {
+	PlayerData* pd = PlayerData::GetInstance();
 	if (state == MARIO_STATE_DIE || CGame::GetInstance()->GetCurrentScene()->marioWalkStart==1) {
 		return;
 	}
 	SmallMario* currentState = objState;
 	currentState->OnKeyDown(keyCode);
-
+	
 	switch (keyCode) {
-	case DIK_1:
+	case DIK_1: 
+	{
 		SetObjectState(new SmallMario(this));
+		pd->SetMariotype(SmallMario::ObjectType);
+	}
 		break;
 	case DIK_2:
+	{
 		SetObjectState(new BigMario(this));
+		pd->SetMariotype(BigMario::ObjectType);
+	}
 		break;
 	case DIK_3:
+	{
 		SetObjectState(new FireMario(this));
+		pd->SetMariotype(FireMario::ObjectType);
+	}
 		break;
 	case DIK_4:
+	{
 		SetObjectState(new RacoonMario(this));
+		pd->SetMariotype(RacoonMario::ObjectType);
+	}
+		
 		break;
 	case DIK_E:
 		// test end card
@@ -244,7 +257,7 @@ void CMario::OnKeyDown(int keyCode)
 	{
 		CKoopas* kp = new CKoopas(new NormalKoopas());
 		kp->SetObjectState(new RedNormalKoopas(kp));
-		kp->SetPosition(this->x, this->y);
+		kp->SetPosition(this->x +300, this->y -100);
 		CGame::GetInstance()->GetCurrentScene()->AddObject(kp);
 	}
 	break;

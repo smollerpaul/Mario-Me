@@ -8,6 +8,7 @@
 #include "tinyxml/tinyxml.h"
 #include "WorldScene.h"
 #include "Font.h"
+#include "IntroScene.h"
 
 #define MAX_GAME_LINE 1024
 
@@ -166,6 +167,13 @@ void CGame::LoadScenes(TiXmlElement* gameContent)
 			this->scenes[sceneId] = scene;
 
 			DebugOut(L"[WORLDSCENE ADDED]: %s \n", ToLPCWSTR(sceneId));
+		}
+
+		if (type.compare("IntroScene") == 0) {
+			CScene* scene = new IntroScene(sceneId, sceneFilePath);
+			this->scenes[sceneId] = scene;
+
+			DebugOut(L"[INTROSCENE ADDED]: %s \n", ToLPCWSTR(sceneId));
 		}
 	}
 	SwitchScene(scenes->Attribute("start"));

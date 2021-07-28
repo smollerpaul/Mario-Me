@@ -44,6 +44,7 @@ void FireMario::InitAnimations()
 
 void FireMario::Update(DWORD dt)
 {
+	PlayerData* pd = PlayerData::GetInstance();
 	if (teleporting == 1) {
 		teleportHold += dt;
 		master->vx = 0;
@@ -85,12 +86,14 @@ void FireMario::Update(DWORD dt)
 
 			if (powerUpLeaf == 1) {
 				master->SetObjectState(new RacoonMario(master));
+				pd->SetMariotype(RacoonMario::ObjectType);
 				powerUpLeaf = 0;
 			} 
 			else {
 				if (powerUpMushroom != 0)
 					powerUpMushroom = 0;
 				master->SetObjectState(new BigMario(master));
+				pd->SetMariotype(BigMario::ObjectType);
 			}
 
 			master->visible = 1;
@@ -557,7 +560,7 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 			case EndCard::ObjectType:
 			{
 				EndCard* p = dynamic_cast<EndCard*>(e->obj);
-				EffectVault::GetInstance()->AddEffect(new FlyingCard(8038, 973));
+				EffectVault::GetInstance()->AddEffect(new FlyingCard(p->x, p->y));
 
 				p->SetAlive(0);
 			}
