@@ -58,7 +58,7 @@ void Grid::FilterByCamera(Camera* cam, vector<LPGAMEOBJECT> objList, vector<LPGA
 
 			for each ( LPGAMEOBJECT obj in grid[i][j].cellObjects)
 			{
-
+				
 				filteredList.push_back(obj);
 			}
 		}

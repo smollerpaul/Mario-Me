@@ -289,6 +289,13 @@
     <ClCompile Include="BrickSpecks.cpp">
       <Filter>Game\Effects\FX\BrickBreak\BrickSpeck</Filter>
     </ClCompile>
+    <ClCompile Include="NormalGoomba.cpp">
+      <Filter>Game\Enemies\Goombas\Normal</Filter>
+    </ClCompile>
+    <ClCompile Include="WingedGoomba.cpp">
+      <Filter>Game\Enemies\Goombas\WingedGoomba</Filter>
+    </ClCompile>
+    <ClCompile Include="Card.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BigMario.h">
@@ -621,6 +628,13 @@
     <ClInclude Include="BrickSpecks.h">
       <Filter>Game\Effects\FX\BrickBreak\BrickSpeck</Filter>
     </ClInclude>
+    <ClInclude Include="NormalGoomba.h">
+      <Filter>Game\Enemies\Goombas\Normal</Filter>
+    </ClInclude>
+    <ClInclude Include="WingedGoomba.h">
+      <Filter>Game\Enemies\Goombas\WingedGoomba</Filter>
+    </ClInclude>
+    <ClInclude Include="Card.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resource\GameData.xml">
@@ -1093,6 +1107,15 @@
     </Filter>
     <Filter Include="Game\Effects\FX\BrickBreak\BrickSpeck">
       <UniqueIdentifier>{be7ac465-908d-4c60-8776-77758098be69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Goombas\Normal">
+      <UniqueIdentifier>{055c7095-0fff-4796-a643-aa2228f0b922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemies\Goombas\WingedGoomba">
+      <UniqueIdentifier>{9149e86b-a8d3-433f-969d-1e01de2570ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Rewards\RewardCard">
+      <UniqueIdentifier>{07d30aff-9941-4426-ae5f-aed53b7c17df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

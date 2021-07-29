@@ -3,10 +3,11 @@
 
 class Camera;
 class Mario;
-
+class NormalGoomba;
 class CGoomba : public CGameObject
 {
 public:
+	NormalGoomba* objState = nullptr;
 	float deathTimer = 0;
 	int isOnGround = 0;
 
@@ -17,6 +18,7 @@ public:
 
 	void CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void BehaviorUpdate(DWORD dt);
+	void SetObjectState(NormalGoomba* objState);
 
 	CGoomba();
 	virtual void SetState(int state) override;

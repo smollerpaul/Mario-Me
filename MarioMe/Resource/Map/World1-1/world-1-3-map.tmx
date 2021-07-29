@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="27" nextobjectid="639">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="27" nextobjectid="642">
  <editorsettings>
   <chunksize width="8" height="8"/>
   <export target="world-1-1-map.xml" format="tmx"/>
@@ -356,7 +356,6 @@
   <object id="436" type="QuestionBlock" x="1536" y="1152">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:3,&quot;y&quot;:3},{&quot;x&quot;:3,&quot;y&quot;:4},{&quot;x&quot;:4,&quot;y&quot;:3},{&quot;x&quot;:4,&quot;y&quot;:4}]"/>
-    <property name="HiddenItem" value="SecretMusicNote"/>
    </properties>
    <point/>
   </object>
@@ -732,38 +731,21 @@
   </object>
   <object id="630" type="QuestionBlock" x="1584.5" y="863.333">
    <properties>
-    <property name="Grid" value="[{&quot;x&quot;:3,&quot;y&quot;:3}]"/>
+    <property name="Grid" value="[{&quot;x&quot;:4,&quot;y&quot;:2},{&quot;x&quot;:4,&quot;y&quot;:3}]"/>
     <property name="HiddenItem" value="SecretMusicNote"/>
    </properties>
    <point/>
   </object>
-  <object id="634" type="Brick" x="192" y="1056">
+  <object id="641" type="Spawner" x="6201" y="1057">
    <properties>
-    <property name="Grid" value="[{&quot;x&quot;:4,&quot;y&quot;:3}]"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="635" type="Brick" x="240" y="1056">
-   <properties>
-    <property name="Grid" value="[{&quot;x&quot;:4,&quot;y&quot;:3}]"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="636" type="Brick" x="288" y="1056">
-   <properties>
-    <property name="Grid" value="[{&quot;x&quot;:4,&quot;y&quot;:3}]"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="637" type="Brick" x="335.333" y="1056.67">
-   <properties>
-    <property name="Grid" value="[{&quot;x&quot;:4,&quot;y&quot;:3}]"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="638" type="Brick" x="383.333" y="1055.33">
-   <properties>
-    <property name="Grid" value="[{&quot;x&quot;:4,&quot;y&quot;:3}]"/>
+    <property name="AutoSpawn" type="bool" value="false"/>
+    <property name="EntityType" value="FlyingGoomba"/>
+    <property name="Grid" value="[{&quot;x&quot;:1,&quot;y&quot;:3}]"/>
+    <property name="RespawnLimit" type="int" value="3"/>
+    <property name="SpawnDelay" type="int" value="15000"/>
+    <property name="SpawnLimit" type="int" value="1"/>
+    <property name="height" type="float" value="48"/>
+    <property name="width" type="float" value="48"/>
    </properties>
    <point/>
   </object>
@@ -861,7 +843,7 @@
     <property name="Grid" value="[{&quot;x&quot;:6,&quot;y&quot;:6}]"/>
    </properties>
   </object>
-  <object id="330" type="BeginPortal" x="6328" y="383.5" width="17" height="100.5">
+  <object id="330" type="BeginPortal" x="6327" y="357.833" width="17" height="100.5">
    <properties>
     <property name="CameraRegion" type="int" value="1"/>
     <property name="DestinationX" type="float" value="6284.33"/>
@@ -906,7 +888,7 @@
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="RedKoopas"/>
-    <property name="Grid" value="[{&quot;x&quot;:6,&quot;y&quot;:3}]"/>
+    <property name="Grid" value="[{&quot;x&quot;:4,&quot;y&quot;:2},{&quot;x&quot;:4,&quot;y&quot;:3}]"/>
     <property name="RespawnLimit" type="int" value="999"/>
     <property name="SpawnDelay" type="int" value="3000"/>
     <property name="SpawnLimit" type="int" value="1"/>
@@ -1114,6 +1096,32 @@
     <property name="Direction" type="int" value="2"/>
     <property name="Grid" value="[{&quot;x&quot;:2,&quot;y&quot;:1},{&quot;x&quot;:3,&quot;y&quot;:1},{&quot;x&quot;:4,&quot;y&quot;:1},{&quot;x&quot;:5,&quot;y&quot;:1},{&quot;x&quot;:6,&quot;y&quot;:1}]"/>
    </properties>
+  </object>
+  <object id="639" type="Spawner" x="6100" y="1150">
+   <properties>
+    <property name="AutoSpawn" type="bool" value="false"/>
+    <property name="EntityType" value="Goomba"/>
+    <property name="Grid" value="[{&quot;x&quot;:15,&quot;y&quot;:3},{&quot;x&quot;:15,&quot;y&quot;:4}]"/>
+    <property name="RespawnLimit" type="int" value="3"/>
+    <property name="SpawnDelay" type="int" value="15000"/>
+    <property name="SpawnLimit" type="int" value="1"/>
+    <property name="height" type="float" value="48"/>
+    <property name="width" type="float" value="48"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="640" type="Spawner" x="6304" y="1145">
+   <properties>
+    <property name="AutoSpawn" type="bool" value="false"/>
+    <property name="EntityType" value="Goomba"/>
+    <property name="Grid" value="[{&quot;x&quot;:16,&quot;y&quot;:3},{&quot;x&quot;:16,&quot;y&quot;:4}]"/>
+    <property name="RespawnLimit" type="int" value="3"/>
+    <property name="SpawnDelay" type="int" value="15000"/>
+    <property name="SpawnLimit" type="int" value="1"/>
+    <property name="height" type="float" value="48"/>
+    <property name="width" type="float" value="48"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
 </map>

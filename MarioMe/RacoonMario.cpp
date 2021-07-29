@@ -692,9 +692,9 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 			}
 			break;
 
-			case GreenMushroom::ObjectType:
+			case RedMushroom::ObjectType:
 			{
-				GreenMushroom* gm = dynamic_cast<GreenMushroom*>(e->obj);
+				RedMushroom* gm = dynamic_cast<RedMushroom*>(e->obj);
 
 				if (e->nx != 0 || e->ny != 0) {
 					master->StartUntouchable();
@@ -702,6 +702,16 @@ void RacoonMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResu
 					powerUpMushroom = 1;
 					gm->SetAlive(0);
 					EffectVault::GetInstance()->AddEffect(new PoofFx(master->x, master->y - 35, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
+			case GreenMushroom::ObjectType:
+			{
+				GreenMushroom* gm = dynamic_cast<GreenMushroom*>(e->obj);
+
+				if (e->nx != 0 || e->ny != 0) {
+					gm->SetAlive(0);
 				}
 			}
 			break;

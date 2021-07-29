@@ -144,6 +144,7 @@
     <ClCompile Include="BrickBreak.cpp" />
     <ClCompile Include="BrickSpecks.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Card.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CoinBrick.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="MapLayer.cpp" />
     <ClCompile Include="MapMario.cpp" />
     <ClCompile Include="MusicNote.cpp" />
+    <ClCompile Include="NormalGoomba.cpp" />
     <ClCompile Include="OverworldTrees.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Piranha.cpp" />
@@ -193,6 +195,7 @@
     <ClCompile Include="tinyXML\tinyxmlparser.cpp" />
     <ClCompile Include="Venus.cpp" />
     <ClCompile Include="VenusFireBall.cpp" />
+    <ClCompile Include="WingedGoomba.cpp" />
     <ClCompile Include="WorldScene.cpp" />
     <ClCompile Include="MarioDieFx.cpp" />
     <ClCompile Include="MarioTransform.cpp" />
@@ -242,6 +245,7 @@
     <ClInclude Include="BrickBreak.h" />
     <ClInclude Include="BrickSpecks.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Card.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="CoinBrick.h" />
@@ -273,6 +277,7 @@
     <ClInclude Include="MapLayer.h" />
     <ClInclude Include="MapMario.h" />
     <ClInclude Include="MusicNote.h" />
+    <ClInclude Include="NormalGoomba.h" />
     <ClInclude Include="OverworldTrees.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Piranha.h" />
@@ -307,6 +312,7 @@
     <ClInclude Include="tinyXML\tinyxml.h" />
     <ClInclude Include="Venus.h" />
     <ClInclude Include="VenusFireBall.h" />
+    <ClInclude Include="WingedGoomba.h" />
     <ClInclude Include="WorldScene.h" />
     <ClInclude Include="MarioConstants.h" />
     <ClInclude Include="MarioDieFx.h" />

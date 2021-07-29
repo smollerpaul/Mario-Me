@@ -11,6 +11,7 @@
 #include "PlayScene.h"
 #include "MarioConstants.h"
 #include "MusicNote.h"
+#include "RedMushroom.h"
 
 QuestionBlock::QuestionBlock(CPlayScene* ss)
 {
@@ -152,6 +153,13 @@ void QuestionBlock::BehaviorUpdate(DWORD dt)
 						gm->SetPosition(x, y - 45);
 						CGame::GetInstance()->GetCurrentScene()->AddObject(gm);
 					}
+
+					if (reward == RMUSH_PRIZE) {
+						RedMushroom* gm = new RedMushroom();
+						gm->SetPosition(x, y - 45);
+						CGame::GetInstance()->GetCurrentScene()->AddObject(gm);
+					}
+
 					pd->SetScore(pd->GetScore() + 100);
 					EffectVault::GetInstance()->AddEffect(new ScoreFx("100", x, y));
 					pd->SetCoins(pd->GetCoins() + 1);

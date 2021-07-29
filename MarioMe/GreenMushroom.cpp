@@ -109,6 +109,7 @@ void GreenMushroom::BehaviorUpdate(DWORD dt)
                 SetAlive(0);
                 PlayerData* pd = PlayerData::GetInstance();
                 EffectVault::GetInstance()->AddEffect(new ScoreFx("1UP", x, y));
+                pd->SetPlayerLives(pd->GetPlayerLives() + 1);
             }
         }
         break;

@@ -127,7 +127,7 @@ void Leaf::BehaviorUpdate(DWORD dt)
                 if (alive != 0) {
                     SetAlive(0);
                     PlayerData* pd = PlayerData::GetInstance();
-                    EffectVault::GetInstance()->AddEffect(new ScoreFx("1UP", x, y));
+                    //EffectVault::GetInstance()->AddEffect(new ScoreFx("1UP", x, y));
                 }  
             }
         }

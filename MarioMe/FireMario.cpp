@@ -557,6 +557,7 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 					master->visible = 0;
 					powerUpLeaf = 1;
 					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					leaf->SetAlive(0);
 				}
 			}
 			break;
@@ -607,9 +608,9 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 			}
 			break;
 
-			case GreenMushroom::ObjectType:
+			case RedMushroom::ObjectType:
 			{
-				GreenMushroom* gm = dynamic_cast<GreenMushroom*>(e->obj);
+				RedMushroom* gm = dynamic_cast<RedMushroom*>(e->obj);
 
 				if (e->nx != 0 || e->ny != 0) {
 					master->StartUntouchable();
@@ -617,6 +618,16 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 					powerUpMushroom = 1;
 					gm->SetAlive(0);
 					EffectVault::GetInstance()->AddEffect(new PoofFx(master->x, master->y - 35, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
+			case GreenMushroom::ObjectType:
+			{
+				GreenMushroom* gm = dynamic_cast<GreenMushroom*>(e->obj);
+
+				if (e->nx != 0 || e->ny != 0) {
+					gm->SetAlive(0);
 				}
 			}
 			break;

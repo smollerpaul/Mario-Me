@@ -163,7 +163,6 @@ void CMario::BehaviorUpdate(DWORD dt)
 	float l, t, r, b;
 	GetBoundingBox(l, t, r, b);
 
-	//limit bottom?
 }
 
 void CMario::Render()

@@ -579,6 +579,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 					master->visible = 0;
 					powerUpLeaf = 1; 
 					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					leaf->SetAlive(0);
 				}
 			}
 			break;
@@ -631,6 +632,16 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 			case GreenMushroom::ObjectType:
 			{
 				GreenMushroom* gm = dynamic_cast<GreenMushroom*>(e->obj);
+
+				if (e->nx != 0 || e->ny != 0) {
+					gm->SetAlive(0);
+				}
+			}
+			break;
+
+			case RedMushroom::ObjectType:
+			{
+				RedMushroom* gm = dynamic_cast<RedMushroom*>(e->obj);
 
 				if (e->nx != 0 || e->ny != 0) {
 					master->StartUntouchable();

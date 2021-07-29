@@ -5,7 +5,8 @@ class RedMushroom :
 {
 public:
 	virtual void InitAnimations() override;
-
+	virtual void BehaviorUpdate(DWORD dt);
+	virtual int GetObjectType() ;
 	static const int ObjectType = 4001;
 };
 

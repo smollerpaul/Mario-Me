@@ -119,6 +119,7 @@ void SmallMario::MovementUpdate(DWORD dt)
 		master->dt = dt;
 		master->dx = master->vx * dt;
 		master->dy = master->vy * dt;
+
 		//cant fly
 		// MOVE ON vx while flying tooo
 		//if (master->state == MARIO_STATE_FLY) {
@@ -639,9 +640,9 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 			}
 			break;
 
-			case GreenMushroom::ObjectType:
+			case RedMushroom::ObjectType:
 			{
-				GreenMushroom* gm = dynamic_cast<GreenMushroom*>(e->obj);
+				RedMushroom* gm = dynamic_cast<RedMushroom*>(e->obj);
 
 				if (e->nx != 0 || e->ny != 0) {
 					pd->SetScore(pd->GetScore() + 100);
@@ -652,6 +653,16 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 					gm->SetAlive(0);
 
 					EffectVault::GetInstance()->AddEffect(new ToBigMario(master->x, master->y -35, MARIO_UNTOUCHABLE_TIME));
+				}
+			}
+			break;
+
+			case GreenMushroom::ObjectType:
+			{
+				GreenMushroom* gm = dynamic_cast<GreenMushroom*>(e->obj);
+
+				if (e->nx != 0 || e->ny != 0) {
+					gm->SetAlive(0);
 				}
 			}
 			break;

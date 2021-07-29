@@ -4,10 +4,7 @@
 #include "Mario.h"
 #include "FireBall.h"
 #include "EnemiesConstants.h"
-#include "RedGoomba.h"
-#include "Koopas.h"
-#include "RacoonTail.h"
-#include "StarWhipTail.h"
+#include "NormalGoomba.h"
 
 CGoomba::CGoomba()
 {
@@ -15,14 +12,15 @@ CGoomba::CGoomba()
 	width = height= GOOMBA_BBOX_SIZE;
 	gravity = ENEMIES_GRAVITY;
 	vx = -GOOMBA_WALK_SPEED;
+	vy = 0;
+	nx = -1;
+	objState=new NormalGoomba(this);
 }
 
 void CGoomba::InitAnimations()
 {
-	if (this->animations.size() < 1) {
-		this->animations["Walk"] = CAnimations::GetInstance()->Get("ani-goomba-walk");
-		this->animations["Die"] = CAnimations::GetInstance()->Get("ani-goomba-die");
-	}
+	NormalGoomba* currentState = objState;
+	currentState->InitAnimations();
 }
 
 void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &bottom)
@@ -38,37 +36,19 @@ void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &botto
 
 void CGoomba::Update(DWORD dt)
 {
-	vy += dt* gravity ;
+	NormalGoomba* currentState = objState;
+	this->dt = dt;
+	vy += gravity * dt;
+	currentState->Update(dt);
 
-	if (state == GOOMBA_STATE_DIE) {
-		deathTimer += dt;
-		vy = 0;
-
-		if (deathTimer >= GOOMBA_DEATH_TIME) 
-			SetAlive(0);
-	}
-
-	CGameObject::Update(dt); 
+	dx = vx * dt;
+	dy = vy * dt;
 }
 
 void CGoomba::Render()
 {
-	InitAnimations();
-	CAnimation* ani = this->animations["Walk"];
-
-	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-	float l, t, b, r;
-	GetBoundingBox(l, t, r, b);
-
-	CGameObject::SetFlipOnNormal(nx);
-	if (state == GOOMBA_STATE_DIE) {
-		ani = this->animations["Die"];
-		ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + GOOMBA_DIE_Y + (b - t) / 2, flip);
-	}
-	else
-		ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + (b - t) / 2, flip);
-
-	//RenderBoundingBox();
+	NormalGoomba* currentState = objState;
+	currentState->Render();
 }
 
 bool CGoomba::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
@@ -80,116 +60,20 @@ bool CGoomba::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy)
 
 void CGoomba::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	coEvents.clear();
-	if (state != GOOMBA_STATE_DIE)
-		CalcPotentialCollisions(coObjects, coEvents);
-
-	
+	NormalGoomba* currentState = objState;
+	currentState->CollisionUpdate(dt, coObjects,coEvents);
 }
 
 void CGoomba::BehaviorUpdate(DWORD dt)
 {
-	if (coEvents.size() == 0)
-	{
-		CGameObject::UpdatePosition();
-	}
-	if (coEvents.size()!= 0) {
-		float min_tx, min_ty, nx = 0, ny = 0;
-		float rdx = 0;
-		float rdy = 0;
+	NormalGoomba* currentState = objState;
+	currentState->BehaviorUpdate(dt, coEventsResult, coEvents);
 
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+}
 
-		x += min_tx * dx;
-		y += min_ty * dy;
-
-		if (nx != 0) vx = -vx;
-		if (ny != 0) vy = 0;
-	}
-	
-	for (UINT i = 0; i < coEventsResult.size(); i++)
-	{
-		LPCOLLISIONEVENT e = coEventsResult[i];
-
-		switch (e->obj->GetObjectType()) {
-
-		case CMario::ObjectType:
-		{
-			CMario* mario = dynamic_cast<CMario*>(e->obj);
-			if (e->ny > 0)
-			{
-				if (state!= GOOMBA_STATE_DIE) {
-					SetState(GOOMBA_STATE_DIE);
-				}
-			}
-		}
-		break;
-
-		case SlidingShell::ObjectType:
-		{
-			SlidingShell* ss = dynamic_cast<SlidingShell*>(e->obj);
-			if (e->nx != 0)
-			{
-				if (state != GOOMBA_STATE_DIE) {
-					SetState(GOOMBA_STATE_DIE);
-					EffectVault::GetInstance()->AddEffect(new StarWhipTail(this->x, this->y));
-				}
-			}
-		}
-		break;
-
-		case RedSlidingShell::ObjectType:
-		{
-			RedSlidingShell* ss = dynamic_cast<RedSlidingShell*>(e->obj);
-			if (e->nx != 0)
-			{
-				if (state != GOOMBA_STATE_DIE) {
-					SetState(GOOMBA_STATE_DIE);
-					EffectVault::GetInstance()->AddEffect(new StarWhipTail(this->x, this->y));
-				}
-			}
-		}
-		break;
-
-		case FireBall::ObjectType:
-		{
-			FireBall* fireball = dynamic_cast<FireBall*>(e->obj);
-			if (e->ny != 0 || e->nx != 0)
-			{
-				if (state != GOOMBA_STATE_DIE) {
-					SetState(GOOMBA_STATE_DIE);
-					SetAlive(0);
-					
-				}
-			}
-		}
-		break;
-
-		case RacoonTail::ObjectType:
-		{
-			RacoonTail* tail = dynamic_cast<RacoonTail*>(e->obj);
-			if (e->ny != 0 || e->nx != 0)
-			{
-				if (state != GOOMBA_STATE_DIE) {
-					SetState(GOOMBA_STATE_DIE);
-					SetAlive(0);
-				}
-			}
-		}
-		break;
-
-		case CGoomba::ObjectType:
-		{
-			CGoomba* gb = dynamic_cast<CGoomba*>(e->obj);
-			if (e->nx != 0)
-			{
-				gb->nx = -gb->nx;
-			}
-		}
-		break;
-		
-		}
-	}
+void CGoomba::SetObjectState(NormalGoomba* objState)
+{
+	this->objState = objState;
 }
 
 void CGoomba::SetState(int state)

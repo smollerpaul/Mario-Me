@@ -25,6 +25,7 @@
 #include "BeginPortal.h"
 #include "EndPortal.h"
 #include "Grid.h"
+#include "WingedGoomba.h"
 
 void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, float x, float y, float width, float height)
 {
@@ -124,6 +125,14 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		this->grid->Add(goomba, cells);
 	}
 
+	if (objectType.compare("FlyingGoomba") == 0) {
+		CGoomba* goomba = new CGoomba();
+		goomba->SetObjectState(new WingedGoomba(goomba));
+		goomba->SetPosition(x, y);
+		AddObject(goomba);
+		this->grid->Add(goomba, cells);
+	}
+
 	if (objectType.compare("PSwitch") == 0) {
 		QuestionBlock* qb = new QuestionBlock(this);
 		qb->SetReward(PSWITCH_PRIZE);
@@ -174,6 +183,14 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 	if (objectType.compare("GreenMushroom") == 0) {
 		QuestionBlock* qb = new QuestionBlock(this);
 		qb->SetReward(GMUSH_PRIZE);
+		qb->SetPosition(x, y);
+		AddObject(qb);
+		this->grid->Add(qb, cells);
+	}
+
+	if (objectType.compare("RedMushroom") == 0) {
+		QuestionBlock* qb = new QuestionBlock(this);
+		qb->SetReward(RMUSH_PRIZE);
 		qb->SetPosition(x, y);
 		AddObject(qb);
 		this->grid->Add(qb, cells);

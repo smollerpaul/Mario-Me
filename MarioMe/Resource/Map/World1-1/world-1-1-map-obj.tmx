@@ -151,7 +151,6 @@
   <object id="263" type="QuestionBlock" x="672" y="912">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:1,&quot;y&quot;:3}]"/>
-    <property name="HiddenItem" value="GreenMushroom"/>
    </properties>
    <point/>
   </object>
@@ -529,7 +528,7 @@
   <object id="384" type="QuestionBlock" x="720" y="912">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:1,&quot;y&quot;:3}]"/>
-    <property name="HiddenItem" value="RaccoonLeaf"/>
+    <property name="HiddenItem" value="RedMushroom"/>
    </properties>
    <point/>
   </object>
