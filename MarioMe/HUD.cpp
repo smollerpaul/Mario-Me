@@ -16,7 +16,7 @@ HUD::HUD()
 
 	scoreText = new Text();
 	scoreText->SetFont(CGame::GetInstance()->GetFontSet());
-	scoreText->SetPosition(155, 53);
+	scoreText->SetPosition(180, 53);
 
 	timerText = new Text();
 	timerText->SetFont(CGame::GetInstance()->GetFontSet());
@@ -43,6 +43,7 @@ void HUD::Update(DWORD dt)
 
 
 	string coins = to_string(max(data->GetCoins(), 0));
+	coins.insert(coins.begin(), 2 - coins.size(), '0');
 	coinText->SetContent(coins);
 
 
@@ -51,6 +52,13 @@ void HUD::Update(DWORD dt)
 
 	string world = to_string(max(1, 0));
 	worldText->SetContent(world);
+
+	pMeterLevel = data->GetPowerMeter();
+	pMeterLevel = min(7, max(0, pMeterLevel));
+
+	DebugOut(L"Pmeter: %d\n", pMeterLevel);
+
+	time += dt;
 }
 
 void HUD::Render()
@@ -65,4 +73,33 @@ void HUD::Render()
 	coinText->Render();
 	livesText->Render();
 	worldText->Render();
+
+	if (pMeterSprite.size() < 1) {
+		pMeterSprite["ArrowOn"] = CSprites::GetInstance()->Get("spr-arrow-0");
+		pMeterSprite["ArrowOff"] = CSprites::GetInstance()->Get("spr-arrow-1");
+		pMeterSprite["PowerOn"] = CSprites::GetInstance()->Get("spr-p-icon-0");
+		pMeterSprite["PowerOff"] = CSprites::GetInstance()->Get("spr-p-icon-1");
+	}
+
+	float begin = 180;
+	int width = pMeterSprite["ArrowOff"]->width;
+
+	for (int i = 1; i < 7; i++)
+	{
+		if (i > pMeterLevel) {
+			pMeterSprite["ArrowOff"]->Draw(begin + width / 2, 29 + 21 / 2, 1);
+		}
+		else {
+			pMeterSprite["ArrowOn"]->Draw(begin + width / 2, 29 + 21 / 2, 1);
+		}
+		begin += width;
+	}
+
+	width = pMeterSprite["PowerOn"]->width;
+	if (pMeterLevel == 7 && (time / 50) % 2) {
+		pMeterSprite["PowerOn"]->Draw(begin + width / 2, 29 + 21 / 2, 1);
+	}
+	else {
+		pMeterSprite["PowerOff"]->Draw(begin + width / 2, 29 + 21 / 2, 1);
+	}
 }
