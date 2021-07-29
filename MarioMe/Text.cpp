@@ -31,7 +31,7 @@ void Text::Render()
 	float currentX = 0 ;
 	
 	currentX = x;
-	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
+	//Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
 	//render
 	for each (char letter in content)
@@ -48,7 +48,7 @@ void Text::Render()
 			break;*/
 		//render
 
-		letterSprite->Draw(currentX - camera->GetX()+ letterSprite->width/2 , y - camera->GetY() + letterSprite->height / 2, 1);
+		letterSprite->Draw(currentX + letterSprite->width/2 , y + letterSprite->height / 2, 1);
 
 		//calc the x of next letter to render	
 		currentX += letterSprite->width + letterSpacing;
