@@ -67,7 +67,7 @@ void Render()
 
 	game->SetViewport(game->GetCurrentScene()->GetCamera()->GetViewPort());
 
-	CGame::GetInstance()->GetCurrentScene()->Render();
+	game->GetCurrentScene()->Render();
 
 	game->SetViewport(new RECT{ 0, CAM_HEIGHT_SIZE, CAM_WIDTH_SIZE, SCREEN_HEIGHT_MAP });
 

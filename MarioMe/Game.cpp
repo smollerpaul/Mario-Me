@@ -154,7 +154,11 @@ void CGame::SetViewport(RECT* viewportRect)
 int CGame:: GetScreenWidth() { return screen_width; }
 int CGame:: GetScreenHeight() { return screen_height; }
 
-LPSCENE CGame:: GetCurrentScene() { return scenes[current_scene]; }
+LPSCENE CGame:: GetCurrentScene() { 
+	//DebugOut(L"current scene is: %s\n", ToLPCWSTR(current_scene));
+	return scenes[current_scene];
+
+}
 
 LPDIRECT3DDEVICE9 CGame::GetDirect3DDevice() { return this->d3ddv; }
 LPDIRECT3DSURFACE9 CGame::GetBackBuffer() { return backBuffer; }

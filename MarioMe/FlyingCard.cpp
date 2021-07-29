@@ -15,7 +15,6 @@ void FlyingCard::Update(DWORD dt)
 		alive = 0;
 		CGame::GetInstance()->GetCurrentScene()->marioWalkStart=1;
 	}
-		
 }
 
 void FlyingCard::Render()

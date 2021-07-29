@@ -193,6 +193,8 @@ void CGame::SwitchScene(string scene_id)
 	current_scene = scene_id;
 	LPSCENE s = scenes[scene_id];
 	s->Load();
+
+	DebugOut(L"loaded scene %s \n", scene_id);
 }
 
 void CGame::LoadFontSet() {
