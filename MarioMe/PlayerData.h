@@ -1,6 +1,7 @@
 #pragma once
 #include "Utils.h"
 #include "GameObject.h"
+#include "Card.h"
 
 class PlayerData
 {
@@ -12,9 +13,11 @@ class PlayerData
 
 	float gameTime = 300000;
 	int playerLives = 4;
-	
+
+	float powerMeter = 0;
+
 	int gameTimeIsOver = 0;
-	unordered_map<string, int> finished;
+	int cardType = CARD_STAR;
 
 public:
 	static PlayerData* GetInstance();
@@ -36,6 +39,12 @@ public:
 	void SetPlayerLives(int pl);
 
 	void SetLevelFinished(string sceneId);
+
+	float GetPowerMeter();
+	void SetPowerMeter(float pm);
+
+	void SetCardType(int ct);
+	int GetCardType();
 
 	void ResetAll();
 };

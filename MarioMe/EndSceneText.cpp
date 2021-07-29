@@ -4,8 +4,7 @@
 
 EndSceneText::EndSceneText(string sceneId,  float x, float y, float aliveTime)
 {
-	Effects::SetPosition(x, y, aliveTime);
-	
+	Effects::SetPosition(x, y, aliveTime);	
 	sentence1 = new Text();
 	sentence1->SetFont(CGame::GetInstance()->GetFontSet());
 	sentence1->SetContent("COURSE CLEAR !");
@@ -22,6 +21,7 @@ EndSceneText::EndSceneText(string sceneId,  float x, float y, float aliveTime)
 		sentence1->SetPosition(7112, 814);
 		sentence2->SetPosition(7083, 888);
 	}
+
 }
 
 void EndSceneText::Update(DWORD dt)

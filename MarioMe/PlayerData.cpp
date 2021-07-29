@@ -73,6 +73,26 @@ void PlayerData::SetLevelFinished(string sceneId)
 	//set finish
 }
 
+float PlayerData::GetPowerMeter()
+{
+	return powerMeter;
+}
+
+void PlayerData::SetPowerMeter(float pm)
+{
+	this->powerMeter = pm;
+}
+
+void PlayerData::SetCardType(int ct)
+{
+	this->cardType = ct;
+}
+
+int PlayerData::GetCardType()
+{
+	return cardType;
+}
+
 void PlayerData::ResetAll()
 {
 	playerLives = 4;
