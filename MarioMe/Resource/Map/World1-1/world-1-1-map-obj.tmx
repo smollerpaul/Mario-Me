@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="25" nextobjectid="419">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="25" nextobjectid="421">
  <editorsettings>
   <chunksize width="8" height="8"/>
   <export target="world-1-1-map.xml" format="tmx"/>
@@ -151,6 +151,7 @@
   <object id="263" type="QuestionBlock" x="672" y="912">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:1,&quot;y&quot;:3}]"/>
+    <property name="HiddenItem" value="GreenMushroom"/>
    </properties>
    <point/>
   </object>
@@ -187,24 +188,6 @@
   <object id="272" type="Coin" x="3600" y="576.004">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:9,&quot;y&quot;:1},{&quot;x&quot;:9,&quot;y&quot;:2}]"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="273" type="Coin" x="4032" y="240">
-   <properties>
-    <property name="Grid" value="[{&quot;x&quot;:10,&quot;y&quot;:0}]"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="276" type="Coin" x="3984" y="240">
-   <properties>
-    <property name="Grid" value="[{&quot;x&quot;:10,&quot;y&quot;:0}]"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="277" type="Coin" x="3936" y="240.004">
-   <properties>
-    <property name="Grid" value="[{&quot;x&quot;:10,&quot;y&quot;:0}]"/>
    </properties>
    <point/>
   </object>
@@ -517,7 +500,7 @@
    </properties>
    <point/>
   </object>
-  <object id="377" type="QuestionBlock" x="4270" y="375">
+  <object id="377" type="QuestionBlock" x="4271.33" y="384.333">
    <properties>
     <property name="AsBrick" type="bool" value="true"/>
     <property name="Grid" value="[{&quot;x&quot;:11,&quot;y&quot;:1}]"/>
@@ -1020,6 +1003,11 @@
   </object>
   <object id="418" x="3668" y="1052">
    <point/>
+  </object>
+  <object id="420" type="KoopasBound" x="3444.33" y="962.5" width="11.3333" height="283.667">
+   <properties>
+    <property name="Grid" value="[{&quot;x&quot;:8,&quot;y&quot;:3},{&quot;x&quot;:8,&quot;y&quot;:4}]"/>
+   </properties>
   </object>
  </objectgroup>
 </map>

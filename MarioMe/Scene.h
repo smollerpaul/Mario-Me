@@ -25,7 +25,7 @@ public:
 	int showTextStart = 0;
 	int marioWalkStart = 0;
 	int textShown = 0;
-
+	
 	int doneTitle = 0;
 	int marioFinishLevel = 0;
 

@@ -295,7 +295,9 @@
     <ClCompile Include="WingedGoomba.cpp">
       <Filter>Game\Enemies\Goombas\WingedGoomba</Filter>
     </ClCompile>
-    <ClCompile Include="Card.cpp" />
+    <ClCompile Include="Card.cpp">
+      <Filter>Game\Rewards\RewardCard</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BigMario.h">
@@ -634,7 +636,9 @@
     <ClInclude Include="WingedGoomba.h">
       <Filter>Game\Enemies\Goombas\WingedGoomba</Filter>
     </ClInclude>
-    <ClInclude Include="Card.h" />
+    <ClInclude Include="Card.h">
+      <Filter>Game\Rewards\RewardCard</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resource\GameData.xml">

@@ -85,7 +85,9 @@ void PlayerData::SetPowerMeter(float pm)
 
 void PlayerData::SetCardType(int ct)
 {
-	this->cardType = ct;
+	if(ct >=2)
+		this->cardType = 2;
+	else this->cardType = ct;
 }
 
 int PlayerData::GetCardType()

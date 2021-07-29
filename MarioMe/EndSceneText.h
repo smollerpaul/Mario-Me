@@ -8,6 +8,8 @@ public:
     Text* sentence1 = nullptr;
     Text* sentence2 = nullptr;
 
+    int changeCard = 0;
+
     float timerDelay = 0;
     float timerDelayCard = 0;
     int renderSentence2 = 0;

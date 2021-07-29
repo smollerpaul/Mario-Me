@@ -40,9 +40,6 @@ void EndCard::Render()
 		ani = this->animations["Flower"];
 		break;
 
-	case CARD_STATE_ACHIEVED:
-		return;
-		break;
 	}
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();

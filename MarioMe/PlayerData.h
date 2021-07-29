@@ -17,7 +17,7 @@ class PlayerData
 	float powerMeter = 0;
 
 	int gameTimeIsOver = 0;
-	int cardType = CARD_STAR;
+	int cardType = 0;
 
 public:
 	static PlayerData* GetInstance();

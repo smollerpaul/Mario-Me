@@ -213,7 +213,7 @@ void IntroScene::ScriptUpdate(DWORD dt)
 		m2->vx = -0.2;
 
 		stepTimer += dt;
-		if (stepTimer >= 700) {
+		if (stepTimer >= 690) {
 			scriptStep = 3;
 			stepTimer = 0;
 		}

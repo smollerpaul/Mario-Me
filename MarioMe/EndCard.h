@@ -4,7 +4,6 @@
 #define CARD_STATE_MUSHROOM 10
 #define CARD_STATE_FLOWER	20
 #define CARD_STATE_STAR		30
-#define CARD_STATE_ACHIEVED 40
 
 class EndCard :
     public CGameObject

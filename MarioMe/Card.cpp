@@ -35,7 +35,7 @@ void Card::Render()
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
-	ani->Render(x - camera->GetX() + width / 2, y - camera->GetY() + height / 2, flip);
+	ani->Render(x  + width / 2, y  + height / 2, flip);
 }
 
 int Card::GetCardType()

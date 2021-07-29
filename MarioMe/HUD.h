@@ -3,7 +3,6 @@
 #include "Sprites.h"
 
 class Text;
-
 class HUD
 {
 	Text* livesText;
@@ -12,7 +11,10 @@ class HUD
 	Text* coinText;
 	Text* worldText;
 
+	
+
 	int pMeterLevel = 0;
+	int cueCard = 0;
 
 	DWORD time = 0;
 

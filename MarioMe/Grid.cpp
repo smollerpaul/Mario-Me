@@ -23,7 +23,7 @@ void Grid::Add(CGameObject* gObj, vector< D3DXVECTOR2> cells)
 
 		grid[cellX][cellY].AddObject(gObj);
 
-		DebugOut(L"( %d , %d ) inserted!\n", cellX, cellY);
+		//DebugOut(L"( %d , %d ) inserted!\n", cellX, cellY);
 	}
 
 }

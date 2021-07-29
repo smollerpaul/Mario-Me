@@ -1,19 +1,21 @@
 #include "IntroBackground.h"
 #include "Text.h"
+#include "Camera.h"
 
 IntroBackground::IntroBackground(float aliveTime)
 {
 	Effects::SetPosition(0, 0, aliveTime);
 
+	Camera* cam = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 	player1 = new Text();
 	player1->SetFont(CGame::GetInstance()->GetFontSet());
 	player1->SetContent("1 PLAYER GAME");
-	player1->SetPosition(220, 450);
+	player1->SetPosition(220 - cam->GetX(), 450 - cam->GetY());
 
 	player2 = new Text();
 	player2->SetFont(CGame::GetInstance()->GetFontSet());
 	player2->SetContent("2 PLAYER GAME");
-	player2->SetPosition(220, 490);
+	player2->SetPosition(220 - cam->GetX(), 490 - cam->GetY());
 	
 }
 

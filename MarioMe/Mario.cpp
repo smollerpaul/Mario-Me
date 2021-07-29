@@ -114,6 +114,8 @@ void CMario::AttackUpdate(DWORD dt)
 
 void CMario::RunPowerMeter(DWORD dt)
 {
+	PlayerData* pd = PlayerData::GetInstance();
+
 	//power meter increase as long as onground , mario is at maxspeed
 	if (stayPmMax == 0) {
 		if (isOnGround == true && isAtMaxRunSpeed == 1) {
@@ -136,7 +138,9 @@ void CMario::RunPowerMeter(DWORD dt)
 			stayPmMaxTimer = 0;
 		}
 	}
+	pd->SetPowerMeter(powerMeter);
 	//DebugOut(L"pm is : %f \n", powerMeter);
+
 }
 
 void CMario::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -236,13 +240,13 @@ void CMario::OnKeyDown(int keyCode)
 		SetObjectState(new RacoonMario(this));
 		pd->SetMariotype(RacoonMario::ObjectType);
 	}
-		
-		break;
-	case DIK_E:
-		// test end card
-		SetPosition(7600, 985);
-		break;
+	break;
 
+	case DIK_5:
+		//test music note / fly
+		SetPosition(2112, 956);
+		break;
+	
 	case DIK_6:
 		//see flying koopas
 		SetPosition(3668, 1052);
@@ -252,24 +256,26 @@ void CMario::OnKeyDown(int keyCode)
 		//test pswitch
 		SetPosition(6240, 985);
 		break;
-	case DIK_I:
-	{
-		CKoopas* kp = new CKoopas(new NormalKoopas());
-		kp->SetObjectState(new RedNormalKoopas(kp));
-		kp->SetPosition(this->x +300, this->y -100);
-		CGame::GetInstance()->GetCurrentScene()->AddObject(kp);
-	}
-	break;
+	
 	case DIK_8:
-		//test music note / fly
-		SetPosition(2112, 956);
-		break;
-
-	case DIK_9:
 		//test portal
 		SetPosition(6720, 290);
 		CGame::GetInstance()->GetCurrentScene()->GetCamera()->SetCurrentRegion(0);
 		break;
+
+	case DIK_9:
+		// test end card
+		SetPosition(7600, 985);
+		break;
+
+	case DIK_I:
+	{
+		CKoopas* kp = new CKoopas(new NormalKoopas());
+		kp->SetObjectState(new RedNormalKoopas(kp));
+		kp->SetPosition(this->x + 300, this->y - 100);
+		CGame::GetInstance()->GetCurrentScene()->AddObject(kp);
+	}
+	break;
 	}
 }
 

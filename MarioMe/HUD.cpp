@@ -56,16 +56,22 @@ void HUD::Update(DWORD dt)
 	pMeterLevel = data->GetPowerMeter();
 	pMeterLevel = min(7, max(0, pMeterLevel));
 
-	DebugOut(L"Pmeter: %d\n", pMeterLevel);
+	//DebugOut(L"Pmeter: %d\n", pMeterLevel);
 
 	time += dt;
+
+	
+
 }
 
 void HUD::Render()
 {
+	if (CGame::GetInstance()->GetCurrentScene()->GetSceneId() == "intro")
+		return;
+
 	CGame::GetInstance()->GetDirect3DDevice()->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
-	CSprite* panel = CSprites::GetInstance()->Get("spr-hud-0");
+	LPSPRITE panel = CSprites::GetInstance()->Get("spr-hud-0");
 	panel->Draw(21 + panel->width / 2, 4 + panel->height / 2, 1);
 
 	timerText->Render();
@@ -79,6 +85,7 @@ void HUD::Render()
 		pMeterSprite["ArrowOff"] = CSprites::GetInstance()->Get("spr-arrow-1");
 		pMeterSprite["PowerOn"] = CSprites::GetInstance()->Get("spr-p-icon-0");
 		pMeterSprite["PowerOff"] = CSprites::GetInstance()->Get("spr-p-icon-1");
+		pMeterSprite["CardStar"]= CSprites::GetInstance()->Get("spr-star-man-card-0");
 	}
 
 	float begin = 180;
@@ -96,10 +103,25 @@ void HUD::Render()
 	}
 
 	width = pMeterSprite["PowerOn"]->width;
-	if (pMeterLevel == 7 && (time / 50) % 2) {
+	if (pMeterLevel == 7) {
 		pMeterSprite["PowerOn"]->Draw(begin + width / 2, 29 + 21 / 2, 1);
 	}
 	else {
 		pMeterSprite["PowerOff"]->Draw(begin + width / 2, 29 + 21 / 2, 1);
+	}
+
+	PlayerData* data = PlayerData::GetInstance();
+	int cards = data->GetCardType();
+
+	float cardX = 510;
+	if (cards > 0 && cards < 3) {
+
+		if (cards == 1) {
+			pMeterSprite["CardStar"]->Draw(cardX + 24 / 2, 31 + 29 / 2, 1);
+		}
+		if (cards == 2) {
+			pMeterSprite["CardStar"]->Draw(cardX + 24 / 2, 31 + 29 / 2, 1);
+			pMeterSprite["CardStar"]->Draw(cardX + 75 + 24 / 2, 31 + 29 / 2, 1);
+		}
 	}
 }

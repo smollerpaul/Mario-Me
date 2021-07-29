@@ -102,7 +102,7 @@ int MapEntry::GetNodeId()
 void MapEntry::Enter()
 {
 	if (sceneId.empty()) return;
-	//if (finished==1) return;
+	if (finished==1) return;
 
 	CGame::GetInstance()->SwitchScene(sceneId);
 }

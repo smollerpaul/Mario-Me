@@ -8,6 +8,7 @@
 class Card :
     public CGameObject
 {
+public:
     int cardType = CARD_STAR;
 
     Card(int cardType);

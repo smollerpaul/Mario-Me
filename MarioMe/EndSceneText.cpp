@@ -1,5 +1,7 @@
 #include "EndSceneText.h"
 #include "Text.h"
+#include "Camera.h"
+#include "PlayerData.h"
 
 
 EndSceneText::EndSceneText(string sceneId,  float x, float y, float aliveTime)
@@ -13,13 +15,15 @@ EndSceneText::EndSceneText(string sceneId,  float x, float y, float aliveTime)
 	sentence2->SetFont(CGame::GetInstance()->GetFontSet());
 	sentence2->SetContent("YOU GOT A CARD");
 	
+	Camera* cam = CGame::GetInstance()->GetCurrentScene()->GetCamera();
+
 	if (sceneId.compare("world-1-1") == 0) {
-		sentence1->SetPosition(7857, 814);
-		sentence2->SetPosition(7828, 888);
+		sentence1->SetPosition(7857 - cam->GetX(), 814 - cam->GetY());
+		sentence2->SetPosition(7828 - cam->GetX(), 888 - cam->GetY());
 	}
 	else if (sceneId.compare("world-1-3") == 0) {
-		sentence1->SetPosition(7112, 814);
-		sentence2->SetPosition(7083, 888);
+		sentence1->SetPosition(7112 - cam->GetX(), 814 - cam->GetY());
+		sentence2->SetPosition(7083 - cam->GetX(), 888 - cam->GetY());
 	}
 
 }
@@ -32,8 +36,13 @@ void EndSceneText::Update(DWORD dt)
 		renderSentence2 = 1;
 	}
 
-	if (timerDelay >= 1300) {
+	if (timerDelay >= 1300 ) {
 		renderCard= 1;
+		if (changeCard == 0) {
+			PlayerData* pd = PlayerData::GetInstance();
+			pd->SetCardType(pd->GetCardType() + 1);
+			changeCard = 1;
+		}
 	}
 
 	aliveTimerCount += dt;
@@ -56,10 +65,9 @@ void EndSceneText::Render()
 
 	if (renderCard == 1) {
 		LPSPRITE cardSprite = CSprites::GetInstance()->Get("spr-star-man-card-0");
-		Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
-		cardSprite->Draw(sentence2-> x + 382 - camera->GetX() + cardSprite->width / 2, 
-			sentence2->y - 32 - camera->GetY() + cardSprite->height / 2, 1);
+		cardSprite->Draw(sentence2-> x + 382  + cardSprite->width / 2, 
+			sentence2->y - 32  + cardSprite->height / 2, 1);
 	}
 		
 }

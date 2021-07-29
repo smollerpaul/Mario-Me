@@ -44,9 +44,7 @@ void CPlayScene::Update(DWORD dt)
 		if (walkOutTimer >= 2000) {
 			marioWalkStart = 0;
 			showTextStart = 1;
-		
 			return;
-
 		}
 	}
 
@@ -163,6 +161,7 @@ void CPlayScene::Unload()
 	coObjects.clear();
 	player = NULL;
 	grid->Clear();
+	PlayerData::GetInstance()->ResetGameTime();
 
 	DebugOut(L"[INFO] Scene %s unloaded! \n", ToLPCWSTR(sceneFilePath));
 }
@@ -241,10 +240,6 @@ void CPlayScene::Load()
 	camera->SetSize(CAM_WIDTH_SIZE, CAM_HEIGHT_SIZE);
 	camera->SetViewPort(0, 0, CAM_WIDTH_SIZE, CAM_HEIGHT_SIZE);
 	SetCamera(camera);
-
-	PlayerData::GetInstance()->ResetGameTime();
-
-	
 }
 
 int CPlayScene::GetSceneType()
