@@ -1,5 +1,6 @@
 #pragma once
 #include "Utils.h"
+#include "GameObject.h"
 
 class PlayerData
 {
@@ -13,7 +14,7 @@ class PlayerData
 	int playerLives = 4;
 	
 	int gameTimeIsOver = 0;
-	int levelCompleted = 0;
+	unordered_map<string, int> finished;
 
 public:
 	static PlayerData* GetInstance();
@@ -33,6 +34,8 @@ public:
 
 	int GetPlayerLives();
 	void SetPlayerLives(int pl);
+
+	void SetLevelFinished(string sceneId);
 
 	void ResetAll();
 };

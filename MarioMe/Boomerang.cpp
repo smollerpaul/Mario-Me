@@ -108,7 +108,6 @@ void Boomerang::Render()
 	GetBoundingBox(l, t, r, b);
 
 	ani->Render(x - camera->GetX() + (r - l) / 2, y - camera->GetY() + (b - t) / 2, flip);
-	DebugOut(L"okkkkkkk\n");
 }
 
 int Boomerang::GetObjectType()

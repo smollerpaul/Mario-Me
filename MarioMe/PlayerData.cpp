@@ -68,6 +68,11 @@ void PlayerData::SetPlayerLives(int pl)
 	this->playerLives = pl;
 }
 
+void PlayerData::SetLevelFinished(string sceneId)
+{
+	//set finish
+}
+
 void PlayerData::ResetAll()
 {
 	playerLives = 4;

@@ -1,10 +1,10 @@
 #pragma once
 #include "Effects.h"
-class GameTitle :
+class Curtain :
     public Effects
 {
 public:
-    GameTitle( float xPos, float yPos, float aliveTime = 100000);
+    Curtain(float xPos, float yPos, float aliveTime = 1000);
     virtual void Update(DWORD dt);
     virtual void Render();
 };

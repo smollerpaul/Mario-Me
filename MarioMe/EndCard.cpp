@@ -81,22 +81,7 @@ void EndCard::CollisionUpdate(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void EndCard::BehaviorUpdate(DWORD dt)
 {
-	if (coEvents.size() == 0) {
-		CGameObject::UpdatePosition();
-	}
-	if (coEvents.size() != 0) {
-		float min_tx, min_ty, nx = 0, ny;
-		float rdx = 0;
-		float rdy = 0;
-
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-		if (nx != 0) SetAlive(0);
-		if (ny != 0) SetAlive(0);
-
-		SetState(CARD_STATE_ACHIEVED);
-		EffectVault::GetInstance()->AddEffect(new FlyingCard(x, y));
-	}
+	CGameObject::UpdatePosition();
 }
 
 int EndCard::GetObjectType()

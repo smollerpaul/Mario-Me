@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="ArrowPicker.cpp" />
     <ClCompile Include="BeginPortal.cpp" />
     <ClCompile Include="BigMario.cpp" />
     <ClCompile Include="BoomBound.cpp" />
@@ -141,11 +142,13 @@
     <ClCompile Include="Boomerang.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrickBreak.cpp" />
+    <ClCompile Include="BrickSpecks.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CoinBrick.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Curtain.cpp" />
     <ClCompile Include="Effects.cpp" />
     <ClCompile Include="EffectVault.cpp" />
     <ClCompile Include="EndCard.cpp" />
@@ -162,6 +165,8 @@
     <ClCompile Include="GreenMushroom.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="IntroBackground.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="KoopasBound.cpp" />
@@ -227,6 +232,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h" />
+    <ClInclude Include="ArrowPicker.h" />
     <ClInclude Include="BeginPortal.h" />
     <ClInclude Include="BigMario.h" />
     <ClInclude Include="BoomBound.h" />
@@ -234,10 +240,12 @@
     <ClInclude Include="Boomerang.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BrickBreak.h" />
+    <ClInclude Include="BrickSpecks.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="CoinBrick.h" />
+    <ClInclude Include="Curtain.h" />
     <ClInclude Include="Effects.h" />
     <ClInclude Include="EffectVault.h" />
     <ClInclude Include="EndCard.h" />
@@ -254,6 +262,8 @@
     <ClInclude Include="GreenMushroom.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="IntroBackground.h" />
+    <ClInclude Include="IntroScene.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="KoopasBound.h" />
@@ -380,6 +390,7 @@
     <Image Include="Resource\Textures\ui_x3.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resource\Map\Intro\intro-map.tmx" />
     <None Include="Resource\Map\Overworld\overworld-1-map.tmx" />
     <None Include="Resource\Map\World1-1\world-1-1-map-obj.tmx" />
     <None Include="Resource\Map\World1-1\world-1-3-map.tmx" />

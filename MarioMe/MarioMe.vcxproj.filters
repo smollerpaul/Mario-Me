@@ -115,9 +115,6 @@
     <ClCompile Include="Mario.cpp">
       <Filter>Game\Mario</Filter>
     </ClCompile>
-    <ClCompile Include="GameTitle.cpp">
-      <Filter>Game\Effects\Intro</Filter>
-    </ClCompile>
     <ClCompile Include="MusicNote.cpp">
       <Filter>Game\Blocks\Music</Filter>
     </ClCompile>
@@ -274,6 +271,24 @@
     <ClCompile Include="OverworldTrees.cpp">
       <Filter>Game\Effects\FX\TreesFx\JigglyTrees</Filter>
     </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>Game\Scenes\Intro</Filter>
+    </ClCompile>
+    <ClCompile Include="Curtain.cpp">
+      <Filter>Game\Effects\Intro\Curtain</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTitle.cpp">
+      <Filter>Game\Effects\Intro\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroBackground.cpp">
+      <Filter>Game\Effects\Intro\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrowPicker.cpp">
+      <Filter>Game\Scenes\Intro\Arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickSpecks.cpp">
+      <Filter>Game\Effects\FX\BrickBreak\BrickSpeck</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BigMario.h">
@@ -386,9 +401,6 @@
     </ClInclude>
     <ClInclude Include="EnemiesConstants.h">
       <Filter>Game\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="GameTitle.h">
-      <Filter>Game\Effects\Intro</Filter>
     </ClInclude>
     <ClInclude Include="MusicNote.h">
       <Filter>Game\Blocks\Music</Filter>
@@ -591,6 +603,24 @@
     <ClInclude Include="OverworldTrees.h">
       <Filter>Game\Effects\FX\TreesFx\JigglyTrees</Filter>
     </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Game\Scenes\Intro</Filter>
+    </ClInclude>
+    <ClInclude Include="Curtain.h">
+      <Filter>Game\Effects\Intro\Curtain</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTitle.h">
+      <Filter>Game\Effects\Intro\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroBackground.h">
+      <Filter>Game\Effects\Intro\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowPicker.h">
+      <Filter>Game\Scenes\Intro\Arrow</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickSpecks.h">
+      <Filter>Game\Effects\FX\BrickBreak\BrickSpeck</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resource\GameData.xml">
@@ -736,6 +766,9 @@
       <Filter>Resources\Maps</Filter>
     </None>
     <None Include="Resource\Map\Overworld\overworld-1-map.tmx">
+      <Filter>Resources\Maps</Filter>
+    </None>
+    <None Include="Resource\Map\Intro\intro-map.tmx">
       <Filter>Resources\Maps</Filter>
     </None>
   </ItemGroup>
@@ -1042,6 +1075,24 @@
     </Filter>
     <Filter Include="Game\Effects\FX\TreesFx\JigglyTrees">
       <UniqueIdentifier>{f8f18199-3c1e-45f5-97e9-629db63b7486}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scenes\Intro">
+      <UniqueIdentifier>{fefb9442-0693-4b50-b033-d677dcddc498}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Intro\Curtain">
+      <UniqueIdentifier>{63745afe-01e8-48c7-8d52-faa2a0c97465}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Intro\Title">
+      <UniqueIdentifier>{7aca1e9c-4bb7-4a20-93a6-32dac80a6525}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\Intro\Background">
+      <UniqueIdentifier>{b240b495-b363-4310-a72b-3d4e2f6ed1c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scenes\Intro\Arrow">
+      <UniqueIdentifier>{51c4c65f-c277-46f5-8d47-c1fc3186cff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effects\FX\BrickBreak\BrickSpeck">
+      <UniqueIdentifier>{be7ac465-908d-4c60-8776-77758098be69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

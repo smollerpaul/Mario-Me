@@ -32,6 +32,7 @@
 #include "BeginPortal.h"
 #include "EndPortal.h"
 #include "ScoreFx.h"
+#include "BrickBreak.h"
 
 #include "FlyingCard.h"
 #include "MarioDieFx.h"

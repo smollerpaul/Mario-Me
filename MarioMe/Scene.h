@@ -26,6 +26,7 @@ public:
 	int marioWalkStart = 0;
 	int textShown = 0;
 
+	int doneTitle = 0;
 	int marioFinishLevel = 0;
 
 	CScene();
@@ -51,6 +52,7 @@ public:
 	void SetCamera(Camera* camera);
 	void AddObject(CGameObject* obj);
 	void RemoveObject();
+	string GetSceneId();
 	
 	virtual void LoadGrid(int col, int row, int cellW, int cellH);
 	Grid* GetGrid();

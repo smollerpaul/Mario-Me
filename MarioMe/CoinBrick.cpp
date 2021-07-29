@@ -41,6 +41,7 @@ void CoinBrick::Render()
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 	ani->Render(x - camera->GetX() + width / 2, y - camera->GetY() + height / 2, flip);
+	RenderBoundingBox();
 }
 
 void CoinBrick::Update(DWORD dt)

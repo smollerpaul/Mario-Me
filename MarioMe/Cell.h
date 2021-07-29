@@ -8,5 +8,6 @@ public:
 	set<LPGAMEOBJECT> cellObjects;
 
 	void AddObject(CGameObject* obj);
+	void Clear();
 };
 

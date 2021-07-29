@@ -22,7 +22,7 @@
 34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34
 </data>
  </layer>
- <objectgroup id="7" name="Object Layer 1">
+ <objectgroup id="7" name="MapObjects">
   <object id="2" type="SolidBlock" x="-124" y="560" width="1042" height="110.331"/>
  </objectgroup>
 </map>

@@ -111,27 +111,30 @@ GameMap* GameMap::Load(string path)
 
 						//grid
 
-					/*	TiXmlElement* props = obj->FirstChildElement("properties");
+						TiXmlElement* props = obj->FirstChildElement("properties");
 						
-						for (TiXmlElement* gridProp = props->FirstChildElement("property"); gridProp != nullptr; gridProp = gridProp->NextSiblingElement("property")) {
-							string propName = gridProp->Attribute("name");
+						if (props != NULL) {
+							for (TiXmlElement* gridProp = props->FirstChildElement("property"); gridProp != nullptr; gridProp = gridProp->NextSiblingElement("property")) {
+								string propName = gridProp->Attribute("name");
 
-							if (propName.compare("Grid") == 0) {
-								Document doc;
-								doc.Parse(gridProp->Attribute("value"));
+								if (propName.compare("Grid") == 0) {
+									Document doc;
+									doc.Parse(gridProp->Attribute("value"));
 
-								for (auto& v : doc.GetArray()) {
-									auto cr = v.GetObjectW();
-									int x = cr["x"].GetInt();
-									int y = cr["y"].GetInt();
+									for (auto& v : doc.GetArray()) {
+										auto cr = v.GetObjectW();
+										int x = cr["x"].GetInt();
+										int y = cr["y"].GetInt();
 
-									D3DXVECTOR2 cell = D3DXVECTOR2(x, y);
-									cells.push_back(cell);
+										D3DXVECTOR2 cell = D3DXVECTOR2(x, y);
+										cells.push_back(cell);
+									}
+									doc.Clear();
 								}
-								doc.Clear();
 							}
-						}*/
 
+						}
+						
 						//Read special objs
 						if (objType.compare("QuestionBlock") == 0) {
 							TiXmlElement* props = obj->FirstChildElement("properties");
@@ -318,6 +321,7 @@ GameMap* GameMap::Load(string path)
 #pragma endregion
 
 	}
+
 	return result;
 }
 

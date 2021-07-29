@@ -17,13 +17,11 @@ class GameMap;
 class CPlayScene : public CScene
 {
 protected:
-
 	CMario* player = nullptr;
 
 public:
 	float walkOutTimer = 0;
-	Text* startText = nullptr;
-	Text* endText = nullptr;
+	
 	CPlayScene(string id, string filePath);
 
 	virtual void Load() override;
@@ -39,9 +37,8 @@ public:
 	virtual void LoadMapObjects(string objectName, vector< D3DXVECTOR2> cells, float x, float y, float width = 0, float height = 0) override;
 	virtual void LoadSpecialObject(string objectType, vector< D3DXVECTOR2> cells, float xPos, float yPos, float width, float height, int length = 0, int type = 0, int direction = 0,
 		float desX = 0, float desY = 0, int moveDir = 0, int targetReg = -1) override;
-
 	virtual void LoadGrid(int col, int row, int cellW, int cellH) override;
-	void PlaySceneEnd(DWORD dt);
+
 	static const int SceneType = 776;
 	virtual int GetSceneType();
 	
