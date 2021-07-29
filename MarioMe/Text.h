@@ -12,7 +12,7 @@ class Text: public CGameObject
 {
 	FontSet* font = nullptr;
 	string content = "";
-	float letterSpacing = 3;
+	float letterSpacing = 1;
 	int textAlign = ALIGN_LEFT;
 
 public:

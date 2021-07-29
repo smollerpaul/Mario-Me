@@ -78,19 +78,21 @@ void CPlayScene::Update(DWORD dt)
 
 	coObjects.insert(coObjects.end(), filteredObjects.begin(), filteredObjects.end());
 	coObjects.insert(coObjects.end(), objects.begin(), objects.end());
+	coObjects.push_back(player);
 
 	player->Update(dt);
 
 	for (size_t i = 0; i < coObjects.size(); i++)
 	{
+		if (coObjects[i]->GetObjectType() == player->GetObjectType()) continue;
 		coObjects[i]->Update(dt);
 	}
-
 
 	player->CollisionUpdate(dt, &coObjects);
 
 	for (size_t i = 0; i < coObjects.size(); i++)
 	{
+		if (coObjects[i]->GetObjectType() == player->GetObjectType()) continue;
 		coObjects[i]->CollisionUpdate(dt, &coObjects);
 	}
 
@@ -98,6 +100,7 @@ void CPlayScene::Update(DWORD dt)
 
 	for (size_t i = 0; i < coObjects.size(); i++)
 	{
+		if (coObjects[i]->GetObjectType() == player->GetObjectType()) continue;
 		coObjects[i]->BehaviorUpdate(dt);
 	}
 
@@ -105,6 +108,7 @@ void CPlayScene::Update(DWORD dt)
 
 	for (size_t i = 0; i < coObjects.size(); i++)
 	{
+		if (coObjects[i]->GetObjectType() == player->GetObjectType()) continue;
 		coObjects[i]->ClearCollision();
 	}
 
