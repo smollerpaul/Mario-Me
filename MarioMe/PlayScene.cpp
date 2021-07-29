@@ -9,6 +9,7 @@
 #include "Game.h"
 #include "Grid.h"
 #include "EndSceneText.h"
+#include <unordered_set>
 
 using namespace std;
 
@@ -64,49 +65,47 @@ void CPlayScene::Update(DWORD dt)
 #pragma endregion
 
 #pragma region Update
+	coObjects.clear();
 
-	vector<LPGAMEOBJECT> coObjects;
-	vector<LPGAMEOBJECT> filteredObjects;
+	unordered_set<LPGAMEOBJECT> filteredObjects;
 
-	if (player->state != MARIO_STATE_DIE && player) {
-		coObjects.push_back(player);
-	}
-
-	for (size_t i = 0; i < objects.size(); i++)
+	/*for (size_t i = 0; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
-	}
+	}*/
 	
-	//grid->FilterByCamera(camera, objects, filteredObjects);
+	grid->FilterByCamera(camera, objects, filteredObjects);
 
+	coObjects.insert(coObjects.end(), filteredObjects.begin(), filteredObjects.end());
+	coObjects.insert(coObjects.end(), objects.begin(), objects.end());
 
 	player->Update(dt);
 
-	for (size_t i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < coObjects.size(); i++)
 	{
-		objects[i]->Update(dt);
+		coObjects[i]->Update(dt);
 	}
 
 
 	player->CollisionUpdate(dt, &coObjects);
 
-	for (size_t i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < coObjects.size(); i++)
 	{
-		objects[i]->CollisionUpdate(dt, &coObjects);
+		coObjects[i]->CollisionUpdate(dt, &coObjects);
 	}
 
 	player->BehaviorUpdate(dt);
 
-	for (size_t i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < coObjects.size(); i++)
 	{
-		objects[i]->BehaviorUpdate(dt);
+		coObjects[i]->BehaviorUpdate(dt);
 	}
 
 	player->ClearCollision();
 
-	for (size_t i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < coObjects.size(); i++)
 	{
-		objects[i]->ClearCollision();
+		coObjects[i]->ClearCollision();
 	}
 
 	camera->Update();
@@ -129,9 +128,9 @@ void CPlayScene::Render()
 	vector<LPGAMEOBJECT> renderObjects;
 	renderObjects.push_back(player);
 
-	for (size_t i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < coObjects.size(); i++)
 	{
-		renderObjects.push_back(objects[i]);
+		renderObjects.push_back(coObjects[i]);
 	}
 
 	sort(renderObjects.begin(), renderObjects.end(), [](CGameObject*& a, CGameObject*& b) {
@@ -157,6 +156,7 @@ void CPlayScene::Unload()
 
 	EffectVault::GetInstance()->ClearEffects();
 	objects.clear();
+	coObjects.clear();
 	player = NULL;
 	grid->Clear();
 
@@ -181,6 +181,16 @@ void CPlayScene::OnKeyUp(int KeyCode)
 	if (!player)
 		return;
 	player->OnKeyUp(KeyCode);
+}
+
+void CPlayScene::RemoveObject()
+{
+
+	coObjects.erase(remove_if(coObjects.begin(), coObjects.end(), [](CGameObject*& obj) {
+		return obj->GetAlive() == 0;
+	}), coObjects.end());
+
+	CScene::RemoveObject();
 }
 
 void CPlayScene::Load()

@@ -37,7 +37,7 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		QuestionBlock* qb = new QuestionBlock(this);
 		qb->SetReward(SECRET_MUSIC_PRIZE);
 		qb->SetPosition(x, y);
-		AddObject(qb);
+		//AddObject(qb);
 		this->grid->Add(qb, cells);
 		DebugOut(L"added secret mnote!\n");
 	}
@@ -45,7 +45,7 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 	if (objectType.compare("Venus") == 0) {
 		Venus* kp = new Venus(this);
 		kp->SetPosition(x, y);
-		AddObject(kp);
+		//AddObject(kp);
 		this->grid->Add(kp, cells);
 	}
 
@@ -53,14 +53,14 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		Venus* kp = new Venus(this);
 		kp->SetPosition(x, y);
 		kp->isRedVenus = 1;
-		AddObject(kp);
+		//AddObject(kp);
 		this->grid->Add(kp, cells);
 	}
 
 	if (objectType.compare("Piranha") == 0) {
 		Piranha* kp = new Piranha();
 		kp->SetPosition(x, y);
-		AddObject(kp);
+		//AddObject(kp);
 		this->grid->Add(kp, cells);
 	}
 
@@ -68,7 +68,7 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		SolidBlock* solidObject = new SolidBlock();
 		solidObject->SetPosition(x, y);
 		solidObject->SetSize(width, height);
-		AddObject(solidObject);
+		//AddObject(solidObject);
 		this->grid->Add(solidObject, cells);
 	}
 
@@ -76,7 +76,7 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		GhostBlock* ghostObject = new GhostBlock();
 		ghostObject->SetPosition(x, y);
 		ghostObject->SetSize(width, height);
-		AddObject(ghostObject);
+		//AddObject(ghostObject);
 		this->grid->Add(ghostObject, cells);
 	}
 
@@ -84,7 +84,7 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		KoopasBound* kpB = new KoopasBound();
 		kpB->SetPosition(x, y);
 		kpB->SetSize(width, height);
-		AddObject(kpB);
+		//AddObject(kpB);
 		this->grid->Add(kpB, cells);
 	}
 
@@ -92,21 +92,21 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		BoomBound* bbb = new BoomBound();
 		bbb->SetPosition(x, y);
 		bbb->SetSize(width, height);
-		AddObject(bbb);
+		//AddObject(bbb);
 		this->grid->Add(bbb, cells);
 	}
 
 	if (objectType.compare("BoomBro") == 0) {
 		BoomBro* bbb = new BoomBro(this);
 		bbb->SetPosition(x, y);
-		AddObject(bbb);
+		//AddObject(bbb);
 		this->grid->Add(bbb, cells);
 	}
 
 	if (objectType.compare("Brick") == 0) {
 		CBrick* bb = new CBrick();
 		bb->SetPosition(x, y);
-		AddObject(bb);
+		//AddObject(bb);
 		this->grid->Add(bb, cells);
 	}
 
@@ -114,14 +114,14 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		Void* v = new Void();
 		v->SetPosition(x, y);
 		v->SetSize(width, height);
-		AddObject(v);
+		//AddObject(v);
 		this->grid->Add(v, cells);
 	}
 
 	if (objectType.compare("Goomba") == 0) {
 		CGoomba* goomba = new CGoomba();
 		goomba->SetPosition(x, y);
-		AddObject(goomba);
+		//AddObject(goomba);
 		this->grid->Add(goomba, cells);
 	}
 
@@ -129,7 +129,7 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		CGoomba* goomba = new CGoomba();
 		goomba->SetObjectState(new WingedGoomba(goomba));
 		goomba->SetPosition(x, y);
-		AddObject(goomba);
+		//AddObject(goomba);
 		this->grid->Add(goomba, cells);
 	}
 
@@ -138,21 +138,21 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		qb->SetReward(PSWITCH_PRIZE);
 		qb->SetAsBrick(1);
 		qb->SetPosition(x, y);
-		AddObject(qb);
+		//AddObject(qb);
 		this->grid->Add(qb, cells);
 	}
 
 	if (objectType.compare("MusicNote") == 0) {
 		MusicNote* qb = new MusicNote();
 		qb->SetPosition(x, y);
-		AddObject(qb);
+		//AddObject(qb);
 		this->grid->Add(qb, cells);
 	}
 
 	if (objectType.compare("CoinBrick") == 0) {
 		CoinBrick* qb = new CoinBrick();
 		qb->SetPosition(x, y);
-		AddObject(qb);
+		//AddObject(qb);
 		this->grid->Add(qb, cells);
 	}
 
@@ -160,7 +160,7 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		StrawCube* qb = new StrawCube(this);
 		qb->SetReward(LEAF_PRIZE);
 		qb->SetPosition(x, y);
-		AddObject(qb);
+		//AddObject(qb);
 		this->grid->Add(qb, cells);
 	}
 
@@ -168,7 +168,7 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		QuestionBlock* qb = new QuestionBlock(this);
 		qb->SetReward(COIN_PRIZE);
 		qb->SetPosition(x, y);
-		AddObject(qb);
+		//AddObject(qb);
 		this->grid->Add(qb, cells);
 	}
 
@@ -176,7 +176,7 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		QuestionBlock* qb = new QuestionBlock(this);
 		qb->SetReward(LEAF_PRIZE);
 		qb->SetPosition(x, y);
-		AddObject(qb);
+		//AddObject(qb);
 		this->grid->Add(qb, cells);
 	}
 
@@ -184,7 +184,7 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		QuestionBlock* qb = new QuestionBlock(this);
 		qb->SetReward(GMUSH_PRIZE);
 		qb->SetPosition(x, y);
-		AddObject(qb);
+		//AddObject(qb);
 		this->grid->Add(qb, cells);
 	}
 
@@ -192,14 +192,14 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		QuestionBlock* qb = new QuestionBlock(this);
 		qb->SetReward(RMUSH_PRIZE);
 		qb->SetPosition(x, y);
-		AddObject(qb);
+		//AddObject(qb);
 		this->grid->Add(qb, cells);
 	}
 	
 	if (objectType.compare("RedGoomba") == 0) {
 		RedGoomba* rg = new RedGoomba();
 		rg->SetPosition(x, y);
-		AddObject(rg);
+		//AddObject(rg);
 		this->grid->Add(rg, cells);
 	}
 
@@ -207,35 +207,35 @@ void CPlayScene::LoadMapObjects(string objectType, vector<D3DXVECTOR2> cells, fl
 		CKoopas* kp = new CKoopas(new NormalKoopas());
 		kp->SetObjectState(new RedNormalKoopas(kp));
 		kp->SetPosition(x, y);
-		AddObject(kp);
+		//AddObject(kp);
 		this->grid->Add(kp, cells);
 	}
 
 	if (objectType.compare("Koopas") == 0) {
 		CKoopas* kp = new CKoopas(new NormalKoopas);
 		kp->SetPosition(x, y);
-		AddObject(kp);
+		//AddObject(kp);
 		this->grid->Add(kp, cells);
 	}
 
 	if (objectType.compare("KoopasJumping") == 0) {
 		CKoopas* kp = new CKoopas();
 		kp->SetPosition(x, y);
-		AddObject(kp);
+		//AddObject(kp);
 		this->grid->Add(kp, cells);
 	}
 
 	if (objectType.compare("Coin") == 0) {
 		Coin* kp = new Coin();
 		kp->SetPosition(x, y);
-		AddObject(kp);
+		//AddObject(kp);
 		this->grid->Add(kp, cells);
 	}
 
 	if (objectType.compare("EndmapReward") == 0) {
 		EndCard* kp = new EndCard();
 		kp->SetPosition(x, y);
-		AddObject(kp);
+		//AddObject(kp);
 		this->grid->Add(kp, cells);
 	}
 
@@ -247,7 +247,7 @@ void CPlayScene::LoadSpecialObject(string objectType, vector< D3DXVECTOR2> cells
 	if (objectType.compare("Pipe") == 0) {
 		Pipe* pipe = new Pipe(length, type, width, height, direction);
 		pipe->SetPosition(xPos, yPos);
-		AddObject(pipe);
+		//AddObject(pipe);
 		this->grid->Add(pipe, cells);
 	}
 	
@@ -255,7 +255,7 @@ void CPlayScene::LoadSpecialObject(string objectType, vector< D3DXVECTOR2> cells
 		BeginPortal* port = new BeginPortal(desX, desY, targetReg, moveDir);
 		port->SetPosition(xPos, yPos);
 		port->SetSize(width, height);
-		AddObject(port);
+		//AddObject(port);
 		this->grid->Add(port, cells);
 		return;
 	}
@@ -265,7 +265,7 @@ void CPlayScene::LoadSpecialObject(string objectType, vector< D3DXVECTOR2> cells
 		port->SetPosition(xPos, yPos);
 		port->SetSize(width, height);
 		port->SetCloudPortal(1);
-		AddObject(port);
+		//AddObject(port);
 		this->grid->Add(port, cells);
 		return;
 	}
@@ -274,7 +274,7 @@ void CPlayScene::LoadSpecialObject(string objectType, vector< D3DXVECTOR2> cells
 		EndPortal* pp = new EndPortal(moveDir);
 		pp->SetPosition(xPos, yPos);
 		pp->SetSize(width, height);
-		AddObject(pp);
+		//AddObject(pp);
 		this->grid->Add(pp, cells);
 		return;
 	}

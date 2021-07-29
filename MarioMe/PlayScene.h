@@ -19,6 +19,8 @@ class CPlayScene : public CScene
 protected:
 	CMario* player = nullptr;
 
+	vector<LPGAMEOBJECT> coObjects;
+
 public:
 	float walkOutTimer = 0;
 	
@@ -33,6 +35,8 @@ public:
 
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
+
+	virtual void RemoveObject() override;
 
 	virtual void LoadMapObjects(string objectName, vector< D3DXVECTOR2> cells, float x, float y, float width = 0, float height = 0) override;
 	virtual void LoadSpecialObject(string objectType, vector< D3DXVECTOR2> cells, float xPos, float yPos, float width, float height, int length = 0, int type = 0, int direction = 0,

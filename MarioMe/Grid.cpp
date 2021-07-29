@@ -37,7 +37,7 @@ void Grid::Clear()
 	}
 }
 
-void Grid::FilterByCamera(Camera* cam, vector<LPGAMEOBJECT> objList, vector<LPGAMEOBJECT>& filteredList)
+void Grid::FilterByCamera(Camera* cam, vector<LPGAMEOBJECT> objList, unordered_set<LPGAMEOBJECT>& filteredList)
 {
 	
 	int beginX = (int)floor(cam->GetX() / cellWidth);
@@ -56,10 +56,12 @@ void Grid::FilterByCamera(Camera* cam, vector<LPGAMEOBJECT> objList, vector<LPGA
 			if (grid[i][j].cellObjects.size() < 1)
 				continue;
 
+			//filteredList.insert(grid[i][j].cellObjects.begin(), grid[i][j].cellObjects.end());
+
 			for each ( LPGAMEOBJECT obj in grid[i][j].cellObjects)
 			{
-				
-				filteredList.push_back(obj);
+				if (obj->GetAlive() != 0)
+					filteredList.insert(obj);
 			}
 		}
 	}

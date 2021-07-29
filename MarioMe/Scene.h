@@ -51,7 +51,7 @@ public:
 
 	void SetCamera(Camera* camera);
 	void AddObject(CGameObject* obj);
-	void RemoveObject();
+	virtual void RemoveObject();
 	string GetSceneId();
 	
 	virtual void LoadGrid(int col, int row, int cellW, int cellH);
