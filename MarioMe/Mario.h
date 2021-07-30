@@ -16,6 +16,7 @@ public:
 
 	int untouchable = 0;
 	float untouchableTimer = 0;
+	int untouchableStep = 0;
 
 	int skid = 0;
 	int highSpeed = 0;

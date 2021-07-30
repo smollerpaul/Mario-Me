@@ -84,9 +84,7 @@ void SmallMario::Update(DWORD dt)
 	//powerUp
 	if (master->untouchable == 1) {
 		master->untouchableTimer += dt;
-
-		if (master->untouchableTimer >= MARIO_UNTOUCHABLE_TIME) {
-			master->ResetUntouchable();
+		if (master->untouchableTimer >= 1500 && master->untouchableStep==0) {
 
 			//power up reward
 			if (powerUpLeaf == 1) {
@@ -94,13 +92,19 @@ void SmallMario::Update(DWORD dt)
 				pd->SetMariotype(RacoonMario::ObjectType);
 				powerUpLeaf = 0;
 			}
-			else if(powerUpMushroom == 1) {
+			else if (powerUpMushroom == 1) {
 				master->SetObjectState(new BigMario(master));
 				pd->SetMariotype(BigMario::ObjectType);
 				powerUpMushroom = 0;
 			}
 
 			master->visible = 1;
+			master->untouchableStep = 1;
+		}
+
+		if (master->untouchableTimer >= MARIO_UNTOUCHABLE_TIME && master->untouchableStep==1) {
+			master->ResetUntouchable();
+			master->untouchableStep = 0;
 		}
 	}
 }
@@ -112,7 +116,7 @@ bool SmallMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventN
 
 void SmallMario::MovementUpdate(DWORD dt)
 {
-	if (master->untouchable != 1) {
+	if( (master->untouchableTimer > 1500 && master->untouchable == 1) || master->untouchable==0) {
 		master->ResetFlip();
 		Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
 
@@ -221,6 +225,7 @@ void SmallMario::MovementUpdate(DWORD dt)
 #pragma endregion
 
 	}
+	
 }
 
 void SmallMario::JumpUpdate(DWORD dt)
@@ -325,10 +330,11 @@ void SmallMario::RunPowerMeter(DWORD dt)
 void SmallMario::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT>& coEventsResult, vector<LPCOLLISIONEVENT>& coEvents)
 {
 	if (coEvents.size() == 0) {
-		if(master->untouchable!=1)
+		if ((master->untouchableTimer>1500 && master->untouchable == 1) || master->untouchable==0) {
 			master->UpdatePosition();
-
-		master->SetIsOnGround(false);
+			master->SetIsOnGround(false);
+		}
+		
 	}
 
 	if (coEvents.size() != 0) {
@@ -338,7 +344,7 @@ void SmallMario::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT>& coEvent
 		float rdy = 0;
 
 		master->FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-		if (master->untouchable !=1) {
+		if ((master->untouchableTimer > 1500 && master->untouchable == 1) || master->untouchable == 0) {
 			master->x += min_tx * master->dx;
 			master->y += min_ty * master->dy;
 		 }
@@ -633,7 +639,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 					powerUpLeaf = 1;
 					leaf->SetAlive(0);
 
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y));
 					pd->SetScore(pd->GetScore() + 100);
 					
 				}
@@ -652,7 +658,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 					powerUpMushroom = 1;
 					gm->SetAlive(0);
 
-					EffectVault::GetInstance()->AddEffect(new ToBigMario(master->x, master->y -35, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new ToBigMario(master->x, master->y -35));
 				}
 			}
 			break;
@@ -828,7 +834,7 @@ void SmallMario::Render()
 	}
 
 	int alpha = 255;
-	if (master->untouchable)
+	if (master->untouchable==1)
 		alpha = 128;
 
 	master->SetFlipOnNormal(master->nx);
@@ -870,7 +876,7 @@ void SmallMario::OnKeyUp(int keyCode)
 
 void SmallMario::OnKeyDown(int keyCode)
 {
-	if (master->untouchable != 1 && teleporting!=1) {
+	if ( (master->untouchableTimer>1500 && master->untouchable==1 && teleporting != 1) || (master->untouchable==0 && teleporting!=1) ){
 		switch (keyCode)
 		{
 		case DIK_X: {

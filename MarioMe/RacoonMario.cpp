@@ -81,24 +81,27 @@ void RacoonMario::Update(DWORD dt)
 
 	if (master->untouchable == 1) {
 		master->untouchableTimer += dt;
-
-		if (master->untouchableTimer >= MARIO_UNTOUCHABLE_TIME) {
-			master->ResetUntouchable();
-
+		if (master->untouchableTimer >= 1500 && master->untouchableStep==0) {
 			if (powerUpMushroom == 1) {
 				master->SetObjectState(new BigMario(master));
 				pd->SetMariotype(BigMario::ObjectType);
 				powerUpMushroom = 0;
-			} 
+			}
 			else {
 				master->SetObjectState(new FireMario(master));
 				pd->SetMariotype(FireMario::ObjectType);
 			}
 
 			if (powerUpLeaf != 0)
-				powerUpLeaf= 0;
+				powerUpLeaf = 0;
 
 			master->visible = 1;
+			master->untouchableStep = 1;
+		}
+
+		if (master->untouchableTimer >= MARIO_UNTOUCHABLE_TIME && master->untouchableStep==1) {
+			master->ResetUntouchable();
+			master->untouchableStep = 0;
 		}
 	}
 }
@@ -111,7 +114,7 @@ bool RacoonMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEvent
 
 void RacoonMario::MovementUpdate(DWORD dt)
 {
-	if (master->untouchable != 1) {
+	if ((master->untouchableTimer > 1500 && master->untouchable == 1) || master->untouchable == 0) {
 		master->ResetFlip();
 		Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
 
@@ -765,7 +768,7 @@ void RacoonMario::OnKeyUp(int keyCode)
 
 void RacoonMario::OnKeyDown(int keyCode)
 {
-	if (master->untouchable != 1) {
+	if ((master->untouchableTimer > 1500 && master->untouchable == 1) || master->untouchable == 0) {
 		switch (keyCode)
 		{
 		case DIK_DOWN: {
@@ -793,7 +796,7 @@ void RacoonMario::OnKeyDown(int keyCode)
 				master->SetState(MARIO_STATE_JUMP);
 				master->vy = -MARIO_JUMP_PUSH - MARIO_GRAVITY * master->dt;
 			}
-			
+
 			if (master->state == MARIO_STATE_JUMP_FALL && master->isOnGround == false) {
 				floatDown = 1;
 				master->vy = MARIO_FLY_PUSH / 2;
@@ -837,6 +840,7 @@ void RacoonMario::OnKeyDown(int keyCode)
 				  break;
 		}
 	}
+	
 }
 
 void RacoonMario::Render()
@@ -932,7 +936,7 @@ void RacoonMario::Render()
 	}
 
 	int alpha = 255;
-	if (master->untouchable)
+	if (master->untouchable==1)
 		alpha = 128;
 
 	master->SetFlipOnNormal(master->nx);

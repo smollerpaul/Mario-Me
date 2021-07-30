@@ -81,9 +81,7 @@ void BigMario::Update(DWORD dt)
 	if (master->untouchable == 1) {
 		master->untouchableTimer += dt;
 
-		if (master->untouchableTimer >= MARIO_UNTOUCHABLE_TIME) {
-			master->ResetUntouchable();
-
+		if (master->untouchableTimer >= 1500 && master->untouchableStep==0) {
 			if (powerUpLeaf == 1) {
 				master->SetObjectState(new RacoonMario(master));
 				pd->SetMariotype(RacoonMario::ObjectType);
@@ -100,6 +98,12 @@ void BigMario::Update(DWORD dt)
 			}
 
 			master->visible = 1;
+			master->untouchableStep = 1;
+		}
+
+		if (master->untouchableTimer >= MARIO_UNTOUCHABLE_TIME && master->untouchableStep==1) {
+			master->ResetUntouchable();
+			master->untouchableStep = 0;
 		}
 	}
 
@@ -114,7 +118,7 @@ void BigMario::MovementUpdate(DWORD dt)
 {
 	string currentScene= CGame::GetInstance()->GetCurrentScene()->GetSceneId();
 
-	if (master->untouchable != 1) {
+	if ((master->untouchableTimer > 1500 && master->untouchable == 1) || master->untouchable == 0) {
 		master->ResetFlip();
 		Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
 
@@ -358,7 +362,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y));
 				}
 			}
 			break;
@@ -381,7 +385,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y));
 				}
 			}
 			break;
@@ -412,7 +416,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y));
 				}
 			}
 			break;
@@ -426,7 +430,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 				}
 			}
 			break;
@@ -440,7 +444,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 				}
 			}
 			break;
@@ -454,7 +458,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 				}
 			}
 			break;
@@ -473,7 +477,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y));
 				}
 			}
 			break;
@@ -492,7 +496,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y));
 				}
 			}
 			break;
@@ -511,7 +515,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y));
 				}
 			}
 			break;
@@ -528,7 +532,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y));
 				}
 			}
 			break;
@@ -545,7 +549,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y));
 				}
 			}
 			break;
@@ -564,7 +568,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new ToSmallMario(master->x, master->y));
 				}
 			}
 			break;
@@ -578,7 +582,7 @@ void BigMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult,
 					master->StartUntouchable();
 					master->visible = 0;
 					powerUpLeaf = 1; 
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 					leaf->SetAlive(0);
 				}
 			}
@@ -700,7 +704,7 @@ void BigMario::OnKeyDown(int keyCode)
 	string currentScene = CGame::GetInstance()->GetCurrentScene()->GetSceneId();
 
 	if (currentScene.compare("intro") != 0) {
-		if (master->untouchable != 1) {
+		if ((master->untouchableTimer > 1500 && master->untouchable == 1) || master->untouchable == 0) {
 			switch (keyCode)
 			{
 			case DIK_DOWN: {
@@ -868,7 +872,7 @@ void BigMario::Render()
 	}
 
 	int alpha = 255;
-	if (master->untouchable)
+	if (master->untouchable==1)
 		alpha = 128;
 
 	master->SetFlipOnNormal(master->nx);

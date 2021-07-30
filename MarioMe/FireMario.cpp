@@ -81,14 +81,13 @@ void FireMario::Update(DWORD dt)
 	if (master->untouchable == 1) {
 		master->untouchableTimer += dt;
 
-		if (master->untouchableTimer >= MARIO_UNTOUCHABLE_TIME) {
-			master->ResetUntouchable();
+		if (master->untouchableTimer >= 1500 && master->untouchableStep==0) {
 
 			if (powerUpLeaf == 1) {
 				master->SetObjectState(new RacoonMario(master));
 				pd->SetMariotype(RacoonMario::ObjectType);
 				powerUpLeaf = 0;
-			} 
+			}
 			else {
 				if (powerUpMushroom != 0)
 					powerUpMushroom = 0;
@@ -97,6 +96,12 @@ void FireMario::Update(DWORD dt)
 			}
 
 			master->visible = 1;
+			master->untouchableStep = 1;
+		}
+
+		if (master->untouchableTimer >= MARIO_UNTOUCHABLE_TIME && master->untouchableStep==1) {
+			master->ResetUntouchable();
+			master->untouchableStep = 0;
 		}
 	}
 }
@@ -108,7 +113,7 @@ bool FireMario::CanGetThrough(CGameObject* obj, float coEventNx, float coEventNy
 
 void FireMario::MovementUpdate(DWORD dt)
 {
-	if (master->untouchable != 1) {
+	if ((master->untouchableTimer > 1500 && master->untouchable == 1) || master->untouchable == 0) {
 		master->ResetFlip();
 		Keyboard* keyboard = CGame::GetInstance()->GetKeyboard();
 
@@ -231,7 +236,9 @@ void FireMario::MovementUpdate(DWORD dt)
 			master->SetFriction(0);
 		}
 #pragma endregion
-	}	
+	}
+		
+		
 }
 
 void FireMario::JumpUpdate(DWORD dt)
@@ -326,7 +333,7 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 				}
 			}
 			break;
@@ -349,7 +356,7 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 				}
 			}
 			break;
@@ -363,7 +370,7 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 				}
 			}
 			break;
@@ -377,7 +384,7 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 				}
 			}
 			break;
@@ -391,7 +398,7 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 				}
 			}
 			break;
@@ -405,7 +412,7 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 				}
 			}
 			break;
@@ -424,7 +431,7 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 				}
 			}
 			break;
@@ -443,7 +450,7 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 				}
 			}
 			break;
@@ -462,7 +469,7 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 				}
 			}
 			break;
@@ -479,7 +486,7 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 				}
 			}
 			break;
@@ -496,7 +503,7 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 				}
 			}
 			break;
@@ -515,7 +522,7 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 						master->StartUntouchable();
 						master->visible = 0;
 					}
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 				}
 			}
 			break;
@@ -556,7 +563,7 @@ void FireMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResult
 					master->StartUntouchable();
 					master->visible = 0;
 					powerUpLeaf = 1;
-					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25, MARIO_UNTOUCHABLE_TIME));
+					EffectVault::GetInstance()->AddEffect(new MarioTransform(master->x, master->y + 25));
 					leaf->SetAlive(0);
 				}
 			}
@@ -721,7 +728,7 @@ void FireMario::Render()
 	}
 
 	int alpha = 255;
-	if (master->untouchable)
+	if (master->untouchable==1)
 		alpha = 128;
 
 	master->SetFlipOnNormal(master->nx);
@@ -774,7 +781,7 @@ void FireMario::OnKeyUp(int keyCode)
 
 void FireMario::OnKeyDown(int keyCode)
 {
-	if (master->untouchable != 1) {
+	if ((master->untouchableTimer > 1500 && master->untouchable == 1) || master->untouchable == 0) {
 		switch (keyCode)
 		{
 		case DIK_DOWN: {
@@ -851,4 +858,7 @@ void FireMario::OnKeyDown(int keyCode)
 				  break;
 		}
 	}
+	
+		
+	
 }

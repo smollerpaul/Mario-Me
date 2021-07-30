@@ -4,7 +4,7 @@ class ToSmallMario :
     public Effects
 {
 public:
-    ToSmallMario(float xPos, float yPos, float aliveTime = 1000);
+    ToSmallMario(float xPos, float yPos, float aliveTime = 1500);
 
     virtual void Update(DWORD dt) override;
     virtual void Render() override;

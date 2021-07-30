@@ -176,9 +176,7 @@ void CMario::Render()
 	}
 
 	SmallMario* currentState = objState;
-	if (untouchable != 1) {
-		currentState->Render();
-	}
+	currentState->Render();
 	//RenderBoundingBox();
 }
 
