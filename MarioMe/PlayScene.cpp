@@ -161,6 +161,7 @@ void CPlayScene::Unload()
 
 	showTextStart = 0;
 	textShown = 0;
+	marioWalkStart = 0;
 
 	EffectVault::GetInstance()->ClearEffects();
 	objects.clear();

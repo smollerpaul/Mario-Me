@@ -72,7 +72,7 @@ void WorldScene::Unload()
 
 	objects.clear();
 	EffectVault::GetInstance()->ClearEffects();
-	player = NULL;
+	player = nullptr;
 
 	DebugOut(L"[INFO] Scene %s unloaded! \n", ToLPCWSTR(sceneFilePath));
 }

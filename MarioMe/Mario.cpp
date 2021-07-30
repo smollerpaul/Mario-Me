@@ -216,6 +216,11 @@ void CMario::OnKeyDown(int keyCode)
 	SmallMario* currentState = objState;
 	currentState->OnKeyDown(keyCode);
 	
+	string currentScene = CGame::GetInstance()->GetCurrentScene()->GetSceneId();
+
+	if (currentScene.compare("intro") == 0)
+		return;
+
 	switch (keyCode) {
 	case DIK_1: 
 	{
@@ -257,10 +262,13 @@ void CMario::OnKeyDown(int keyCode)
 		SetPosition(6240, 985);
 		break;
 	
-	case DIK_8:
+	case DIK_8: {
 		//test portal
-		SetPosition(6720, 290);
-		CGame::GetInstance()->GetCurrentScene()->GetCamera()->SetCurrentRegion(0);
+		if (currentScene.compare("world-1-1") == 0) {
+			SetPosition(6720, 290);
+			CGame::GetInstance()->GetCurrentScene()->GetCamera()->SetCurrentRegion(0);
+		} else SetPosition(5230, 816);
+	}
 		break;
 
 	case DIK_9:

@@ -740,7 +740,7 @@
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="FlyingGoomba"/>
-    <property name="Grid" value="[{&quot;x&quot;:1,&quot;y&quot;:3}]"/>
+    <property name="Grid" value="[{&quot;x&quot;:16,&quot;y&quot;:3}]"/>
     <property name="RespawnLimit" type="int" value="3"/>
     <property name="SpawnDelay" type="int" value="15000"/>
     <property name="SpawnLimit" type="int" value="1"/>
@@ -897,11 +897,11 @@
    </properties>
    <point/>
   </object>
-  <object id="398" type="Spawner" x="907.09" y="1133.09">
+  <object id="398" type="Spawner" x="700.423" y="1167.09">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="Koopas"/>
-    <property name="Grid" value="[{&quot;x&quot;:2,&quot;y&quot;:3},{&quot;x&quot;:2,&quot;y&quot;:4}]"/>
+    <property name="Grid" value="[{&quot;x&quot;:1,&quot;y&quot;:4}]"/>
     <property name="RespawnLimit" type="int" value="999"/>
     <property name="SpawnDelay" type="int" value="2000"/>
     <property name="SpawnLimit" type="int" value="1"/>

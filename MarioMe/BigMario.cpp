@@ -698,6 +698,7 @@ void BigMario::OnKeyUp(int keyCode)
 void BigMario::OnKeyDown(int keyCode)
 {
 	string currentScene = CGame::GetInstance()->GetCurrentScene()->GetSceneId();
+
 	if (currentScene.compare("intro") != 0) {
 		if (master->untouchable != 1) {
 			switch (keyCode)

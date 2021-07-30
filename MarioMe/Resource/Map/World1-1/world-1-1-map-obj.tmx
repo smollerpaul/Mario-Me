@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="25" nextobjectid="421">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="25" nextobjectid="424">
  <editorsettings>
   <chunksize width="8" height="8"/>
   <export target="world-1-1-map.xml" format="tmx"/>
@@ -604,9 +604,9 @@
     <property name="Grid" value="[{&quot;x&quot;:1,&quot;y&quot;:3},{&quot;x&quot;:2,&quot;y&quot;:3}]"/>
    </properties>
   </object>
-  <object id="332" type="Void" x="3182" y="1366" width="356" height="37">
+  <object id="332" type="Void" x="1564" y="1366" width="1974" height="37">
    <properties>
-    <property name="Grid" value="[{&quot;x&quot;:8,&quot;y&quot;:4},{&quot;x&quot;:9,&quot;y&quot;:4}]"/>
+    <property name="Grid" value="[{&quot;x&quot;:4,&quot;y&quot;:4},{&quot;x&quot;:5,&quot;y&quot;:4},{&quot;x&quot;:6,&quot;y&quot;:4},{&quot;x&quot;:7,&quot;y&quot;:4},{&quot;x&quot;:8,&quot;y&quot;:4},{&quot;x&quot;:9,&quot;y&quot;:4}]"/>
    </properties>
   </object>
   <object id="333" type="Void" x="4348" y="1349.5" width="356" height="37">
@@ -894,7 +894,7 @@
    </properties>
    <point/>
   </object>
-  <object id="381" type="Spawner" x="1766" y="1090">
+  <object id="381" type="Spawner" x="1768.67" y="1075.33">
    <properties>
     <property name="AutoSpawn" type="bool" value="false"/>
     <property name="EntityType" value="RedKoopas"/>
@@ -960,12 +960,12 @@
    </properties>
    <point/>
   </object>
-  <object id="403" type="KoopasBound" x="1530" y="1104" width="6" height="48">
+  <object id="403" type="KoopasBound" x="1518" y="1072" width="18" height="80">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:3,&quot;y&quot;:3}]"/>
    </properties>
   </object>
-  <object id="404" type="KoopasBound" x="1824.09" y="1104" width="6" height="48">
+  <object id="404" type="KoopasBound" x="1824.09" y="1071.33" width="18.6667" height="80.6667">
    <properties>
     <property name="Grid" value="[{&quot;x&quot;:4,&quot;y&quot;:3}]"/>
    </properties>
