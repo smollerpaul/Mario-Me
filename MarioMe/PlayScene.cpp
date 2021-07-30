@@ -56,6 +56,7 @@ void CPlayScene::Update(DWORD dt)
 		else pd->ResetAll();
 
 		EffectVault::GetInstance()->SetMarioIsDead(0);
+		DebugOut(L"Run here GetMarioIsDead\n");
 		CGame::GetInstance()->SwitchScene("overworld");
 		return;
 	}
@@ -156,10 +157,14 @@ void CPlayScene::Unload()
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
 
+	delete player;
+
+	showTextStart = 0;
+	textShown = 0;
+
 	EffectVault::GetInstance()->ClearEffects();
 	objects.clear();
 	coObjects.clear();
-	player = NULL;
 	grid->Clear();
 	PlayerData::GetInstance()->ResetGameTime();
 
