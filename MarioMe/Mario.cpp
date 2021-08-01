@@ -265,7 +265,7 @@ void CMario::OnKeyDown(int keyCode)
 		if (currentScene.compare("world-1-1") == 0) {
 			SetPosition(6720, 290);
 			CGame::GetInstance()->GetCurrentScene()->GetCamera()->SetCurrentRegion(0);
-		} else SetPosition(5230, 816);
+		} else SetPosition(5410, 824);
 	}
 		break;
 

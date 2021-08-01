@@ -332,9 +332,7 @@ void SmallMario::PostCollisionUpdate(DWORD dt, vector<LPCOLLISIONEVENT>& coEvent
 	if (coEvents.size() == 0) {
 		if ((master->untouchableTimer>1500 && master->untouchable == 1) || master->untouchable==0) {
 			master->UpdatePosition();
-			master->SetIsOnGround(false);
 		}
-		
 	}
 
 	if (coEvents.size() != 0) {
@@ -510,7 +508,7 @@ void SmallMario::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsResul
 					}
 
 					else
-						master->vy = -MARIO_JUMP_DEFLECT_SPEED;
+						master->vy = -0.2;
 				}
 			}
 			break;

@@ -80,6 +80,21 @@ void Coin::BehaviorUpdate(DWORD dt)
 		}
 	}
 	
+	for (UINT i = 0; i < coEventsResult.size(); i++)
+	{
+		LPCOLLISIONEVENT e = coEventsResult[i];
+
+		switch (e->obj->GetObjectType()) {
+		case CMario::ObjectType: {
+			CMario* p = dynamic_cast<CMario*>(e->obj);
+
+			if (e->nx!= 0|| e->ny != 0) {
+				//
+			}
+		}
+		break;
+		}
+	}
 }
 
 int Coin::GetObjectType()

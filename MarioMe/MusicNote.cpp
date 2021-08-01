@@ -67,7 +67,6 @@ void MusicNote::Update(DWORD dt)
 			}
 		}
 	}
-
 	
 	CGameObject::Update(dt);
 }

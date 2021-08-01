@@ -1,6 +1,7 @@
 #include "KoopasBound.h"
 #include "RedNormalKoopas.h"
 #include "WingedKoopas.h"
+#include "Goomba.h"
 
 
 KoopasBound::KoopasBound()
@@ -16,7 +17,8 @@ bool KoopasBound::CanGetThrough(CGameObject* gameObjToCollide, float coEventNx, 
 {
     if (gameObjToCollide->GetObjectType() == RedNormalKoopas::ObjectType || 
         gameObjToCollide->GetObjectType() == NormalKoopas::ObjectType ||
-        gameObjToCollide->GetObjectType() == WingedKoopas::ObjectType )
+        gameObjToCollide->GetObjectType() == WingedKoopas::ObjectType||
+        gameObjToCollide->GetObjectType() == CGoomba::ObjectType)
         return false;
     return true;
 }

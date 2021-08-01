@@ -158,3 +158,8 @@ void WingedGoomba::BehaviorUpdate(DWORD dt, vector<LPCOLLISIONEVENT> coEventsRes
 		}
 	}
 }
+
+int WingedGoomba::GetObjectType()
+{
+	return master->ObjectType;
+}

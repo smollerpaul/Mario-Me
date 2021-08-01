@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="27" nextobjectid="642">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" backgroundcolor="#b5ebf2" nextlayerid="27" nextobjectid="644">
  <editorsettings>
   <chunksize width="8" height="8"/>
   <export target="world-1-1-map.xml" format="tmx"/>
@@ -837,19 +837,10 @@
   <object id="329" type="BeginPortal" x="2678.28" y="1824.42" width="14.0486" height="78.2057">
    <properties>
     <property name="CameraRegion" type="int" value="0"/>
-    <property name="DestinationX" type="float" value="1776"/>
-    <property name="DestinationY" type="float" value="769"/>
+    <property name="DestinationX" type="float" value="6308"/>
+    <property name="DestinationY" type="float" value="488"/>
     <property name="Direction" type="int" value="2"/>
     <property name="Grid" value="[{&quot;x&quot;:6,&quot;y&quot;:6}]"/>
-   </properties>
-  </object>
-  <object id="330" type="BeginPortal" x="6327" y="357.833" width="17" height="100.5">
-   <properties>
-    <property name="CameraRegion" type="int" value="1"/>
-    <property name="DestinationX" type="float" value="6284.33"/>
-    <property name="DestinationY" type="float" value="1392"/>
-    <property name="Direction" type="int" value="1"/>
-    <property name="Grid" value="[{&quot;x&quot;:16,&quot;y&quot;:1}]"/>
    </properties>
   </object>
   <object id="331" type="EndPortal" x="6440.15" y="1682.42" width="10.6667" height="96">
@@ -1122,6 +1113,11 @@
     <property name="width" type="float" value="48"/>
    </properties>
    <point/>
+  </object>
+  <object id="643" type="KoopasBound" x="6628.5" y="555" width="15" height="689">
+   <properties>
+    <property name="Grid" value="[{&quot;x&quot;:17,&quot;y&quot;:1},{&quot;x&quot;:17,&quot;y&quot;:2},{&quot;x&quot;:17,&quot;y&quot;:3},{&quot;x&quot;:17,&quot;y&quot;:4}]"/>
+   </properties>
   </object>
  </objectgroup>
 </map>

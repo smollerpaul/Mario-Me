@@ -106,6 +106,33 @@ void RacoonTail::BehaviorUpdate(DWORD dt)
 		
 		break;
 
+		case Piranha::ObjectType:
+		{
+			Piranha* qb = dynamic_cast<Piranha*>(e->obj);
+
+			if (e->ny != 0 || e->nx != 0)
+			{
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(x, y - 10));
+				qb->SetAlive(0);
+			}
+		}
+
+		break;
+
+		case Venus::ObjectType:
+		{
+			Venus* qb = dynamic_cast<Venus*>(e->obj);
+
+			if (e->ny != 0 || e->nx != 0)
+			{
+				EffectVault::GetInstance()->AddEffect(new StarWhipTail(x, y - 10));
+				qb->SetAlive(0);
+			}
+		}
+
+		break;
+
+
 		case CGoomba::ObjectType:
 		{
 			CGoomba* qb = dynamic_cast<CGoomba*>(e->obj);
